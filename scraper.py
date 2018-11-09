@@ -11,41 +11,45 @@ baseURL = "https://sanle.ent.sirsi.net/client/en_US/default/search/results?te=AS
 
 driver = webdriver.Chrome()
 
+# Used to identify close button on sub-pages
+count = 0
+
 #for page in range (0, 2521, 12):
-#for page in range (0, 25, 12):
-for page in range (0, 12, 12):
+#for page in range (0, 12, 12):
+for page in range (0, 25, 12):
     # Instantiate Chrome Browser and open URL for this page
     driver.get(baseURL + '&rw=' + str(page))
 
     # Scrape all URLS on this page and all successive pages
     list_of_records = driver.find_elements(By.XPATH, "//img[contains(@id,'syndetics')]")
 
-for record_index in range(0, len(list_of_records), 1):
-    # Open the white sub-page for this record
-    print ("record_index: " + str(record_index))
-    record = list_of_records[record_index]
-    record.click()
-    time.sleep(1)
+    for record_index in range(0, len(list_of_records), 1):
+        # Open the white sub-page for this record
+        print ("record_index: " + str(record_index))
+        record = list_of_records[record_index]
+        record.click()
+        time.sleep(1)
 
-    # Scrape resource name and print it
-    # .find_elementS PLURAL!!!
-    resource_name = record.find_elements(By.XPATH,
-    #    "//div[@class='displayElementText RESOURCE_NAME'][contains(text(),'pdf')]")
-        "//div[@class='displayElementText RESOURCE_NAME']")
-    print ('array size: ' + str(len(resource_name)))
-    print (resource_name[record_index].text)
+        # Scrape resource name and print it
+        # .find_elementS PLURAL!!!
+        resource_name = record.find_elements(By.XPATH,
+        #    "//div[@class='displayElementText RESOURCE_NAME'][contains(text(),'pdf')]")
+            "//div[@class='displayElementText RESOURCE_NAME']")
+        print ('array size: ' + str(len(resource_name)))
+        print (resource_name[record_index].text)
 
-    # Save the scraped info to a file
-    # with open('records.csv', 'a') as f:
-    #     for i in range(len(links)):
-    #         print (links[i].text)
-    #         f.write ((links[i].text) + "\n")
+        # Save the scraped info to a file
+        # with open('records.csv', 'a') as f:
+        #     for i in range(len(links)):
+        #         print (links[i].text)
+        #         f.write ((links[i].text) + "\n")
 
-    # Locate the white sub-page close button and click it.
-    # Notice str(record_index), because each sub-page close button is unique!
-    close_button = record.find_element(By.XPATH, "//div[@class='ui-dialog ui-widget ui-widget-content ui-corner-all detailModalDialog detailDialog" + str(record_index) + "']//span[@class='ui-icon ui-icon-closethick'][contains(text(),'close')]")
-    close_button.click()
-    time.sleep(3)
+        # Locate the white sub-page close button and click it.
+        # Notice 'count', because each sub-page close button is unique!
+        close_button = record.find_element(By.XPATH, "//div[@class='ui-dialog ui-widget ui-widget-content ui-corner-all detailModalDialog detailDialog" + str(count) + "']//span[@class='ui-icon ui-icon-closethick'][contains(text(),'close')]")
+        close_button.click()
+        count += 1
+        time.sleep(3)
 
 driver.close()
 
