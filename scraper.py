@@ -14,6 +14,7 @@ count = 2520    # last page
 count = 2508    # 2nd to last page
 count = 0       # begin at beginning
 count = 108     # problematic record 110.
+count = 2496    # 3rd to last page
 
 # Iterate over all search pages
 #for page in range (count, 2521, 12):       # all pages
@@ -22,13 +23,15 @@ count = 108     # problematic record 110.
 #for page in range (count, 2521, 12):       # last two pages only
 #for page in range (count, 25, 12):         # first three pages
 #for page in range (count, 2521, 12):       # all pages
-for page in range (count, 108+12, 12):       # begin page ten, record 109.
+#for page in range (count, 108+12, 12):       # begin page ten, record 109. **THE BUG IS RECORD 110.**
+for page in range (count, 2521, 12):       # last three pages only; first record here showed BUG
 
     # Open URL for this search page
     driver.get(baseURL + '&rw=' + str(page))
 
     # This XPath returns an iterable list of records found on this search page
-    list_of_records = driver.find_elements(By.XPATH, "//img[contains(@id,'syndetics')]")
+    list_of_records = driver.find_elements(By.XPATH, "//div[contains(@id,'syndeticsImg')]")
+
 
     # All search pages return 12 records; except the last page, which has only 6 records
     #for record_index in range(0, 2, 1):    # only look at first few records
@@ -37,7 +40,6 @@ for page in range (count, 108+12, 12):       # begin page ten, record 109.
         # Open the white sub-page for this record
         print ("record_index: " + str(record_index))
         record = list_of_records[record_index]
-        # TODO: wrap this .click() in a try/except?
         record.click()
         time.sleep(1)
 
@@ -53,26 +55,6 @@ for page in range (count, 108+12, 12):       # begin page ten, record 109.
             "//div[@class='displayElementText RESOURCE_NAME']")
         print ("Resource Name: %s" % resource_name[record_index].text)
 
-        # # File Size1
-        # #//div[@class='displayElementText FILE_SIZE']
-        # file_size1 = record.find_elements(By.XPATH,
-        #     "//div[@class='displayElementText FILE_SIZE']")
-        # print ("File Size1: %s" % file_size1[record_index].text)
-
-        # NOT WORKING - NOT NEEDED (ICON)
-        # # Resource Type
-        # #//div[@id='resourceInformationZone_7400']//img[@title='Pdf Documents']
-        # resource_type = record.find_elements(By.XPATH,
-        #     "//div[@id='resourceInformationZone_7400']//img[@title='Pdf Documents']")
-        # print (resource_type[record_index].text)
-
-        # NOT WORKING - NOT NEEDED (REDUNDANT)
-        # # Resource URL
-        # #//div[@id='resourceInformationZone_7400']//a[@title='External Link to Asset']
-        # resource_url = record.find_elements(By.XPATH,
-        #     "//div[@id='resourceInformationZone_7400']//a[@title='External Link to Asset']")
-        # print (resource_url[record_index].text)
-
         ###########################
         # METADATA
         ###########################
@@ -83,11 +65,11 @@ for page in range (count, 108+12, 12):       # begin page ten, record 109.
             "//div[@class='displayElementText ASSET_NAME']")
         print ("Asset Name: %s" % asset_name[record_index].text)
 
-        # File Size2
+        # File Size
         #//div[@class='properties']//div[@class='displayElementText FILE_SIZE']
-        file_size2 = record.find_elements(By.XPATH,
+        file_size = record.find_elements(By.XPATH,
             "//div[@class='properties']//div[@class='displayElementText FILE_SIZE']")
-        print ("File Size2: %s" % file_size2[record_index].text)
+        print ("File Size: %s" % file_size[record_index].text)
 
         # Title
         #//div[@id='detail_biblio6']//div//div[@class='displayElementText TITLE']
@@ -101,7 +83,6 @@ for page in range (count, 108+12, 12):       # begin page ten, record 109.
             "//div[@class='displayElementText DESCRIPTION']")
         print ("Description: %s" % description[record_index].text)
 
-        # TODO: VERIFY THIS WORKAROUND IS OKAY
         # Contributor
         #//div[@class='displayElementText CONTRIBUTOR']
         contributor = record.find_elements(By.XPATH,
@@ -124,15 +105,9 @@ for page in range (count, 108+12, 12):       # begin page ten, record 109.
             "//div[@class='displayElementText DIGITAL_FORMAT']")
         print ("Digital Format: %s" % digital_format[record_index].text)
 
-        # NOT WORKING - NOT NEEDED (ICON)
-        # # Media Type
-        # #//div[@id='detail_biblio6']//div//span[@class='formatTypeIcon']
-        # media_type = record.find_elements(By.XPATH,
-        #     "//div[@id='detail_biblio6']//div//span[@class='formatTypeIcon']")
-        # print (media_type[record_index].text)
-
         # URL for File
         #//div[@id='detail_biblio6']//div//a[@title='External Link to Asset']
+        # Oops, I used driver instead of record; but it works so leave it, future TODO
         url_for_file = driver.find_elements_by_partial_link_text('sanle')
         print ("URL for File: %s" % url_for_file[record_index].text)
         print ("\n----")
@@ -192,7 +167,12 @@ driver.close()
 # https://sanle.ent.sirsi.net/client/en_US/default/search/results?rw=12&te=ASSET&isd=true#
 # https://sanle.ent.sirsi.net/client/en_US/default/search/results.displaypanel.displaycell.detailclick/ent:$002f$002fSD_ASSET$002f0$002f7407/1/1/1?rw=12&te=ASSET&isd=true
 
+# 110.
+# https://sanle.ent.sirsi.net/client/en_US/default/search/results?te=ASSET&isd=true&rw=108#
+# https://sanle.ent.sirsi.net/client/en_US/default/search/results.displaypanel.displaycell.detailclick/ent:$002f$002fSD_ASSET$002f0$002f7428/1/1/9?rw=108&te=ASSET&isd=true
+
 # 2526.
 # https://sanle.ent.sirsi.net/client/en_US/default/search/results?rw=2520&te=ASSET&isd=true#
 # https://sanle.ent.sirsi.net/client/en_US/default/search/results.displaypanel.displaycell.detailclick/ent:$002f$002fSD_ASSET$002f0$002f6409/5/5/210?rw=2520&te=ASSET&isd=true
+
 
