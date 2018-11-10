@@ -3,46 +3,147 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 import time
 
-# Crawling Pages with Selenium (Part 1/2)
-# https://www.youtube.com/watch?v=zjo9yFHoUl8
-
-# We will augment this URL to navigate to successive pages
+# We will augment this URL to navigate to successive search pages
 baseURL = "https://sanle.ent.sirsi.net/client/en_US/default/search/results?te=ASSET&isd=true"
 
 driver = webdriver.Chrome()
 
 # Used to identify close button on sub-pages
-count = 0
+# 2526 records total, numbered 0 through 2525.
+count = 2520    # last page
+count = 2508    # 2nd to last page
+count = 0       # begin at beginning
+count = 108     # problematic record 110.
 
-#for page in range (0, 2521, 12):
-#for page in range (0, 12, 12):
-for page in range (0, 25, 12):
-    # Instantiate Chrome Browser and open URL for this page
+# Iterate over all search pages
+#for page in range (count, 2521, 12):       # all pages
+#for page in range (count, 12, 12):         # first page only
+#for page in range (count, 2521, 12):       # last page only
+#for page in range (count, 2521, 12):       # last two pages only
+#for page in range (count, 25, 12):         # first three pages
+#for page in range (count, 2521, 12):       # all pages
+for page in range (count, 108+12, 12):       # begin page ten, record 109.
+
+    # Open URL for this search page
     driver.get(baseURL + '&rw=' + str(page))
 
-    # Scrape all URLS on this page and all successive pages
+    # This XPath returns an iterable list of records found on this search page
     list_of_records = driver.find_elements(By.XPATH, "//img[contains(@id,'syndetics')]")
 
+    # All search pages return 12 records; except the last page, which has only 6 records
+    #for record_index in range(0, 2, 1):    # only look at first few records
     for record_index in range(0, len(list_of_records), 1):
+
         # Open the white sub-page for this record
         print ("record_index: " + str(record_index))
         record = list_of_records[record_index]
+        # TODO: wrap this .click() in a try/except?
         record.click()
         time.sleep(1)
 
-        # Scrape resource name and print it
-        # .find_elementS PLURAL!!!
-        resource_name = record.find_elements(By.XPATH,
-        #    "//div[@class='displayElementText RESOURCE_NAME'][contains(text(),'pdf')]")
-            "//div[@class='displayElementText RESOURCE_NAME']")
-        print ('array size: ' + str(len(resource_name)))
-        print (resource_name[record_index].text)
+        ###########################
+        # DETAILS
+        ###########################
 
+        # .find_elementS PLURAL!!!
+
+        # Resource Name
+        #//div[@class='displayElementText RESOURCE_NAME']
+        resource_name = record.find_elements(By.XPATH,
+            "//div[@class='displayElementText RESOURCE_NAME']")
+        print ("Resource Name: %s" % resource_name[record_index].text)
+
+        # # File Size1
+        # #//div[@class='displayElementText FILE_SIZE']
+        # file_size1 = record.find_elements(By.XPATH,
+        #     "//div[@class='displayElementText FILE_SIZE']")
+        # print ("File Size1: %s" % file_size1[record_index].text)
+
+        # NOT WORKING - NOT NEEDED (ICON)
+        # # Resource Type
+        # #//div[@id='resourceInformationZone_7400']//img[@title='Pdf Documents']
+        # resource_type = record.find_elements(By.XPATH,
+        #     "//div[@id='resourceInformationZone_7400']//img[@title='Pdf Documents']")
+        # print (resource_type[record_index].text)
+
+        # NOT WORKING - NOT NEEDED (REDUNDANT)
+        # # Resource URL
+        # #//div[@id='resourceInformationZone_7400']//a[@title='External Link to Asset']
+        # resource_url = record.find_elements(By.XPATH,
+        #     "//div[@id='resourceInformationZone_7400']//a[@title='External Link to Asset']")
+        # print (resource_url[record_index].text)
+
+        ###########################
+        # METADATA
+        ###########################
+
+        # Asset Name
+        #//div[@id='detail_biblio6']//div//div[@class='displayElementText ASSET_NAME']
+        asset_name = record.find_elements(By.XPATH,
+            "//div[@class='displayElementText ASSET_NAME']")
+        print ("Asset Name: %s" % asset_name[record_index].text)
+
+        # File Size2
+        #//div[@class='properties']//div[@class='displayElementText FILE_SIZE']
+        file_size2 = record.find_elements(By.XPATH,
+            "//div[@class='properties']//div[@class='displayElementText FILE_SIZE']")
+        print ("File Size2: %s" % file_size2[record_index].text)
+
+        # Title
+        #//div[@id='detail_biblio6']//div//div[@class='displayElementText TITLE']
+        title = record.find_elements(By.XPATH,
+            "//div[@class='displayElementText TITLE']")
+        print ("Title: %s" % title[record_index].text)
+
+        # Description
+        #//div[@id='detail_biblio6']//div//div[@class='displayElementText DESCRIPTION']
+        description = record.find_elements(By.XPATH,
+            "//div[@class='displayElementText DESCRIPTION']")
+        print ("Description: %s" % description[record_index].text)
+
+        # TODO: VERIFY THIS WORKAROUND IS OKAY
+        # Contributor
+        #//div[@class='displayElementText CONTRIBUTOR']
+        contributor = record.find_elements(By.XPATH,
+            "//div[@class='displayElementText CONTRIBUTOR']")
+        length = len(contributor) - 1
+        if (length > -1):
+            if (contributor[length].text):
+                print ("Contributor: %s" % contributor[length].text)
+
+        # TODO: FIX THIS
+        # Type
+        #//div[@id='detail_biblio6']//div//div[@class='displayElementText RESOURCE_TYPE']
+        type = record.find_elements(By.XPATH,
+            "//div[@class='displayElementText RESOURCE_TYPE']")
+        print ("Type: ->%s<-" % type[record_index].text)
+
+        # Digital Format
+        #//div[@id='detail_biblio6']//div//div[@class='displayElementText DIGITAL_FORMAT']
+        digital_format = record.find_elements(By.XPATH,
+            "//div[@class='displayElementText DIGITAL_FORMAT']")
+        print ("Digital Format: %s" % digital_format[record_index].text)
+
+        # NOT WORKING - NOT NEEDED (ICON)
+        # # Media Type
+        # #//div[@id='detail_biblio6']//div//span[@class='formatTypeIcon']
+        # media_type = record.find_elements(By.XPATH,
+        #     "//div[@id='detail_biblio6']//div//span[@class='formatTypeIcon']")
+        # print (media_type[record_index].text)
+
+        # URL for File
+        #//div[@id='detail_biblio6']//div//a[@title='External Link to Asset']
+        url_for_file = driver.find_elements_by_partial_link_text('sanle')
+        print ("URL for File: %s" % url_for_file[record_index].text)
+        print ("\n----")
+
+        # TODO: PRINT ALL DATA TO A .CSV FILE
         # Save the scraped info to a file
         # with open('records.csv', 'a') as f:
         #     for i in range(len(links)):
         #         print (links[i].text)
         #         f.write ((links[i].text) + "\n")
+
 
         # Locate the white sub-page close button and click it.
         # Notice 'count', because each sub-page close button is unique!
@@ -66,6 +167,7 @@ driver.close()
 # t', 'screenshot', 'screenshot_as_base64', 'screenshot_as_png', 'send_keys', 'size', 'submit', 'tag_name', 'text', 'va
 # lue_of_css_property']
 
+# Comparison of two links for each record in search results; both links lead to same, detailed sub-page.
 # 1.
 # https://sanle.ent.sirsi.net/client/en_US/default/search/results?te=ASSET&isd=true#
 # https://sanle.ent.sirsi.net/client/en_US/default/search/results?te=ASSET&isd=true#
