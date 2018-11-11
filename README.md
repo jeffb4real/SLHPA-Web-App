@@ -18,6 +18,8 @@ This is a Python script that only needs to run correctly once - and then it's en
 
 scraper.py collects all the public, web-available information about the online photo archive. For each photograpic record, this includes collecting: the title, description, and contributor of the photo, where available, as well as the web URL and file size of the photographic document (known to be .pdf filetype).
 
+scraper.py then stores all the collected information in a database, which will reside in the web application "back end."
+
 ### How To Run scraper.py
 
 
