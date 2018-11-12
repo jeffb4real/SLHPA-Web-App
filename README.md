@@ -4,7 +4,7 @@ San Leandro Historical Photo Archive Web Application
 # Contents
 1. [Overview](#overview)
 2. [scraper.py](#scraper.py)
-3. ["Web Application"](#"Web Application")
+3. ['Web Application'](#'Web Application')
 
 ## Overview
 
