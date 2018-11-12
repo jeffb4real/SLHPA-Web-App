@@ -23,7 +23,7 @@ scraper.py then stores all the collected information in a database, which will r
 ### How To Run scraper.py
 
 
-## "Web Application"
+## Web Application
 
 Bootstrap
 Some Python-compatible map host: 
