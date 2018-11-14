@@ -24,13 +24,14 @@ scraper.py then stores all the collected information in a database, which ultima
 
 1. Install Python (3.7.0 or later).
 
-2. Set up your environment:
-   This python script was run using selenium 3.14.1.
+2. Set up your Python environment:
 
    To install modules in Python:
    
     $ pip install selenium
     
+   This python script was run using selenium 3.14.1.
+   
 3. Download the Selenium chromedriver from https://sites.google.com/a/chromium.org/chromedriver/downloads
 
 4. Add the location of the chromedriver to your path.
