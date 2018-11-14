@@ -22,16 +22,19 @@ scraper.py then stores all the collected information in a database, which ultima
 
 ### How To Run scraper.py
 
-1. Clone this project: 
-    $ git clone https://github.com/jeffb4real/SLHPA-Web-App
+1. Clone this project:
+
+    $ git clone https://github.com/jeffb4real/SLHPA-Web-App.git
     
 2. Set up your environment:
    This script was created using Python 3.7.0, and selenium 3.14.1.
 
    To install modules in Python:
+   
     $ pip install selenium
     
 3. Open cmd.exe (Windows) or Terminal (MacOS) and navigate to the directory containing scraper.py, then:
+
     $ python scraper.py
 
 
