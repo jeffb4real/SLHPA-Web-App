@@ -18,7 +18,7 @@ This is a Python script that only needs to run correctly once, unless the online
 
 scraper.py collects all the public, web-available information about the online photo archive. For each photograpic record, this includes collecting: the title, description, and contributor of the photo, where available, as well as the web URL and file size of the photographic document.
 
-scraper.py then stores all the collected information in a database, which ultimately will reside in the web application.
+scraper.py then stores all the collected information in a database (.csv file, for now), which ultimately will reside in the web application.
 
 ### How To Run scraper.py
 
@@ -30,7 +30,7 @@ scraper.py then stores all the collected information in a database, which ultima
    
     $ pip install selenium
     
-   This python script was run using selenium 3.14.1.
+   This Python script was run using selenium 3.14.1.
    
 3. Download the Selenium chromedriver from https://sites.google.com/a/chromium.org/chromedriver/downloads
 
@@ -55,7 +55,7 @@ scraper.py then stores all the collected information in a database, which ultima
 ## Web_Application (... documentation in process)
 
 * Bootstrap
-* Some Python-compatible map host: 
+* Some Python-compatible map host: https://blog.rapidapi.com/top-map-apis/
   1. Mapbox
   2. Google maps
-  3. etc.
+  3. folium: https://pypi.org/project/folium/
