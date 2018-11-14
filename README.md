@@ -14,7 +14,7 @@ This SLHPA-Web-App project is an attempt to make the photo archive more easily a
 
 ## scraper.py
 
-This is a Python script that only needs to run correctly once, unless the online photo archive is updated.
+This is a Python script that only needs to run correctly once, and then it's end-of-life. The online photo archive is a dead database, and will never be updated.
 
 scraper.py collects all the public, web-available information about the online photo archive. For each photograpic record, this includes collecting: the title, description, and contributor of the photo, where available, as well as the web URL and file size of the photographic document.
 
