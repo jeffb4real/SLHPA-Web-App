@@ -16,17 +16,29 @@ This SLHPA-Web-App project is an attempt to make the photo archive more easily a
 
 This is a Python script that only needs to run correctly once - and then it's end-of-life.
 
-scraper.py collects all the public, web-available information about the online photo archive. For each photograpic record, this includes collecting: the title, description, and contributor of the photo, where available, as well as the web URL and file size of the photographic document (known to be .pdf filetype).
+scraper.py collects all the public, web-available information about the online photo archive. For each photograpic record, this includes collecting: the title, description, and contributor of the photo, where available, as well as the web URL and file size of the photographic document.
 
-scraper.py then stores all the collected information in a database, which will reside in the web application "back end."
+scraper.py then stores all the collected information in a database, which ultimately will reside in the web application "back end."
 
 ### How To Run scraper.py
+
+1. Clone this project: 
+    $ git clone https://github.com/jeffb4real/SLHPA-Web-App
+    
+2. Set up your environment:
+   This script was created using Python 3.7.0, and selenium 3.14.1.
+
+   To install modules in Python:
+    $ pip install selenium
+    
+3. Open cmd.exe (Windows) or Terminal (MacOS) and navigate to the directory containing scraper.py, then:
+    $ python scraper.py
 
 
 ## Web_Application
 
-Bootstrap
-Some Python-compatible map host: 
-1) mapbox
-2) Google maps
-3) etc.
+* Bootstrap
+* Some Python-compatible map host: 
+  1. Mapbox
+  2. Google maps
+  3. etc.
