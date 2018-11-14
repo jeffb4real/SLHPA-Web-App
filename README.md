@@ -34,7 +34,7 @@ scraper.py then stores all the collected information in a database, which ultima
    
 3. Download the Selenium chromedriver from https://sites.google.com/a/chromium.org/chromedriver/downloads
 
-4. Add the location of the chromedriver to your path.
+4. Unzip chromedriver.exe and add its location to your path.
 
 5. Open cmd.exe (Windows) or Terminal (MacOS)
 
