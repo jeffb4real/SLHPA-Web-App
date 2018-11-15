@@ -65,6 +65,8 @@ for page in range (count, 2521, 12):       # all pages
 
     # Open URL for this search page
     driver.get(baseURL + '&rw=' + str(page))
+    page_number = page/12 + 1
+    print ("Page: %i\n===============" % page_number)
 
     # This XPath returns an iterable list of records found on this search page
     list_of_records = driver.find_elements(By.XPATH, "//div[contains(@id,'syndeticsImg')]")
