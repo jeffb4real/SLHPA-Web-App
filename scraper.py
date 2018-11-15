@@ -1,8 +1,12 @@
 import csv
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import *
 import time
 import os
+from dumper import dump
 
 # All fields for a single record
 class CSVrecord(object):
@@ -11,6 +15,7 @@ class CSVrecord(object):
         self.asset_name = None
         self.file_size = None
         self.title = None
+        self.subject = None
         self.description = None
         self.contributor = None
         self.digital_format = None
@@ -20,6 +25,8 @@ class CSVrecord(object):
 baseURL = "https://sanle.ent.sirsi.net/client/en_US/default/search/results?te=ASSET&isd=true"
 # Open Chrome
 driver = webdriver.Chrome()
+# Implicit wait - applies to all searches of the DOM, for the duration of driver
+driver.implicitly_wait(2)
 
 # Create output .csv file
 with open('SLHPA-records.csv', 'w', newline='') as csvfile:
@@ -29,6 +36,7 @@ with open('SLHPA-records.csv', 'w', newline='') as csvfile:
         'asset_name',
         'file_size',
         'title',
+        'subject',
         'description',
         'contributor',
         'digital_format',
@@ -41,6 +49,7 @@ count = 2520    # last page
 count = 2508    # 2nd to last page
 count = 108     # problematic record 110.
 count = 2496    # 3rd to last page
+count = 192     # 2ND BUG! record 201 has Subject field
 count = 0       # begin at beginning
 
 # Iterate over all search pages
@@ -51,6 +60,7 @@ count = 0       # begin at beginning
 #for page in range (count, 25, 12):         # first three pages
 #for page in range (count, 108+12, 12):       # begin page ten, record 109. **THE BUG IS RECORD 110.**
 #for page in range (count, 2521, 12):       # last three pages only; first record here showed BUG
+#for page in range (count, 204, 12):       # 2ND BUG! record 201 has Subject field
 for page in range (count, 2521, 12):       # all pages
 
     # Open URL for this search page
@@ -111,6 +121,27 @@ for page in range (count, 2521, 12):       # all pages
         print ("Title: %s" % title[record_index].text)
         this_record.title = title[record_index].text
 
+        # Subject
+        #//div[@class='displayElementLabel SUBJECT_label']//div[@class='displayElementText']//table
+        # subject = record.find_elements(By.XPATH,
+        #     "//div[@class='displayElementText']//table/tbody/tr")
+
+        # # TODO: fix this
+        # subject = record.find_element(By.XPATH,
+        #     "//div[@class='displayElementText']//table/tbody")
+        # print ("Subject: ")
+        # if (subject):
+        #     rows = subject.find_elements(By.TAG_NAME, 'tr')
+        #     print ("len: %s" % len(rows))
+        this_record.subject = ''
+
+            # for row in rows:
+            #     col = row.find_elements(By.TAG_NAME, 'td')[0]
+            #     print (col.text)
+        #print ("Subject: %s" % subject[record_index].text)
+        #dump (subject)
+        #this_record.subject = subject[record_index].text
+
         # Description
         #//div[@id='detail_biblio6']//div//div[@class='displayElementText DESCRIPTION']
         description = record.find_elements(By.XPATH,
@@ -159,7 +190,7 @@ for page in range (count, 2521, 12):       # all pages
         close_button = record.find_element(By.XPATH, "//div[@class='ui-dialog ui-widget ui-widget-content ui-corner-all detailModalDialog detailDialog" + str(count) + "']//span[@class='ui-icon ui-icon-closethick'][contains(text(),'close')]")
         close_button.click()
         count += 1
-        time.sleep(1)
+        time.sleep(3)
 
         # Append this record to output .csv file
         # https://docs.python.org/3/library/csv.html
@@ -170,6 +201,7 @@ for page in range (count, 2521, 12):       # all pages
                 this_record.asset_name,
                 this_record.file_size,
                 this_record.title,
+                this_record.subject,
                 this_record.description,
                 this_record.contributor,
                 this_record.digital_format,
