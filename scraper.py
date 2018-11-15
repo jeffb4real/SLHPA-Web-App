@@ -25,7 +25,7 @@ class CSVrecord(object):
 baseURL = "https://sanle.ent.sirsi.net/client/en_US/default/search/results?te=ASSET&isd=true"
 # Open Chrome
 driver = webdriver.Chrome()
-# Implicit wait - applies to all searches of the DOM, for the duration of driver
+# Implicit wait - tells web driver to poll the DOM for specified time; wait is set for duration of web driver object
 driver.implicitly_wait(2)
 
 # Create output .csv file
@@ -90,9 +90,29 @@ for page in range (count, 2521, 12):       # all pages
         # .find_elementS PLURAL!!!
 
         # Resource Name
+        # We do an explit wait on this find command, because Resource Name is the first
+        # element on the page
         #//div[@class='displayElementText RESOURCE_NAME']
-        resource_name = record.find_elements(By.XPATH,
-            "//div[@class='displayElementText RESOURCE_NAME']")
+
+        # wait = WebDriverWait(driver, 10, poll_frequency=1,
+        #     ignored_exceptions=[NoSuchElementException,
+        #         ElementNotVisibleException,
+        #         ElementNotSelectableException])
+        # element = wait.until(EC.element_to_be_clickable((By.ID,
+        #         "stopFilter_stops-0")))
+        wait = WebDriverWait(driver, 10, poll_frequency=1,
+            ignored_exceptions=[NoSuchElementException,
+                ElementNotVisibleException,
+                ElementNotSelectableException])
+        # text_to_be_present_in_element
+        # element_to_be_clickable
+        # presence_of_element_located
+        # visibility_of_element_located
+        # presence_of_all_elements_located
+        resource_name = wait.until(EC.presence_of_all_elements_located((By.XPATH,
+            "//div[@class='displayElementText RESOURCE_NAME']")))
+        # resource_name = record.find_elements(By.XPATH,
+        #     "//div[@class='displayElementText RESOURCE_NAME']")
         print ("Resource Name: %s" % resource_name[record_index].text)
         this_record.resource_name = resource_name[record_index].text
 
