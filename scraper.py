@@ -111,8 +111,11 @@ for page in range (count, 2521, 12):       # all pages
         # presence_of_element_located
         # visibility_of_element_located
         # presence_of_all_elements_located
-        resource_name = wait.until(EC.presence_of_all_elements_located((By.XPATH,
-            "//div[@class='displayElementText RESOURCE_NAME']")))
+        for i in range (0, 10):
+            resource_name = wait.until(EC.presence_of_all_elements_located((By.XPATH,
+                "//div[@class='displayElementText RESOURCE_NAME']")))
+            if (resource_name):
+                break
         # resource_name = record.find_elements(By.XPATH,
         #     "//div[@class='displayElementText RESOURCE_NAME']")
         print ("Resource Name: %s" % resource_name[record_index].text)
