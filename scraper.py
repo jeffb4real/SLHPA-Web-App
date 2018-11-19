@@ -21,6 +21,22 @@ class CSVrecord(object):
         self.digital_format = None
         self.url_for_file = None
 
+def badValue(theArray, theIndex):
+    if (not theArray):
+        return True
+    if (theIndex >= len(theArray)):
+        return True
+    if (not theArray[theIndex].text):
+        return True
+    return False
+
+def close(record):
+    # Locate the white sub-page close button and click it.
+    # Notice 'count', because each sub-page close button is unique!
+    close_button = record.find_element(By.XPATH, "//div[@class='ui-dialog ui-widget ui-widget-content ui-corner-all detailModalDialog detailDialog" + str(count) + "']//span[@class='ui-icon ui-icon-closethick'][contains(text(),'close')]")
+    close_button.click()
+    time.sleep(3)
+
 # We will augment this URL to navigate to successive search pages
 baseURL = "https://sanle.ent.sirsi.net/client/en_US/default/search/results?te=ASSET&isd=true"
 # Open Chrome
@@ -42,6 +58,13 @@ with open('SLHPA-records.csv', 'w', newline='') as csvfile:
         'digital_format',
         'url_for_file',
     ])
+
+wait = WebDriverWait(driver, 10, poll_frequency=1,
+    ignored_exceptions=[NoSuchElementException,
+        ElementNotVisibleException,
+        ElementNotSelectableException])
+absolute_record_number = 1
+skipped_records = 0;
 
 # Used to identify close button on sub-pages
 # 2526 records total, numbered 0 through 2525.
@@ -81,6 +104,9 @@ for page in range (count, 2521, 12):       # all pages
 
         # Open the white sub-page for this record
         print ("record_index: " + str(record_index))
+        print ("absolute_record_number: " + str(absolute_record_number))
+        absolute_record_number = absolute_record_number + 1
+
         record = list_of_records[record_index]
         record.click()
         time.sleep(1)
@@ -102,10 +128,6 @@ for page in range (count, 2521, 12):       # all pages
         #         ElementNotSelectableException])
         # element = wait.until(EC.element_to_be_clickable((By.ID,
         #         "stopFilter_stops-0")))
-        wait = WebDriverWait(driver, 10, poll_frequency=1,
-            ignored_exceptions=[NoSuchElementException,
-                ElementNotVisibleException,
-                ElementNotSelectableException])
         # text_to_be_present_in_element
         # element_to_be_clickable
         # presence_of_element_located
@@ -118,6 +140,11 @@ for page in range (count, 2521, 12):       # all pages
                 break
         # resource_name = record.find_elements(By.XPATH,
         #     "//div[@class='displayElementText RESOURCE_NAME']")
+        if (badValue(resource_name, record_index)):
+            skipped_records = skipped_records + 1
+            close(record)
+            count += 1
+            continue
         print ("Resource Name: %s" % resource_name[record_index].text)
         this_record.resource_name = resource_name[record_index].text
 
@@ -129,22 +156,25 @@ for page in range (count, 2521, 12):       # all pages
         #//div[@id='detail_biblio6']//div//div[@class='displayElementText ASSET_NAME']
         asset_name = record.find_elements(By.XPATH,
             "//div[@class='displayElementText ASSET_NAME']")
-        print ("Asset Name: %s" % asset_name[record_index].text)
-        this_record.asset_name = asset_name[record_index].text
+        if (not badValue(asset_name, record_index)):
+            print ("Asset Name: %s" % asset_name[record_index].text)
+            this_record.asset_name = asset_name[record_index].text
 
         # File Size
         #//div[@class='properties']//div[@class='displayElementText FILE_SIZE']
         file_size = record.find_elements(By.XPATH,
             "//div[@class='properties']//div[@class='displayElementText FILE_SIZE']")
-        print ("File Size: %s" % file_size[record_index].text)
-        this_record.file_size = file_size[record_index].text
+        if (not badValue(file_size, record_index)):
+            print ("File Size: %s" % file_size[record_index].text)
+            this_record.file_size = file_size[record_index].text
 
         # Title
         #//div[@id='detail_biblio6']//div//div[@class='displayElementText TITLE']
         title = record.find_elements(By.XPATH,
             "//div[@class='displayElementText TITLE']")
-        print ("Title: %s" % title[record_index].text)
-        this_record.title = title[record_index].text
+        if (not badValue(title, record_index)):
+            print ("Title: %s" % title[record_index].text)
+            this_record.title = title[record_index].text
 
         # Subject
         #//div[@class='displayElementLabel SUBJECT_label']//div[@class='displayElementText']//table
@@ -171,8 +201,9 @@ for page in range (count, 2521, 12):       # all pages
         #//div[@id='detail_biblio6']//div//div[@class='displayElementText DESCRIPTION']
         description = record.find_elements(By.XPATH,
             "//div[@class='displayElementText DESCRIPTION']")
-        print ("Description: %s" % description[record_index].text)
-        this_record.description = description[record_index].text
+        if (not badValue(description, record_index)):
+            print ("Description: %s" % description[record_index].text)
+            this_record.description = description[record_index].text
 
         # Contributor
         #//div[@class='displayElementText CONTRIBUTOR']
@@ -199,23 +230,26 @@ for page in range (count, 2521, 12):       # all pages
         #//div[@id='detail_biblio6']//div//div[@class='displayElementText DIGITAL_FORMAT']
         digital_format = record.find_elements(By.XPATH,
             "//div[@class='displayElementText DIGITAL_FORMAT']")
-        print ("Digital Format: %s" % digital_format[record_index].text)
-        this_record.digital_format = digital_format[record_index].text
+        if (not badValue(digital_format, record_index)):
+            print ("Digital Format: %s" % digital_format[record_index].text)
+            this_record.digital_format = digital_format[record_index].text
 
         # URL for File
         #//div[@id='detail_biblio6']//div//a[@title='External Link to Asset']
         # Oops, I used driver instead of record; but it works so leave it, future TODO
         url_for_file = driver.find_elements_by_partial_link_text('sanle')
+        if (badValue(url_for_file, record_index)):
+            skipped_records = skipped_records + 1
+            close(record)
+            count += 1
+            continue
+
         print ("URL for File: %s" % url_for_file[record_index].text)
         this_record.url_for_file = url_for_file[record_index].text
         print ("\n----")
 
-        # Locate the white sub-page close button and click it.
-        # Notice 'count', because each sub-page close button is unique!
-        close_button = record.find_element(By.XPATH, "//div[@class='ui-dialog ui-widget ui-widget-content ui-corner-all detailModalDialog detailDialog" + str(count) + "']//span[@class='ui-icon ui-icon-closethick'][contains(text(),'close')]")
-        close_button.click()
+        close(record)
         count += 1
-        time.sleep(3)
 
         # Append this record to output .csv file
         # https://docs.python.org/3/library/csv.html
@@ -233,6 +267,7 @@ for page in range (count, 2521, 12):       # all pages
                 this_record.url_for_file,
             ])
 
+print('skipped_records: ' + skipped_records)
 # Rename output .csv file so it won't get clobbered next run
 os.rename('SLHPA-records.csv', 'SLHPA-records_' + time.strftime("%Y%m%d-%H%M%S") + '.csv')
 # Close the selenium webdriver
