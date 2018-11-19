@@ -30,10 +30,21 @@ def badValue(theArray, theIndex):
         return True
     return False
 
-def close(record):
-    # Locate the white sub-page close button and click it.
-    # Notice 'count', because each sub-page close button is unique!
-    close_button = record.find_element(By.XPATH, "//div[@class='ui-dialog ui-widget ui-widget-content ui-corner-all detailModalDialog detailDialog" + str(count) + "']//span[@class='ui-icon ui-icon-closethick'][contains(text(),'close')]")
+def close(record, count):
+    retries = 0
+    while (True):
+        try:
+            # Locate the white sub-page close button and click it.
+            # Notice 'count', because each sub-page close button is unique!
+            s = "//div[@class='ui-dialog ui-widget ui-widget-content ui-corner-all detailModalDialog detailDialog" + str(count) + "']//span[@class='ui-icon ui-icon-closethick'][contains(text(),'close')]"
+            close_button = record.find_element(By.XPATH, s)
+            break
+        except:
+            print("Retrying close_button find_element: " + str(retries))
+            time.sleep(2)
+            retries = retries + 1
+            if (retries >= 10):
+                raise
     close_button.click()
     time.sleep(3)
 
@@ -63,7 +74,6 @@ wait = WebDriverWait(driver, 10, poll_frequency=1,
     ignored_exceptions=[NoSuchElementException,
         ElementNotVisibleException,
         ElementNotSelectableException])
-absolute_record_number = 1
 skipped_records = 0;
 
 # Used to identify close button on sub-pages
@@ -74,6 +84,8 @@ count = 108     # problematic record 110.
 count = 2496    # 3rd to last page
 count = 192     # 2ND BUG! record 201 has Subject field
 count = 0       # begin at beginning
+count = 744       # page 63
+absolute_record_number = count + 1
 
 # Iterate over all search pages
 #for page in range (count, 2521, 12):       # all pages
@@ -142,7 +154,7 @@ for page in range (count, 2521, 12):       # all pages
         #     "//div[@class='displayElementText RESOURCE_NAME']")
         if (badValue(resource_name, record_index)):
             skipped_records = skipped_records + 1
-            close(record)
+            close(record, count)
             count += 1
             continue
         print ("Resource Name: %s" % resource_name[record_index].text)
@@ -240,7 +252,7 @@ for page in range (count, 2521, 12):       # all pages
         url_for_file = driver.find_elements_by_partial_link_text('sanle')
         if (badValue(url_for_file, record_index)):
             skipped_records = skipped_records + 1
-            close(record)
+            close(record, count)
             count += 1
             continue
 
@@ -248,7 +260,7 @@ for page in range (count, 2521, 12):       # all pages
         this_record.url_for_file = url_for_file[record_index].text
         print ("\n----")
 
-        close(record)
+        close(record, count)
         count += 1
 
         # Append this record to output .csv file
