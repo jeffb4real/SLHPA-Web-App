@@ -3,7 +3,7 @@ San Leandro Historical Photo Archive Web Application
 
 # Contents
 1. [Overview](#overview)
-2. [scraper.py](#scraper.py)
+2. [scraper](#scraper)
 3. [Web_Application](#Web_Application)
 
 ## Overview
@@ -12,7 +12,7 @@ The San Leandro Public Library is home to an archive of about 2500 photographic 
 
 This SLHPA-Web-App project is an attempt to make the photo archive more easily accessible. 
 
-## scraper.py
+## scraper
 
 This is a Python script that only needs to run correctly once, and then it's end-of-life. The online photo archive is a dead database, and will never be updated.
 
