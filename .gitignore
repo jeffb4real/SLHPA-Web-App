@@ -103,5 +103,8 @@ venv.bak/
 # mypy
 .mypy_cache/
 
+# Eclipse
+.project
+
 # custom
 *.csv
