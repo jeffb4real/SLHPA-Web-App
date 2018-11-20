@@ -65,9 +65,16 @@ wait = WebDriverWait(driver, 10, poll_frequency=1,
         ElementNotVisibleException,
         ElementNotSelectableException])
 skipped_records = [];
-errorFormat = "Failed to get resource_name for record : {} on page: {} ({}). Skipping record."
+
+def add_skipped_record(record_index, page_number, absolute_record_number):
+    errorFormat = "Failed to get resource_name for record : {} on page: {} ({}). Skipping record."
+    err = errorFormat.format(record_index, int(page_number), absolute_record_number)
+    print(err)
+    skipped_records.append(err)
 
 def scan_pages():
+    page_to_start_on = 16
+
     # Used to identify close button on sub-pages
     # 2526 records total, numbered 0 through 2525.
     count = 2520    # last page
@@ -75,7 +82,7 @@ def scan_pages():
     count = 108     # problematic record 110.
     count = 2496    # 3rd to last page
     count = 192     # 2ND BUG! record 201 has Subject field
-    count = 0       # begin at beginning
+    count = (page_to_start_on - 1) * 12
     absolute_record_number = count + 1
 
     # Iterate over all search pages
@@ -143,11 +150,10 @@ def scan_pages():
             # resource_name = record.find_elements(By.XPATH,
             #     "//div[@class='displayElementText RESOURCE_NAME']")
             if (badValue(resource_name, record_index)):
-                err = errorFormat.format(record_index, int(page_number), absolute_record_number)
-                print(err)
-                skipped_records.append(err)
+                add_skipped_record(record_index, page_number, absolute_record_number)
                 close(record, count)
                 count += 1
+                absolute_record_number = absolute_record_number + 1
                 continue
             print ("Resource Name: %s" % resource_name[record_index].text)
             this_record.resource_name = resource_name[record_index].text
@@ -243,11 +249,10 @@ def scan_pages():
             # Oops, I used driver instead of record; but it works so leave it, future TODO
             url_for_file = driver.find_elements_by_partial_link_text('sanle')
             if (badValue(url_for_file, record_index)):
-                err = errorFormat.format(record_index, int(page_number), absolute_record_number)
-                print(err)
-                skipped_records.append(err)
+                add_skipped_record(record_index, page_number, absolute_record_number)
                 close(record, count)
                 count += 1
+                absolute_record_number = absolute_record_number + 1
                 continue
 
             print ("URL for File: %s" % url_for_file[record_index].text)
