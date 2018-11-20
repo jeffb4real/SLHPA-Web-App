@@ -74,7 +74,8 @@ wait = WebDriverWait(driver, 10, poll_frequency=1,
     ignored_exceptions=[NoSuchElementException,
         ElementNotVisibleException,
         ElementNotSelectableException])
-skipped_records = 0;
+skipped_records = [];
+errorFormat = "Failed to get resource_name for record : {} on page: {} ({}). Skipping record."
 
 # Used to identify close button on sub-pages
 # 2526 records total, numbered 0 through 2525.
@@ -84,7 +85,6 @@ count = 108     # problematic record 110.
 count = 2496    # 3rd to last page
 count = 192     # 2ND BUG! record 201 has Subject field
 count = 0       # begin at beginning
-count = 744       # page 63
 absolute_record_number = count + 1
 
 # Iterate over all search pages
@@ -117,7 +117,6 @@ for page in range (count, 2521, 12):       # all pages
         # Open the white sub-page for this record
         print ("record_index: " + str(record_index))
         print ("absolute_record_number: " + str(absolute_record_number))
-        absolute_record_number = absolute_record_number + 1
 
         record = list_of_records[record_index]
         record.click()
@@ -153,7 +152,9 @@ for page in range (count, 2521, 12):       # all pages
         # resource_name = record.find_elements(By.XPATH,
         #     "//div[@class='displayElementText RESOURCE_NAME']")
         if (badValue(resource_name, record_index)):
-            skipped_records = skipped_records + 1
+            err = errorFormat.format(record_index, int(page_number), absolute_record_number)
+            print(err)
+            skipped_records.append(err)
             close(record, count)
             count += 1
             continue
@@ -251,7 +252,9 @@ for page in range (count, 2521, 12):       # all pages
         # Oops, I used driver instead of record; but it works so leave it, future TODO
         url_for_file = driver.find_elements_by_partial_link_text('sanle')
         if (badValue(url_for_file, record_index)):
-            skipped_records = skipped_records + 1
+            err = errorFormat.format(record_index, int(page_number), absolute_record_number)
+            print(err)
+            skipped_records.append(err)
             close(record, count)
             count += 1
             continue
@@ -262,6 +265,7 @@ for page in range (count, 2521, 12):       # all pages
 
         close(record, count)
         count += 1
+        absolute_record_number = absolute_record_number + 1
 
         # Append this record to output .csv file
         # https://docs.python.org/3/library/csv.html
@@ -279,7 +283,9 @@ for page in range (count, 2521, 12):       # all pages
                 this_record.url_for_file,
             ])
 
-print('skipped_records: ' + skipped_records)
+for s in skipped_records:
+    print(s)
+
 # Rename output .csv file so it won't get clobbered next run
 os.rename('SLHPA-records.csv', 'SLHPA-records_' + time.strftime("%Y%m%d-%H%M%S") + '.csv')
 # Close the selenium webdriver
