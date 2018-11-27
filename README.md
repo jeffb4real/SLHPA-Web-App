@@ -16,17 +16,17 @@ This SLHPA-Web-App project is an attempt to make the historic photo archive more
 
 This Python script uses Selenium (https://www.seleniumhq.org/) to "scrape" metadata from the online photo archive. This script technically needs to work correctly just once, as the photo archive is a dead database and will never be updated.
 
-scraper.py collects all the public, web-available information about the online photo archive. For each photograpic record, this includes collecting: the title, description, and contributor of the photo, where available, as well as the web URL and file size of the photographic document.
+scraper.py collects publicly available information about the online photo archive. For each photograpic record, this includes collecting: the title, description, and contributor of the photo, where available, as well as the web URL and file size of the photographic document (*.pdf).
 
-scraper.py then stores all the collected information in a database (.csv file, for now), which ultimately will reside in the web application.
+scraper.py then stores all the collected information in a database (.csv file, for now), which ultimately will be used by the SLHPA web application.
 
 ### How To Run scraper.py
 
 1. Install Python (3.7.0 or later).
 
-2. Set up your Python environment:
+2. Set up your Python environment.
 
-   To install modules in Python:
+   To install the required module:
    
     $ pip install selenium
     
@@ -36,7 +36,7 @@ scraper.py then stores all the collected information in a database (.csv file, f
 
 4. Unzip chromedriver.exe and add its location to your path.
 
-5. Open cmd.exe (Windows) or Terminal (MacOS)
+5. Open cmd.exe (Windows) or Terminal (MacOS).
 
 6. 'cd' into the diretory where you keep your Github repository directories.
 
