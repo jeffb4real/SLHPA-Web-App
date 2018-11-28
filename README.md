@@ -4,7 +4,8 @@ San Leandro Historical Photo Archive Web Application
 # Contents
 1. [Overview](#overview)
 2. [scraper](#scraper)
-3. [Web_Application](#Web_Application)
+3. [comber](#comber)
+5. [Web_Application](#Web_Application)
 
 ## Overview
 
@@ -51,6 +52,10 @@ scraper.py then stores all the collected information in a database (.csv file, f
 9. Run the scraper:
 
     $ python scraper.py
+
+## comber
+
+A Python script to programatically populate the date field, if a valid date can be found within the title, subject, or description fields.
 
 ## Web_Application (... documentation in process)
 
