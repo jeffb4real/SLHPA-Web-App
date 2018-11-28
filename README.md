@@ -57,7 +57,7 @@ scraper.py then stores all the collected information in a database (.csv file, f
 
 A Python script to programmatically populate the date field, if a valid year (see below) can be found within the title, subject, or description fields. This script is not infallible; but it will likely pick the correct year when one is listed, and will ultimately save a lot of typing. However, the output .csv file must be manually verified for correctness.
 
-A valid year is one between 1839 (the invention of photography) and 1980 (approximate culmination of the photo archive). When multiple years are found, the highest year will be used. For example, for this example:
+A valid year is one between 1839 (the invention of photography) and 1980 (approximate culmination of the photo archive). When multiple years are found, the highest year will be used. For example, for this description:
 
       St. Leander's Rectory, 1899-1949, razed in 1954 photo taken around 1914.
    
