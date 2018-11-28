@@ -4,7 +4,8 @@ San Leandro Historical Photo Archive Web Application
 # Contents
 1. [Overview](#overview)
 2. [scraper](#scraper)
-3. [Web_Application](#Web_Application)
+3. [comber](#comber)
+5. [Web_Application](#Web_Application)
 
 ## Overview
 
@@ -51,6 +52,16 @@ scraper.py then stores all the collected information in a database (.csv file, f
 9. Run the scraper:
 
     $ python scraper.py
+
+## comber
+
+A Python script to programmatically populate the date field, if a valid year (see below) can be found within the title, subject, or description fields. This script is not infallible; but it will likely pick the correct year when one is listed, and will ultimately save a lot of typing. However, the output .csv file must be manually verified for correctness.
+
+A valid year is one between 1839 (the invention of photography) and 1980 (approximate culmination of the photo archive). When multiple years are found, the highest year will be used. For example:
+
+   St. Leander's Rectory, 1899-1949, razed in 1954 photo taken around 1914.
+   
+comber.py will find a list of years, [1899, 1949, 1954, 1914], and return 1954. This is a good example of why the date field will need to be manually verified in the output .csv file.
 
 ## Web_Application (... documentation in process)
 
