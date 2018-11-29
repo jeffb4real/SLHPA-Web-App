@@ -1,0 +1,45 @@
+Analysis:
+Scraped vs. DVD; Excel comparison of "resource_name" vs. "Index Number" fields
+------------------------------------------------------------------------------
+
+These 38 records were found in the DVD Excel document, but were not in the scraped Excel document:
+
+00128 - Missing Photo
+00230 - Missing Photo
+00248 - Missing Photo
+01027 - Missing Photo
+01193 - found in library's online catalog; added to scraped Excel
+01223 - found in library's online catalog; added to scraped Excel
+01258 - Missing Photo
+01306 - Missing Photo
+01347 - Missing Photo
+01350 - Missing Photo
+01372 - Missing Photo
+01373 - Missing Photo
+01546 - Missing Photo
+01630 - Missing Photo
+01660 - Missing Photo
+01661 - Missing Photo
+01662 - Missing Photo
+01663 - Missing Photo
+01664 - Missing Photo
+01665 - Missing Photo
+01666 - Missing Photo
+01667 - Missing Photo
+01670 - Missing Photo
+01701 - "NR"; does not exist on DVD, so is actually Missing Photo
+01737 - Missing Photo
+01775 - Missing Photo
+01794 - Missing Photo
+02008 - Missing Photo
+02138 - Missing Photo
+02231 - Missing Photo
+02251 - Missing Photo
+02267 - Missing Photo
+02318 - Missing Photo
+02324 - Missing Photo
+02325 - Missing Photo
+02482 - Missing Photo
+02483 - Missing Photo
+02536 - Missing Photo
+
