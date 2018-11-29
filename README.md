@@ -69,5 +69,5 @@ comber.py will find a list of years, [1899, 1949, 1954, 1914], and return 1954. 
 * Some Python-compatible map host: https://blog.rapidapi.com/top-map-apis/
   1. Mapbox
   2. Google maps
-  3. folium: https://pypi.org/project/folium/
+  3. [folium](https://pypi.org/project/folium/): "Make beautiful, interactive maps with Python and Leaflet.js"
   4. [Leaflet API](https://leafletjs.com/)
