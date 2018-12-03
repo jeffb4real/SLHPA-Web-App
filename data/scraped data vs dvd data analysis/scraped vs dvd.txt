@@ -1,5 +1,7 @@
 Analysis:
 Scraped vs. DVD; Excel comparison of "resource_name" vs. "Index Number" fields
+
+"1.resource_name.txt" (scraped data) vs "2.Index Number.txt" (DVD data)
 ------------------------------------------------------------------------------
 
 These 38 records were found in the DVD Excel document, but were not in the scraped Excel document:
