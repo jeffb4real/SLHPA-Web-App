@@ -29,7 +29,7 @@ with open(csv_input_file, 'r', newline='') as infile:
         title_fields.append(record[2])
 
 # Derive an output .csv file from our existing .csv file
-csv_input_file = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'data', 'SLHPA-records-phase01-ver1.csv')
+csv_input_file = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'data', 'SLHPA-records-phase01.csv')
 csv_output_file = csv_input_file.replace('.csv', '_' + time.strftime("%Y%m%d-%H%M%S") + '.csv')
 with open(csv_output_file, 'w', newline='') as outfile, open(csv_input_file, 'r', newline='') as infile:
     writer = csv.writer(outfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
