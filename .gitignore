@@ -106,5 +106,8 @@ venv.bak/
 # Eclipse
 .project
 
+# Pycharm
+.idea/
+
 # custom
 *.csv
