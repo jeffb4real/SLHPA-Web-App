@@ -11,7 +11,7 @@ San Leandro Historical Photo Archive Web Application
 
 The San Leandro Public Library is home to an archive of about 2500 photographic prints related to the history of San Leandro. These prints have also been scanned, and are accessible online through the library's Catalog Search, available at http://sanleandro.org/depts/library/default.asp
 
-This SLHPA-Web-App project is an attempt to make the historic photo archive more easily browsable, possibly through the use of user-customizable filter settings and photo carousel or map type dynamic graphical elements.
+This SLHPA-Web-App project is an attempt to make the historic photo archive more easily browsable, by creating a historical photo website that uses dynamic elements such as user-customizable filter settings, photo carousel, or maps/pins.
 
 ## scraper
 
@@ -59,17 +59,22 @@ This Python script performs data cleaning/augmentation on the scraped data. Inpu
 
 * Remove meaningless "Vol. xx" entries from description field. This type of entry is a reference to non-existent paper volumes, deprecated many years ago.
 
+
 * Populate the date field, if a valid year (see below) can be found within the title, subject, or description fields. This script is not infallible; but it will likely pick the correct year when one is listed, and will ultimately save a lot of typing. However, the output .csv file must be manually verified for correctness.
 
-A valid year is one between 1839 (the invention of photography) and 1980 (approximate culmination of the photo archive). When multiple years are found, the highest year will be used. For example, for this description:
+   A valid year is one between 1839 (the invention of photography) and 1980 (approximate culmination of the photo archive). When multiple years are found, the highest year will be used. For example, for this description:
 
       St. Leander's Rectory, 1899-1949, razed in 1954 photo taken around 1914.
    
-`comber.py` will find a list of years, [1899, 1949, 1954, 1914], and return 1954. This is a good example of why the date field will need to be manually verified in the output .csv file.
+   `comber.py` will find a list of years, [1899, 1949, 1954, 1914], and return 1954. This is a good example of why the date field will need to be manually verified in the output .csv file.
+
 
 * Merge description information contained in a .xls file on a DVD version of the photo archive, produced around 2003. A new field, `description_from_DVD`, is inserted next to the existing `description` field, and is populated only when the description field from the DVD adds new information.
 
-## Web_Application (... documentation in process)
+
+## Web_Application
+
+(... documentation in process)
 
 * Bootstrap
 * Some Python-compatible map host: https://blog.rapidapi.com/top-map-apis/
