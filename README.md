@@ -45,7 +45,7 @@ This Python script uses Selenium (https://www.seleniumhq.org/) to "scrape" metad
 
     $ git clone https://github.com/jeffb4real/SLHPA-Web-App.git
     
-8. 'cd' into the repository directory:
+8. Navigate to the repository directory:
 
     $ cd SLHPA-Web-App
 
@@ -70,6 +70,18 @@ This Python script performs data cleaning/augmentation on the scraped data. Inpu
 
 
 * Merge description information contained in a .xls file on a DVD version of the photo archive, produced around 2003. A new field, `description_from_DVD`, is inserted next to the existing `description` field, and is populated only when the description field from the DVD adds new information.
+
+### How to run `comber.py`
+
+Assuming this project has already been cloned:
+
+1. Navigate to the repository directory:
+
+      $ cd SLHPA-Web-App
+
+2. Run the comber:
+
+      $ python comber.py
 
 
 ## Web_Application
