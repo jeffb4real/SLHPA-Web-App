@@ -18,6 +18,7 @@ rightCoord = 'E9'
 leftGPS = -122.19608
 rightGPS = -122.12383
 
+# Turns a string of the form [A-Z][0-9] into a number between 0 and whatever.
 def toNumeric(coord):
     asciiA = ord('A')
     alphaCoord = ord(coord[0])
