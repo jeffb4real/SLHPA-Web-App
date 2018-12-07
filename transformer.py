@@ -19,7 +19,11 @@ leftGPS = -122.19608
 rightGPS = -122.12383
 
 def toNumeric(coord):
-    return (ord(coord[0]) - ord('A')) * 10 + (ord(coord[1]) - ord('0'))
+    asciiA = ord('A')
+    alphaCoord = ord(coord[0])
+    ascii0 = ord('0')
+    numericCoord = ord(coord[1])
+    return ((alphaCoord - asciiA) * 10) + (numericCoord - ascii0)
 
 def transformHorizontal(value):
     return map(toNumeric(value), toNumeric(leftCoord), toNumeric(rightCoord), leftGPS, rightGPS)
