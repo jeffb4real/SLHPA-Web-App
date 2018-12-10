@@ -49,5 +49,6 @@ def test():
     print('transform upper left: ' + str(transformPoint(leftCoord + '18')))
     print('transform lower right: ' + str(transformPoint(rightCoord + '46')))
     print('transform lower right: ' + str(transformPoint('99' + rightCoord + '46')))
+    print('transform test data 1: ' + str(transformPoint('D625')))
 
 test()
