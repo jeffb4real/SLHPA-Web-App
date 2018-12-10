@@ -2,10 +2,18 @@
 import sys
 import csv
 
+def placePin(horizontal, vertical, name, description, photo):
+    print('TODO : place pin for : ' + name) 
+
 def handleRecord(record):
     geoCoords = record['geo_coord_UTM']
     if geoCoords is not None and len(geoCoords) > 0:
-        print(record)
+        coords = geoCoords.split(',')
+        if len(coords) == 2:
+            horizontal = float(coords[0])
+            vertical = float(coords[1])
+            placePin(horizontal, vertical,
+                     record['asset_name'], record['description'], record['url_for_file'])
 
 def readFromStream(inputStream):
     reader = csv.DictReader(inputStream, delimiter=',',
@@ -17,11 +25,11 @@ def clearExistingPins():
     print('TODO : implement clearExistingPins')
 
 def main():
-    clearExistingPins()
     if (len(sys.argv) > 1):
+        clearExistingPins()
         readFromStream(open(sys.argv[1]))
     else:
-        readFromStream(sys.stdin)
+        print('Must pass input file name as first command line parameter.')
 
 def test():
     testData = [ {'resource_name' : '00000001.pdf',
@@ -69,6 +77,7 @@ def test():
                  ]
     for record in testData:
         handleRecord(record)
+    readFromStream(open('data/SLHPA-records-phase01.csv'))
 
 test()
 
