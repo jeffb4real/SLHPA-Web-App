@@ -33,6 +33,8 @@ def transformHorizontal(value):
 
 # Turns a string of the form [A-Z][0-9][0-9][0-9] into GPS coordinates.
 def transformPoint(coords):
+    if (len(coords) > 4):
+        coords = coords[2:6]
     tensCoord = ord(coords[2])
     onesCoord = ord(coords[3])
     verticalCoord = transformVertical(((tensCoord - ascii0) * 10) + (onesCoord - ascii0))
@@ -46,5 +48,6 @@ def test():
     print('transform right: ' + str(transformHorizontal(rightCoord)))
     print('transform upper left: ' + str(transformPoint(leftCoord + '18')))
     print('transform lower right: ' + str(transformPoint(rightCoord + '46')))
+    print('transform lower right: ' + str(transformPoint('99' + rightCoord + '46')))
 
 test()
