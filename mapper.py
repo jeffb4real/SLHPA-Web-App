@@ -77,7 +77,6 @@ def test():
                  ]
     for record in testData:
         handleRecord(record)
-    readFromStream(open('data/SLHPA-records-phase01.csv'))
 
 test()
 
