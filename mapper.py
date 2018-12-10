@@ -3,7 +3,8 @@ import sys
 import csv
 
 def handleRecord(record):
-    if len(record['geo_coord_UTM']) > 0:
+    geoCoords = record['geo_coord_UTM']
+    if geoCoords is not None and len(geoCoords) > 0:
         print(record)
 
 def readFromStream(inputStream):
@@ -50,6 +51,20 @@ def test():
                   'subject_group' : '',
                   'geo_coord_original' : '',
                   'geo_coord_UTM' : ''
+                  },
+                  {'resource_name' : '00000002.pdf',
+                  'asset_name' : 'Bank of San Leandro, ca 1893',
+                  'file_size' : '365.50 KB',
+                  'title' : 'Bank of San Leandro, ca 1893',
+                  'subject' : '',
+                  'description' : '',
+                  'contributor' : 'Galvan, Andy',
+                  'digital_format' : 'PDF',
+                  'url_for_file' : 'https://sanle.ent.sirsi.net/client/en_US/search/asset/5139/0',
+                  'date' : '',
+                  'subject_group' : '',
+                  'geo_coord_original' : '',
+                  'geo_coord_UTM' : None
                   }
                  ]
     for record in testData:
