@@ -68,7 +68,7 @@ def scan_pages(driver, more_pages, skipped_pages):
         page_number = int(page/12 + 1)
         try:
             driver.get(baseURL + '&rw=' + str(page))
-            print (" %i" % page_number, end = "")
+            print (" %i" % page, end = "")
 
             # This XPath returns an iterable list of records found on this search page
             list_of_records = driver.find_elements(By.XPATH, "//div[contains(@id,'syndeticsImg')]")
@@ -83,7 +83,6 @@ def scan_pages(driver, more_pages, skipped_pages):
                 # Open the white sub-page for this record
                 #print ("record_index: " + str(record_index))
                 #print ("absolute_record_number: " + str(absolute_record_number))
-                print(".", end = "")
                 record = list_of_records[record_index]
                 record.click()
                 time.sleep(1)
@@ -248,6 +247,7 @@ def scan_pages(driver, more_pages, skipped_pages):
                         this_record.digital_format,
                         this_record.url_for_file,
                     ])
+                print(".", end = "")
         except:
             return [page_number]
     return []
@@ -304,4 +304,4 @@ except:
 
 endtime = datetime.now()
 print("Finished at: ", endtime)
-print("Elapsed minutes: " + str((endtime - starttime).seconds / 60))
+print("Elapsed minutes: " + str(int((endtime - starttime).seconds / 60)))
