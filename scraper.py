@@ -288,8 +288,6 @@ try:
 except:
     log("Caught exception in 'main': " + str(sys.exc_info()[0]))
 
-log("Finished")
+print('')
 minutes = (datetime.datetime.now() - starttime).seconds / 60
-hours = minutes / 60
-minutes = minutes % 60
-log("Elapsed : " + str(int(hours)) + ':' + str(int(minutes)))
+log("Elapsed minutes : " + str(int(minutes)))
