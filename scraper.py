@@ -7,6 +7,7 @@ from selenium.common.exceptions import *
 import time
 import os
 import sys
+import datetime
 from dumper import dump
 
 # All fields for a single record
@@ -31,6 +32,9 @@ def badValue(theArray, theIndex):
         return True
     return False
 
+def log(message):
+    print(str(datetime.datetime.now()) + '\t' + message)
+
 def close(record, count):
     # Locate the white sub-page close button and click it.
     # Notice 'count', because each sub-page close button is unique!
@@ -44,7 +48,7 @@ baseURL = "https://sanle.ent.sirsi.net/client/en_US/default/search/results?te=AS
 def add_skipped_record(record_index, page_number, absolute_record_number, skipped_pages):
     errorFormat = "Failed to get resource_name for record : {} on page: {} ({}). Skipping record."
     err = errorFormat.format(record_index, int(page_number), absolute_record_number)
-    print(err)
+    log(err)
     skipped_pages.append(err)
 
 def scan_pages(driver, more_pages, skipped_pages):
@@ -68,7 +72,7 @@ def scan_pages(driver, more_pages, skipped_pages):
         page_number = int(page/12 + 1)
         try:
             driver.get(baseURL + '&rw=' + str(page))
-            print (" %i" % page, end = "")
+            print(" %i" % page, end = "")
 
             # This XPath returns an iterable list of records found on this search page
             list_of_records = driver.find_elements(By.XPATH, "//div[contains(@id,'syndeticsImg')]")
@@ -81,8 +85,8 @@ def scan_pages(driver, more_pages, skipped_pages):
                 this_record = CSVrecord()
 
                 # Open the white sub-page for this record
-                #print ("record_index: " + str(record_index))
-                #print ("absolute_record_number: " + str(absolute_record_number))
+                # log("record_index: " + str(record_index))
+                # log("absolute_record_number: " + str(absolute_record_number))
                 record = list_of_records[record_index]
                 record.click()
                 time.sleep(1)
@@ -123,7 +127,7 @@ def scan_pages(driver, more_pages, skipped_pages):
                     absolute_record_number = absolute_record_number + 1
                     next_pages.append(page_number)
                     return next_pages
-                #print ("Resource Name: %s" % resource_name[record_index].text)
+                # log("Resource Name: %s" % resource_name[record_index].text)
                 this_record.resource_name = resource_name[record_index].text
 
                 ###########################
@@ -135,7 +139,6 @@ def scan_pages(driver, more_pages, skipped_pages):
                 asset_name = record.find_elements(By.XPATH,
                     "//div[@class='displayElementText ASSET_NAME']")
                 if (not badValue(asset_name, record_index)):
-                    #print ("Asset Name: %s" % asset_name[record_index].text)
                     this_record.asset_name = asset_name[record_index].text
 
                 # File Size
@@ -143,7 +146,6 @@ def scan_pages(driver, more_pages, skipped_pages):
                 file_size = record.find_elements(By.XPATH,
                     "//div[@class='properties']//div[@class='displayElementText FILE_SIZE']")
                 if (not badValue(file_size, record_index)):
-                    #print ("File Size: %s" % file_size[record_index].text)
                     this_record.file_size = file_size[record_index].text
 
                 # Title
@@ -151,7 +153,6 @@ def scan_pages(driver, more_pages, skipped_pages):
                 title = record.find_elements(By.XPATH,
                     "//div[@class='displayElementText TITLE']")
                 if (not badValue(title, record_index)):
-                    #print ("Title: %s" % title[record_index].text)
                     this_record.title = title[record_index].text
 
                 # Subject
@@ -162,17 +163,12 @@ def scan_pages(driver, more_pages, skipped_pages):
                 # # TODO: fix this
                 # subject = record.find_element(By.XPATH,
                 #     "//div[@class='displayElementText']//table/tbody")
-                # print ("Subject: ")
                 # if (subject):
                 #     rows = subject.find_elements(By.TAG_NAME, 'tr')
-                #     print ("len: %s" % len(rows))
                 this_record.subject = ''
 
                     # for row in rows:
                     #     col = row.find_elements(By.TAG_NAME, 'td')[0]
-                    #     print (col.text)
-                #print ("Subject: %s" % subject[record_index].text)
-                #dump (subject)
                 #this_record.subject = subject[record_index].text
 
                 # Description
@@ -180,7 +176,6 @@ def scan_pages(driver, more_pages, skipped_pages):
                 description = record.find_elements(By.XPATH,
                     "//div[@class='displayElementText DESCRIPTION']")
                 if (not badValue(description, record_index)):
-                    #print ("Description: %s" % description[record_index].text)
                     this_record.description = description[record_index].text
 
                 # Contributor
@@ -191,25 +186,20 @@ def scan_pages(driver, more_pages, skipped_pages):
                 last_element = len(contributor) - 1
                 if (last_element > -1):
                     if (contributor[last_element].text):
-                        #print ("Contributor: %s" % contributor[last_element].text)
                         this_record.contributor = contributor[last_element].text
                 # # A better equivalent?
                 # if (contributor):
-                #     print ("Contributor: %s" % contributor[-1].text)
-
                 # # TODO: FIX THIS
                 # # Type
                 # #//div[@id='detail_biblio6']//div//div[@class='displayElementText RESOURCE_TYPE']
                 # type = record.find_elements(By.XPATH,
                 #     "//div[@class='displayElementText RESOURCE_TYPE']")
-                # print ("Type: ->%s<-" % type[record_index].text)
 
                 # Digital Format
                 #//div[@id='detail_biblio6']//div//div[@class='displayElementText DIGITAL_FORMAT']
                 digital_format = record.find_elements(By.XPATH,
                     "//div[@class='displayElementText DIGITAL_FORMAT']")
                 if (not badValue(digital_format, record_index)):
-                    #print ("Digital Format: %s" % digital_format[record_index].text)
                     this_record.digital_format = digital_format[record_index].text
 
                 # URL for File
@@ -224,9 +214,7 @@ def scan_pages(driver, more_pages, skipped_pages):
                     next_pages.append(page_number)
                     return next_pages
 
-                #print ("URL for File: %s" % url_for_file[record_index].text)
                 this_record.url_for_file = url_for_file[record_index].text
-                #print ("\n----")
 
                 close(record, count)
                 count += 1
@@ -279,10 +267,10 @@ def scan(more_pages):
     try:
         next_pages = scan_pages(driver, more_pages, skipped_records)
     except:
-        print("Caught exception in scan(): " + str(sys.exc_info()[0]))
+        log("Caught exception in scan(): " + str(sys.exc_info()[0]))
 
     for s in skipped_records:
-        print(s)
+        log(s)
 
     # Rename output .csv file so it won't get clobbered next run
     os.rename('SLHPA-records.csv', 'SLHPA-records_' + time.strftime("%Y%m%d-%H%M%S") + '.csv')
@@ -290,18 +278,18 @@ def scan(more_pages):
     driver.close()
     return next_pages
 
-from datetime import datetime
-starttime = datetime.now()
-print("Started at: ", starttime)
+starttime = datetime.datetime.now()
+log("Started")
 try:
     more_pages = [1]
     while (len(more_pages) > 0):
-        print("starting at page: " + str(more_pages[0]))
+        log("starting at page: " + str(more_pages[0]))
         more_pages = scan(more_pages)
-
 except:
-    print("Caught exception in 'main': " + str(sys.exc_info()[0]))
+    log("Caught exception in 'main': " + str(sys.exc_info()[0]))
 
-endtime = datetime.now()
-print("Finished at: ", endtime)
-print("Elapsed minutes: " + str(int((endtime - starttime).seconds / 60)))
+log("Finished")
+minutes = (datetime.datetime.now() - starttime).seconds / 60
+hours = minutes / 60
+minutes = minutes % 60
+log("Elapsed : " + str(int(hours)) + ':' + str(int(minutes)))
