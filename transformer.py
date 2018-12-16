@@ -1,4 +1,6 @@
 # Transform from 1980 paper map coordinates to GPS
+import sys
+import csv
 
 
 def map_value(value, from_start, from_end, to_start, to_end):
@@ -49,6 +51,22 @@ def transform_point(coords):
     return [vertical_coord, horizontal_coord]
 
 
+def read_from_stream(the_file_name):
+    with open(the_file_name, 'r', newline='') as infile:
+        reader = csv.reader(infile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+        i = 0;
+        for record in reader:
+            i += 1
+        print('Would have processed ' + str(i) + ' records')
+
+
+def main():
+    if (len(sys.argv) > 1):
+        read_from_stream(sys.argv[1])
+    else:
+        print('Read from stdin not implemented yet')
+
+
 def test():
     print('transform top: ' + str(transform_vertical(top_coord)))
     print('transform bottom: ' + str(transform_vertical(bottom_coord)))
@@ -58,10 +76,6 @@ def test():
     print('transform lower right: ' + str(transform_point(right_coord + '46')))
     print('transform lower right: ' + str(transform_point('99' + right_coord + '46')))
     print('transform test data 1: ' + str(transform_point('D625')))
-
-
-def main():
-    pass
 
 
 if '__main__' == __name__:
