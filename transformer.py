@@ -60,4 +60,10 @@ def test():
     print('transform test data 1: ' + str(transform_point('D625')))
 
 
-test()
+def main():
+    pass
+
+
+if '__main__' == __name__:
+    main()
+    # test()
