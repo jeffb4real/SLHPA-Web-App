@@ -51,26 +51,25 @@ def transform_point(coords):
     return [vertical_coord, horizontal_coord]
 
 
-def read_from_stream(the_file_name):
-    with open(the_file_name, 'r', newline='') as infile:
-        reader = csv.DictReader(infile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-        total_records = 0
-        transformed_records = 0
-        for record in reader:
-            total_records += 1
-            record['geo_coord_original'] = record['geo_coord_original'].replace(' ', '')
-            if len(record['geo_coord_original']) >= 4:
-                record['geo_coord_UTM'] = transform_point(record['geo_coord_original'])
-                transformed_records += 1
-        print('Processed ' + str(total_records) + ' records from ' + the_file_name +
-              ', transformed ' + str(transformed_records))
+def read_from_stream(infile):
+    reader = csv.DictReader(infile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+    total_records = 0
+    transformed_records = 0
+    for record in reader:
+        total_records += 1
+        record['geo_coord_original'] = record['geo_coord_original'].replace(' ', '')
+        if len(record['geo_coord_original']) >= 4:
+            record['geo_coord_UTM'] = transform_point(record['geo_coord_original'])
+            transformed_records += 1
+    print('Processed ' + str(total_records) + ' records, transformed ' + str(transformed_records))
 
 
 def main():
     if len(sys.argv) > 1:
-        read_from_stream(sys.argv[1])
+        with open(sys.argv[1], 'r', newline='') as infile:
+            read_from_stream(infile)
     else:
-        print('Read from stdin not implemented yet')
+        read_from_stream(sys.stdin)
 
 
 def test():
