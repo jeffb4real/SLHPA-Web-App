@@ -1,7 +1,7 @@
 # Transform from 1980 paper map coordinates to GPS
 
 
-def mapvalue(value, from_start, from_end, to_start, to_end):
+def map_value(value, from_start, from_end, to_start, to_end):
     if from_end == from_start:
         return value
     return (value - from_start) * (to_end - to_start) / (from_end - from_start) + to_start
@@ -15,13 +15,13 @@ bottom_gps = 37.70097
 
 
 def transform_vertical(value):
-    return mapvalue(value, top_coord, bottom_coord, top_gps, bottom_gps)
+    return map_value(value, top_coord, bottom_coord, top_gps, bottom_gps)
 
 
-leftCoord = 'B7'
-rightCoord = 'E9'
-leftGPS = -122.19608
-rightGPS = -122.12383
+left_coord = 'B7'
+right_coord = 'E9'
+left_gps = -122.19608
+right_gps = -122.12383
 
 asciiA = ord('A')
 ascii0 = ord('0')
@@ -35,7 +35,7 @@ def to_numeric(coord):
 
 
 def transform_horizontal(value):
-    return mapvalue(to_numeric(value), to_numeric(leftCoord), to_numeric(rightCoord), leftGPS, rightGPS)
+    return map_value(to_numeric(value), to_numeric(left_coord), to_numeric(right_coord), left_gps, right_gps)
 
 
 # Turns a string of the form [A-Z][0-9][0-9][0-9] into GPS coordinates.
@@ -52,11 +52,11 @@ def transform_point(coords):
 def test():
     print('transform top: ' + str(transform_vertical(top_coord)))
     print('transform bottom: ' + str(transform_vertical(bottom_coord)))
-    print('transform left: ' + str(transform_horizontal(leftCoord)))
-    print('transform right: ' + str(transform_horizontal(rightCoord)))
-    print('transform upper left: ' + str(transform_point(leftCoord + '18')))
-    print('transform lower right: ' + str(transform_point(rightCoord + '46')))
-    print('transform lower right: ' + str(transform_point('99' + rightCoord + '46')))
+    print('transform left: ' + str(transform_horizontal(left_coord)))
+    print('transform right: ' + str(transform_horizontal(right_coord)))
+    print('transform upper left: ' + str(transform_point(left_coord + '18')))
+    print('transform lower right: ' + str(transform_point(right_coord + '46')))
+    print('transform lower right: ' + str(transform_point('99' + right_coord + '46')))
     print('transform test data 1: ' + str(transform_point('D625')))
 
 
