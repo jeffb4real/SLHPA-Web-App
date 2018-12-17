@@ -69,7 +69,8 @@ def main():
         with open(sys.argv[1], 'r', newline='') as infile:
             read_from_stream(infile)
     else:
-        read_from_stream(sys.stdin)
+        print('Reading from stdin not tested yet.')
+        # read_from_stream(sys.stdin)
 
 
 def test():
