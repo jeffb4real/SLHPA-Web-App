@@ -53,6 +53,10 @@ def transform_point(coords):
 
 def read_from_stream(infile):
     reader = csv.DictReader(infile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+    outfile = open('data/transformed.csv', 'w', newline='')
+    writer = csv.DictWriter(outfile, reader.fieldnames, delimiter=',', quotechar='"',
+                            quoting=csv.QUOTE_MINIMAL)
+    writer.writeheader()
     total_records = 0
     transformed_records = 0
     for record in reader:
@@ -61,6 +65,7 @@ def read_from_stream(infile):
         if len(record['geo_coord_original']) >= 4:
             record['geo_coord_UTM'] = transform_point(record['geo_coord_original'])
             transformed_records += 1
+        writer.writerow(record)
     print('Processed ' + str(total_records) + ' records, transformed ' + str(transformed_records))
 
 
