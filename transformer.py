@@ -75,11 +75,17 @@ def main():
 
 
 def check_value(message, expected_value, actual_value):
-    eps = 0.00001
+    eps = 0.000001
     if abs(expected_value - actual_value) > eps:
-        print("Fail: " + str(message) + ' Expected: ' + str(expected_value) + ', Actual: ' + str(actual_value))
+        print("Fail: " + message + ' Expected: ' + str(expected_value) + ', Actual: ' + str(actual_value))
     else:
         print("Pass: " + message)
+
+
+def test_point(expected_horizonal, expected_vertical, old_coords):
+    point = transform_point(old_coords)
+    check_value('transform_point horizontal', expected_horizonal, point[0])
+    check_value('transform_point vertical', expected_vertical, point[1])
 
 
 def test():
@@ -88,16 +94,11 @@ def test():
     check_value('transform_horizontal(left_coord)', left_gps, transform_horizontal(left_coord))
     check_value('transform_horizontal(right_coord)', right_gps, transform_horizontal(right_coord))
 
-    upper_left = transform_point(left_coord + str(top_coord))
-    check_value('transform_point left', left_gps, upper_left[0])
-    check_value('transform_point top', top_gps, upper_left[1])
-    lower_right = transform_point(right_coord + str(bottom_coord))
-    check_value('transform_point right', right_gps, lower_right[0])
-    check_value('transform_point bottom', bottom_gps, lower_right[1])
-
-    print('')
-    print('transform lower right: ' + str(transform_point('99' + right_coord + '46')))
-    print('transform test data 1: ' + str(transform_point('D625')))
+    test_point(left_gps, top_gps, left_coord + str(top_coord))
+    test_point(right_gps, bottom_gps, right_coord + str(bottom_coord))
+    test_point(left_gps, 37.71362, '12B732')
+    test_point(-122.19608, 37.70097, '18B746')
+    test_point(-122.13737, 37.73719, '99E317')
 
 
 if '__main__' == __name__:
