@@ -48,7 +48,7 @@ def transform_point(coords):
     ones_coord = ord(coords[3])
     vertical_coord = transform_vertical(((tens_coord - ascii0) * 10) + (ones_coord - ascii0))
     horizontal_coord = transform_horizontal(coords[0:2])
-    return [vertical_coord, horizontal_coord]
+    return [horizontal_coord, vertical_coord]
 
 
 def read_from_stream(infile):
@@ -70,25 +70,38 @@ def read_from_stream(infile):
 
 
 def main():
-    if len(sys.argv) > 1:
-        with open(sys.argv[1], 'r', newline='') as infile:
-            read_from_stream(infile)
+    with open('data/combed.csv', 'r', newline='') as infile:
+        read_from_stream(infile)
+
+
+def check_value(message, expected_value, actual_value):
+    eps = 0.00001
+    if abs(expected_value - actual_value) > eps:
+        print("Fail: " + str(message) + ' Expected: ' + str(expected_value) + ', Actual: ' + str(actual_value))
     else:
-        print('Reading from stdin not tested yet.')
-        # read_from_stream(sys.stdin)
+        print("Pass: " + message)
 
 
 def test():
-    print('transform top: ' + str(transform_vertical(top_coord)))
-    print('transform bottom: ' + str(transform_vertical(bottom_coord)))
-    print('transform left: ' + str(transform_horizontal(left_coord)))
-    print('transform right: ' + str(transform_horizontal(right_coord)))
-    print('transform upper left: ' + str(transform_point(left_coord + '18')))
-    print('transform lower right: ' + str(transform_point(right_coord + '46')))
+    check_value('transform_vertical(top_coord)', top_gps, transform_vertical(top_coord))
+    check_value('transform_vertical(bottom_coord)', bottom_gps, transform_vertical(bottom_coord))
+    check_value('transform_horizontal(left_coord)', left_gps, transform_horizontal(left_coord))
+    check_value('transform_horizontal(right_coord)', right_gps, transform_horizontal(right_coord))
+
+    upper_left = transform_point(left_coord + str(top_coord))
+    check_value('transform_point left', left_gps, upper_left[0])
+    check_value('transform_point top', top_gps, upper_left[1])
+    lower_right = transform_point(right_coord + str(bottom_coord))
+    check_value('transform_point right', right_gps, lower_right[0])
+    check_value('transform_point bottom', bottom_gps, lower_right[1])
+
+    print('')
     print('transform lower right: ' + str(transform_point('99' + right_coord + '46')))
     print('transform test data 1: ' + str(transform_point('D625')))
 
 
 if '__main__' == __name__:
+    print('----- test -----')
+    test()
+    print('----- main -----')
     main()
-    # test()
