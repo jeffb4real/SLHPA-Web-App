@@ -19,7 +19,7 @@ subject_group = 10
 geo_coord_original = 11
 geo_coord_UTM = 12
 
-# First, create an array of entries in the Title field, from document on photo archive DVD
+# First, create an array of Title field records, from document on photo archive DVD
 csv_input_file = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'data', 'V01-V64 Index.csv')
 title_fields = []
 with open(csv_input_file, 'r', newline='') as infile:
@@ -45,14 +45,13 @@ with open(csv_output_file, 'w', newline='') as outfile, open(csv_input_file, 'r'
     num_removed_descs = 0
     first_record = True
     for record in reader:
-        date = ''
-        description2 = ''
-        list_of_years = []
         # 1.
         # Match year(s). Notice this will match ca.1872 but won't match ca1872
         # Also, will return 1944 if given 1944-45
-        pattern = r'\b(\d\d\d\d)\b'
         print (record[resource_name])
+        date = ''
+        list_of_years = []
+        pattern = r'\b(\d\d\d\d)\b'
         list_of_years.extend(re.findall(pattern, record[title]))
         list_of_years.extend(re.findall(pattern, record[subject]))
         list_of_years.extend(re.findall(pattern, record[description]))
@@ -70,6 +69,7 @@ with open(csv_output_file, 'w', newline='') as outfile, open(csv_input_file, 'r'
 
         # 2.
         # Compare description fields; add description2 if they don't match
+        description2 = ''
         if ((title_fields[desc_index] not in record[description]) and
             (title_fields[desc_index] not in record[title]) and
             (title_fields[desc_index] != 'NR') ):
@@ -78,7 +78,7 @@ with open(csv_output_file, 'w', newline='') as outfile, open(csv_input_file, 'r'
         print ('----')
 
         # 3.
-        # Don't need to keep unuseful descriptions
+        # Don't keep unuseful descriptions
         description1 = record[description]
         if (re.match(r'Vol\.\s+\d+$', description1)):
             description1 = ''
