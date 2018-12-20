@@ -10,6 +10,7 @@ import sys
 import datetime
 from dumper import dump
 
+
 # All fields for a single record
 class CSVrecord(object):
     def __init__(self):
@@ -23,6 +24,7 @@ class CSVrecord(object):
         self.digital_format = None
         self.url_for_file = None
 
+
 def badValue(theArray, theIndex):
     if (not theArray):
         return True
@@ -32,8 +34,6 @@ def badValue(theArray, theIndex):
         return True
     return False
 
-def log(message):
-    print(str(datetime.datetime.now()) + '\t' + message)
 
 def close(record, count):
     # Locate the white sub-page close button and click it.
@@ -42,8 +42,6 @@ def close(record, count):
     close_button.click()
     time.sleep(3)
 
-# We will augment this URL to navigate to successive search pages
-baseURL = "https://sanle.ent.sirsi.net/client/en_US/default/search/results?te=ASSET&isd=true"
 
 def add_skipped_record(record_index, page_number, absolute_record_number, skipped_pages):
     errorFormat = "Failed to get resource_name for record : {} on page: {} ({}). Skipping record."
@@ -51,9 +49,10 @@ def add_skipped_record(record_index, page_number, absolute_record_number, skippe
     log(err)
     skipped_pages.append(err)
 
+
 def scan_pages(driver, more_pages, skipped_pages):
     page_to_start_on = more_pages[0]
-    page_to_end_on = int(2520 / 12)
+    page_to_end_on = int(2526 / 12)    # 2526 records total, 12 per page
     if (len(more_pages) > 1):
         page_to_end_on = more_pages[1]
 
@@ -69,7 +68,7 @@ def scan_pages(driver, more_pages, skipped_pages):
     for page in range (count, (page_to_end_on * 12) + 1, 12):
 
         # Open URL for this search page
-        page_number = int(page/12 + 1)
+        page_number = int(page / 12 + 1)
         try:
             driver.get(baseURL + '&rw=' + str(page))
             print(" %i" % page, end = "")
@@ -77,7 +76,8 @@ def scan_pages(driver, more_pages, skipped_pages):
             # This XPath returns an iterable list of records found on this search page
             list_of_records = driver.find_elements(By.XPATH, "//div[contains(@id,'syndeticsImg')]")
 
-            # All search pages return 12 records; except the last page, which has only 6 records
+            # All search pages return 12 records except the last page, which has only 6 records.
+            # Most DOM selectors use .find_elements, plural, which returns an array of values.
             #for record_index in range(0, 2, 1):    # only look at first few records
             for record_index in range(0, len(list_of_records), 1):
 
@@ -91,35 +91,14 @@ def scan_pages(driver, more_pages, skipped_pages):
                 record.click()
                 time.sleep(1)
 
-                ###########################
-                # DETAILS
-                ###########################
-
-                # .find_elementS PLURAL!!!
-
                 # Resource Name
                 # We do an explit wait on this find command, because Resource Name is the first
-                # element on the page
-                #//div[@class='displayElementText RESOURCE_NAME']
-
-                # wait = WebDriverWait(driver, 10, poll_frequency=1,
-                #     ignored_exceptions=[NoSuchElementException,
-                #         ElementNotVisibleException,
-                #         ElementNotSelectableException])
-                # element = wait.until(EC.element_to_be_clickable((By.ID,
-                #         "stopFilter_stops-0")))
-                # text_to_be_present_in_element
-                # element_to_be_clickable
-                # presence_of_element_located
-                # visibility_of_element_located
-                # presence_of_all_elements_located
+                # element on the page.
                 for i in range (0, 10):
                     resource_name = wait.until(EC.presence_of_all_elements_located((By.XPATH,
                         "//div[@class='displayElementText RESOURCE_NAME']")))
                     if (resource_name):
                         break
-                # resource_name = record.find_elements(By.XPATH,
-                #     "//div[@class='displayElementText RESOURCE_NAME']")
                 if (badValue(resource_name, record_index)):
                     add_skipped_record(record_index, page_number, absolute_record_number, skipped_pages)
                     close(record, count)
@@ -127,59 +106,43 @@ def scan_pages(driver, more_pages, skipped_pages):
                     absolute_record_number = absolute_record_number + 1
                     next_pages.append(page_number)
                     return next_pages
-                # log("Resource Name: %s" % resource_name[record_index].text)
                 this_record.resource_name = resource_name[record_index].text
 
-                ###########################
-                # METADATA
-                ###########################
-
                 # Asset Name
-                #//div[@id='detail_biblio6']//div//div[@class='displayElementText ASSET_NAME']
                 asset_name = record.find_elements(By.XPATH,
                     "//div[@class='displayElementText ASSET_NAME']")
                 if (not badValue(asset_name, record_index)):
                     this_record.asset_name = asset_name[record_index].text
 
                 # File Size
-                #//div[@class='properties']//div[@class='displayElementText FILE_SIZE']
                 file_size = record.find_elements(By.XPATH,
                     "//div[@class='properties']//div[@class='displayElementText FILE_SIZE']")
                 if (not badValue(file_size, record_index)):
                     this_record.file_size = file_size[record_index].text
 
                 # Title
-                #//div[@id='detail_biblio6']//div//div[@class='displayElementText TITLE']
                 title = record.find_elements(By.XPATH,
                     "//div[@class='displayElementText TITLE']")
                 if (not badValue(title, record_index)):
                     this_record.title = title[record_index].text
 
+                # TODO: fix this
                 # Subject
                 #//div[@class='displayElementLabel SUBJECT_label']//div[@class='displayElementText']//table
                 # subject = record.find_elements(By.XPATH,
                 #     "//div[@class='displayElementText']//table/tbody/tr")
-
-                # # TODO: fix this
-                # subject = record.find_element(By.XPATH,
-                #     "//div[@class='displayElementText']//table/tbody")
                 # if (subject):
                 #     rows = subject.find_elements(By.TAG_NAME, 'tr')
                 this_record.subject = ''
 
-                    # for row in rows:
-                    #     col = row.find_elements(By.TAG_NAME, 'td')[0]
-                #this_record.subject = subject[record_index].text
-
+                # TODO: fix this
                 # Description
-                #//div[@id='detail_biblio6']//div//div[@class='displayElementText DESCRIPTION']
                 description = record.find_elements(By.XPATH,
                     "//div[@class='displayElementText DESCRIPTION']")
                 if (not badValue(description, record_index)):
                     this_record.description = description[record_index].text
 
                 # Contributor
-                #//div[@class='displayElementText CONTRIBUTOR']
                 contributor_field = None
                 contributor = record.find_elements(By.XPATH,
                     "//div[@class='displayElementText CONTRIBUTOR']")
@@ -187,23 +150,14 @@ def scan_pages(driver, more_pages, skipped_pages):
                 if (last_element > -1):
                     if (contributor[last_element].text):
                         this_record.contributor = contributor[last_element].text
-                # # A better equivalent?
-                # if (contributor):
-                # # TODO: FIX THIS
-                # # Type
-                # #//div[@id='detail_biblio6']//div//div[@class='displayElementText RESOURCE_TYPE']
-                # type = record.find_elements(By.XPATH,
-                #     "//div[@class='displayElementText RESOURCE_TYPE']")
 
                 # Digital Format
-                #//div[@id='detail_biblio6']//div//div[@class='displayElementText DIGITAL_FORMAT']
                 digital_format = record.find_elements(By.XPATH,
                     "//div[@class='displayElementText DIGITAL_FORMAT']")
                 if (not badValue(digital_format, record_index)):
                     this_record.digital_format = digital_format[record_index].text
 
                 # URL for File
-                #//div[@id='detail_biblio6']//div//a[@title='External Link to Asset']
                 # Oops, I used driver instead of record; but it works so leave it, future TODO
                 url_for_file = driver.find_elements_by_partial_link_text('sanle')
                 if (badValue(url_for_file, record_index)):
@@ -239,6 +193,7 @@ def scan_pages(driver, more_pages, skipped_pages):
         except:
             return [page_number]
     return []
+
 
 def scan(more_pages):
     next_pages = []
@@ -278,8 +233,15 @@ def scan(more_pages):
     driver.close()
     return next_pages
 
+
+def log(message):
+    print(str(datetime.datetime.now()) + '\t' + message)
+
+
+# We will augment this URL to navigate to successive search pages
+baseURL = "https://sanle.ent.sirsi.net/client/en_US/default/search/results?te=ASSET&isd=true"
 starttime = datetime.datetime.now()
-log("Started")
+log("Started scraping")
 try:
     more_pages = [1]
     while (len(more_pages) > 0):
