@@ -45,7 +45,7 @@ def comb(scraped, from_dvd):
     for key, value in scraped.items():
         record_from_dvd = from_dvd.get(key)
         if record_from_dvd is not None:
-            if value.get('year') is not None and len(value['year']) == 0:
+            if value.get('year') is None or len(value['year']) == 0:
                 # Match year(s). Notice this will match ca.1872 but won't match ca1872
                 # Also, will return 1944 if given 1944-45
                 list_of_years = []
