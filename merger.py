@@ -20,8 +20,8 @@ def write(scraped, fieldnames):
     writer = csv.DictWriter(outfile, fieldnames, delimiter=',', quotechar='"',
                             quoting=csv.QUOTE_MINIMAL)
     writer.writeheader()
-    for value in scraped.values():
-        writer.writerow(value)
+    for key, value in sorted(scraped.items()):
+       writer.writerow(value)
     print('Wrote ' + str(len(scraped)) + ' total_records.')
 
 def merge(scraped, transcribed, manually_entered, from_dvd):
@@ -35,6 +35,12 @@ def merge(scraped, transcribed, manually_entered, from_dvd):
 def main():
     with open('data/scraped.csv', 'r', newline='') as infile:
         scraped = read_from_stream_into_dict(infile, str, 'resource_name')
+    for value in scraped.values():
+        value['geo_coord_original'] = None
+        value['geo_coord_UTM'] = None
+        value['date'] = None
+        value['year'] = None
+        value['subject_group'] = None
     with open('data/transcribed.csv', 'r', newline='') as infile:
         transcribed = read_from_stream_into_dict(infile, number_to_pdf, 'resource_number')
     with open('data/manually-entered.csv', 'r', newline='') as infile:
