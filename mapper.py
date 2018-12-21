@@ -15,7 +15,7 @@ def handle_record(lines, record):
         coords = geo_coords.replace('[', '').replace(']', '').split(',')
         if len(coords) == 2:
             lines.append('  <Placemark>\n')
-            lines.append('    <name>' + record['asset_name'] + '</name>\n')
+            lines.append('    <name>' + record['asset_name'].replace('&', 'and') + '</name>\n')
             lines.append('    <description>' + record['resource_name'] + ' / ' + record['geo_coord_original'] + '</description>\n')
             lines.append('    <Point>\n')
             lines.append('    <coordinates>' + coords[0].strip() + ',' + coords[1].strip() + ',0' + '</coordinates>\n')
@@ -31,7 +31,7 @@ def handle_record(lines, record):
 def write_kml_file(added_records, lines, kml_file_index):
     lines.append('</Document>\n')
     lines.append('</kml>\n')
-    fn = 'data/SLHPA.kml' + str(kml_file_index)
+    fn = 'data/SLHPA' + str(kml_file_index) + '.kml'
     with open(fn, 'w+') as kml_file:
         kml_file.writelines(lines)
     log("{: >4d}".format(added_records) + ' written. ' + fn)
@@ -41,7 +41,7 @@ def write_kml_file(added_records, lines, kml_file_index):
 def read_from_stream(input_stream):
     reader = csv.DictReader(input_stream, delimiter=',',
                             quotechar='"', quoting=csv.QUOTE_MINIMAL)
-    MAX_RECORDS_PER_KML = 100
+    MAX_RECORDS_PER_KML = 500
     kml_file_index = 0
     total_records_processed = 0
     added_records = 0
@@ -53,6 +53,7 @@ def read_from_stream(input_stream):
             write_kml_file(added_records, lines, kml_file_index)
             kml_file_index += 1
             added_records = 0
+            lines = ['<?xml version="1.0" encoding="UTF-8"?>\n', '<kml xmlns="http://www.opengis.net/kml/2.2">\n', '<Document>\n']
     if added_records > 0:
         write_kml_file(added_records, lines, kml_file_index)
     log("{: >4d}".format(total_records_processed) + ' records processed')
