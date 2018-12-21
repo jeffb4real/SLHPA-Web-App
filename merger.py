@@ -62,12 +62,11 @@ def comb(scraped, from_dvd):
                         value['year'] = str(max(filtered_list_of_years))
                         num_years_found += 1
 
-            # Compare description fields; add description2 if they don't match
+            # Compare description fields; add description from DVD if they don't match
             title_from_dvd = record_from_dvd['Title']
             if ((title_from_dvd not in value['description']) and
                 (title_from_dvd not in value['title']) and
-                (title_from_dvd != 'NR') and
-                (not re.match(r'Vol\.\s+\d+$', title_from_dvd))):
+                (title_from_dvd != 'NR')):
                 value['description'] += title_from_dvd
                 num_descs_found += 1
     log(str(num_years_found) + ' years added.')
