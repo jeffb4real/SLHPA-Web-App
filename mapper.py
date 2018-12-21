@@ -28,21 +28,34 @@ def handle_record(lines, record):
         return 0
 
 
+def write_kml_file(added_records, lines, kml_file_index):
+    lines.append('</Document>\n')
+    lines.append('</kml>\n')
+    fn = 'data/SLHPA.kml' + str(kml_file_index)
+    with open(fn, 'w+') as kml_file:
+        kml_file.writelines(lines)
+    log("{: >4d}".format(added_records) + ' written. ' + fn)
+    lines = ['<?xml version="1.0" encoding="UTF-8"?>\n', '<kml xmlns="http://www.opengis.net/kml/2.2">\n', '<Document>\n']
+
+
 def read_from_stream(input_stream):
     reader = csv.DictReader(input_stream, delimiter=',',
                             quotechar='"', quoting=csv.QUOTE_MINIMAL)
-    total_records = 0
+    MAX_RECORDS_PER_KML = 100
+    kml_file_index = 0
+    total_records_processed = 0
     added_records = 0
     lines = ['<?xml version="1.0" encoding="UTF-8"?>\n', '<kml xmlns="http://www.opengis.net/kml/2.2">\n', '<Document>\n']
     for record in reader:
         added_records += handle_record(lines, record)
-        total_records += 1
-    lines.append('</Document>\n')
-    lines.append('</kml>\n')
-    fn = 'data/SLHPA.kml'
-    with open(fn, 'w+') as kml_file:
-        kml_file.writelines(lines)
-    log("{: >4d}".format(total_records) + ' records processed, ' + "{: >4d}".format(added_records) + ' written to ' + fn)
+        total_records_processed += 1
+        if added_records == MAX_RECORDS_PER_KML:
+            write_kml_file(added_records, lines, kml_file_index)
+            kml_file_index += 1
+            added_records = 0
+    if added_records > 0:
+        write_kml_file(added_records, lines, kml_file_index)
+    log("{: >4d}".format(total_records_processed) + ' records processed')
 
 
 def main():
