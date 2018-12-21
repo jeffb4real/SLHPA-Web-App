@@ -1,14 +1,17 @@
 # Merge historical photo metadata from multiple source csv files
 import csv
 import sys
+import datetime
 
 def log(message):
     script_name = sys.argv[0]
-    print(script_name + ': ' + message)
+    print(str(datetime.datetime.now()) + '\t'+ script_name + ': ' + message)
 
+# Reformat the primary key column data in the 'from_dvd' file.
 def prepend_zeros(n):
     return "000" + n + '.pdf'
 
+# Reformat the primary key column data in the 'transcribed' file.
 def number_to_pdf(n):
     return "{:0>8d}".format(int(n)) + '.pdf'
 
@@ -32,6 +35,7 @@ def write(scraped, fieldnames):
        writer.writerow(value)
     log(str("{: >4d}".format(len(scraped))) + ' records written to ' + fn)
 
+# Merge data into scraped from all other sources.
 def merge(scraped, transcribed, manually_entered, from_dvd):
     for key, value in scraped.items():
         if transcribed.get(key) is not None:
