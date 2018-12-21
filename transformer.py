@@ -76,7 +76,7 @@ def read_from_stream(infile):
 
 
 def main():
-    with open('data/combed.csv', 'r', newline='') as infile:
+    with open('data/merged.csv', 'r', newline='') as infile:
         read_from_stream(infile)
 
 
@@ -106,5 +106,5 @@ def test():
 
 
 if '__main__' == __name__:
-    test()
+    # test()
     main()
