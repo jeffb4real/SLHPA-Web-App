@@ -3,6 +3,11 @@ import os
 import sys
 import re
 import time
+import datetime
+
+def log(message):
+    script_name = sys.argv[0]
+    print(str(datetime.datetime.now()) + '\t'+ script_name + ': ' + message)
 
 # All fields for a single record
 resource_name = 0
@@ -48,7 +53,7 @@ with open(csv_output_file, 'w', newline='') as outfile, open(csv_input_file, 'r'
         # 1.
         # Match year(s). Notice this will match ca.1872 but won't match ca1872
         # Also, will return 1944 if given 1944-45
-        print (record[resource_name])
+        # print (record[resource_name])
         date = ''
         list_of_years = []
         pattern = r'\b(\d\d\d\d)\b'
@@ -57,14 +62,14 @@ with open(csv_output_file, 'w', newline='') as outfile, open(csv_input_file, 'r'
         list_of_years.extend(re.findall(pattern, record[description]))
         list_of_years.extend(re.findall(pattern, title_fields[desc_index]))
         if (list_of_years):
-            print (list_of_years)
+            # print (list_of_years)
             filtered_list_of_years = []
             for year in list_of_years:
                 if (int(year) > 1838 and int(year) < 1981):
                     filtered_list_of_years.append(year)
             if (filtered_list_of_years):
                 date = str(max(filtered_list_of_years))
-                print ("--------> %s" % date)
+                # print ("--------> %s" % date)
                 num_years_found+=1
 
         # 2.
@@ -75,7 +80,7 @@ with open(csv_output_file, 'w', newline='') as outfile, open(csv_input_file, 'r'
             (title_fields[desc_index] != 'NR') ):
             description2 = title_fields[desc_index]
             num_descs_found+=1
-        print ('----')
+        # print ('----')
 
         # 3.
         # Don't keep unuseful descriptions
@@ -111,9 +116,8 @@ with open(csv_output_file, 'w', newline='') as outfile, open(csv_input_file, 'r'
         desc_index+=1
         num_records+=1
 
-print ("**Found %d title fields" % len(title_fields))
-print ("**Processed %d records" % num_records)
-print ("\n**Found and added %d years to new .csv file" % num_years_found)
-print ("**Added %d descriptions to new .csv file" % num_descs_found)
-print ("**Removed %d unuseful descriptions\n" % num_removed_descs)
-
+log("Found %d title fields" % len(title_fields))
+log("Processed %d records" % num_records)
+log("Found and added %d years to new .csv file" % num_years_found)
+log("Added %d descriptions to new .csv file" % num_descs_found)
+log("Removed %d unuseful descriptions" % num_removed_descs)

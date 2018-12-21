@@ -1,6 +1,12 @@
 # Transform from 1980 paper map coordinates to GPS
 import sys
 import csv
+import datetime
+
+
+def log(message):
+    script_name = sys.argv[0]
+    print(str(datetime.datetime.now()) + '\t'+ script_name + ': ' + message)
 
 
 def map_value(value, from_start, from_end, to_start, to_end):
@@ -66,7 +72,7 @@ def read_from_stream(infile):
             record['geo_coord_UTM'] = transform_point(record['geo_coord_original'])
             transformed_records += 1
         writer.writerow(record)
-    print('Processed ' + str(total_records) + ' records, transformed ' + str(transformed_records))
+    log("{: >4d}".format(total_records) + ' records processed, ' + str("{: >4d}".format(transformed_records)) + ' transformed')
 
 
 def main():
@@ -77,9 +83,7 @@ def main():
 def check_value(message, expected_value, actual_value):
     eps = 0.000001
     if abs(expected_value - actual_value) > eps:
-        print("Fail: " + message + ' Expected: ' + str(expected_value) + ', Actual: ' + str(actual_value))
-    else:
-        print("Pass: " + message)
+        log("Fail: " + message + ' Expected: ' + str(expected_value) + ', Actual: ' + str(actual_value))
 
 
 def test_point(expected_horizonal, expected_vertical, old_coords):
@@ -102,7 +106,5 @@ def test():
 
 
 if '__main__' == __name__:
-    print('----- test -----')
     test()
-    print('----- main -----')
     main()

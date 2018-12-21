@@ -1,5 +1,12 @@
 # Read from csv file (or stdin) and write to Google Maps
 import csv
+import datetime
+import sys
+
+
+def log(message):
+    script_name = sys.argv[0]
+    print(str(datetime.datetime.now()) + '\t'+ script_name + ': ' + message)
 
 
 def handle_record(lines, record):
@@ -32,9 +39,10 @@ def read_from_stream(input_stream):
         total_records += 1
     lines.append('</Document>\n')
     lines.append('</kml>\n')
-    with open('data/SLHPA.kml', 'w+') as kml_file:
+    fn = 'data/SLHPA.kml'
+    with open(fn, 'w+') as kml_file:
         kml_file.writelines(lines)
-    print('Processed ' + str(total_records) + ' records, would have added ' + str(added_records) + ' to map.')
+    log("{: >4d}".format(total_records) + ' records processed, ' + "{: >4d}".format(added_records) + ' written to ' + fn)
 
 
 def main():
