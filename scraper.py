@@ -8,31 +8,22 @@ import time
 import os
 import sys
 import datetime
+import re
 from dumper import dump
 
 
 # All fields for a single record
 class CSVrecord(object):
     def __init__(self):
-        self.resource_name = None
-        self.asset_name = None
-        self.file_size = None
-        self.title = None
-        self.subject = None
-        self.description = None
-        self.contributor = None
-        self.digital_format = None
-        self.url_for_file = None
-
-
-def badValue(theArray, theIndex):
-    if (not theArray):
-        return True
-    if (theIndex >= len(theArray)):
-        return True
-    if (not theArray[theIndex].text):
-        return True
-    return False
+        self.resource_name = ''
+        self.asset_name = ''
+        self.file_size = ''
+        self.title = ''
+        self.subject = ''
+        self.description = ''
+        self.contributor = ''
+        self.digital_format = ''
+        self.url_for_file = ''
 
 
 def close(record, count):
@@ -44,10 +35,23 @@ def close(record, count):
 
 
 def add_skipped_record(record_index, page_number, absolute_record_number, skipped_pages):
-    errorFormat = "Failed to get resource_name for record : {} on page: {} ({}). Skipping record."
+    errorFormat = "Failed to get resource_name for record: {} on page: {} ({}). Retrying page."
     err = errorFormat.format(record_index, int(page_number), absolute_record_number)
     log(err)
     skipped_pages.append(err)
+
+
+def is_bad_value(the_array, the_index):
+    if (not the_array):
+        print ('!array ', end='')
+        return True
+    if (the_index >= len(the_array)):
+        print ('indexrangeErr ', end='')
+        return True
+    if (not the_array[the_index].text):
+        print ('noText ', end='')
+        return True
+    return False
 
 
 def scan_pages(driver, more_pages, skipped_pages):
@@ -60,25 +64,29 @@ def scan_pages(driver, more_pages, skipped_pages):
     absolute_record_number = count + 1
     next_pages = []
 
+    # Explicit wait
     wait = WebDriverWait(driver, 10, poll_frequency=1,
         ignored_exceptions=[NoSuchElementException,
             ElementNotVisibleException,
             ElementNotSelectableException])
 
-    for page in range (count, (page_to_end_on * 12) + 1, 12):
+    for search_page_num in range (count, (page_to_end_on * 12) + 1, 12):
 
-        # Open URL for this search page
-        page_number = int(page / 12 + 1)
+        page_number = int(search_page_num / 12 + 1)
         try:
-            driver.get(baseURL + '&rw=' + str(page))
-            print(" %i" % page, end = "")
+            # Open URL for this search page
+            driver.get(baseURL + '&rw=' + str(search_page_num))
+            print(" %i" % search_page_num, end = '')
 
             # This XPath returns an iterable list of records found on this search page
             list_of_records = driver.find_elements(By.XPATH, "//div[contains(@id,'syndeticsImg')]")
 
+            # Special index for Description field, because records can have
+            # more than 1 description element.
+            desc_index = 0
+
             # All search pages return 12 records except the last page, which has only 6 records.
-            # Most DOM selectors use .find_elements, plural, which returns an array of values.
-            #for record_index in range(0, 2, 1):    # only look at first few records
+            # Most locators use .find_elements, plural, which returns an array.
             for record_index in range(0, len(list_of_records), 1):
 
                 # Class to hold a record
@@ -99,7 +107,7 @@ def scan_pages(driver, more_pages, skipped_pages):
                         "//div[@class='displayElementText RESOURCE_NAME']")))
                     if (resource_name):
                         break
-                if (badValue(resource_name, record_index)):
+                if (is_bad_value(resource_name, record_index)):
                     add_skipped_record(record_index, page_number, absolute_record_number, skipped_pages)
                     close(record, count)
                     count += 1
@@ -111,19 +119,19 @@ def scan_pages(driver, more_pages, skipped_pages):
                 # Asset Name
                 asset_name = record.find_elements(By.XPATH,
                     "//div[@class='displayElementText ASSET_NAME']")
-                if (not badValue(asset_name, record_index)):
+                if (not is_bad_value(asset_name, record_index)):
                     this_record.asset_name = asset_name[record_index].text
 
                 # File Size
                 file_size = record.find_elements(By.XPATH,
                     "//div[@class='properties']//div[@class='displayElementText FILE_SIZE']")
-                if (not badValue(file_size, record_index)):
+                if (not is_bad_value(file_size, record_index)):
                     this_record.file_size = file_size[record_index].text
 
                 # Title
                 title = record.find_elements(By.XPATH,
                     "//div[@class='displayElementText TITLE']")
-                if (not badValue(title, record_index)):
+                if (not is_bad_value(title, record_index)):
                     this_record.title = title[record_index].text
 
                 # TODO: fix this
@@ -133,17 +141,20 @@ def scan_pages(driver, more_pages, skipped_pages):
                 #     "//div[@class='displayElementText']//table/tbody/tr")
                 # if (subject):
                 #     rows = subject.find_elements(By.TAG_NAME, 'tr')
-                this_record.subject = ''
 
-                # TODO: fix this
                 # Description
                 description = record.find_elements(By.XPATH,
                     "//div[@class='displayElementText DESCRIPTION']")
-                if (not badValue(description, record_index)):
-                    this_record.description = description[record_index].text
+                if (not is_bad_value(description, desc_index)):
+                    # Special handling because a record can contain multiple description elements.
+                    for i in range(desc_index, len(description), 1):
+                        if (re.findall(r'\.[\"\'\s]*$', description[i].text)):
+                            this_record.description += description[i].text + ' '
+                        else:
+                            this_record.description += description[i].text + '. '
+                    desc_index = len(description)                
 
                 # Contributor
-                contributor_field = None
                 contributor = record.find_elements(By.XPATH,
                     "//div[@class='displayElementText CONTRIBUTOR']")
                 last_element = len(contributor) - 1
@@ -154,20 +165,19 @@ def scan_pages(driver, more_pages, skipped_pages):
                 # Digital Format
                 digital_format = record.find_elements(By.XPATH,
                     "//div[@class='displayElementText DIGITAL_FORMAT']")
-                if (not badValue(digital_format, record_index)):
+                if (not is_bad_value(digital_format, record_index)):
                     this_record.digital_format = digital_format[record_index].text
 
                 # URL for File
                 # Oops, I used driver instead of record; but it works so leave it, future TODO
                 url_for_file = driver.find_elements_by_partial_link_text('sanle')
-                if (badValue(url_for_file, record_index)):
+                if (is_bad_value(url_for_file, record_index)):
                     add_skipped_record(record_index, page_number, absolute_record_number, skipped_pages)
                     close(record, count)
                     count += 1
                     absolute_record_number = absolute_record_number + 1
                     next_pages.append(page_number)
                     return next_pages
-
                 this_record.url_for_file = url_for_file[record_index].text
 
                 close(record, count)
@@ -189,7 +199,7 @@ def scan_pages(driver, more_pages, skipped_pages):
                         this_record.digital_format,
                         this_record.url_for_file,
                     ])
-                print(".", end = "")
+                print('.', end='', flush=True)
         except:
             return [page_number]
     return []
@@ -197,11 +207,12 @@ def scan_pages(driver, more_pages, skipped_pages):
 
 def scan(more_pages):
     next_pages = []
-    skipped_records = [];
+    skipped_records = []
 
     # Open Chrome
     driver = webdriver.Chrome()
-    # Implicit wait - tells web driver to poll the DOM for specified time; wait is set for duration of web driver object
+    # Implicit wait - tells web driver to poll the DOM for specified time; 
+    # wait is set for duration of web driver object.
     driver.implicitly_wait(2)
 
     # Create output .csv file
@@ -240,6 +251,7 @@ def log(message):
 
 # We will augment this URL to navigate to successive search pages
 baseURL = "https://sanle.ent.sirsi.net/client/en_US/default/search/results?te=ASSET&isd=true"
+
 starttime = datetime.datetime.now()
 log("Started scraping")
 try:
