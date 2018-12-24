@@ -109,5 +109,8 @@ venv.bak/
 # Pycharm
 .idea/
 
+# Visual Studio code
+.vscode/
+
 # custom
 *.csv
