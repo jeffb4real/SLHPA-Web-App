@@ -2,6 +2,7 @@
 import sys
 import csv
 import datetime
+import pprint
 
 
 def log(message):
@@ -20,16 +21,15 @@ top_coord = 18
 bottom_coord = 46
 top_gps = 37.73595
 bottom_gps = 37.70097
+left_coord = 'B7'
+right_coord = 'E9'
+left_gps = -122.19608
+right_gps = -122.12383
 
 
 def transform_vertical(value):
     return map_value(value, top_coord, bottom_coord, top_gps, bottom_gps)
 
-
-left_coord = 'B7'
-right_coord = 'E9'
-left_gps = -122.19608
-right_gps = -122.12383
 
 asciiA = ord('A')
 ascii0 = ord('0')
@@ -46,9 +46,16 @@ def transform_horizontal(value):
     return map_value(to_numeric(value), to_numeric(left_coord), to_numeric(right_coord), left_gps, right_gps)
 
 
+prefix_chars = {}
+
+
 # Turns a string of the form [A-Z][0-9][0-9][0-9] into GPS coordinates.
 def transform_point(coords):
     if len(coords) > 4:
+        prefix = coords[0:2]
+        if prefix_chars.get(prefix) is None:
+            prefix_chars[prefix] = 0
+        prefix_chars[prefix] += 1
         coords = coords[2:6]
     tens_coord = ord(coords[2])
     ones_coord = ord(coords[3])
@@ -78,7 +85,8 @@ def read_from_stream(infile):
 def main():
     with open('data/merged.csv', 'r', newline='') as infile:
         read_from_stream(infile)
-
+    log('prefix_chars:')
+    pprint.pprint(prefix_chars)
 
 def check_value(message, expected_value, actual_value):
     eps = 0.000001
