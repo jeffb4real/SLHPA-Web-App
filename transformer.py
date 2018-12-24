@@ -47,16 +47,23 @@ def transform_horizontal(value):
 
 
 prefix_chars = {}
+vert_coords = {}
+horiz_coords = {}
 
+def increment_count(the_dict, the_value):
+    if the_dict.get(the_value) is None:
+        the_dict[the_value] = 0
+    the_dict[the_value] += 1
 
 # Turns a string of the form [A-Z][0-9][0-9][0-9] into GPS coordinates.
 def transform_point(coords):
     if len(coords) > 4:
         prefix = coords[0:2]
-        if prefix_chars.get(prefix) is None:
-            prefix_chars[prefix] = 0
+        increment_count(prefix_chars, prefix)
         prefix_chars[prefix] += 1
         coords = coords[2:6]
+    increment_count(vert_coords, coords[2:4])
+    increment_count(horiz_coords, coords[0:3])
     tens_coord = ord(coords[2])
     ones_coord = ord(coords[3])
     vertical_coord = transform_vertical(((tens_coord - ascii0) * 10) + (ones_coord - ascii0))
@@ -87,6 +94,10 @@ def main():
         read_from_stream(infile)
     log('prefix_chars:')
     pprint.pprint(prefix_chars)
+    log('horiz_coords:')
+    pprint.pprint(horiz_coords)
+    log('vert_coords:')
+    pprint.pprint(vert_coords)
 
 def check_value(message, expected_value, actual_value):
     eps = 0.000001
