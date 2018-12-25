@@ -63,7 +63,7 @@ def transform_point(coords):
         prefix_chars[prefix] += 1
         coords = coords[2:6]
     increment_count(vert_coords, coords[2:4])
-    increment_count(horiz_coords, coords[0:3])
+    increment_count(horiz_coords, coords[0:2])
     tens_coord = ord(coords[2])
     ones_coord = ord(coords[3])
     vertical_coord = transform_vertical(((tens_coord - ascii0) * 10) + (ones_coord - ascii0))
@@ -71,7 +71,7 @@ def transform_point(coords):
     return [horizontal_coord, vertical_coord]
 
 
-def read_from_stream(infile):
+def transform(infile):
     reader = csv.DictReader(infile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
     outfile = open('data/transformed.csv', 'w', newline='')
     writer = csv.DictWriter(outfile, reader.fieldnames, delimiter=',', quotechar='"',
@@ -89,15 +89,20 @@ def read_from_stream(infile):
     log("{: >4d}".format(total_records) + ' records processed, ' + str("{: >4d}".format(transformed_records)) + ' transformed')
 
 
-def main():
-    with open('data/merged.csv', 'r', newline='') as infile:
-        read_from_stream(infile)
+# Uncomment if you want to see the distribution of coordinates.
+def print_dicts():
     log('prefix_chars:')
     pprint.pprint(prefix_chars)
     log('horiz_coords:')
     pprint.pprint(horiz_coords)
     log('vert_coords:')
     pprint.pprint(vert_coords)
+
+
+def main():
+    with open('data/merged.csv', 'r', newline='') as infile:
+        transform(infile)
+
 
 def check_value(message, expected_value, actual_value):
     eps = 0.000001

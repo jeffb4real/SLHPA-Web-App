@@ -16,13 +16,13 @@ def prepend_zeros(n):
 def number_to_pdf(n):
     return "{:0>8d}".format(int(n)) + '.pdf'
 
-def read_from_stream_into_dict(file_name, key_function, key_column):
+def read_from_stream_into_dict(file_name, key_function_name, key_column):
     dict = {}
     with open(file_name, 'r', newline='') as infile:
         reader = csv.DictReader(infile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
         for record in reader:
             if len(record[key_column]) > 0:
-                dict[key_function(record[key_column])] = record
+                dict[key_function_name(record[key_column])] = record
     log(str("{: >4d}".format(len(dict))) + ' records read from ' + file_name)
     return dict
 
@@ -62,6 +62,7 @@ def comb(scraped, from_dvd):
                         value['year'] = str(max(filtered_list_of_years))
                         num_years_found += 1
 
+            # TODO : create second description column
             # Compare description fields; add description from DVD if they don't match
             title_from_dvd = record_from_dvd['Title']
             if ((title_from_dvd not in value['description']) and

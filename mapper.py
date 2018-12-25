@@ -35,10 +35,9 @@ def write_kml_file(added_records, lines, kml_file_index):
     with open(fn, 'w+') as kml_file:
         kml_file.writelines(lines)
     log("{: >4d}".format(added_records) + ' written. ' + fn)
-    lines = ['<?xml version="1.0" encoding="UTF-8"?>\n', '<kml xmlns="http://www.opengis.net/kml/2.2">\n', '<Document>\n']
 
 
-def read_from_stream(input_stream):
+def transform_to_kml(input_stream):
     reader = csv.DictReader(input_stream, delimiter=',',
                             quotechar='"', quoting=csv.QUOTE_MINIMAL)
     MAX_RECORDS_PER_KML = 500
@@ -60,7 +59,7 @@ def read_from_stream(input_stream):
 
 
 def main():
-    read_from_stream(open('data/transformed.csv'))
+    transform_to_kml(open('data/transformed.csv'))
 
 
 if '__main__' == __name__:
