@@ -16,7 +16,10 @@ def handle_record(lines, record):
         if len(coords) == 2:
             lines.append('  <Placemark>\n')
             lines.append('    <name>' + record['asset_name'].replace('&', 'and') + '</name>\n')
-            lines.append('    <description>' + record['resource_name'] + ' / ' + record['geo_coord_original'] + '</description>\n')
+            description = record['title'] + ' / ' + record['resource_name'] + ' / ' + record['geo_coord_original']
+            if record.get('address'):
+                description += ' / ' + record['address']
+            lines.append('    <description>' + description + '</description>\n')
             lines.append('    <Point>\n')
             lines.append('    <coordinates>' + coords[0].strip() + ',' + coords[1].strip() + ',0' + '</coordinates>\n')
             lines.append('    </Point>\n')
