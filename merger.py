@@ -38,18 +38,16 @@ def write(scraped, fieldnames):
 
 def comb_addresses(scraped):
     addresses_found = []
-
-    # Carpentier|Castro|Dolores|Dowling|Dutton|Callan|Clark|Davis|East|Elmhurst|Estudillo|Fifth|Hays|Lafayette|Oakes|Washington
-    pattern = re.compile('(\d+\s\w+\sAve|St|Blvd|Street|Avenue|Boulevard)')
+    pattern = re.compile(r'\d+\s\w+\s(Ave|St|Blvd|Boulevard)')
     for value in scraped.values():
         for field in 'title', 'subject', 'description', 'description2':
             matches = pattern.match(value[field])
-            if matches is not None:
+            if matches:
                 value['address'] = matches.group(0)
-                addresses_found.append(matches[0])
+                addresses_found.append(value['address'])
                 break
     log(str(len(addresses_found)) + ' addresses_found.')
-    print(addresses_found)
+    # print(addresses_found)
 
 def comb_years(scraped, from_dvd):
     # Search title, subject, and description fields for years between 1839 (the
@@ -98,7 +96,7 @@ def merge(scraped, transcribed, manually_entered, from_dvd):
         if scraped.get(key) is None:
             scraped[key] = value
     comb_years(scraped, from_dvd)
-    # comb_addresses(scraped)
+    comb_addresses(scraped)
 
 def main():
     scraped = read_from_stream_into_dict('data/scraped.csv', str, 'resource_name')
