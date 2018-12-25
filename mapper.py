@@ -11,7 +11,7 @@ def log(message):
 
 def handle_record(lines, record):
     geo_coords = record['geo_coord_UTM']
-    if geo_coords is not None and len(geo_coords) > 0:
+    if geo_coords and len(geo_coords) > 0:
         coords = geo_coords.replace('[', '').replace(']', '').split(',')
         if len(coords) == 2:
             lines.append('  <Placemark>\n')
