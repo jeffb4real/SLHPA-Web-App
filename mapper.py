@@ -16,7 +16,7 @@ def handle_record(lines, record):
         if len(coords) == 2:
             lines.append('  <Placemark>\n')
             lines.append('    <name>' + record['asset_name'].replace('&', 'and') + '</name>\n')
-            description = record['title'] + ' / ' + record['resource_name'] + ' / ' + record['geo_coord_original']
+            description = record['title'].replace('&','and') + ' / ' + record['resource_name'] + ' / ' + record['geo_coord_original']
             if record.get('address'):
                 description += ' / ' + record['address']
             lines.append('    <description>' + description + '</description>\n')
@@ -43,7 +43,7 @@ def write_kml_file(added_records, lines, kml_file_index):
 def transform_to_kml(input_stream):
     reader = csv.DictReader(input_stream, delimiter=',',
                             quotechar='"', quoting=csv.QUOTE_MINIMAL)
-    MAX_RECORDS_PER_KML = 500
+    MAX_RECORDS_PER_KML = 400
     kml_file_index = 0
     total_records_processed = 0
     added_records = 0
