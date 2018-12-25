@@ -22,6 +22,7 @@ class CSVrecord(object):
         self.subject = ''
         self.description = ''
         self.contributor = ''
+        self.period_date = ''
         self.digital_format = ''
         self.url_for_file = ''
 
@@ -43,13 +44,13 @@ def add_skipped_record(record_index, page_number, absolute_record_number, skippe
 
 def is_bad_value(the_array, the_index):
     if (not the_array):
-        print ('!array ', end='')
+        #print ('EmptyArray!', end='')
         return True
     if (the_index >= len(the_array)):
-        print ('indexrangeErr ', end='')
+        #print ('IndexRangeErr!', end='')
         return True
     if (not the_array[the_index].text):
-        print ('noText ', end='')
+        #print ('NoText!', end='')
         return True
     return False
 
@@ -132,6 +133,7 @@ def scan_pages(driver, more_pages, skipped_pages):
                     this_record.title = title[record_index].text
 
                 # Subject
+                # Field may or may not be defined; if defined, may contain more than 1 table data rows
                 subject = record.find_elements(By.XPATH,
                     "//div[@class='detail_biblio resource_margin']//table//td")
                 if (not is_bad_value(subject, subj_index)):
@@ -142,11 +144,13 @@ def scan_pages(driver, more_pages, skipped_pages):
                     subj_index = len(subject)
                 
                 # Description
+                # Field is always defined, but may contain more than 1 description elements
                 description = record.find_elements(By.XPATH,
                     "//div[@class='displayElementText DESCRIPTION']")
                 if (not is_bad_value(description, desc_index)):
                     for i in range(desc_index, len(description), 1):
-                        if (re.findall(r'\.[\"\'\s]*$', description[i].text)):
+                        # Deal with punctuation at end of string(s)
+                        if (re.findall(r'[\.\?\!][\"\'\)\s]*$', description[i].text)):
                             this_record.description += description[i].text + ' '
                         else:
                             this_record.description += description[i].text + '. '
@@ -154,12 +158,18 @@ def scan_pages(driver, more_pages, skipped_pages):
                     desc_index = len(description)
 
                 # Contributor
+                # Field may or may not be defined; if defined, will only contain 1 contributor element
                 contributor = record.find_elements(By.XPATH,
                     "//div[@class='displayElementText CONTRIBUTOR']")
-                last_element = len(contributor) - 1
-                if (last_element > -1):
-                    if (contributor[last_element].text):
-                        this_record.contributor = contributor[last_element].text
+                if (len(contributor)):
+                    this_record.contributor = contributor[-1].text
+
+                # Period Date
+                # Field may or may not be defined; if defined, will only contain 1 period_date element
+                period_date = record.find_elements(By.XPATH,
+                    "//div[@class='displayElementText PERIOD_DATE']")
+                if (len(period_date)):
+                    this_record.period_date = period_date[-1].text
 
                 # Digital Format
                 digital_format = record.find_elements(By.XPATH,
@@ -168,7 +178,6 @@ def scan_pages(driver, more_pages, skipped_pages):
                     this_record.digital_format = digital_format[record_index].text
 
                 # URL for File
-                # Oops, I used driver instead of record; but it works so leave it, future TODO
                 url_for_file = driver.find_elements_by_partial_link_text('sanle')
                 if (is_bad_value(url_for_file, record_index)):
                     add_skipped_record(record_index, page_number, absolute_record_number, skipped_pages)
@@ -195,6 +204,7 @@ def scan_pages(driver, more_pages, skipped_pages):
                         this_record.subject,
                         this_record.description,
                         this_record.contributor,
+                        this_record.period_date,
                         this_record.digital_format,
                         this_record.url_for_file,
                     ])
@@ -225,6 +235,7 @@ def scan(more_pages):
             'subject',
             'description',
             'contributor',
+            'period_date',
             'digital_format',
             'url_for_file',
         ])
@@ -234,8 +245,8 @@ def scan(more_pages):
     except:
         log("Caught exception in scan(): " + str(sys.exc_info()[0]))
 
-    for s in skipped_records:
-        log(s)
+    # for s in skipped_records:
+    #     log(s)
 
     # Rename output .csv file so it won't get clobbered next run
     os.rename('SLHPA-records.csv', 'SLHPA-records_' + time.strftime("%Y%m%d-%H%M%S") + '.csv')
@@ -263,4 +274,4 @@ except:
 
 print('')
 minutes = (datetime.datetime.now() - starttime).seconds / 60
-log("Elapsed minutes : " + str(int(minutes)))
+log("Elapsed minutes: " + str(int(minutes)))
