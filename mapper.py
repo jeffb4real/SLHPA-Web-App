@@ -11,12 +11,15 @@ def log(message):
 
 def handle_record(lines, record):
     geo_coords = record['geo_coord_UTM']
-    if geo_coords is not None and len(geo_coords) > 0:
+    if geo_coords and len(geo_coords) > 0:
         coords = geo_coords.replace('[', '').replace(']', '').split(',')
         if len(coords) == 2:
             lines.append('  <Placemark>\n')
             lines.append('    <name>' + record['asset_name'].replace('&', 'and') + '</name>\n')
-            lines.append('    <description>' + record['resource_name'] + ' / ' + record['geo_coord_original'] + '</description>\n')
+            description = record['title'].replace('&','and') + ' / ' + record['resource_name'] + ' / ' + record['geo_coord_original']
+            if record.get('address'):
+                description += ' / ' + record['address']
+            lines.append('    <description>' + description + '</description>\n')
             lines.append('    <Point>\n')
             lines.append('    <coordinates>' + coords[0].strip() + ',' + coords[1].strip() + ',0' + '</coordinates>\n')
             lines.append('    </Point>\n')
@@ -40,7 +43,7 @@ def write_kml_file(added_records, lines, kml_file_index):
 def transform_to_kml(input_stream):
     reader = csv.DictReader(input_stream, delimiter=',',
                             quotechar='"', quoting=csv.QUOTE_MINIMAL)
-    MAX_RECORDS_PER_KML = 500
+    MAX_RECORDS_PER_KML = 400
     kml_file_index = 0
     total_records_processed = 0
     added_records = 0

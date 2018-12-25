@@ -36,7 +36,20 @@ def write(scraped, fieldnames):
        writer.writerow(value)
     log(str("{: >4d}".format(len(scraped))) + ' records written to ' + fn)
 
-def comb(scraped, from_dvd):
+def comb_addresses(scraped):
+    addresses_found = []
+    pattern = re.compile(r'\d+\s\w+\s(Ave|St|Blvd|Boulevard)')
+    for value in scraped.values():
+        for field in 'title', 'subject', 'description', 'description2':
+            matches = pattern.match(value[field])
+            if matches:
+                value['address'] = matches.group(0)
+                addresses_found.append(value['address'])
+                break
+    log(str(len(addresses_found)) + ' addresses_found.')
+    # print(addresses_found)
+
+def comb_years(scraped, from_dvd):
     # Search title, subject, and description fields for years between 1839 (the
     # invention of photography) and 1980 (approx. culmination of the photo archive).
     # When multiple valid years are found, use the highest one in the date field.
@@ -68,7 +81,7 @@ def comb(scraped, from_dvd):
             if ((title_from_dvd not in value['description']) and
                 (title_from_dvd not in value['title']) and
                 (title_from_dvd != 'NR')):
-                value['description'] += title_from_dvd
+                value['description2'] = title_from_dvd
                 num_descs_found += 1
     log(str(num_years_found) + ' years added.')
     log(str(num_descs_found) + ' descriptions added.')
@@ -80,8 +93,10 @@ def merge(scraped, transcribed, manually_entered, from_dvd):
             value['geo_coord_original'] = transcribed[key]['geo_coord_original']
             value['year'] = transcribed[key]['year']
     for key, value in manually_entered.items():
-        scraped[key] = value
-    comb(scraped, from_dvd)
+        if scraped.get(key) is None:
+            scraped[key] = value
+    comb_years(scraped, from_dvd)
+    comb_addresses(scraped)
 
 def main():
     scraped = read_from_stream_into_dict('data/scraped.csv', str, 'resource_name')
@@ -90,11 +105,13 @@ def main():
     from_dvd = read_from_stream_into_dict('data/V01-V64 Index.csv', prepend_zeros, 'Index Number')
 
     for value in scraped.values():
-        value['geo_coord_original'] = None
-        value['geo_coord_UTM'] = None
-        value['date'] = None
-        value['year'] = None
-        value['subject_group'] = None
+        value['geo_coord_original'] = ''
+        value['geo_coord_UTM'] = ''
+        value['date'] = ''
+        value['year'] = ''
+        value['subject_group'] = ''
+        value['description2'] = ''
+        value['address'] = ''
 
     merge(scraped, transcribed, manually_entered, from_dvd)
 
@@ -107,6 +124,8 @@ def main():
     fieldnames.append('date')
     fieldnames.append('year')
     fieldnames.append('subject_group')
+    fieldnames.append('description2')
+    fieldnames.append('address')
 
     write(scraped, fieldnames)
 
