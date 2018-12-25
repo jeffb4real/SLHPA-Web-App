@@ -68,7 +68,7 @@ def comb(scraped, from_dvd):
             if ((title_from_dvd not in value['description']) and
                 (title_from_dvd not in value['title']) and
                 (title_from_dvd != 'NR')):
-                value['description'] += title_from_dvd
+                value['description2'] = title_from_dvd
                 num_descs_found += 1
     log(str(num_years_found) + ' years added.')
     log(str(num_descs_found) + ' descriptions added.')
@@ -90,11 +90,12 @@ def main():
     from_dvd = read_from_stream_into_dict('data/V01-V64 Index.csv', prepend_zeros, 'Index Number')
 
     for value in scraped.values():
-        value['geo_coord_original'] = None
-        value['geo_coord_UTM'] = None
-        value['date'] = None
-        value['year'] = None
-        value['subject_group'] = None
+        value['geo_coord_original'] = ''
+        value['geo_coord_UTM'] = ''
+        value['date'] = ''
+        value['year'] = ''
+        value['subject_group'] = ''
+        value['description2'] = ''
 
     merge(scraped, transcribed, manually_entered, from_dvd)
 
@@ -107,6 +108,7 @@ def main():
     fieldnames.append('date')
     fieldnames.append('year')
     fieldnames.append('subject_group')
+    fieldnames.append('description2')
 
     write(scraped, fieldnames)
 
