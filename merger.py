@@ -36,7 +36,22 @@ def write(scraped, fieldnames):
        writer.writerow(value)
     log(str("{: >4d}".format(len(scraped))) + ' records written to ' + fn)
 
-def comb(scraped, from_dvd):
+def comb_addresses(scraped):
+    addresses_found = []
+
+    # Carpentier|Castro|Dolores|Dowling|Dutton|Callan|Clark|Davis|East|Elmhurst|Estudillo|Fifth|Hays|Lafayette|Oakes|Washington
+    pattern = re.compile('(\d+\s\w+\sAve|St|Blvd|Street|Avenue|Boulevard)')
+    for value in scraped.values():
+        for field in 'title', 'subject', 'description', 'description2':
+            matches = pattern.match(value[field])
+            if matches is not None:
+                value['address'] = matches.group(0)
+                addresses_found.append(matches[0])
+                break
+    log(str(len(addresses_found)) + ' addresses_found.')
+    print(addresses_found)
+
+def comb_years(scraped, from_dvd):
     # Search title, subject, and description fields for years between 1839 (the
     # invention of photography) and 1980 (approx. culmination of the photo archive).
     # When multiple valid years are found, use the highest one in the date field.
@@ -80,8 +95,10 @@ def merge(scraped, transcribed, manually_entered, from_dvd):
             value['geo_coord_original'] = transcribed[key]['geo_coord_original']
             value['year'] = transcribed[key]['year']
     for key, value in manually_entered.items():
-        scraped[key] = value
-    comb(scraped, from_dvd)
+        if scraped.get(key) is None:
+            scraped[key] = value
+    comb_years(scraped, from_dvd)
+    # comb_addresses(scraped)
 
 def main():
     scraped = read_from_stream_into_dict('data/scraped.csv', str, 'resource_name')
@@ -96,6 +113,7 @@ def main():
         value['year'] = ''
         value['subject_group'] = ''
         value['description2'] = ''
+        value['address'] = ''
 
     merge(scraped, transcribed, manually_entered, from_dvd)
 
@@ -109,6 +127,7 @@ def main():
     fieldnames.append('year')
     fieldnames.append('subject_group')
     fieldnames.append('description2')
+    fieldnames.append('address')
 
     write(scraped, fieldnames)
 
