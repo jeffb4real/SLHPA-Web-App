@@ -19,6 +19,8 @@ def handle_record(lines, record):
             description = record['title'].replace('&','and') + ' / ' + record['resource_name'] + ' / ' + record['geo_coord_original']
             if record.get('address'):
                 description += ' / ' + record['address']
+            if record.get('paper_page_number'):
+                description += ' / ' + record['paper_page_number']
             lines.append('    <description>' + description + '</description>\n')
             lines.append('    <Point>\n')
             lines.append('    <coordinates>' + coords[0].strip() + ',' + coords[1].strip() + ',0' + '</coordinates>\n')
