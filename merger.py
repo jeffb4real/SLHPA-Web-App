@@ -46,7 +46,7 @@ def comb_addresses(scraped):
                 value['address'] = matches.group(0)
                 addresses_found.append(value['address'])
                 break
-    log(str(len(addresses_found)) + ' addresses_found.')
+    log("{: >4d}".format(len(addresses_found)) + ' addresses_found.')
     # print(addresses_found)
 
 def comb_years(scraped, from_dvd):
@@ -83,8 +83,8 @@ def comb_years(scraped, from_dvd):
                 (title_from_dvd != 'NR')):
                 value['description2'] = title_from_dvd
                 num_descs_found += 1
-    log(str(num_years_found) + ' years added.')
-    log(str(num_descs_found) + ' descriptions added.')
+    log("{: >4d}".format(num_years_found) + ' years added.')
+    log("{: >4d}".format(num_descs_found) + ' descriptions added.')
 
 # Merge data into scraped from all other sources.
 def merge(scraped, transcribed, manually_entered, from_dvd):
@@ -92,9 +92,13 @@ def merge(scraped, transcribed, manually_entered, from_dvd):
         if transcribed.get(key) is not None:
             value['geo_coord_original'] = transcribed[key]['geo_coord_original']
             value['year'] = transcribed[key]['year']
+            value['paper_page_number'] = transcribed[key]['paper_page_number']
+    added = 0
     for key, value in manually_entered.items():
         if scraped.get(key) is None:
             scraped[key] = value
+            added += 1
+    log("{: >4d}".format(added) + ' records added.')
     comb_years(scraped, from_dvd)
     comb_addresses(scraped)
 
@@ -104,29 +108,20 @@ def main():
     manually_entered = read_from_stream_into_dict('data/manually-entered.csv', str, 'resource_name')
     from_dvd = read_from_stream_into_dict('data/V01-V64 Index.csv', prepend_zeros, 'Index Number')
 
-    for value in scraped.values():
-        value['geo_coord_original'] = ''
-        value['geo_coord_UTM'] = ''
-        value['date'] = ''
-        value['year'] = ''
-        value['subject_group'] = ''
-        value['description2'] = ''
-        value['address'] = ''
-
-    merge(scraped, transcribed, manually_entered, from_dvd)
+    added_columns = ['geo_coord_original', 'geo_coord_UTM', 'date', 'year', 'subject_group', 'description2', 'address', 'paper_page_number']
 
     fieldnames = None
     with open('data/scraped.csv', 'r', newline='') as infile:
         reader = csv.DictReader(infile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
         fieldnames = reader.fieldnames
-    fieldnames.append('geo_coord_original')
-    fieldnames.append('geo_coord_UTM')
-    fieldnames.append('date')
-    fieldnames.append('year')
-    fieldnames.append('subject_group')
-    fieldnames.append('description2')
-    fieldnames.append('address')
+        for f in added_columns:
+            fieldnames.append(f)
 
+    for value in scraped.values():
+        for f in added_columns:
+            value[f] = ''
+
+    merge(scraped, transcribed, manually_entered, from_dvd)
     write(scraped, fieldnames)
 
 if '__main__' == __name__:
