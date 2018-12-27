@@ -1,3 +1,6 @@
-resource_name,asset_name,file_size,title,subject,description,contributor,digital_format,url_for_file,date,subject_group,geo_coord_original,geo_coord_UTM
-00001193.pdf,"Groundbreaking for Friden Calculating Machine Co., June 2, 1936, on Washington Avenue.",308.41 KB,"Groundbreaking for Friden Calculating Machine Co., June 2, 1936, on Washington Avenue.",,"L to R; Miss Gertrude Perry, Carl M. Friden and Chief of Police J.F. Peralta.",,PDF,https://sanle.ent.sirsi.net/client/en_US/search/asset/6326/0,,,,
-00001223.pdf,Mrs. Sadie Codner,341.26 KB,Mrs. Sadie Codner,,The Codners owned the rest home from sometime in the 1930's until about 1957; Mrs. Codner tended the garden on the grounds and painted pictures as well.,,PDF,https://sanle.ent.sirsi.net/client/en_US/search/asset/6356/0,,,,
+resource_name,verified_gps_coords
+00000023.pdf,"[-122.12402, 37.73089]"
+00001034.pdf,"[-122.1469, 37.73595]"
+00000233.pdf,"[-122.15794, 37.72351]"
+00000397.pdf,"[-122.19608, 37.71362]"
+00000249.pdf,"[-122.18977, 37.70097]"

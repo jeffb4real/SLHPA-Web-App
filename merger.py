@@ -18,13 +18,15 @@ def number_to_pdf(n):
 
 def read_from_stream_into_dict(file_name, key_function_name, key_column):
     dict = {}
+    fieldnames = None
     with open(file_name, 'r', newline='') as infile:
         reader = csv.DictReader(infile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+        fieldnames = reader.fieldnames
         for record in reader:
             if len(record[key_column]) > 0:
                 dict[key_function_name(record[key_column])] = record
     log(str("{: >4d}".format(len(dict))) + ' records read from ' + file_name)
-    return dict
+    return fieldnames, dict
 
 def write(scraped, fieldnames):
     fn = 'data/merged.csv'
@@ -36,20 +38,23 @@ def write(scraped, fieldnames):
        writer.writerow(value)
     log(str("{: >4d}".format(len(scraped))) + ' records written to ' + fn)
 
-def comb_addresses(scraped):
+def comb_addresses(scraped_fieldnames, scraped):
+    scraped_fieldnames.append('address')
     addresses_found = []
     pattern = re.compile(r'\d+\s\w+\s(Ave|St|Blvd|Boulevard)')
     for value in scraped.values():
         for field in 'title', 'subject', 'description', 'description2':
-            matches = pattern.match(value[field])
-            if matches:
-                value['address'] = matches.group(0)
-                addresses_found.append(value['address'])
-                break
+            if value.get(field):
+                matches = pattern.match(value[field])
+                if matches:
+                    value['address'] = matches.group(0)
+                    addresses_found.append(value['address'])
+                    break
     log("{: >4d}".format(len(addresses_found)) + ' addresses_found.')
-    # print(addresses_found)
 
-def comb_years(scraped, from_dvd):
+def comb_years(scraped_fieldnames, scraped, from_dvd):
+    scraped_fieldnames.append('description2')
+
     # Search title, subject, and description fields for years between 1839 (the
     # invention of photography) and 1980 (approx. culmination of the photo archive).
     # When multiple valid years are found, use the highest one in the date field.
@@ -86,43 +91,35 @@ def comb_years(scraped, from_dvd):
     log("{: >4d}".format(num_years_found) + ' years added.')
     log("{: >4d}".format(num_descs_found) + ' descriptions added.')
 
-# Merge data into scraped from all other sources.
-def merge(scraped, transcribed, manually_entered, from_dvd):
-    for key, value in scraped.items():
-        if transcribed.get(key) is not None:
-            value['geo_coord_original'] = transcribed[key]['geo_coord_original']
-            value['year'] = transcribed[key]['year']
-            value['paper_page_number'] = transcribed[key]['paper_page_number']
-    added = 0
-    for key, value in manually_entered.items():
+# Merge any new columns or rows from source filename into scraped_fieldnames and scraped rows.
+def merge_one_file(scraped_fieldnames, scraped, filename, key_function, key_column):
+    source_fieldnames, source_rows = read_from_stream_into_dict(filename, key_function, key_column)
+    scraped_names_dict = {}
+    source_names_dict = {}
+    for s in scraped_fieldnames:
+        scraped_names_dict[s] = s
+    for source_fieldname in source_fieldnames:
+        if source_fieldname and not scraped_names_dict.get(source_fieldname):
+            scraped_fieldnames.append(source_fieldname)
+            source_names_dict[source_fieldname] = source_fieldname
+    for key, value in source_rows.items():
         if scraped.get(key) is None:
             scraped[key] = value
-            added += 1
-    log("{: >4d}".format(added) + ' records added.')
-    comb_years(scraped, from_dvd)
-    comb_addresses(scraped)
-
+        else:
+            for source_fieldname in source_names_dict:
+                if value.get(source_fieldname):
+                    scraped[key][source_fieldname] = value[source_fieldname]
+    return source_rows
+ 
 def main():
-    scraped = read_from_stream_into_dict('data/scraped.csv', str, 'resource_name')
-    transcribed = read_from_stream_into_dict('data/transcribed.csv', number_to_pdf, 'resource_number')
-    manually_entered = read_from_stream_into_dict('data/manually-entered.csv', str, 'resource_name')
-    from_dvd = read_from_stream_into_dict('data/V01-V64 Index.csv', prepend_zeros, 'Index Number')
-
-    added_columns = ['geo_coord_original', 'geo_coord_UTM', 'date', 'year', 'subject_group', 'description2', 'address', 'paper_page_number']
-
-    fieldnames = None
-    with open('data/scraped.csv', 'r', newline='') as infile:
-        reader = csv.DictReader(infile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-        fieldnames = reader.fieldnames
-        for f in added_columns:
-            fieldnames.append(f)
-
-    for value in scraped.values():
-        for f in added_columns:
-            value[f] = ''
-
-    merge(scraped, transcribed, manually_entered, from_dvd)
-    write(scraped, fieldnames)
+    scraped_fieldnames, scraped = read_from_stream_into_dict('data/scraped.csv', str, 'resource_name')
+    scraped_fieldnames.append('geo_coord_UTM')
+    merge_one_file(scraped_fieldnames, scraped, 'data/manually-entered.csv', str, 'resource_name')
+    merge_one_file(scraped_fieldnames, scraped, 'data/transcribed.csv', number_to_pdf, 'resource_number')
+    from_dvd = merge_one_file(scraped_fieldnames, scraped, 'data/V01-V64 Index.csv', prepend_zeros, 'Index Number')
+    comb_years(scraped_fieldnames, scraped, from_dvd)
+    comb_addresses(scraped_fieldnames, scraped)
+    write(scraped, scraped_fieldnames)
 
 if '__main__' == __name__:
     main()
