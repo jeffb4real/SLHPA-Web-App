@@ -3,6 +3,7 @@ import csv
 import sys
 import datetime
 import re
+import pprint
 
 def log(message):
     script_name = sys.argv[0]
@@ -40,7 +41,7 @@ def write(scraped, fieldnames):
 
 def comb_addresses(scraped_fieldnames, scraped):
     scraped_fieldnames.append('address')
-    addresses_found = []
+    addresses_found = {}
     pattern = re.compile(r'\d+\s\w+\s(Ave|St|Blvd|Boulevard)')
     for value in scraped.values():
         for field in 'title', 'subject', 'description', 'description2':
@@ -48,9 +49,10 @@ def comb_addresses(scraped_fieldnames, scraped):
                 matches = pattern.match(value[field])
                 if matches:
                     value['address'] = matches.group(0)
-                    addresses_found.append(value['address'])
+                    addresses_found[value['resource_name']] = value['address']
                     break
     log("{: >4d}".format(len(addresses_found)) + ' addresses_found.')
+    # pprint.pprint(addresses_found) # for diagnosing / detailed reporting
 
 def comb_years(scraped_fieldnames, scraped, from_dvd):
     scraped_fieldnames.append('description2')
