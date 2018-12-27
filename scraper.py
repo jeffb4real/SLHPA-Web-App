@@ -38,7 +38,7 @@ def close(record, count):
 def add_skipped_record(record_index, page_number, absolute_record_number, skipped_pages):
     errorFormat = "Failed to get resource_name for record: {} on page: {} ({}). Retrying page."
     err = errorFormat.format(record_index, int(page_number), absolute_record_number)
-    log(err)
+    log('\n' + err)
     skipped_pages.append(err)
 
 
@@ -150,7 +150,7 @@ def scan_pages(driver, more_pages, skipped_pages):
                 if (not is_bad_value(description, desc_index)):
                     for i in range(desc_index, len(description), 1):
                         # Deal with punctuation at end of string(s)
-                        if (re.findall(r'[\.\?\!][\"\'\)\s]*$', description[i].text)):
+                        if (re.findall(r'[\.\?\!\,\'\"][\"\'\)\s]*$', description[i].text)):
                             this_record.description += description[i].text + ' '
                         else:
                             this_record.description += description[i].text + '. '
@@ -244,9 +244,6 @@ def scan(more_pages):
         next_pages = scan_pages(driver, more_pages, skipped_records)
     except:
         log("Caught exception in scan(): " + str(sys.exc_info()[0]))
-
-    # for s in skipped_records:
-    #     log(s)
 
     # Rename output .csv file so it won't get clobbered next run
     os.rename('SLHPA-records.csv', 'SLHPA-records_' + time.strftime("%Y%m%d-%H%M%S") + '.csv')
