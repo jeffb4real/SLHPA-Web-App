@@ -9,8 +9,8 @@ def log(message):
     print(str(datetime.datetime.now()) + '\t'+ script_name + ': ' + message)
 
 
-def handle_record(lines, record):
-    geo_coords = record['geo_coord_UTM']
+def handle_record(lines, record, column_name):
+    geo_coords = record[column_name]
     if geo_coords and len(geo_coords) > 0:
         coords = geo_coords.replace('[', '').replace(']', '').split(',')
         if len(coords) == 2:
@@ -33,16 +33,16 @@ def handle_record(lines, record):
         return 0
 
 
-def write_kml_file(added_records, lines, kml_file_index):
+def write_kml_file(added_records, lines, kml_file_index, filename_prefix):
     lines.append('</Document>\n')
     lines.append('</kml>\n')
-    fn = 'data/SLHPA' + str(kml_file_index) + '.kml'
+    fn = 'data/' + filename_prefix + '_SLHPA_' + str(kml_file_index) + '.kml'
     with open(fn, 'w+') as kml_file:
         kml_file.writelines(lines)
     log("{: >4d}".format(added_records) + ' written. ' + fn)
 
 
-def transform_to_kml(input_stream):
+def transform_to_kml(input_stream, filename_prefix, column_name):
     reader = csv.DictReader(input_stream, delimiter=',',
                             quotechar='"', quoting=csv.QUOTE_MINIMAL)
     MAX_RECORDS_PER_KML = 400
@@ -51,20 +51,21 @@ def transform_to_kml(input_stream):
     added_records = 0
     lines = ['<?xml version="1.0" encoding="UTF-8"?>\n', '<kml xmlns="http://www.opengis.net/kml/2.2">\n', '<Document>\n']
     for record in reader:
-        added_records += handle_record(lines, record)
+        added_records += handle_record(lines, record, column_name)
         total_records_processed += 1
         if added_records == MAX_RECORDS_PER_KML:
-            write_kml_file(added_records, lines, kml_file_index)
+            write_kml_file(added_records, lines, kml_file_index, filename_prefix)
             kml_file_index += 1
             added_records = 0
             lines = ['<?xml version="1.0" encoding="UTF-8"?>\n', '<kml xmlns="http://www.opengis.net/kml/2.2">\n', '<Document>\n']
     if added_records > 0:
-        write_kml_file(added_records, lines, kml_file_index)
+        write_kml_file(added_records, lines, kml_file_index, filename_prefix)
     log("{: >4d}".format(total_records_processed) + ' records processed')
 
 
 def main():
-    transform_to_kml(open('data/transformed.csv'))
+    transform_to_kml(open('data/transformed.csv'), 'calced', 'geo_coord_UTM')
+    transform_to_kml(open('data/transformed.csv'), 'manual', 'verified_gps_coords')
 
 
 if '__main__' == __name__:

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+<Document>
+  <Placemark>
+    <name>Slate House, Lake Chabot, San Leandro, 1915</name>
+    <description>Slate House, Lake Chabot, San Leandro, 1915 / 00000023.pdf / 16E920 / 17</description>
+    <Point>
+    <coordinates>-122.12402,37.73089,0</coordinates>
+    </Point>
+  </Placemark>
+  <Placemark>
+    <name>First Masonic Temple Club, 1966</name>
+    <description>First Masonic Temple Club, 1966 / 00000233.pdf / </description>
+    <Point>
+    <coordinates>-122.15794,37.72351,0</coordinates>
+    </Point>
+  </Placemark>
+  <Placemark>
+    <name>Oyster Beds, Mulford's Landing?</name>
+    <description>Oyster Beds, Mulford's Landing? / 00000249.pdf / </description>
+    <Point>
+    <coordinates>-122.18977,37.70097,0</coordinates>
+    </Point>
+  </Placemark>
+  <Placemark>
+    <name>Beach, Foot of Davis St. ca 1920</name>
+    <description>Beach, Foot of Davis St. ca 1920 / 00000397.pdf / 12B732 / 22</description>
+    <Point>
+    <coordinates>-122.19608,37.71362,0</coordinates>
+    </Point>
+  </Placemark>
+  <Placemark>
+    <name>Roosevelt School, ca 1930</name>
+    <description>Roosevelt School, ca 1930 / 00001034.pdf / </description>
+    <Point>
+    <coordinates>-122.1469,37.73595,0</coordinates>
+    </Point>
+  </Placemark>
+</Document>
+</kml>
