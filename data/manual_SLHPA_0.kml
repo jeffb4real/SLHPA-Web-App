@@ -30,10 +30,52 @@
     </Point>
   </Placemark>
   <Placemark>
+    <name>Eber Home, 1880</name>
+    <description>Eber Home, 1880 / 00000429.pdf / 27D724 / 63 Callan Ave / 37</description>
+    <Point>
+    <coordinates>-122.156444,37.726009,0</coordinates>
+    </Point>
+  </Placemark>
+  <Placemark>
+    <name>Polvorosa Boys, 1923</name>
+    <description>Polvorosa Boys, 1923 / 00000552.pdf / 26D226 / 141 Dabner St / 16</description>
+    <Point>
+    <coordinates>-122.167797,37.723329,0</coordinates>
+    </Point>
+  </Placemark>
+  <Placemark>
+    <name>1897 Hayes Street Scene Showing the First Methodist Church and the Saramento Blacksmith Shop</name>
+    <description>1897 Hayes Street Scene Showing the First Methodist Church and the Saramento Blacksmith Shop / 00000850.pdf /  / 1897 Hayes St</description>
+    <Point>
+    <coordinates>-122.153942,37.719262,0</coordinates>
+    </Point>
+  </Placemark>
+  <Placemark>
+    <name>Freeman Home</name>
+    <description>Freeman Home / 00000902.pdf /  / 34 Oakes Blvd</description>
+    <Point>
+    <coordinates>-122.159193,37.730716,0</coordinates>
+    </Point>
+  </Placemark>
+  <Placemark>
     <name>Roosevelt School, ca 1930</name>
     <description>Roosevelt School, ca 1930 / 00001034.pdf / </description>
     <Point>
     <coordinates>-122.1469,37.73595,0</coordinates>
+    </Point>
+  </Placemark>
+  <Placemark>
+    <name>Skillen House</name>
+    <description>Skillen House / 00001300.pdf / 28D922 / 304 Chumalia Ave / 17</description>
+    <Point>
+    <coordinates>-122.153821,37.728018,0</coordinates>
+    </Point>
+  </Placemark>
+  <Placemark>
+    <name>Neighborhood Kids on the Way to School, April, 1935</name>
+    <description>Neighborhood Kids on the Way to School, April, 1935 / 00001465.pdf / 10E131 / 2201 Cherry St / 15</description>
+    <Point>
+    <coordinates>-122.152323,37.716600,0</coordinates>
     </Point>
   </Placemark>
 </Document>
