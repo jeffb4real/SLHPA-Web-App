@@ -12,6 +12,12 @@ def log(message):
     script_name = sys.argv[0]
     print(str(datetime.datetime.now()) + '\t'+ script_name + ': ' + message)
 
+def ellipsify(the_string):
+    MAX_LENGTH = 96
+    if len(the_string) > MAX_LENGTH:
+        the_string = the_string[:(MAX_LENGTH - 3)] + '...'
+    return the_string
+
 def handle_record(document_el, record, column_name):
     geo_coords = record[column_name]
     if geo_coords and len(geo_coords) > 0:
@@ -22,7 +28,9 @@ def handle_record(document_el, record, column_name):
             name_element.text = record['title'] + ' [' + record['url_for_file'] + ']' 
 
             desc_element = etree.SubElement(placemark, 'description')
-            desc_element.text = record['description'] + ' [' + record['resource_name'].replace('.pdf', '') + ']'
+            desc_element.text = ellipsify(record['description'])
+            desc_element.text += ' [' + record['resource_name'].replace('.pdf', '') + ']'
+            desc_element.text += ' [' + record['geo_coord_original'] + ']'
 
             point_element = etree.SubElement(placemark, 'Point')
             coords_element = etree.SubElement(point_element, 'coordinates')
