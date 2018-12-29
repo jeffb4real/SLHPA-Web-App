@@ -19,12 +19,10 @@ def handle_record(document_el, record, column_name):
         if len(coords) == 2:
             placemark = etree.SubElement(document_el, 'Placemark')
             name_element = etree.SubElement(placemark, 'name')
-            name_element.text =  record['title'].replace('&', 'and')
-            name_element.text += ' [' + record['url_for_file'] + ']' 
+            name_element.text = record['title'] + ' [' + record['url_for_file'] + ']' 
 
             desc_element = etree.SubElement(placemark, 'description')
-            desc_element.text = record['description'].replace('&','and')
-            desc_element.text += ' [' + record['resource_name'].replace('.pdf', '') + ']'
+            desc_element.text = record['description'] + ' [' + record['resource_name'].replace('.pdf', '') + ']'
 
             point_element = etree.SubElement(placemark, 'Point')
             coords_element = etree.SubElement(point_element, 'coordinates')
@@ -63,7 +61,7 @@ def transform_to_kml(input_stream, filename_prefix, column_name):
             write_kml_file(added_records, root, kml_file_index, filename_prefix)
             kml_file_index += 1
             added_records = 0
-            root = etree.Element("Document")
+            root = etree.Element("kml")
     if added_records > 0:
         write_kml_file(added_records, root, kml_file_index, filename_prefix)
     return total_records_processed
