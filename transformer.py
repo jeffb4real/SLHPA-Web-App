@@ -71,6 +71,15 @@ def transform_point(coords):
     return [horizontal_coord, vertical_coord]
 
 
+def print_dicts():
+    log('prefix_chars:')
+    pprint.pprint(prefix_chars)
+    log('horiz_coords:')
+    pprint.pprint(horiz_coords)
+    log('vert_coords:')
+    pprint.pprint(vert_coords)
+
+
 def transform(infile):
     reader = csv.DictReader(infile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
     outfile = open('data/transformed.csv', 'w', newline='')
@@ -87,16 +96,8 @@ def transform(infile):
             transformed_records += 1
         writer.writerow(record)
     log("{: >4d}".format(total_records) + ' records processed, ' + str("{: >4d}".format(transformed_records)) + ' transformed')
-
-
-# Uncomment if you want to see the distribution of coordinates.
-def print_dicts():
-    log('prefix_chars:')
-    pprint.pprint(prefix_chars)
-    log('horiz_coords:')
-    pprint.pprint(horiz_coords)
-    log('vert_coords:')
-    pprint.pprint(vert_coords)
+    # Uncomment if you want to see the distribution of coordinates.
+    # print_dicts()
 
 
 def main():
