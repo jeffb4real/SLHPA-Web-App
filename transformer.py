@@ -70,15 +70,43 @@ def transform_point(coords):
     horizontal_coord = transform_horizontal(coords[0:2])
     return [horizontal_coord, vertical_coord]
 
+horiz_errors = []
+vert_errors = []
 
-def print_dicts():
+def print_details():
     log('prefix_chars:')
     pprint.pprint(prefix_chars)
     log('horiz_coords:')
     pprint.pprint(horiz_coords)
     log('vert_coords:')
     pprint.pprint(vert_coords)
+    log('horiz_errors')
+    print(horiz_errors)
+    log('vert_errors')
+    print(vert_errors)
 
+def str_to_coords(the_string):
+    if not the_string:
+        return None
+    if len(the_string) == 0:
+        return None
+    coords = the_string.replace('[', '').replace(']', '').split(',')
+    if len(coords) < 2:
+        return None
+    horiz_coord = float(coords[0].strip())
+    vert_coord = float(coords[1].strip())
+    return [horiz_coord, vert_coord]
+
+def accumulate_error(record):
+    if not record.get('verified_gps_coords'):
+        return
+    if not record.get('geo_coord_UTM'):
+        return
+    verified_gps_coords = str_to_coords(record['verified_gps_coords'])
+    horiz_error = abs(verified_gps_coords[0] - record['geo_coord_UTM'][0]) / abs(left_gps - right_gps)
+    horiz_errors.append(horiz_error)
+    vert_error = abs(verified_gps_coords[1] - record['geo_coord_UTM'][1]) / abs(top_gps - bottom_gps)
+    vert_errors.append(vert_error)
 
 def transform(infile):
     reader = csv.DictReader(infile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
@@ -94,11 +122,15 @@ def transform(infile):
         if len(record['geo_coord_original']) >= 4:
             record['geo_coord_UTM'] = transform_point(record['geo_coord_original'])
             transformed_records += 1
+            accumulate_error(record)
         writer.writerow(record)
+    average_horiz_error = sum(horiz_errors) / len(horiz_errors)
+    log("{: >6f}".format(average_horiz_error) + ' average_horiz_error')
+    average_vert_error = sum(vert_errors) / len(vert_errors)
+    log("{: >6f}".format(average_vert_error) + ' average_vert_error')
     log("{: >4d}".format(total_records) + ' records processed, ' + str("{: >4d}".format(transformed_records)) + ' transformed')
-    # Uncomment if you want to see the distribution of coordinates.
-    # print_dicts()
-
+    # Uncomment if you want to see more details.
+    # print_details()
 
 def main():
     with open('data/merged.csv', 'r', newline='') as infile:
