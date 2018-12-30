@@ -125,9 +125,9 @@ def transform(infile):
             accumulate_error(record)
         writer.writerow(record)
     average_horiz_error = sum(horiz_errors) / len(horiz_errors)
-    log("{: >6f}".format(average_horiz_error) + ' average_horiz_error')
+    log(("%.2f" % average_horiz_error) + ' average_horiz_error')
     average_vert_error = sum(vert_errors) / len(vert_errors)
-    log("{: >6f}".format(average_vert_error) + ' average_vert_error')
+    log(("%.2f" % average_vert_error) + ' average_vert_error')
     log("{: >4d}".format(total_records) + ' records processed, ' + str("{: >4d}".format(transformed_records)) + ' transformed')
     # Uncomment if you want to see more details.
     # print_details()
