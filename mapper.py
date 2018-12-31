@@ -55,7 +55,18 @@ def write_kml_file(added_records, root, kml_file_index, filename_prefix):
         kml_file.write(bytes.decode("utf-8"))
     log("{: >4d}".format(added_records) + ' records written to ' + fn)
 
-def transform_to_kml(input_stream, filename_prefix, column_name):
+def master_coords_column_name(record):
+    if record.get('verified_gps_coords'):
+        return 'verified_gps_coords'
+    return 'geo_coord_UTM'
+
+def calced_coords_column_name(record):
+    return 'geo_coord_UTM'
+
+def manual_coords_column_name(record):
+    return 'verified_gps_coords'
+
+def transform_to_kml(input_stream, filename_prefix, column_name_func):
     reader = csv.DictReader(input_stream, delimiter=',',
                             quotechar='"', quoting=csv.QUOTE_MINIMAL)
     MAX_RECORDS_PER_KML = 400
@@ -68,7 +79,7 @@ def transform_to_kml(input_stream, filename_prefix, column_name):
     for record in reader:
         # For the calculated reference GPS coordinate layer, only add GPS coords if there are verified geographic coords.
         if 'calced_ref' != filename_prefix or record.get('verified_gps_coords'):
-            added_records += handle_record(document, record, column_name)
+            added_records += handle_record(document, record, column_name_func(record))
         total_records_processed += 1
         if added_records == MAX_RECORDS_PER_KML:
             write_kml_file(added_records, root, kml_file_index, filename_prefix)
@@ -80,9 +91,9 @@ def transform_to_kml(input_stream, filename_prefix, column_name):
     return total_records_processed
 
 def main():
-    transform_to_kml(open('data/transformed.csv'), 'calced', 'geo_coord_UTM')
-    transform_to_kml(open('data/transformed.csv'), 'calced_ref', 'geo_coord_UTM')
-    total_records_processed = transform_to_kml(open('data/transformed.csv'), 'manual', 'verified_gps_coords')
+    transform_to_kml(open('data/transformed.csv'), 'calced', master_coords_column_name)
+    transform_to_kml(open('data/transformed.csv'), 'calced_ref', calced_coords_column_name)
+    total_records_processed = transform_to_kml(open('data/transformed.csv'), 'manual', manual_coords_column_name)
     log("{: >4d}".format(total_records_processed) + ' input records processed')
 
 if '__main__' == __name__:
