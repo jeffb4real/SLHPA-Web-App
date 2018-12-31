@@ -2,6 +2,7 @@
 import csv
 import datetime
 import sys
+import re
 
 # To make it easier to pretty print the XML, use lxml instead of ElementTree.
 # "c:\Program Files\Python37\python.exe" -m pip install -U pip wheel setuptools
@@ -12,34 +13,38 @@ def log(message):
     script_name = sys.argv[0]
     print(str(datetime.datetime.now()) + '\t'+ script_name + ': ' + message)
 
-def ellipsify(the_string):
-    MAX_LENGTH = 96
-    if len(the_string) > MAX_LENGTH:
-        the_string = the_string[:(MAX_LENGTH - 3)] + '...'
-    return the_string
+def has_year(record):
+    pattern = r'\b(\d\d\d\d)\b'
+    list_of_years = []
+    list_of_years.extend(re.findall(pattern, record['title']))
+    return list_of_years and len(list_of_years) > 0
+
+def add_year_if_possible(record):
+    if not has_year(record):
+        year = record.get('year')
+        if year:
+            record['title'] += ', ' + year
 
 def handle_record(document_el, record, column_name):
-    geo_coords = record[column_name]
-    if geo_coords and len(geo_coords) > 0:
-        coords = geo_coords.replace('[', '').replace(']', '').split(',')
-        if len(coords) == 2:
-            placemark = etree.SubElement(document_el, 'Placemark')
-            name_element = etree.SubElement(placemark, 'name')
-            name_element.text = record['title'] + ' [' + record['url_for_file'] + ']' 
-
-            desc_element = etree.SubElement(placemark, 'description')
-            desc_element.text = ellipsify(record['description'])
-            desc_element.text += ' [' + record['resource_name'].replace('.pdf', '') + ']'
-            desc_element.text += ' [' + record['geo_coord_original'] + ']'
-
-            point_element = etree.SubElement(placemark, 'Point')
-            coords_element = etree.SubElement(point_element, 'coordinates')
-            coords_element.text = coords[0].strip() + ',' + coords[1].strip() + ',0'
-            return 1
-        else:
-            return 0
-    else:
+    geo_coords = record.get(column_name)
+    if not geo_coords or len(geo_coords) == 0:
         return 0
+    coords = geo_coords.replace('[', '').replace(']', '').split(',')
+    if len(coords) < 2:
+        return 0
+    placemark = etree.SubElement(document_el, 'Placemark')
+    name_element = etree.SubElement(placemark, 'name')
+    name_element.text = record['title'] + ' [' + record['url_for_file'] + ']' 
+
+    desc_element = etree.SubElement(placemark, 'description')
+    desc_element.text = '[' + record['resource_name'].replace('.pdf', '') + '] '
+    desc_element.text += record['description']
+    desc_element.text += ' [' + record['geo_coord_original'] + ']'
+
+    point_element = etree.SubElement(placemark, 'Point')
+    coords_element = etree.SubElement(point_element, 'coordinates')
+    coords_element.text = coords[0].strip() + ',' + coords[1].strip() + ',0'
+    return 1
 
 def write_kml_file(added_records, root, kml_file_index, filename_prefix):
     fn = 'data/' + filename_prefix + '_SLHPA_' + str(kml_file_index) + '.kml'
