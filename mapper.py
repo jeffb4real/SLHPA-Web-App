@@ -52,7 +52,6 @@ def write_kml_file(added_records, root, kml_file_index, filename_prefix):
     with open(fn, 'w+') as kml_file:
         kml_file.writelines('<?xml version="1.0" encoding="UTF-8"?>\n')
         bytes = etree.tostring(root, pretty_print=True)
-        bytes.decode("utf-8")
         kml_file.write(bytes.decode("utf-8"))
     log("{: >4d}".format(added_records) + ' records written to ' + fn)
 
