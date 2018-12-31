@@ -3,7 +3,7 @@ import sys
 import csv
 import datetime
 import pprint
-
+import random
 
 def log(message):
     script_name = sys.argv[0]
@@ -42,8 +42,8 @@ def to_numeric(coord):
     return ((alpha_coord - asciiA) * 10) + (numeric_coord - ascii0)
 
 
-def transform_horizontal(value):
-    return map_value(to_numeric(value), to_numeric(left_coord), to_numeric(right_coord), left_gps, right_gps)
+def transform_horizontal(value, horiz_adjustment):
+    return map_value(to_numeric(value) + horiz_adjustment, to_numeric(left_coord), to_numeric(right_coord), left_gps, right_gps)
 
 
 prefix_chars = {}
@@ -57,17 +57,21 @@ def increment_count(the_dict, the_value):
 
 # Turns a string of the form [A-Z][0-9][0-9][0-9] into GPS coordinates.
 def transform_point(coords):
-    if len(coords) > 4:
+    if len(coords) >= 6:
         prefix = coords[0:2]
         increment_count(prefix_chars, prefix)
-        prefix_chars[prefix] += 1
         coords = coords[2:6]
     increment_count(vert_coords, coords[2:4])
     increment_count(horiz_coords, coords[0:2])
     tens_coord = ord(coords[2])
     ones_coord = ord(coords[3])
-    vertical_coord = transform_vertical(((tens_coord - ascii0) * 10) + (ones_coord - ascii0))
-    horizontal_coord = transform_horizontal(coords[0:2])
+
+    # Adding a small random value distributes the pins on the map so they are more visible.
+    # This does not necessarily make them incorrect, given the 'low resolution' of the original geo coordinates.
+    horiz_adjustment = random.random()
+    vert_adjustment = random.random()
+    vertical_coord = transform_vertical(((tens_coord - ascii0) * 10) + (ones_coord - ascii0) + vert_adjustment)
+    horizontal_coord = transform_horizontal(coords[0:2], horiz_adjustment)
     return [horizontal_coord, vertical_coord]
 
 horiz_errors = []
@@ -148,20 +152,5 @@ def test_point(expected_horizonal, expected_vertical, old_coords):
     check_value('transform_point horizontal', expected_horizonal, point[0])
     check_value('transform_point vertical', expected_vertical, point[1])
 
-
-def test():
-    check_value('transform_vertical(top_coord)', top_gps, transform_vertical(top_coord))
-    check_value('transform_vertical(bottom_coord)', bottom_gps, transform_vertical(bottom_coord))
-    check_value('transform_horizontal(left_coord)', left_gps, transform_horizontal(left_coord))
-    check_value('transform_horizontal(right_coord)', right_gps, transform_horizontal(right_coord))
-
-    test_point(left_gps, top_gps, left_coord + str(top_coord))
-    test_point(right_gps, bottom_gps, right_coord + str(bottom_coord))
-    test_point(left_gps, 37.71362, '12B732')
-    test_point(-122.19608, 37.70097, '18B746')
-    test_point(-122.13737, 37.73719, '99E317')
-
-
 if '__main__' == __name__:
-    # test()
     main()
