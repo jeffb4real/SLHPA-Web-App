@@ -6,7 +6,7 @@ pattern = r'^|\D(\d\d\d\d)\D|$'
 pattern = r'\D*(\d\d\d\d)\D*'    # works 2nd best for finding year(s)
 pattern = r'\b(\d\d\d\d)\b'      # works best for finding year(s)
 
-pattern = r'[\.\?\!][\"\'\)\s]*$'        # find ending punctuation
+pattern = r'[\.\?\!][\"\'\)\s]*$'        # does string have ending punctuation
 pattern = r'[\.\?\!\,\'\"][\"\'\)\s]*$'  # find ending punctuation, better
 
 #pattern =   # put your pattern here

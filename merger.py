@@ -1,21 +1,26 @@
-# Merge historical photo metadata from multiple source csv files
 import csv
 import sys
 import datetime
 import re
 import pprint
 
+# Merge historical photo metadata from multiple source csv files
+# This script supercedes and replaces comber.py
+
 def log(message):
     script_name = sys.argv[0]
     print(str(datetime.datetime.now()) + '\t'+ script_name + ': ' + message)
+
 
 # Reformat the primary key column data in the 'from_dvd' file.
 def prepend_zeros(n):
     return "000" + n + '.pdf'
 
+
 # Reformat the primary key column data in the 'transcribed' file.
 def number_to_pdf(n):
     return "{:0>8d}".format(int(n)) + '.pdf'
+
 
 def read_from_stream_into_dict(file_name, key_function_name, key_column):
     dict = {}
@@ -29,6 +34,7 @@ def read_from_stream_into_dict(file_name, key_function_name, key_column):
     log(str("{: >4d}".format(len(dict))) + ' records read from ' + file_name)
     return fieldnames, dict
 
+
 def write(scraped, fieldnames):
     fn = 'data/merged.csv'
     outfile = open(fn, 'w', newline='')
@@ -38,6 +44,7 @@ def write(scraped, fieldnames):
     for key, value in sorted(scraped.items()):
        writer.writerow(value)
     log(str("{: >4d}".format(len(scraped))) + ' records written to ' + fn)
+
 
 def comb_addresses(scraped_fieldnames, scraped):
     scraped_fieldnames.append('address')
@@ -53,6 +60,7 @@ def comb_addresses(scraped_fieldnames, scraped):
                     break
     log("{: >4d}".format(len(addresses_found)) + ' addresses_found.')
     # pprint.pprint(addresses_found) # for diagnosing / detailed reporting
+
 
 def comb_years(scraped_fieldnames, scraped, from_dvd):
     scraped_fieldnames.append('description2')
@@ -93,6 +101,7 @@ def comb_years(scraped_fieldnames, scraped, from_dvd):
     log("{: >4d}".format(num_years_found) + ' years added.')
     log("{: >4d}".format(num_descs_found) + ' descriptions added.')
 
+
 # Merge any new columns or rows from source filename into scraped_fieldnames and scraped rows.
 def merge_one_file(scraped_fieldnames, scraped, filename, key_function, key_column):
     source_fieldnames, source_rows = read_from_stream_into_dict(filename, key_function, key_column)
@@ -112,7 +121,8 @@ def merge_one_file(scraped_fieldnames, scraped, filename, key_function, key_colu
                 if value.get(source_fieldname):
                     scraped[key][source_fieldname] = value[source_fieldname]
     return source_rows
- 
+
+
 def main():
     scraped_fieldnames, scraped = read_from_stream_into_dict('data/scraped.csv', str, 'resource_name')
     scraped_fieldnames.append('geo_coord_UTM')
@@ -122,6 +132,7 @@ def main():
     comb_years(scraped_fieldnames, scraped, from_dvd)
     comb_addresses(scraped_fieldnames, scraped)
     write(scraped, scraped_fieldnames)
+
 
 if '__main__' == __name__:
     main()
