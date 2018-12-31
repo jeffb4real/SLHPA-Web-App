@@ -3,15 +3,30 @@ San Leandro Historical Photo Archive Web Application
 
 # Contents
 1. [Overview](#overview)
-2. [scraper](#scraper)
-3. [comber](#comber)
-5. [Web_Application](#Web_Application)
+2. [Python_Dependencies](#Python_Dependencies)
+3. [scraper](#scraper)
+4. [merger](#merger)
+5. [transformer](#transformer)
+6. [mapper](#mapper)
+7. [Web_Application](#Web_Application)
 
 ## Overview
 
 The San Leandro Public Library is home to an archive of about 2500 photographic prints related to the history of San Leandro. These prints have also been scanned, and are accessible online through the library's Catalog Search, available at http://sanleandro.org/depts/library/default.asp
 
 This SLHPA-Web-App project is an attempt to make the historic photo archive more easily browsable, by creating a historical photo website that uses dynamic elements such as user-customizable filter settings, photo carousel, or maps/pins.
+
+## Python_Dependencies
+
+This project was created with Python 3.7.x, with the addition of these modules:
+
+* selenium
+* lxml
+* Dumper
+
+These modules were installed with pip, e.g.:
+
+      $ python -m pip install selenium
 
 ## scraper
 
@@ -53,7 +68,7 @@ This Python script uses Selenium (https://www.seleniumhq.org/) to "scrape" metad
 
     $ python scraper.py
 
-## comber
+## Merger
 
 This Python script performs data cleaning/augmentation on the scraped data. Input to this script is the .csv file produced by running `scraper.py`. Output from this script is a time-stamped .csv file containing a version of the data modified in the following ways:
 
@@ -83,13 +98,24 @@ Assuming this project has already been cloned:
 
       $ python comber.py
 
+## transformer
+
+Python script to convert legacy photo location coordinates into coordinates compatible with modern online map hosts.
+
+Input is a .csv file. Output is a .csv file.
+
+## mapper
+
+Python script to convert photo location coordinates into [KML](#https://en.wikipedia.org/wiki/Keyhole_Markup_Language) that can be imported into map host.
+
+Input is a .csv file. Output is a .kml file (additional .kml output files for debug purposes only).
 
 ## Web_Application
 
 (... documentation in process)
 
 * Bootstrap
-* Some Python-compatible map host:
+* Some map host:
    [The Top 10 Mapping & Maps APIs (for Developers in 2018)](https://blog.rapidapi.com/top-map-apis/)
   1. Mapbox
   2. Google maps
