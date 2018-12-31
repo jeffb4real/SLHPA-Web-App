@@ -32,6 +32,7 @@ def handle_record(document_el, record, column_name):
     coords = geo_coords.replace('[', '').replace(']', '').split(',')
     if len(coords) < 2:
         return 0
+    add_year_if_possible(record)
     placemark = etree.SubElement(document_el, 'Placemark')
     name_element = etree.SubElement(placemark, 'name')
     name_element.text = record['title'] + ' [' + record['url_for_file'] + ']' 
