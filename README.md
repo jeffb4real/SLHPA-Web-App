@@ -147,7 +147,7 @@ Assuming this project has already been cloned:
 
 2. Run the script:
 
-      $ python run-pipeline.sh
+      $ ./run-pipeline.sh
 
 ## Web_Application
 
