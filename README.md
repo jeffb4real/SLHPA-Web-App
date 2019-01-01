@@ -8,7 +8,8 @@ San Leandro Historical Photo Archive Web Application
 4. [merger](#merger)
 5. [transformer](#transformer)
 6. [mapper](#mapper)
-7. [Web_Application](#Web_Application)
+7. [run-pipeline](#run-pipeline)
+8. [Web_Application](#Web_Application)
 
 ## Overview
 
@@ -64,16 +65,15 @@ This Python script uses Selenium (https://www.seleniumhq.org/) to "scrape" metad
 
     $ cd SLHPA-Web-App
 
-9. Run the scraper:
+9. Run the script:
 
     $ python scraper.py
 
 ## Merger
 
-This Python script performs data cleaning/augmentation on the scraped data. Input to this script is the .csv file produced by running `scraper.py`. Output from this script is a time-stamped .csv file containing a version of the data modified in the following ways:
+This Python script performs data cleaning/augmentation on the scraped data. Input to this script is the .csv file produced by running `scraper.py`. Output from this script is a .csv file containing a version of the data modified in the following ways:
 
 * Remove meaningless "Vol. xx" entries from `description` field. This type of entry is a reference to non-existent paper volumes, deprecated many years ago.
-
 
 * Populate the `date` field, if a valid year (see below) can be found within the title, subject, or description fields. This script is not infallible; but it will likely pick the correct year when one is listed, and will ultimately save a lot of manual data entry. However, the output .csv file must be manually verified for correctness.
 
@@ -81,12 +81,11 @@ This Python script performs data cleaning/augmentation on the scraped data. Inpu
 
       St. Leander's Rectory, 1899-1949, razed in 1954 photo taken around 1914.
    
-   `comber.py` will find a list of years, [1899, 1949, 1954, 1914], and return 1954. This is a good example of why the `date` field will need to be manually verified in the output .csv file.
-
+   `merger.py` will find a list of years, [1899, 1949, 1954, 1914], and return 1954. This is a good example of why the `date` field will need to be manually verified in the output .csv file.
 
 * Merge description information contained in a .xls file on a DVD version of the photo archive, produced around 2003. A new field, `description_from_DVD`, is inserted next to the existing `description` field, and is populated only when the description field from the DVD adds new information.
 
-### How to run `comber.py`
+### How to run `merger.py`
 
 Assuming this project has already been cloned:
 
@@ -94,9 +93,9 @@ Assuming this project has already been cloned:
 
       $ cd SLHPA-Web-App
 
-2. Run the comber:
+2. Run the script:
 
-      $ python comber.py
+      $ python merger.py
 
 ## transformer
 
@@ -104,11 +103,51 @@ Python script to convert legacy photo location coordinates into coordinates comp
 
 Input is a .csv file. Output is a .csv file.
 
+### How to run `transformer.py`
+
+Assuming this project has already been cloned:
+
+1. Navigate to the repository directory:
+
+      $ cd SLHPA-Web-App
+
+2. Run the script:
+
+      $ python transformer.py
+
 ## mapper
 
 Python script to convert photo location coordinates into [KML](#https://en.wikipedia.org/wiki/Keyhole_Markup_Language) that can be imported into map host.
 
 Input is a .csv file. Output is a .kml file (additional .kml output files for debug purposes only).
+
+### How to run `mapper.py`
+
+Assuming this project has already been cloned:
+
+1. Navigate to the repository directory:
+
+      $ cd SLHPA-Web-App
+
+2. Run the script:
+
+      $ python mapper.py
+
+## run-pipeline
+
+This is a BASH script that serially runs all of the above tools, except scraper.py.
+
+### How to run `run-pipeline.sh`
+
+Assuming this project has already been cloned:
+
+1. Navigate to the repository directory:
+
+      $ cd SLHPA-Web-App
+
+2. Run the script:
+
+      $ python run-pipeline.sh
 
 ## Web_Application
 
