@@ -25,7 +25,7 @@ class Mapper:
             year = int(year_str)
             if year >= 1800 and year <= 2019:
                 return True
-        return False;
+        return False
 
     def add_year_if_possible(self, record):
         if not self.has_year(record):
