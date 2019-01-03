@@ -144,7 +144,7 @@ def main():
     with open('data/merged.csv', 'r', newline='') as infile:
         transform(infile, 'transformed')
     with open('data/merged.csv', 'r', newline='') as infile:
-        transform(infile, 'transformed-no-rand')
+        transform(infile, 'transformed_no_rand')
 
 
 if '__main__' == __name__:

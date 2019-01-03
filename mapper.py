@@ -101,6 +101,7 @@ class Mapper:
         return total_records_processed
 
     def main(self):
+        self.transform_to_kml(open('data/transformed_no_rand.csv'), 'calced_no_rand', self.calced_coords_column_name)
         self.transform_to_kml(open('data/transformed.csv'), 'calced_ref', self.calced_coords_column_name)
         self.transform_to_kml(open('data/transformed.csv'), 'manual', self.manual_coords_column_name)
 
