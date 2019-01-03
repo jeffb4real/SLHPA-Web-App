@@ -5,8 +5,6 @@ import datetime
 import pprint
 import random
 
-random.seed(0)
-
 def log(message):
     script_name = sys.argv[0]
     print(str(datetime.datetime.now()) + '\t'+ script_name + ': ' + message)
@@ -58,7 +56,7 @@ def increment_count(the_dict, the_value):
     the_dict[the_value] += 1
 
 # Turns a string of the form [A-Z][0-9][0-9][0-9] into GPS coordinates.
-def transform_point(coords):
+def transform_point(coords, out_file_name):
     if len(coords) >= 6:
         prefix = coords[0:2]
         increment_count(prefix_chars, prefix)
@@ -68,10 +66,13 @@ def transform_point(coords):
     tens_coord = ord(coords[2])
     ones_coord = ord(coords[3])
 
-    # Adding a small random value distributes the pins on the map so they are more visible.
-    # This does not necessarily make them incorrect, given the 'low resolution' of the original geo coordinates.
-    horiz_adjustment = random.random()
-    vert_adjustment = random.random()
+    horiz_adjustment = 0
+    vert_adjustment = 0
+    if out_file_name == 'transformed':
+        # Adding a small random value distributes the pins on the map so they are more visible.
+        # This does not necessarily make them incorrect, given the 'low resolution' of the original geo coordinates.
+        horiz_adjustment = random.random()
+        vert_adjustment = random.random()
     vertical_coord = transform_vertical(((tens_coord - ascii0) * 10) + (ones_coord - ascii0) + vert_adjustment)
     horizontal_coord = transform_horizontal(coords[0:2], horiz_adjustment)
     return [horizontal_coord, vertical_coord]
@@ -114,9 +115,10 @@ def accumulate_error(record):
     vert_error = abs(verified_gps_coords[1] - record['geo_coord_UTM'][1]) / abs(top_gps - bottom_gps)
     vert_errors.append(vert_error)
 
-def transform(infile):
+def transform(infile, out_file_name):
+    random.seed(0)
     reader = csv.DictReader(infile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-    outfile = open('data/transformed.csv', 'w', newline='')
+    outfile = open('data/' + out_file_name + '.csv', 'w', newline='')
     writer = csv.DictWriter(outfile, reader.fieldnames, delimiter=',', quotechar='"',
                             quoting=csv.QUOTE_MINIMAL)
     writer.writeheader()
@@ -126,7 +128,7 @@ def transform(infile):
         total_records += 1
         record['geo_coord_original'] = record['geo_coord_original'].replace(' ', '')
         if len(record['geo_coord_original']) >= 4:
-            record['geo_coord_UTM'] = transform_point(record['geo_coord_original'])
+            record['geo_coord_UTM'] = transform_point(record['geo_coord_original'], out_file_name)
             transformed_records += 1
             accumulate_error(record)
         writer.writerow(record)
@@ -134,25 +136,16 @@ def transform(infile):
     log(("%.2f" % average_horiz_error) + ' average_horiz_error')
     average_vert_error = sum(vert_errors) / len(vert_errors)
     log(("%.2f" % average_vert_error) + ' average_vert_error')
-    log("{: >4d}".format(total_records) + ' records processed, ' + str("{: >4d}".format(transformed_records)) + ' transformed')
+    log("{: >4d}".format(total_records) + ' records processed, ' + str("{: >4d}".format(transformed_records)) + ' transformed in ' + out_file_name)
     # Uncomment if you want to see more details.
     # print_details()
 
 def main():
     with open('data/merged.csv', 'r', newline='') as infile:
-        transform(infile)
+        transform(infile, 'transformed')
+    with open('data/merged.csv', 'r', newline='') as infile:
+        transform(infile, 'transformed-no-rand')
 
-
-def check_value(message, expected_value, actual_value):
-    eps = 0.000001
-    if abs(expected_value - actual_value) > eps:
-        log("Fail: " + message + ' Expected: ' + str(expected_value) + ', Actual: ' + str(actual_value))
-
-
-def test_point(expected_horizonal, expected_vertical, old_coords):
-    point = transform_point(old_coords)
-    check_value('transform_point horizontal', expected_horizonal, point[0])
-    check_value('transform_point vertical', expected_vertical, point[1])
 
 if '__main__' == __name__:
     main()
