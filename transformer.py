@@ -23,7 +23,7 @@ top_gps = 37.73595
 bottom_gps = 37.70097
 left_coord = 'B7'
 right_coord = 'E9'
-left_gps = -122.19608
+left_gps = -122.18977
 right_gps = -122.12383
 
 
