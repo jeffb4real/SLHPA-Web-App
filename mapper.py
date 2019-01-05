@@ -79,7 +79,7 @@ class Mapper:
     def transform_to_kml(self, input_stream, filename_prefix, column_name_func):
         reader = csv.DictReader(input_stream, delimiter=',',
                                 quotechar='"', quoting=csv.QUOTE_MINIMAL)
-        MAX_RECORDS_PER_KML = 1000
+        MAX_RECORDS_PER_KML = 2000
         kml_file_index = 0
         total_records_processed = 0
         added_records = 0
