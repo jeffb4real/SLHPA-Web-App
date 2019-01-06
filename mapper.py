@@ -74,7 +74,7 @@ class Mapper:
         list_of_years.extend(re.findall(pattern, record[self.field_indices['title']]))
         for year_str in list_of_years:
             year = int(year_str)
-            if year >= 1859 and year <= 2019:
+            if year > 1838 and year < 2020:
                 return True
         return False
 
