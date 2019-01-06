@@ -65,4 +65,5 @@ class Sorter:
         log(str("{: >4d}".format(len(sorted_by_value))) + ' records written to sorted.csv')
 
 if '__main__' == __name__:
-    Sorter().main()
+    print('sorter.py functionality now merged into mapper.py')
+#    Sorter().main()
