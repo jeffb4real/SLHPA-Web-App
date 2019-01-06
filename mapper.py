@@ -13,28 +13,79 @@ def log(message):
     script_name = sys.argv[0]
     print(str(datetime.datetime.now()) + '\t'+ script_name + ': ' + message)
 
+class Sorter:
+    field_indices = {}
+    field_names_dict = {}
+
+    def read_from_stream_into_dict(self, file_name):
+        dict = {}
+        fieldnames = None
+        with open(file_name, 'r', newline='') as infile:
+            reader = csv.DictReader(infile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+            fieldnames = reader.fieldnames
+            for record in reader:
+                if not record.get('geo_coord_original'):
+                    continue
+                key = record['geo_coord_original']
+                if (len(key) < 6):
+                    continue
+                record['geo_coord_original'] = key[2:6] + key[0:2]
+                dict[record['resource_name']] = record
+        log(str("{: >4d}".format(len(dict))) + ' records read from ' + file_name)
+        return fieldnames, dict 
+
+    def get_record_key(self, array_record):
+        return array_record[self.field_indices['geo_coord_original']] + ' ' + array_record[self.field_indices['resource_name']]
+
+    def to_array(self, dict_record):
+        arr = []
+        for key, value in dict_record.items():
+            arr.insert(self.field_indices[key], value)
+        return arr
+
+    def to_dict(self, array_record):
+        dict_record = {}
+        i = 0
+        for v in array_record:
+            dict_record[self.field_names_dict[i]] = v
+            i += 1
+        return dict_record
+
+    def do_sort(self, file_name):
+        fieldnames, dict_records = self.read_from_stream_into_dict(file_name)
+        i = 0
+        for f in fieldnames:
+            self.field_indices[f] = i
+            self.field_names_dict[i] = f
+            i += 1
+        array_records = []
+        for r in dict_records.values():
+            array_records.append(self.to_array(r))
+        return self.field_indices, sorted(array_records, key=self.get_record_key)
+
 class Mapper:
     max_name_length = 0
     max_desc_length = 0
+    field_indices = {}
 
     def has_year(self, record):
         pattern = r'\b(\d\d\d\d)\b'
         list_of_years = []
-        list_of_years.extend(re.findall(pattern, record['title']))
+        list_of_years.extend(re.findall(pattern, record[self.field_indices['title']]))
         for year_str in list_of_years:
             year = int(year_str)
-            if year >= 1800 and year <= 2019:
+            if year >= 1859 and year <= 2019:
                 return True
         return False
 
     def add_year_if_possible(self, record):
         if not self.has_year(record):
-            year = record.get('year')
+            year = record[self.field_indices['year']]
             if year:
-                record['title'] += ', ' + year
+                record[self.field_indices['title']] += ', ' + year
 
     def handle_record(self, document_el, record, column_name):
-        geo_coords = record.get(column_name)
+        geo_coords = record[self.field_indices[column_name]]
         if not geo_coords or len(geo_coords) == 0:
             return 0
         coords = geo_coords.replace('[', '').replace(']', '').split(',')
@@ -43,13 +94,13 @@ class Mapper:
         self.add_year_if_possible(record)
         placemark = etree.SubElement(document_el, 'Placemark')
         name_element = etree.SubElement(placemark, 'name')
-        name_element.text = record['title'] + ' [' + record['url_for_file'] + ']' 
+        name_element.text = record[self.field_indices['title']] + ' [' + record[self.field_indices['url_for_file']] + ']' 
         self.max_name_length = max(self.max_name_length, len(name_element.text))
 
         desc_element = etree.SubElement(placemark, 'description')
-        desc_element.text = '[' + record['resource_name'].replace('.pdf', '') + '] '
-        desc_element.text += record['description']
-        desc_element.text += ' [' + record['geo_coord_original'] + ']'
+        desc_element.text = '[' + record[self.field_indices['resource_name']].replace('.pdf', '') + '] '
+        desc_element.text += record[self.field_indices['description']]
+        desc_element.text += ' [' + record[self.field_indices['geo_coord_original']] + ']'
         self.max_desc_length = max(self.max_desc_length, len(desc_element.text))
 
         point_element = etree.SubElement(placemark, 'Point')
@@ -66,7 +117,7 @@ class Mapper:
         log("{: >4d}".format(added_records) + ' records written to ' + fn)
 
     def master_coords_column_name(self, record):
-        if record.get('verified_gps_coords'):
+        if record[self.field_indices['verified_gps_coords']]:
             return 'verified_gps_coords'
         return 'geo_coord_UTM'
 
@@ -76,9 +127,8 @@ class Mapper:
     def manual_coords_column_name(self, record):
         return 'verified_gps_coords'
 
-    def transform_to_kml(self, input_stream, filename_prefix, column_name_func):
-        reader = csv.DictReader(input_stream, delimiter=',',
-                                quotechar='"', quoting=csv.QUOTE_MINIMAL)
+    def transform_to_kml(self, input_file_name, filename_prefix, column_name_func):
+        self.field_indices, sorted_records = Sorter().do_sort(input_file_name)
         MAX_RECORDS_PER_KML = 2000
         kml_file_index = 0
         total_records_processed = 0
@@ -86,9 +136,9 @@ class Mapper:
         root = etree.Element('kml')
         root.set('xmlns', 'http://www.opengis.net/kml/2.2')
         document = etree.SubElement(root, 'Document')
-        for record in reader:
+        for record in sorted_records:
             # For the calculated reference GPS coordinate layer, only add GPS coords if there are verified geographic coords.
-            if 'calced_ref' != filename_prefix or record.get('verified_gps_coords'):
+            if 'calced_ref' != filename_prefix or record[self.field_indices['verified_gps_coords']]:
                 added_records += self.handle_record(document, record, column_name_func(record))
             total_records_processed += 1
             if added_records == MAX_RECORDS_PER_KML:
@@ -101,13 +151,13 @@ class Mapper:
         return total_records_processed
 
     def main(self):
-        self.transform_to_kml(open('data/transformed_no_rand.csv'), 'calced_no_rand', self.calced_coords_column_name)
-        self.transform_to_kml(open('data/transformed.csv'), 'calced_ref', self.calced_coords_column_name)
-        self.transform_to_kml(open('data/transformed.csv'), 'manual', self.manual_coords_column_name)
+        self.transform_to_kml('data/transformed_no_rand.csv', 'calced_no_rand', self.calced_coords_column_name)
+        self.transform_to_kml('data/transformed.csv', 'calced_ref', self.calced_coords_column_name)
+        self.transform_to_kml('data/transformed.csv', 'manual', self.manual_coords_column_name)
 
         self.max_name_length = 0
         self.max_desc_length = 0
-        total_records_processed = self.transform_to_kml(open('data/transformed.csv'), 'calced', self.master_coords_column_name)
+        total_records_processed = self.transform_to_kml('data/transformed.csv', 'calced', self.master_coords_column_name)
         log("{: >4d}".format(total_records_processed) + ' input records processed')
         log("{: >4d}".format(self.max_name_length) + ' max_name_length')
         log("{: >4d}".format(self.max_desc_length) + ' max_desc_length')
