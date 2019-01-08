@@ -24,6 +24,8 @@ class Sorter:
             reader = csv.DictReader(infile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
             fieldnames = reader.fieldnames
             for record in reader:
+                if not record.get('year'):
+                    continue
                 if not record.get('geo_coord_original'):
                     continue
                 key = record['geo_coord_original']
@@ -35,7 +37,7 @@ class Sorter:
         return fieldnames, dict 
 
     def get_record_key(self, array_record):
-        return array_record[self.field_indices['geo_coord_original']] + ' ' + array_record[self.field_indices['resource_name']]
+        return array_record[self.field_indices['year']] + ' ' + array_record[self.field_indices['resource_name']]
 
     def to_array(self, dict_record):
         arr = []
@@ -85,6 +87,9 @@ class Mapper:
                 record[self.field_indices['title']] += ', ' + year
 
     def handle_record(self, document_el, record, column_name):
+        year = record[self.field_indices['year']]
+        if not year or len(year) == 0:
+            return 0
         geo_coords = record[self.field_indices[column_name]]
         if not geo_coords or len(geo_coords) == 0:
             return 0

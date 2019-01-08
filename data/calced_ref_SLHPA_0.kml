@@ -2,38 +2,10 @@
 <kml xmlns="http://www.opengis.net/kml/2.2">
   <Document>
     <Placemark>
-      <name>Beach, Foot of Davis St. ca 1920 [https://sanle.ent.sirsi.net/client/en_US/search/asset/5531/0]</name>
-      <description>[00000397] Beach, Foot of Davis St. ca 1920. [B73212]</description>
+      <name>Eber Home, 1880 [https://sanle.ent.sirsi.net/client/en_US/search/asset/5563/0]</name>
+      <description>[00000429] 63 Callan Ave. Henry F. Eber; Winnie, his daughter; Laura, his wife. Budd Eber was born in this house in 1881. [D72427]</description>
       <Point>
-        <coordinates>-122.18963841271395,37.717381143161724,0</coordinates>
-      </Point>
-    </Placemark>
-    <Placemark>
-      <name>Oyster Beds, Mulford's Landing? [https://sanle.ent.sirsi.net/client/en_US/search/asset/5383/0]</name>
-      <description>[00000249] Oyster Beds, Mulford's Landing? [B74618]</description>
-      <Point>
-        <coordinates>-122.1897317252763,37.7009191999531,0</coordinates>
-      </Point>
-    </Placemark>
-    <Placemark>
-      <name>Polvorosa Boys, 1923 [https://sanle.ent.sirsi.net/client/en_US/search/asset/5686/0]</name>
-      <description>[00000552] 141 Dabner St. Frank Polvorosa, Julian Polvorosa, Sr., Tony Polvorosa. [D22626]</description>
-      <Point>
-        <coordinates>-122.15717295932073,37.72586761764109,0</coordinates>
-      </Point>
-    </Placemark>
-    <Placemark>
-      <name>Freeman Home [https://sanle.ent.sirsi.net/client/en_US/search/asset/6036/0]</name>
-      <description>[00000902] 34 Oakes Blvd., San Leandro. [D62131]</description>
-      <Point>
-        <coordinates>-122.14935953671751,37.731436946927104,0</coordinates>
-      </Point>
-    </Placemark>
-    <Placemark>
-      <name>First Masonic Temple Club, 1966 [https://sanle.ent.sirsi.net/client/en_US/search/asset/5368/0]</name>
-      <description>[00000233] About 1320 Clark St. near W. Estudillo. [D62514]</description>
-      <Point>
-        <coordinates>-122.1489854062323,37.72612891537753,0</coordinates>
+        <coordinates>-122.14682176688788,37.72772601688054,0</coordinates>
       </Point>
     </Placemark>
     <Placemark>
@@ -44,24 +16,24 @@
       </Point>
     </Placemark>
     <Placemark>
-      <name>Eber Home, 1880 [https://sanle.ent.sirsi.net/client/en_US/search/asset/5563/0]</name>
-      <description>[00000429] 63 Callan Ave. Henry F. Eber; Winnie, his daughter; Laura, his wife. Budd Eber was born in this house in 1881. [D72427]</description>
+      <name>Slate House, Lake Chabot, San Leandro, 1915 [https://sanle.ent.sirsi.net/client/en_US/search/asset/5160/0]</name>
+      <description>[00000023] Slate House situated at Lake Chabot in San Leandro. Chabot Dam Superintendent George Logan sitting on steps. The residence was built in 1904. Photograph 1915. [E92016]</description>
       <Point>
-        <coordinates>-122.14682176688788,37.72772601688054,0</coordinates>
+        <coordinates>-122.12319090216496,37.7325396601945,0</coordinates>
       </Point>
     </Placemark>
     <Placemark>
-      <name>Skillen House, 1957 [https://sanle.ent.sirsi.net/client/en_US/search/asset/6432/0]</name>
-      <description>[00001300] 304 Chumalia Avenue (and Jefferson). House with picket fence, backing on the creek, occupied by John Skillen and family 1883 - 1957, unoccupied for 14 years, to be torn down. Rented from Francisco Cardozo Sr. in 1883, so possibly built by him. [D92228]</description>
+      <name>Beach, Foot of Davis St. ca 1920 [https://sanle.ent.sirsi.net/client/en_US/search/asset/5531/0]</name>
+      <description>[00000397] Beach, Foot of Davis St. ca 1920. [B73212]</description>
       <Point>
-        <coordinates>-122.14355649585497,37.73000986143886,0</coordinates>
+        <coordinates>-122.18963841271395,37.717381143161724,0</coordinates>
       </Point>
     </Placemark>
     <Placemark>
-      <name>Neighborhood Kids on the Way to School, April, 1935 [https://sanle.ent.sirsi.net/client/en_US/search/asset/6593/0]</name>
-      <description>[00001465] 2201 Cherry St., San Leandro. [E13110]</description>
+      <name>Polvorosa Boys, 1923 [https://sanle.ent.sirsi.net/client/en_US/search/asset/5686/0]</name>
+      <description>[00000552] 141 Dabner St. Frank Polvorosa, Julian Polvorosa, Sr., Tony Polvorosa. [D22626]</description>
       <Point>
-        <coordinates>-122.13881940246381,37.71888746653643,0</coordinates>
+        <coordinates>-122.15717295932073,37.72586761764109,0</coordinates>
       </Point>
     </Placemark>
     <Placemark>
@@ -72,10 +44,24 @@
       </Point>
     </Placemark>
     <Placemark>
-      <name>Slate House, Lake Chabot, San Leandro, 1915 [https://sanle.ent.sirsi.net/client/en_US/search/asset/5160/0]</name>
-      <description>[00000023] Slate House situated at Lake Chabot in San Leandro. Chabot Dam Superintendent George Logan sitting on steps. The residence was built in 1904. Photograph 1915. [E92016]</description>
+      <name>Neighborhood Kids on the Way to School, April, 1935 [https://sanle.ent.sirsi.net/client/en_US/search/asset/6593/0]</name>
+      <description>[00001465] 2201 Cherry St., San Leandro. [E13110]</description>
       <Point>
-        <coordinates>-122.12319090216496,37.7325396601945,0</coordinates>
+        <coordinates>-122.13881940246381,37.71888746653643,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Skillen House, 1957 [https://sanle.ent.sirsi.net/client/en_US/search/asset/6432/0]</name>
+      <description>[00001300] 304 Chumalia Avenue (and Jefferson). House with picket fence, backing on the creek, occupied by John Skillen and family 1883 - 1957, unoccupied for 14 years, to be torn down. Rented from Francisco Cardozo Sr. in 1883, so possibly built by him. [D92228]</description>
+      <Point>
+        <coordinates>-122.14355649585497,37.73000986143886,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>First Masonic Temple Club, 1966 [https://sanle.ent.sirsi.net/client/en_US/search/asset/5368/0]</name>
+      <description>[00000233] About 1320 Clark St. near W. Estudillo. [D62514]</description>
+      <Point>
+        <coordinates>-122.1489854062323,37.72612891537753,0</coordinates>
       </Point>
     </Placemark>
   </Document>
