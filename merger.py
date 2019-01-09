@@ -46,6 +46,20 @@ def write(scraped, fieldnames):
     log(str("{: >4d}".format(len(scraped))) + ' records written to ' + fn)
 
 
+def write_year_counts(scraped):
+    year_counts = [0] * 2020 # create and fill array with zeros
+    for key, record in scraped.items():
+       if record.get('year'):
+           year_counts[int(record['year'])] += 1
+    total_count = 0
+    fn = 'data/year_counts.csv'
+    with open(fn, 'w', newline='') as out_file:
+        for y in range(1800, 2020):
+            out_file.write(str(y) + '\t' + str(year_counts[y]) + '\n')
+            total_count += year_counts[y]
+    log(str("{: >4d}".format(total_count)) + ' year counts written to ' + fn)
+
+
 def comb_addresses(scraped_fieldnames, scraped):
     scraped_fieldnames.append('address')
     addresses_found = {}
@@ -132,6 +146,7 @@ def main():
     comb_years(scraped_fieldnames, scraped, from_dvd)
     comb_addresses(scraped_fieldnames, scraped)
     write(scraped, scraped_fieldnames)
+    write_year_counts(scraped)
 
 
 if '__main__' == __name__:
