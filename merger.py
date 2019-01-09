@@ -3,6 +3,7 @@ import sys
 import datetime
 import re
 import pprint
+import random
 
 # Merge historical photo metadata from multiple source csv files
 # This script supercedes and replaces comber.py
@@ -47,15 +48,22 @@ def write(scraped, fieldnames):
 
 
 def write_year_counts(scraped):
-    year_counts = [0] * 2020 # create and fill array with zeros
+     # create and fill arrays with zeros
+    year_counts = [0] * 2020
+    adjusted_year_counts = [0] * 2020
     for key, record in scraped.items():
-       if record.get('year'):
-           year_counts[int(record['year'])] += 1
+        if record.get('year'):
+            year_counts[int(record['year'])] += 1
+            adjusted_year = int(record['year'])
+            if adjusted_year % 10 == 0:
+                adjusted_year = adjusted_year - 5 + round(10 * random.random())
+            adjusted_year_counts[adjusted_year] += 1
+            
     total_count = 0
-    fn = 'data/year_counts.csv'
+    fn = 'data/year_counts.tsv'
     with open(fn, 'w', newline='') as out_file:
         for y in range(1800, 2020):
-            out_file.write(str(y) + '\t' + str(year_counts[y]) + '\n')
+            out_file.write(str(y) + '\t' + str(year_counts[y]) + '\t' + str(adjusted_year_counts[y]) + '\n')
             total_count += year_counts[y]
     log(str("{: >4d}".format(total_count)) + ' year counts written to ' + fn)
 
