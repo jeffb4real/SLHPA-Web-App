@@ -25,14 +25,17 @@ def number_to_pdf(n):
 
 def read_from_stream_into_dict(file_name, key_function_name, key_column):
     dict = {}
+    c = 0
     fieldnames = None
     with open(file_name, 'r', newline='') as infile:
         reader = csv.DictReader(infile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
         fieldnames = reader.fieldnames
         for record in reader:
+            c += 1
             if len(record[key_column]) > 0:
                 dict[key_function_name(record[key_column])] = record
-    log(str("{: >4d}".format(len(dict))) + ' records read from ' + file_name)
+    log(str("{: >4d}".format(c)) + ' total records read from ' + file_name)
+    log(str("{: >4d}".format(len(dict))) + ' unique records read from ' + file_name)
     return fieldnames, dict
 
 
