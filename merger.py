@@ -74,7 +74,7 @@ def write_year_counts(scraped):
 def comb_addresses(scraped_fieldnames, scraped):
     scraped_fieldnames.append('address')
     addresses_found = {}
-    pattern = re.compile(r'\d+\s\w+\s(Ave|St|Blvd|Boulevard)')
+    pattern = re.compile(r'\d+\s\w+\s(Ave|St|Blvd|Boulevard|Ln|Dr|Lane|Court|Ct|Road|Rd|Way|Pl|Highway|Terrace|Alley|Circle|Park|Commons|Cmns)')
     for value in scraped.values():
         for field in 'title', 'subject', 'description', 'description2':
             if value.get(field):
