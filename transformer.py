@@ -55,6 +55,9 @@ def increment_count(the_dict, the_value):
         the_dict[the_value] = 0
     the_dict[the_value] += 1
 
+def random_factor(f):
+    return (random.random() - 0.5) * f
+
 # Turns a string of the form [A-Z][0-9][0-9][0-9] into GPS coordinates.
 def transform_point(coords, out_file_name):
     if len(coords) >= 6:
@@ -66,13 +69,14 @@ def transform_point(coords, out_file_name):
     tens_coord = ord(coords[2])
     ones_coord = ord(coords[3])
 
-    horiz_adjustment = 0
-    vert_adjustment = 0
+    horiz_adjustment = random_factor(0.0) # 0.6 gives good grouping for showing grid.
+    vert_adjustment = random_factor(0.0)
     if out_file_name == 'transformed':
-        # Adding a small random value distributes the pins on the map so they are more visible.
-        # This does not necessarily make them incorrect, given the 'low resolution' of the original geo coordinates.
-        horiz_adjustment = random.random()
-        vert_adjustment = random.random()
+        # Adding a small random value (0.0 - 1.0, which adds a fractional value to the integer location value)
+        # This distributes the pins on the map so they don't lie on top of each other and are more natural looking.
+        # This does not make them more incorrect, given the low resolution of the original geo coordinates.
+        horiz_adjustment = random_factor(1.0)
+        vert_adjustment = random_factor(1.0)
     vertical_coord = transform_vertical(((tens_coord - ascii0) * 10) + (ones_coord - ascii0) + vert_adjustment)
     horizontal_coord = transform_horizontal(coords[0:2], horiz_adjustment)
     return [horizontal_coord, vertical_coord]
