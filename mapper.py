@@ -68,6 +68,8 @@ class Sorter:
 class Mapper:
     max_name_length = 0
     max_desc_length = 0
+    max_name_record = 'unknown'
+    max_desc_record = 'unknown'
     field_indices = {}
 
     def has_year(self, record):
@@ -100,13 +102,17 @@ class Mapper:
         placemark = etree.SubElement(document_el, 'Placemark')
         name_element = etree.SubElement(placemark, 'name')
         name_element.text = record[self.field_indices['title']] + ' [' + record[self.field_indices['url_for_file']] + ']' 
-        self.max_name_length = max(self.max_name_length, len(name_element.text))
+        if self.max_name_length < len(name_element.text):
+            self.max_name_length = len(name_element.text)
+            self.max_name_record = record[self.field_indices['resource_name']]
 
         desc_element = etree.SubElement(placemark, 'description')
         desc_element.text = '[' + record[self.field_indices['resource_name']].replace('.pdf', '') + '] '
         desc_element.text += record[self.field_indices['description']]
         desc_element.text += ' [' + record[self.field_indices['geo_coord_original']] + ']'
-        self.max_desc_length = max(self.max_desc_length, len(desc_element.text))
+        if self.max_desc_length < len(desc_element.text):
+            self.max_desc_length = len(desc_element.text)
+            self.max_desc_record = record[self.field_indices['resource_name']]
 
         point_element = etree.SubElement(placemark, 'Point')
         coords_element = etree.SubElement(point_element, 'coordinates')
@@ -164,8 +170,8 @@ class Mapper:
         self.max_desc_length = 0
         total_records_processed = self.transform_to_kml('data/transformed.csv', 'calced', self.master_coords_column_name)
         log("{: >4d}".format(total_records_processed) + ' input records processed')
-        log("{: >4d}".format(self.max_name_length) + ' max_name_length')
-        log("{: >4d}".format(self.max_desc_length) + ' max_desc_length')
+        log("{: >4d}".format(self.max_name_length) + ' max_name_length' + ' in ' + self.max_name_record)
+        log("{: >4d}".format(self.max_desc_length) + ' max_desc_length' + ' in ' + self.max_desc_record)
 
 if '__main__' == __name__:
     Mapper().main()
