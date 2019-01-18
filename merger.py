@@ -54,6 +54,8 @@ def write_year_counts(scraped):
      # create and fill arrays with zeros
     year_counts = [0] * 2020
     adjusted_year_counts = [0] * 2020
+
+    random.seed(0)
     for key, record in scraped.items():
         if record.get('year'):
             year_counts[int(record['year'])] += 1
@@ -65,7 +67,7 @@ def write_year_counts(scraped):
     total_count = 0
     fn = 'data/year_counts.tsv'
     with open(fn, 'w', newline='') as out_file:
-        for y in range(1800, 2020):
+        for y in range(1840, 1980):
             out_file.write(str(y) + '\t' + str(year_counts[y]) + '\t' + str(adjusted_year_counts[y]) + '\n')
             total_count += year_counts[y]
     log(str("{: >4d}".format(total_count)) + ' year counts written to ' + fn)
