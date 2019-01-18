@@ -3859,6 +3859,13 @@
       </Point>
     </Placemark>
     <Placemark>
+      <name>Old Presbyterian Church, 1928 [https://sanle.ent.sirsi.net/client/en_US/search/asset/5692/0]</name>
+      <description>[00000558] W. Joaquin and Clarke. Rev. Drew. This was the third church to be built in San Leandro, dating from 1867. The north wing is still standing at the original site (Hepburn facing Clarke) although the main building was moved to Ashland sometime after 1928. [D72614]</description>
+      <Point>
+        <coordinates>-122.1485575,37.72595571428572,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
       <name>Baseball Team at San Leandro Ballpark,1928 [https://sanle.ent.sirsi.net/client/en_US/search/asset/5884/0]</name>
       <description>[00000750] Baseball Team at San Leandro Ballpark,1928. [D62721]</description>
       <Point>
@@ -5270,13 +5277,6 @@
       <description>[00001463] Group on Steps. [D72310]</description>
       <Point>
         <coordinates>-122.1485575,37.72970357142857,0</coordinates>
-      </Point>
-    </Placemark>
-    <Placemark>
-      <name>Old Presbyterian Church, 1928 [https://sanle.ent.sirsi.net/client/en_US/search/asset/5692/0]</name>
-      <description>[00000558] W. Joaquin and Clarke. Rev. Drew. This was the third church to be built in San Leandro, dating from 1867. The north wing is still standing at the original site (Hepburn facing Clarke) although the main building was moved to Ashland sometime after 1928. [D72614]</description>
-      <Point>
-        <coordinates>-122.1485575,37.72595571428572,0</coordinates>
       </Point>
     </Placemark>
   </Document>
