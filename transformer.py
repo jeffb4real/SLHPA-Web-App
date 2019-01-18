@@ -69,8 +69,8 @@ def transform_point(coords, out_file_name):
     tens_coord = ord(coords[2])
     ones_coord = ord(coords[3])
 
-    horiz_adjustment = random_factor(0.0) # 0.6 gives good grouping for showing grid.
-    vert_adjustment = random_factor(0.0)
+    horiz_adjustment = random_factor(0.6) # 0.6 gives good grouping for showing grid.
+    vert_adjustment = random_factor(0.6)
     if out_file_name == 'transformed':
         # Adding a small random value (0.0 - 1.0, which adds a fractional value to the integer location value)
         # This distributes the pins on the map so they don't lie on top of each other and are more natural looking.
