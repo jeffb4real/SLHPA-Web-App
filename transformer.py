@@ -133,6 +133,7 @@ def transform(infile, out_file_name):
         record['geo_coord_original'] = record['geo_coord_original'].replace(' ', '')
         if len(record['geo_coord_original']) >= 4:
             record['geo_coord_UTM'] = transform_point(record['geo_coord_original'], out_file_name)
+            record['geo_coord_original'] = record['geo_coord_original'][2:6]
             transformed_records += 1
             accumulate_error(record)
         writer.writerow(record)
