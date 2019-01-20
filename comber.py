@@ -9,6 +9,9 @@ def log(message):
     script_name = sys.argv[0]
     print(str(datetime.datetime.now()) + '\t'+ script_name + ': ' + message)
 
+log('comber.py functionality now merged into merger.py')
+exit(0)
+
 # All fields for a single record
 resource_name = 0
 asset_name = 1
