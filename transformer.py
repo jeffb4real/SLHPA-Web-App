@@ -18,13 +18,13 @@ def map_value(value, from_start, from_end, to_start, to_end):
 
 # Gotten from manually observing existing data
 top_coord = 18
-bottom_coord = 46
+bottom_coord = 35
 top_gps = 37.73595
-bottom_gps = 37.70097
+bottom_gps = 37.71413
 left_coord = 'B7'
-right_coord = 'F1'
+right_coord = 'E9'
 left_gps = -122.18977
-right_gps = -122.1235
+right_gps = -122.14102
 
 
 def transform_vertical(value):
