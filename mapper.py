@@ -29,9 +29,8 @@ class Sorter:
                 if not record.get('geo_coord_original'):
                     continue
                 key = record['geo_coord_original']
-                if (len(key) < 6):
+                if (len(key) < 4):
                     continue
-                record['geo_coord_original'] = key[2:6] + key[0:2]
                 dict[record['resource_name']] = record
         log(str("{: >4d}".format(len(dict))) + ' records read from ' + file_name)
         return fieldnames, dict 
