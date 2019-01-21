@@ -22,9 +22,9 @@ bottom_coord = 46
 top_gps = 37.73595
 bottom_gps = 37.70097
 left_coord = 'B7'
-right_coord = 'E9'
+right_coord = 'F1'
 left_gps = -122.18977
-right_gps = -122.12383
+right_gps = -122.1235
 
 
 def transform_vertical(value):
