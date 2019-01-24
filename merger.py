@@ -8,9 +8,10 @@ import random
 # Merge historical photo metadata from multiple source csv files
 # This script supercedes and replaces comber.py
 
+
 def log(message):
     script_name = sys.argv[0]
-    print(str(datetime.datetime.now()) + '\t'+ script_name + ': ' + message)
+    print(str(datetime.datetime.now()) + '\t' + script_name + ': ' + message)
 
 
 # Reformat the primary key column data in the 'from_dvd' file.
@@ -28,14 +29,16 @@ def read_from_stream_into_dict(file_name, key_function_name, key_column):
     c = 0
     fieldnames = None
     with open(file_name, 'r', newline='') as infile:
-        reader = csv.DictReader(infile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+        reader = csv.DictReader(infile, delimiter=',',
+                                quotechar='"', quoting=csv.QUOTE_MINIMAL)
         fieldnames = reader.fieldnames
         for record in reader:
             c += 1
             if len(record[key_column]) > 0:
                 dict[key_function_name(record[key_column])] = record
     log(str("{: >4d}".format(c)) + ' total records read from ' + file_name)
-    log(str("{: >4d}".format(len(dict))) + ' unique records read from ' + file_name)
+    log(str("{: >4d}".format(len(dict))) +
+        ' unique records read from ' + file_name)
     return fieldnames, dict
 
 
@@ -46,7 +49,7 @@ def write(scraped, fieldnames):
                             quoting=csv.QUOTE_MINIMAL)
     writer.writeheader()
     for key, value in sorted(scraped.items()):
-       writer.writerow(value)
+        writer.writerow(value)
     log(str("{: >4d}".format(len(scraped))) + ' records written to ' + fn)
 
 
@@ -63,12 +66,13 @@ def write_year_counts(scraped):
             if adjusted_year % 10 == 0:
                 adjusted_year = adjusted_year - 5 + round(10 * random.random())
             adjusted_year_counts[adjusted_year] += 1
-            
+
     total_count = 0
     fn = 'data/year_counts.tsv'
     with open(fn, 'w', newline='') as out_file:
         for y in range(1840, 1980):
-            out_file.write(str(y) + '\t' + str(year_counts[y]) + '\t' + str(adjusted_year_counts[y]) + '\n')
+            out_file.write(
+                str(y) + '\t' + str(year_counts[y]) + '\t' + str(adjusted_year_counts[y]) + '\n')
             total_count += year_counts[y]
     log(str("{: >4d}".format(total_count)) + ' year counts written to ' + fn)
 
@@ -76,7 +80,8 @@ def write_year_counts(scraped):
 def comb_addresses(scraped_fieldnames, scraped):
     scraped_fieldnames.append('address')
     addresses_found = {}
-    pattern = re.compile(r'\d+\s\w+\s(Ave|St|Blvd|Boulevard|Ln|Dr|Lane|Court|Ct|Road|Rd|Way|Pl|Highway|Terrace|Alley|Circle|Park|Commons|Cmns)')
+    pattern = re.compile(
+        r'\d+\s\w+\s(Ave|St|Blvd|Boulevard|Ln|Dr|Lane|Court|Ct|Road|Rd|Way|Pl|Highway|Terrace|Alley|Circle|Park|Commons|Cmns)')
     for value in scraped.values():
         for field in 'title', 'subject', 'description', 'description2':
             if value.get(field):
@@ -122,7 +127,7 @@ def comb_years(scraped_fieldnames, scraped, from_dvd):
             title_from_dvd = record_from_dvd['Title']
             if ((title_from_dvd not in value['description']) and
                 (title_from_dvd not in value['title']) and
-                (title_from_dvd != 'NR')):
+                    (title_from_dvd != 'NR')):
                 value['description2'] = title_from_dvd
                 num_descs_found += 1
     log("{: >4d}".format(num_years_found) + ' years added.')
@@ -131,7 +136,8 @@ def comb_years(scraped_fieldnames, scraped, from_dvd):
 
 # Merge any new columns or rows from source filename into scraped_fieldnames and scraped rows.
 def merge_one_file(scraped_fieldnames, scraped, filename, key_function, key_column):
-    source_fieldnames, source_rows = read_from_stream_into_dict(filename, key_function, key_column)
+    source_fieldnames, source_rows = read_from_stream_into_dict(
+        filename, key_function, key_column)
     scraped_names_dict = {}
     source_names_dict = {}
     for s in scraped_fieldnames:
@@ -151,11 +157,15 @@ def merge_one_file(scraped_fieldnames, scraped, filename, key_function, key_colu
 
 
 def main():
-    scraped_fieldnames, scraped = read_from_stream_into_dict('data/scraped.csv', str, 'resource_name')
+    scraped_fieldnames, scraped = read_from_stream_into_dict(
+        'data/scraped.csv', str, 'resource_name')
     scraped_fieldnames.append('geo_coord_UTM')
-    merge_one_file(scraped_fieldnames, scraped, 'data/manually-entered.csv', str, 'resource_name')
-    merge_one_file(scraped_fieldnames, scraped, 'data/transcribed.csv', number_to_pdf, 'resource_number')
-    from_dvd = merge_one_file(scraped_fieldnames, scraped, 'data/V01-V64 Index.csv', prepend_zeros, 'Index Number')
+    merge_one_file(scraped_fieldnames, scraped,
+                   'data/manually-entered.csv', str, 'resource_name')
+    merge_one_file(scraped_fieldnames, scraped,
+                   'data/transcribed.csv', number_to_pdf, 'resource_number')
+    from_dvd = merge_one_file(scraped_fieldnames, scraped,
+                              'data/V01-V64 Index.csv', prepend_zeros, 'Index Number')
     comb_years(scraped_fieldnames, scraped, from_dvd)
     comb_addresses(scraped_fieldnames, scraped)
     write(scraped, scraped_fieldnames)
