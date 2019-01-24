@@ -1,0 +1,37 @@
+Field names in data files in:
+SLHPA-Web-App/data/...
+
+----
+SLHPA-records-phase01.csv (deprecated):
+resource_name	asset_name	file_size	title	subject	description	contributor	digital_format	url_for_file	date	subject_group	geo_coord_original	geo_coord_UTM
+
+combed.csv (deprecated):
+resource_name	asset_name	file_size	title	subject	description	contributor	digital_format	url_for_file	date	subject_group	geo_coord_original	geo_coord_UTM
+
+----
+scraped.csv:
+resource_name	asset_name	file_size	title	subject	description	contributor	period_date	digital_format	url_for_file
+
+merged.csv: read, merge, comb, write
+resource_name	asset_name	file_size	title	subject	description	contributor	period_date	digital_format	url_for_file	geo_coord_UTM	verified_gps_coords	resource_number	year	geo_coord_original	paper_page_number	source_index	Index Number	Volume	Title	Notes	description2	address
+
+transformed.csv:
+resource_name	asset_name	file_size	title	subject	description	contributor	period_date	digital_format	url_for_file	geo_coord_UTM	verified_gps_coords	resource_number	year	geo_coord_original	paper_page_number	source_index	Index Number	Volume	Title	Notes	description2	address
+
+----
+transcribed.csv:
+resource_number	year	geo_coord_original	paper_page_number	source_index
+
+manually_entered.csv: (Can rename override, verified)
+resource_name	verified_gps_coords
+
+V01-V64 Index.xls (from DVD):
+Index Number	Volume	Title
+
+----
+Goals:
+fewest fields - no redundant data, no useless data
+no useless data - don't destroy data unless it's useless
+style-matched field names (lower-case, underscores)
+deal with logical data contention issues
+
