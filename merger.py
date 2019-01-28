@@ -5,8 +5,12 @@ import re
 import pprint
 import random
 
-# Merge historical photo metadata from multiple source csv files
+
 # This script supercedes and replaces comber.py
+
+# 1. Merge historical photo metadata from multiple source csv files:
+#       read -> merge -> comb -> filter -> write
+# 2. Create histogram data (csv file) of number of photos per year
 
 
 def log(message):
@@ -24,19 +28,19 @@ def number_to_pdf(n):
     return "{:0>8d}".format(int(n)) + '.pdf'
 
 
-def read_from_stream_into_dict(file_name, key_function_name, key_column):
+def read_from_stream_into_dict(file_name, key_function_name, key_column_name):
     dict = {}
-    c = 0
+    count = 0
     fieldnames = None
     with open(file_name, 'r', newline='') as infile:
         reader = csv.DictReader(infile, delimiter=',',
                                 quotechar='"', quoting=csv.QUOTE_MINIMAL)
         fieldnames = reader.fieldnames
         for record in reader:
-            c += 1
-            if len(record[key_column]) > 0:
-                dict[key_function_name(record[key_column])] = record
-    log(str("{: >4d}".format(c)) + ' total records read from ' + file_name)
+            count += 1
+            if len(record[key_column_name]) > 0:
+                dict[key_function_name(record[key_column_name])] = record
+    log(str("{: >4d}".format(count)) + ' total records read from ' + file_name)
     log(str("{: >4d}".format(len(dict))) +
         ' unique records read from ' + file_name)
     return fieldnames, dict
@@ -48,7 +52,7 @@ def write(scraped, fieldnames):
     writer = csv.DictWriter(outfile, fieldnames, delimiter=',', quotechar='"',
                             quoting=csv.QUOTE_MINIMAL)
     writer.writeheader()
-    for key, value in sorted(scraped.items()):
+    for _, value in sorted(scraped.items()):
         writer.writerow(value)
     log(str("{: >4d}".format(len(scraped))) + ' records written to ' + fn)
 
@@ -59,7 +63,7 @@ def write_year_counts(scraped):
     adjusted_year_counts = [0] * 2020
 
     random.seed(0)
-    for key, record in scraped.items():
+    for _, record in scraped.items():
         if record.get('year'):
             year_counts[int(record['year'])] += 1
             adjusted_year = int(record['year'])
@@ -122,7 +126,6 @@ def comb_years(scraped_fieldnames, scraped, from_dvd):
                         value['year'] = str(max(filtered_list_of_years))
                         num_years_found += 1
 
-            # TODO : create second description column
             # Compare description fields; add description from DVD if they don't match
             title_from_dvd = record_from_dvd['Title']
             if ((title_from_dvd not in value['description']) and
@@ -135,9 +138,9 @@ def comb_years(scraped_fieldnames, scraped, from_dvd):
 
 
 # Merge any new columns or rows from source filename into scraped_fieldnames and scraped rows.
-def merge_one_file(scraped_fieldnames, scraped, filename, key_function, key_column):
+def merge_one_file(scraped_fieldnames, scraped, filename, key_function, key_column_name):
     source_fieldnames, source_rows = read_from_stream_into_dict(
-        filename, key_function, key_column)
+        filename, key_function, key_column_name)
     scraped_names_dict = {}
     source_names_dict = {}
     for s in scraped_fieldnames:
