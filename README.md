@@ -21,9 +21,8 @@ This SLHPA-Web-App project is an attempt to make the historic photo archive more
 
 This project was created with Python 3.7.x, with the addition of these modules:
 
-* selenium
-* lxml
-* Dumper
+* selenium - used by `scraper.py` to scrape photo data
+* lxml - used by `mapper.py` to write KML data
 
 These modules were installed with pip, e.g.:
 
@@ -135,7 +134,7 @@ Assuming this project has already been cloned:
 
 ## run-pipeline
 
-This is a BASH script that serially runs all of the above tools, except scraper.py.
+This is a simple BASH script that serially runs all of the above tools, except scraper.py.
 
 ### How to run `run-pipeline.sh`
 
