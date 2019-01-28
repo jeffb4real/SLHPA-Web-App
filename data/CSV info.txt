@@ -12,7 +12,7 @@ resource_name	asset_name	file_size	title	subject	description	contributor	digital
 scraped.csv:
 resource_name	asset_name	file_size	title	subject	description	contributor	period_date	digital_format	url_for_file
 
-merged.csv: read, merge, comb, write
+merged.csv:
 resource_name	asset_name	file_size	title	subject	description	contributor	period_date	digital_format	url_for_file	geo_coord_UTM	verified_gps_coords	resource_number	year	geo_coord_original	paper_page_number	source_index	Index Number	Volume	Title	Notes	description2	address
 
 transformed.csv:
@@ -22,7 +22,7 @@ resource_name	asset_name	file_size	title	subject	description	contributor	period_
 transcribed.csv:
 resource_number	year	geo_coord_original	paper_page_number	source_index
 
-manually_entered.csv: (Can rename override, verified)
+manually_verified.csv:
 resource_name	verified_gps_coords
 
 V01-V64 Index.xls (from DVD):
