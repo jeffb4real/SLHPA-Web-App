@@ -15,7 +15,7 @@ San Leandro Historical Photo Archive Web Application
 
 The San Leandro Public Library is home to an archive of about 2500 photographic prints related to the history of San Leandro. These prints have also been scanned, and are accessible online through the library's Catalog Search, available at http://sanleandro.org/depts/library/default.asp
 
-This SLHPA-Web-App project is an attempt to make the historic photo archive more easily browsable, by creating a historical photo website that uses dynamic elements such as user-customizable filter settings, photo carousel, or maps/pins.
+This SLHPA-Web-App project is an attempt to make the historical photo archive more easily browsable, by creating a historical photo website that uses dynamic elements such as user-customizable filter settings, photo carousel, or maps/markers.
 
 ## Python_Dependencies
 
