@@ -43,6 +43,7 @@ ALLOWED_HOSTS = []
 # in each of the INSTALLED_APPS.
 INSTALLED_APPS = [
     'polls.apps.PollsConfig',
+    'slhpa.apps.SlhpaConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

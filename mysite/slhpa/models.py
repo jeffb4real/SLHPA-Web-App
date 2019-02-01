@@ -1,6 +1,6 @@
 from django.db import models
 
-# 0-column names from transformed.csv not included:
+#  column names from transformed.csv not included:
 # asset_name
 # description2
 # digital_format
