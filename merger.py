@@ -6,29 +6,36 @@ import pprint
 import random
 
 
-# This script supercedes and replaces comber.py
+"""
+This script supercedes and replaces comber.py
 
-# 1. Merge historical photo metadata from multiple source csv files:
-#       read -> merge -> comb -> filter -> write
-# 2. Create histogram data (csv file) of number of photos per year
+1. Merge historical photo metadata from multiple source csv files:
+       read -> merge -> comb -> filter -> write
+2. Create histogram data (csv file) of number of photos per year
+"""
 
 
 def log(message):
+    """ Log messages to terminal in a standard format. """
     script_name = sys.argv[0]
     print(str(datetime.datetime.now()) + '\t' + script_name + ': ' + message)
 
 
-# Reformat the primary key column data in the 'from_dvd' file.
 def prepend_zeros(n):
+    """ Reformat the primary key column data in the 'from_dvd' file. """
     return "000" + n + '.pdf'
 
 
-# Reformat the primary key column data in the 'transcribed' file.
 def number_to_pdf(n):
+    """ Reformat the primary key column data in the 'transcribed' file. """
     return "{:0>8d}".format(int(n)) + '.pdf'
 
 
-def read_from_stream_into_dict(file_name, key_function_name, key_column_name):
+def read_from_stream_into_dict(file_name: str, key_function_name: callable, key_column_name: str) -> [list, dict]:
+    """
+    Read records from file_name into memory. Return a list of column names and a dictionary of records,
+    with key ID as hash key.
+    """
     dict = {}
     count = 0
     fieldnames = None
@@ -46,23 +53,27 @@ def read_from_stream_into_dict(file_name, key_function_name, key_column_name):
     return fieldnames, dict
 
 
-def write(scraped_records, fieldnames):
+def write(records: dict, fieldnames: list):
+    """ Write a csv file of records with fieldnames fields. """
     filename = 'data/merged.csv'
     outfile = open(filename, 'w', newline='')
     writer = csv.DictWriter(outfile, fieldnames, delimiter=',', quotechar='"',
                             quoting=csv.QUOTE_MINIMAL)
     writer.writeheader()
-    for _, value in sorted(scraped_records.items()):
+    for _, value in sorted(records.items()):
         writer.writerow(value)
-    log(str("{: >4d}".format(len(scraped_records))) +
+    log(str("{: >4d}".format(len(records))) +
         ' records written to ' + filename)
 
 
-def write_year_counts(scraped_records):
-     # create and fill arrays with zeros
+def write_year_counts(scraped_records: dict):
+    """ Write a .tsv file containing histogram data of photos per year. """
+
+    # Create and fill arrays with zeros
     year_counts = [0] * 2020
     adjusted_year_counts = [0] * 2020
 
+    # Optional randomizing of year, to account for estimates and 'circa'
     random.seed(0)
     for _, record in scraped_records.items():
         if record.get('year'):
@@ -83,11 +94,12 @@ def write_year_counts(scraped_records):
     log(str("{: >4d}".format(total_count)) + ' year counts written to ' + fn)
 
 
-def comb_addresses(scraped_fieldnames, scraped_records):
+def comb_addresses(scraped_fieldnames: list, scraped_records: dict):
+    """ Search for potential addresses within various fields and modify record if one is found. """
     scraped_fieldnames.append('address')
     addresses_found = {}
     pattern = re.compile(
-        r'\d+\s\w+\s(Ave|St|Blvd|Boulevard|Ln|Dr|Lane|Court|Ct|Road|Rd|Way|Pl|Highway|Terrace|Alley|Circle|Park|Commons|Cmns)')
+        r'\d+\s\w+\s(Ave|St|Boulevard|Blvd|Dr|Lane|Ln|Court|Ct|Road|Rd|Way|Pl|Highway|Hwy|Terrace|Alley|Circle|Cir|Park|Commons|Cmns)')
     for value in scraped_records.values():
         for field in 'title', 'subject', 'description', 'description2':
             if value.get(field):
@@ -100,12 +112,13 @@ def comb_addresses(scraped_fieldnames, scraped_records):
     # pprint.pprint(addresses_found) # for diagnosing / detailed reporting
 
 
-def comb_years(scraped_fieldnames, scraped_records, from_dvd):
+def comb_years(scraped_fieldnames: list, scraped_records: dict, from_dvd: dict):
+    """
+    Search title, subject, and description fields for years between 1839 (the
+    invention of photography) and 1980 (approx. culmination of the photo archive).
+    When multiple valid years are found, use the highest one in the date field.
+    """
     scraped_fieldnames.append('description2')
-
-    # Search title, subject, and description fields for years between 1839 (the
-    # invention of photography) and 1980 (approx. culmination of the photo archive).
-    # When multiple valid years are found, use the highest one in the date field.
     num_years_found = 0
     num_descs_found = 0
     for key, value in scraped_records.items():
@@ -139,8 +152,10 @@ def comb_years(scraped_fieldnames, scraped_records, from_dvd):
     log("{: >4d}".format(num_descs_found) + ' descriptions added.')
 
 
-# Merge any new columns or rows from source filename into scraped_fieldnames and scraped rows.
-def merge_one_file(scraped_fieldnames, scraped_records, source_filename, key_function, key_column_name):
+def merge_one_file(scraped_fieldnames: list, scraped_records: dict, source_filename: str, key_function: callable, key_column_name: list) -> dict:
+    """
+    Merge any new columns or rows from source_filename into scraped_fieldnames and scraped_records.
+    """
     source_fieldnames, source_rows = read_from_stream_into_dict(
         source_filename, key_function, key_column_name)
     scraped_names_dict = {}
@@ -169,9 +184,9 @@ def main():
                    'data/manually_verified.csv', str, 'resource_name')
     merge_one_file(scraped_fieldnames, scraped_records,
                    'data/transcribed.csv', number_to_pdf, 'resource_number')
-    from_dvd = merge_one_file(scraped_fieldnames, scraped_records,
-                              'data/V01-V64 Index.csv', prepend_zeros, 'Index Number')
-    comb_years(scraped_fieldnames, scraped_records, from_dvd)
+    dvd_records = merge_one_file(scraped_fieldnames, scraped_records,
+                                 'data/V01-V64 Index.csv', prepend_zeros, 'Index Number')
+    comb_years(scraped_fieldnames, scraped_records, dvd_records)
     comb_addresses(scraped_fieldnames, scraped_records)
     write(scraped_records, scraped_fieldnames)
     write_year_counts(scraped_records)
