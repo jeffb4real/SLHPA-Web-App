@@ -1,5 +1,6 @@
 from django.http import HttpResponse
 from django.conf import settings
+from django.db import transaction
 import csv
 import time
 from .models import PhotoRecord
@@ -14,11 +15,12 @@ def getField(row, fieldName):
     return ''
 
 
+@transaction.atomic
 def loaddb(request, db_filename):
     """
     File must be at root, e.g., <repo>/mysite/<file>, not in specific app directory.
-    Takes a few minutes, e.g.:
-    Added 2526 records from C:\\Users\\chris\\Documents\\Github\\SLHPA-Web-App\\mysite/transformed.csv, exceptions: 0, no_resource: 4, no_key: 0, rows_in_table: 2526, seconds: 266
+    Example message seen in browser:
+    Added 2526 records from C:\\Users\\chris\\Documents\\Github\\SLHPA-Web-App\\mysite/transformed.csv, exceptions: 0, no_resource: 4, no_key: 0, rows_in_table: 2526, seconds: 1
     TODO: Why doesn't it complain when record is added twice?
     TODO: Add null=True to all appropriate fields?
     """
@@ -65,7 +67,6 @@ def loaddb(request, db_filename):
         rows_in_table = PhotoRecord.objects.all().count()
 
     end = time.time()
-    print(end - start)
     return HttpResponse('Added ' + str(added) +
                 ' records from ' + path_to_db +
                 ', exceptions: ' + str(exceptions) +
