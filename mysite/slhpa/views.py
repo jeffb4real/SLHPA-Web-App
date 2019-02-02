@@ -1,13 +1,19 @@
+import csv
+import time
 from django.http import HttpResponse
 from django.conf import settings
 from django.db import transaction
-import csv
-import time
+from django.template import loader
+from django.views import generic
 from .models import PhotoRecord
 
 def index(request):
-    return HttpResponse("Hello, world. You're at the slhpa index.")
-
+    photo_list = PhotoRecord.objects.order_by('resource_name')[0:9]
+    template = loader.get_template('slhpa/index.html')
+    context = {
+        'photo_list': photo_list,
+    }
+    return HttpResponse(template.render(context, request))
 
 def getField(row, fieldName):
     if row.get(fieldName):
