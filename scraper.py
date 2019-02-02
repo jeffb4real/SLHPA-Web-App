@@ -1,6 +1,7 @@
 import csv
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import *
@@ -27,17 +28,28 @@ class CSVrecord(object):
         self.url_for_file = ''
 
 
-def close(record, count):
-    # Locate the white sub-page close button and click it.
-    # Notice 'count', because each sub-page close button is unique!
-    close_button = record.find_element(By.XPATH, "//div[@class='ui-dialog ui-widget ui-widget-content ui-corner-all detailModalDialog detailDialog" + str(count) + "']//span[@class='ui-icon ui-icon-closethick'][contains(text(),'close')]")
-    close_button.click()
+def close(record, count, driver):
+    """
+    Close the modal popover.
+    """
+
+    close_via_escape = 1
+    if (close_via_escape):
+        # Send escape key, which closes the modal popover.
+        webdriver.ActionChains(driver).send_keys(Keys.ESCAPE).perform()
+    else:
+        # This method is deprecated because of server-side changes that broke this locator.
+        # Notice 'count', because each sub-page close button is unique!
+        close_button = record.find_element(By.XPATH, "//div[@class='ui-dialog ui-widget ui-widget-content ui-corner-all detailModalDialog detailDialog" + str(
+            count) + "']//span[@class='ui-icon ui-icon-closethick'][contains(text(),'close')]")
+        close_button.click()
     time.sleep(3)
 
 
 def add_skipped_record(record_index, page_number, absolute_record_number, skipped_pages):
     errorFormat = "Failed to get resource_name for record: {} on page: {} ({}). Retrying page."
-    err = errorFormat.format(record_index, int(page_number), absolute_record_number)
+    err = errorFormat.format(record_index, int(
+        page_number), absolute_record_number)
     log('\n' + err)
     skipped_pages.append(err)
 
@@ -67,20 +79,21 @@ def scan_pages(driver, more_pages, skipped_pages):
 
     # Explicit wait
     wait = WebDriverWait(driver, 10, poll_frequency=1,
-        ignored_exceptions=[NoSuchElementException,
-            ElementNotVisibleException,
-            ElementNotSelectableException])
+                         ignored_exceptions=[NoSuchElementException,
+                                             ElementNotVisibleException,
+                                             ElementNotSelectableException])
 
-    for search_page_num in range (count, (page_to_end_on * 12) + 1, 12):
+    for search_page_num in range(count, (page_to_end_on * 12) + 1, 12):
 
         page_number = int(search_page_num / 12 + 1)
         try:
             # Open URL for this search page
             driver.get(baseURL + '&rw=' + str(search_page_num))
-            print(" %i" % search_page_num, end = '')
+            print(" %i" % search_page_num, end='')
 
             # This XPath returns an iterable list of records found on this search page
-            list_of_records = driver.find_elements(By.XPATH, "//div[contains(@id,'syndeticsImg')]")
+            list_of_records = driver.find_elements(
+                By.XPATH, "//div[contains(@id,'syndeticsImg')]")
 
             # Special index variables for subject and description fields (in lieu of record_index),
             # because records can have more than 1 of these types of elements.
@@ -94,20 +107,21 @@ def scan_pages(driver, more_pages, skipped_pages):
                 # Class to hold a record
                 this_record = CSVrecord()
 
-                # Open the white sub-page for this record
+                # Open the modal popover for this record
                 record = list_of_records[record_index]
                 record.click()
                 time.sleep(1)
 
                 # Resource Name
-                for i in range (0, 10):
+                for i in range(0, 10):
                     resource_name = wait.until(EC.presence_of_all_elements_located((By.XPATH,
-                        "//div[@class='displayElementText RESOURCE_NAME']")))
+                                                                                    "//div[@class='displayElementText RESOURCE_NAME']")))
                     if (resource_name):
                         break
                 if (is_bad_value(resource_name, record_index)):
-                    add_skipped_record(record_index, page_number, absolute_record_number, skipped_pages)
-                    close(record, count)
+                    add_skipped_record(
+                        record_index, page_number, absolute_record_number, skipped_pages)
+                    close(record, count, driver)
                     count += 1
                     absolute_record_number = absolute_record_number + 1
                     next_pages.append(page_number)
@@ -116,37 +130,37 @@ def scan_pages(driver, more_pages, skipped_pages):
 
                 # Asset Name
                 asset_name = record.find_elements(By.XPATH,
-                    "//div[@class='displayElementText ASSET_NAME']")
+                                                  "//div[@class='displayElementText ASSET_NAME']")
                 if (not is_bad_value(asset_name, record_index)):
                     this_record.asset_name = asset_name[record_index].text
 
                 # File Size
                 file_size = record.find_elements(By.XPATH,
-                    "//div[@class='properties']//div[@class='displayElementText FILE_SIZE']")
+                                                 "//div[@class='properties']//div[@class='displayElementText FILE_SIZE']")
                 if (not is_bad_value(file_size, record_index)):
                     this_record.file_size = file_size[record_index].text
 
                 # Title
                 title = record.find_elements(By.XPATH,
-                    "//div[@class='displayElementText TITLE']")
+                                             "//div[@class='displayElementText TITLE']")
                 if (not is_bad_value(title, record_index)):
                     this_record.title = title[record_index].text
 
                 # Subject
                 # Field may or may not be defined; if defined, may contain more than 1 table data rows
                 subject = record.find_elements(By.XPATH,
-                    "//div[@class='detail_biblio resource_margin']//table//td")
+                                               "//div[@class='detail_biblio resource_margin']//table//td")
                 if (not is_bad_value(subject, subj_index)):
                     this_record.subject = '| '
                     for i in range(subj_index, len(subject), 1):
                         this_record.subject += subject[i].text + ' | '
                     this_record.subject = this_record.subject.rstrip()
                     subj_index = len(subject)
-                
+
                 # Description
                 # Field is always defined, but may contain more than 1 description elements
                 description = record.find_elements(By.XPATH,
-                    "//div[@class='displayElementText DESCRIPTION']")
+                                                   "//div[@class='displayElementText DESCRIPTION']")
                 if (not is_bad_value(description, desc_index)):
                     for i in range(desc_index, len(description), 1):
                         # Deal with punctuation at end of string(s)
@@ -160,42 +174,45 @@ def scan_pages(driver, more_pages, skipped_pages):
                 # Contributor
                 # Field may or may not be defined; if defined, will only contain 1 contributor element
                 contributor = record.find_elements(By.XPATH,
-                    "//div[@class='displayElementText CONTRIBUTOR']")
+                                                   "//div[@class='displayElementText CONTRIBUTOR']")
                 if (len(contributor)):
                     this_record.contributor = contributor[-1].text
 
                 # Period Date
                 # Field may or may not be defined; if defined, will only contain 1 period_date element
                 period_date = record.find_elements(By.XPATH,
-                    "//div[@class='displayElementText PERIOD_DATE']")
+                                                   "//div[@class='displayElementText PERIOD_DATE']")
                 if (len(period_date)):
                     this_record.period_date = period_date[-1].text
 
                 # Digital Format
                 digital_format = record.find_elements(By.XPATH,
-                    "//div[@class='displayElementText DIGITAL_FORMAT']")
+                                                      "//div[@class='displayElementText DIGITAL_FORMAT']")
                 if (not is_bad_value(digital_format, record_index)):
                     this_record.digital_format = digital_format[record_index].text
 
                 # URL for File
-                url_for_file = driver.find_elements_by_partial_link_text('sanle')
+                url_for_file = driver.find_elements_by_partial_link_text(
+                    'sanle')
                 if (is_bad_value(url_for_file, record_index)):
-                    add_skipped_record(record_index, page_number, absolute_record_number, skipped_pages)
-                    close(record, count)
+                    add_skipped_record(
+                        record_index, page_number, absolute_record_number, skipped_pages)
+                    close(record, count, driver)
                     count += 1
                     absolute_record_number = absolute_record_number + 1
                     next_pages.append(page_number)
                     return next_pages
                 this_record.url_for_file = url_for_file[record_index].text
 
-                close(record, count)
+                close(record, count, driver)
                 count += 1
                 absolute_record_number = absolute_record_number + 1
 
                 # Append this record to output .csv file
                 # https://docs.python.org/3/library/csv.html
                 with open('SLHPA-records.csv', 'a', newline='') as csvfile:
-                    writer = csv.writer(csvfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+                    writer = csv.writer(
+                        csvfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
                     writer.writerow([
                         this_record.resource_name,
                         this_record.asset_name,
@@ -220,13 +237,14 @@ def scan(more_pages):
 
     # Open Chrome
     driver = webdriver.Chrome()
-    # Implicit wait - tells web driver to poll the DOM for specified time; 
+    # Implicit wait - tells web driver to poll the DOM for specified time;
     # wait is set for duration of web driver object.
     driver.implicitly_wait(2)
 
     # Create output .csv file
     with open('SLHPA-records.csv', 'w', newline='') as csvfile:
-        writer = csv.writer(csvfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+        writer = csv.writer(csvfile, delimiter=',',
+                            quotechar='"', quoting=csv.QUOTE_MINIMAL)
         writer.writerow([
             'resource_name',
             'asset_name',
@@ -246,7 +264,8 @@ def scan(more_pages):
         log("Caught exception in scan(): " + str(sys.exc_info()[0]))
 
     # Rename output .csv file so it won't get clobbered next run
-    os.rename('SLHPA-records.csv', 'SLHPA-records_' + time.strftime("%Y%m%d-%H%M%S") + '.csv')
+    os.rename('SLHPA-records.csv', 'SLHPA-records_' +
+              time.strftime("%Y%m%d-%H%M%S") + '.csv')
     # Close the selenium webdriver
     driver.close()
     return next_pages
