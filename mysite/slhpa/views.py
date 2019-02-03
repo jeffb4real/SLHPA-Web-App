@@ -8,7 +8,7 @@ from django.views import generic
 from .models import PhotoRecord
 
 def index(request):
-    photo_list = PhotoRecord.objects.order_by('resource_name')[0:9]
+    photo_list = PhotoRecord.objects.order_by('resource_name')[0:10]
     template = loader.get_template('slhpa/index.html')
     context = {
         'photo_list': photo_list,
