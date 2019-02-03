@@ -4,6 +4,7 @@
         <tr>
             <th style="text-align:left;padding:10px">Resource #</th>
             <th style="text-align:left;padding:10px">Title</th>
+            <th style="text-align:left;padding:10px">Image</th>
         </tr>
         {% for photo in photo_list %}
             <tr>
@@ -12,6 +13,13 @@
                 </td>
                 <td style="text-align:left;padding:10px">
                     <a href="{{ photo.url_for_file }}/">{{ photo.title }}</a>
+                </td>
+                <td style="text-align:left;padding:10px">
+                    {% load static %}
+                    <!-- https://stackoverflow.com/questions/19428572/django-templatesyntaxerror-could-not-parse-the-remainder -->
+                    <!-- TODO : figure out how to parameterize photo # -->
+                    <img src="{% static "slhpa/images/photos/00000001.jpg" %}"
+                         height="100" width="150"></img>
                 </td>
             </tr>
         {% endfor %}
