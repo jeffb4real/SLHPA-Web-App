@@ -5,15 +5,21 @@ from django.conf import settings
 from django.db import transaction
 from django.template import loader
 from django.views import generic
+from django.db.models import F
 from .models import PhotoRecord
 
 def index(request):
-    photo_list = PhotoRecord.objects.order_by('resource_name')[0:10]
+
+#    photo_list = PhotoRecord.objects.all().annotate(null_year=Count('year')).order_by('-null_year', 'year')[0:10]
+
+    photo_list = PhotoRecord.objects.order_by(F('year').asc(nulls_last=True))[0:10]
+#    photo_list = PhotoRecord.objects.order_by('year')[0:10]
     template = loader.get_template('slhpa/index.html')
     context = {
         'photo_list': photo_list,
     }
     return HttpResponse(template.render(context, request))
+
 
 def getField(row, fieldName):
     if row.get(fieldName):

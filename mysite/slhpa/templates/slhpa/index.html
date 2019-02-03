@@ -1,10 +1,13 @@
 <h2>Prototype SLHPA Photo List (...a work in progress...)</h2>
-<p>Currently shows only the first 10 images.</p>
+<p>Currently shows only the first 10 rows of data.</p>
+<p>Currently shows ordered by year.</p>
+<p>If no image, the image hasn't been uploaded yet.</p>
 {% if photo_list %}
     <table border="1">
         <tr>
             <th style="text-align:left;padding:10px">Resource #</th>
             <th style="text-align:left;padding:10px">Title</th>
+            <th style="text-align:left;padding:10px">Year (ca.)</th>
             <th style="text-align:left;padding:10px">Image</th>
         </tr>
         {% for photo in photo_list %}
@@ -14,6 +17,9 @@
                 </td>
                 <td style="text-align:left;padding:10px">
                     <a href="{{ photo.url_for_file }}/">{{ photo.title }}</a>
+                </td>
+                <td style="text-align:left;padding:10px">
+                    {{ photo.year }}
                 </td>
                 <td style="text-align:left;padding:10px">
                     {% load static %}
