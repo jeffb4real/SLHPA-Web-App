@@ -1,7 +1,15 @@
 <h2>Prototype SLHPA Photo List (...a work in progress...)</h2>
-<p>Currently shows only the first 10 rows of data.</p>
+<p>Currently shows only the first 10 rows of data (or fewer, if the search returns fewer rows).</p>
 <p>Currently shows ordered by year.</p>
 <p>If no image, the image hasn't been uploaded yet.</p>
+
+<form id="searchform" action="{% url 'index' %}" method="get" accept-charset="utf-8">
+    <button class="searchbutton" type="submit">
+      <i class="fa fa-search"></i>
+    </button>
+    <input class="searchfield" id="searchbox" name="q" type="text" placeholder="Search">
+</form>
+
 {% if photo_list %}
     <table border="1">
         <tr>

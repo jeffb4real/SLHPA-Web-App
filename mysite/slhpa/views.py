@@ -10,10 +10,17 @@ from .models import PhotoRecord
 
 def index(request):
 
-#    photo_list = PhotoRecord.objects.all().annotate(null_year=Count('year')).order_by('-null_year', 'year')[0:10]
-
     photo_list = PhotoRecord.objects.order_by(F('year').asc(nulls_last=True))[0:10]
-#    photo_list = PhotoRecord.objects.order_by('year')[0:10]
+
+    query = request.GET.get('q')
+    if query:
+        reduced_list = []
+        for photo in photo_list:
+            if query in photo.title or query in photo.description:
+                reduced_list.append(photo)
+        photo_list = reduced_list
+
+    photo_list = photo_list[0:10]
     template = loader.get_template('slhpa/index.html')
     context = {
         'photo_list': photo_list,
