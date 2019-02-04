@@ -14,9 +14,14 @@
 
 {% if photo_list %}
     <table border="1">
+        <col width="80">
+        <col width="160">
+        <col width="240">
+        <col width="40">
         <tr>
             <th style="text-align:left;padding:10px">Resource #</th>
             <th style="text-align:left;padding:10px">Title</th>
+            <th style="text-align:left;padding:10px">Description</th>
             <th style="text-align:left;padding:10px">Year (ca.)</th>
             <th style="text-align:left;padding:10px">Image</th>
         </tr>
@@ -27,6 +32,9 @@
                 </td>
                 <td style="text-align:left;padding:10px">
                     <a href="{{ photo.url_for_file }}/">{{ photo.title }}</a>
+                </td>
+                <td style="text-align:left;padding:10px">
+                    {{ photo.description }}
                 </td>
                 <td style="text-align:left;padding:10px">
                     {{ photo.year }}
