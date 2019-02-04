@@ -29,7 +29,7 @@ class PhotoRecord(models.Model):
     verified_gps_coords = models.CharField(max_length=100)
     year = models.IntegerField(null=True)
 
-
+    # This should show enough information in the debugger.
     def __str__(self):
         return self.resource_name + " : " + self.title
 

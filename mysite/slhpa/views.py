@@ -24,7 +24,6 @@ def index(request):
         photo_list = reduced_list
 
     stats['filtered'] = len(photo_list)
-    photo_list = photo_list[0:10]
     stats['displayed'] = len(photo_list)
     template = loader.get_template('slhpa/index.html')
     context = {
@@ -50,7 +49,7 @@ def loaddb(request, db_filename):
     TODO: Add null=True to all appropriate fields?
     """
     start = time.time()
-    path_to_db = settings.BASE_DIR + '/' + db_filename
+    path_to_db = settings.BASE_DIR + '/../data/' + db_filename
 
     # https://stackoverflow.com/questions/39962977/how-to-import-csv-file-to-django-models
     with open(path_to_db) as csvfile:
