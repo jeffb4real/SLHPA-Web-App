@@ -3,6 +3,7 @@
 <p>Total images: {{stats.total}}</p>
 <p>Filtered images: {{stats.filtered}}</p>
 <p>Displayed images: {{stats.displayed}}</p>
+<p>Search query: {{stats.query}}</p>
 
 <form id="searchform" action="{% url 'index' %}" method="get" accept-charset="utf-8">
     <button class="searchbutton" type="submit">
@@ -14,14 +15,14 @@
 {% if photo_list %}
     <table border="1">
         <col width="80">
-        <col width="160">
-        <col width="240">
+        <col width="320">
+        <col width="480">
         <col width="40">
         <tr>
             <th style="text-align:left;padding:10px">Resource #</th>
             <th style="text-align:left;padding:10px">Title</th>
             <th style="text-align:left;padding:10px">Description</th>
-            <th style="text-align:left;padding:10px">Year (ca.)</th>
+            <th style="text-align:left;padding:10px">Year</th>
             <th style="text-align:left;padding:10px">Image</th>
         </tr>
         {% for photo in photo_list %}
