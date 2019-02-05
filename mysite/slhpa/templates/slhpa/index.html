@@ -30,7 +30,7 @@
                     {{ photo.resource_name }}
                 </td>
                 <td style="text-align:left;padding:10px">
-                    <a href="{{ photo.url_for_file }}/">{{ photo.title }}</a>
+                    {{ photo.title }}
                 </td>
                 <td style="text-align:left;padding:10px">
                     {{ photo.description }}
@@ -41,8 +41,10 @@
                 <td style="text-align:left;padding:10px">
                     {% load static %}
                     {% static "/slhpa/images/photos" as baseUrl %}
-                    <img src="{{ baseUrl }}/{{ photo.resource_name }}.jpg"
+                    <a href="{{ photo.url_for_file }}/">
+                        <img src="{{ baseUrl }}/{{ photo.resource_name }}.jpg"
                          height="20%" width="20%"></img>
+                    </a>
                 </td>
             </tr>
         {% endfor %}
