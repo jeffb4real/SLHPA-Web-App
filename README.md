@@ -23,7 +23,6 @@ This project was created with Python 3.7.x, with the addition of these modules:
 
 * selenium - used by `scraper.py` to scrape photo data
 * lxml - used by `mapper.py` to write KML data
-* dumper - used by `scraper.py` for debugging
 
 These modules were installed with pip, e.g.:
 
