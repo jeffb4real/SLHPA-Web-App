@@ -44,6 +44,7 @@
         {% for photo in photo_list %}
             <tr>
                 <td style="text-align:left;padding:10px">
+                    <a href="{{ photo.url_for_file }}/">
                     {{ photo.resource_name }}
                 </td>
                 <td style="text-align:left;padding:10px">
