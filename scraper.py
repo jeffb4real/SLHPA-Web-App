@@ -10,7 +10,6 @@ import os
 import sys
 import datetime
 import re
-from dumper import dump
 
 
 # All fields for a single record
