@@ -35,14 +35,23 @@ def index(request):
     return HttpResponse(template.render(context, request))
 
 
-def getField(row, fieldName):
-    if row.get(fieldName):
-        return row[fieldName]
-    return ''
+def detail(request, photo_id):
+    template = loader.get_template('slhpa/detail.html')
+    photo = PhotoRecord.objects.get(pk=photo_id)
+    context = {
+        'photo': photo,
+    }
+    return HttpResponse(template.render(context, request))
 
 
 @transaction.atomic
 def loaddb(request, db_filename):
+
+    def getField(row, fieldName):
+        if row.get(fieldName):
+            return row[fieldName]
+        return ''
+
     """
     csv file must be at root, e.g., <repo>/mysite/<file>, not in specific app directory.
     Example message seen in browser:
