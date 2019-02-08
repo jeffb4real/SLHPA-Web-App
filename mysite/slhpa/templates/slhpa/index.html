@@ -44,7 +44,7 @@
         {% for photo in photo_list %}
             <tr>
                 <td style="text-align:left;padding:10px">
-                    <a href="{{ photo.url_for_file }}/">
+                    <a href="/slhpa/detail/{{ photo.resource_name }}/">
                         {{ photo.resource_name }}
                     </a>
                 </td>

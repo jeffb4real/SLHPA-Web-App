@@ -35,13 +35,9 @@ def index(request):
     return HttpResponse(template.render(context, request))
 
 
-def detail(request, photo_id):
-    template = loader.get_template('slhpa/detail.html')
-    photo = PhotoRecord.objects.get(pk=photo_id)
-    context = {
-        'photo': photo,
-    }
-    return HttpResponse(template.render(context, request))
+class DetailView(generic.DetailView):
+    model = PhotoRecord
+    template_name = 'slhpa/detail.html'
 
 
 @transaction.atomic
