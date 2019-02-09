@@ -1,11 +1,13 @@
 import csv
 import time
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.conf import settings
 from django.db import transaction
 from django.template import loader
 from django.views import generic
 from django.db.models import F
+from django.shortcuts import get_object_or_404, render
+from django.urls import reverse
 from .models import PhotoRecord
 
 
@@ -33,6 +35,21 @@ def index(request):
         'stats': stats,
     }
     return HttpResponse(template.render(context, request))
+
+
+class EditView(generic.DetailView):
+    model = PhotoRecord
+    template_name = 'slhpa/edit.html'
+
+
+def do_update(request, photorecord_resource_name):
+    photo = get_object_or_404(PhotoRecord, pk = photorecord_resource_name)
+    photo.save()
+        # Always return an HttpResponseRedirect after successfully dealing
+        # with POST data. This prevents data from being posted twice if a
+        # user hits the Back button.
+#    return HttpResponseRedirect(reverse('slhpa:detail', args=(photo.resource_name,)))
+    return HttpResponseRedirect('/slhpa/detail/' + photorecord_resource_name + '/')
 
 
 class DetailView(generic.DetailView):

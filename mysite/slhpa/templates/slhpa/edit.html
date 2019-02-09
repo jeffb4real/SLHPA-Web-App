@@ -1,0 +1,95 @@
+<head>
+    <style>
+        <a>
+            #main_img {
+                position: absolute;
+                top: 0;
+                left: 0;
+                z-index: 1;
+            }
+            #overlay_img {
+                position: relative;
+                top: -2px;
+                left: -23px;
+                z-index: 0;
+            }
+        </a>
+    </style>
+</head>
+
+<form action="/slhpa/do_update/{{ photorecord.resource_name }}/"
+        method="put">
+    {% csrf_token %}
+
+    <table border="1">
+    <col width="120">
+    <col width="480">
+    <tr>
+        <th style="text-align:left;padding:10px">Field Name</th>
+        <th style="text-align:left;padding:10px">Field Value</th>
+    </tr>
+    <tr>
+        <td style="text-align:left;padding:10px">Photo Identifier</td>
+        <td style="text-align:left;padding:10px">{{ photorecord.resource_name }}</td>
+    </tr>
+    <tr>
+        <td style="text-align:left;padding:10px">Title</td>
+        <td style="text-align:left;padding:10px">
+            <input id="photorecord_title" type="text"
+                name="photorecord_title" value="{{ photorecord.title }}">
+        </td>
+    </tr>
+    <tr>
+        <td style="text-align:left;padding:10px">Description</td>
+        <td style="text-align:left;padding:10px">{{ photorecord.description }}</td>
+    </tr>
+    <tr>
+        <td style="text-align:left;padding:10px">Year</td>
+        <td style="text-align:left;padding:10px">{{ photorecord.year }}</td>
+    </tr>
+    <tr>
+        <td style="text-align:left;padding:10px">Picture</td>
+        <td style="text-align:left;padding:10px">
+            {% load static %}
+            {% static "/slhpa/images/photos" as baseUrl %}
+            <a href="{{ photorecord.url_for_file }}">
+                <div>
+                    <img id="main_img" src="{{ baseUrl }}/{{ photorecord.resource_name }}.jpg" height="20%" border="2">
+                    <img id="overlay_img" src="{{ baseUrl }}/finger.png" height="8%">
+                </div>
+            </a>
+        </td>
+    </tr>
+    <tr>
+        <td style="text-align:left;padding:10px">GPS Coordinates</td>
+        {% if photorecord.verified_gps_coords %}
+            <td style="text-align:left;padding:10px">{{ photorecord.verified_gps_coords }}</td>
+        {% else %}
+            <td style="text-align:left;padding:10px">{{ photorecord.geo_coord_UTM }}</td>
+        {% endif %}
+    </tr>
+    <tr>
+        <td style="text-align:left;padding:10px">Address</td>
+        <td style="text-align:left;padding:10px">{{ photorecord.address }}</td>
+    </tr>
+    <tr>
+        <td style="text-align:left;padding:10px">Contributor</td>
+        <td style="text-align:left;padding:10px">{{ photorecord.contributor }}</td>
+    </tr>
+    <tr>
+        <td style="text-align:left;padding:10px">Old-style map grid reference</td>
+        <td style="text-align:left;padding:10px">{{ photorecord.geo_coord_original }}</td>
+    </tr>
+    <tr>
+        <td style="text-align:left;padding:10px">Period date</td>
+        <td style="text-align:left;padding:10px">{{ photorecord.period_date }}</td>
+    </tr>
+    <tr>
+        <td style="text-align:left;padding:10px">Subject</td>
+        <td style="text-align:left;padding:10px">{{ photorecord.subject }}</td>
+    </tr>
+    </table>
+
+    <input type="submit" value="Save">
+    <a href="../../../slhpa/detail/{{ photorecord.resource_name }}/">Cancel</a>
+</form>
