@@ -105,3 +105,35 @@ def loaddb(request, db_filename):
                         ', no_key: ' + str(no_key) +
                         ', rows_in_table: ' + str(rows_in_table) +
                         ', seconds: ' + str(int(end - start)))
+
+def export(request, db_filename):
+
+    def to_dict(photo_record):
+        dict = {}
+        dict['address'] = photo_record.address
+        dict['contributor'] = photo_record.contributor
+        dict['description'] = photo_record.description
+        dict['geo_coord_original'] = photo_record.geo_coord_original
+        dict['geo_coord_UTM'] = photo_record.geo_coord_UTM
+        dict['period_date'] = photo_record.period_date
+        dict['resource_name'] = photo_record.resource_name
+        dict['title'] = photo_record.title
+        dict['url_for_file'] = photo_record.url_for_file
+        dict['verified_gps_coords'] = photo_record.verified_gps_coords
+        dict['year'] = photo_record.year
+        return dict
+
+    start = time.time()
+    path_to_file = settings.BASE_DIR + '/../data/' + db_filename
+    fieldnames = ['address', 'contributor', 'description', 'geo_coord_original',
+                'geo_coord_UTM', 'period_date', 'resource_name', 'title',
+                'url_for_file','verified_gps_coords', 'year']
+    with open(path_to_file, 'w', newline='') as outfile:
+        writer = csv.DictWriter(outfile, fieldnames, delimiter=',', quotechar='"',
+                                quoting=csv.QUOTE_MINIMAL)
+        writer.writeheader()
+        photo_list = PhotoRecord.objects.all()
+        for photo in photo_list:
+            writer.writerow(to_dict(photo))
+    end = time.time()
+    return HttpResponse('Wrote: ' + path_to_file + ', seconds: ' + str(int(end - start)))
