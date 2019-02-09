@@ -41,7 +41,7 @@ class DetailView(generic.DetailView):
 
 
 @transaction.atomic
-def loaddb(request, db_filename):
+def loaddb(request, import_filename):
 
     def getField(row, fieldName):
         if row.get(fieldName):
@@ -56,7 +56,7 @@ def loaddb(request, db_filename):
     TODO: Add null=True to all appropriate fields?
     """
     start = time.time()
-    path_to_db = settings.BASE_DIR + '/../data/' + db_filename
+    path_to_db = settings.BASE_DIR + '/../data/' + import_filename
 
     # https://stackoverflow.com/questions/39962977/how-to-import-csv-file-to-django-models
     with open(path_to_db) as csvfile:
@@ -106,7 +106,7 @@ def loaddb(request, db_filename):
                         ', rows_in_table: ' + str(rows_in_table) +
                         ', seconds: ' + str(int(end - start)))
 
-def export(request, db_filename):
+def export(request, export_filename):
 
     def to_dict(photo_record):
         dict = {}
@@ -117,6 +117,7 @@ def export(request, db_filename):
         dict['geo_coord_UTM'] = photo_record.geo_coord_UTM
         dict['period_date'] = photo_record.period_date
         dict['resource_name'] = photo_record.resource_name
+        dict['subject'] = photo_record.subject
         dict['title'] = photo_record.title
         dict['url_for_file'] = photo_record.url_for_file
         dict['verified_gps_coords'] = photo_record.verified_gps_coords
@@ -124,15 +125,16 @@ def export(request, db_filename):
         return dict
 
     start = time.time()
-    path_to_file = settings.BASE_DIR + '/../data/' + db_filename
-    fieldnames = ['address', 'contributor', 'description', 'geo_coord_original',
-                'geo_coord_UTM', 'period_date', 'resource_name', 'title',
-                'url_for_file','verified_gps_coords', 'year']
+    path_to_file = settings.BASE_DIR + '/../data/' + export_filename + '.csv'
+    fieldnames = [ 'resource_name', 'title', 'subject', 'description', 
+            'contributor',
+            'period_date', 'url_for_file', 'geo_coord_UTM', 'verified_gps_coords',
+            'year', 'geo_coord_original', 'address' ]
     with open(path_to_file, 'w', newline='') as outfile:
         writer = csv.DictWriter(outfile, fieldnames, delimiter=',', quotechar='"',
                                 quoting=csv.QUOTE_MINIMAL)
         writer.writeheader()
-        photo_list = PhotoRecord.objects.all()
+        photo_list = PhotoRecord.objects.order_by(F('resource_name'))
         for photo in photo_list:
             writer.writerow(to_dict(photo))
     end = time.time()
