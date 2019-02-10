@@ -6,9 +6,12 @@ from django.db import transaction
 from django.template import loader
 from django.views import generic
 from django.db.models import F
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404
+from django.shortcuts import render
+from django.shortcuts import render_to_response
 from django.urls import reverse
 from .models import PhotoRecord
+from .forms import EditPhotoMetadataForm
 
 
 def index(request):
@@ -37,19 +40,22 @@ def index(request):
     return HttpResponse(template.render(context, request))
 
 
-class EditView(generic.DetailView):
-    model = PhotoRecord
-    template_name = 'slhpa/edit.html'
+def bound_form(request, id):
+    photo = get_object_or_404(PhotoRecord, resource_name=id)
+    if request.method == 'POST':
+        form = EditPhotoMetadataForm(request.POST)
+        if form.is_valid():
+                # process the data in form.cleaned_data as required (here we just write it to the model due_back field)
+                photo.title = form.cleaned_data['title']
+                photo.description = form.cleaned_data['description']
+                photo.save()
 
-
-def do_update(request, photorecord_resource_name):
-    photo = get_object_or_404(PhotoRecord, pk = photorecord_resource_name)
-    photo.save()
-        # Always return an HttpResponseRedirect after successfully dealing
-        # with POST data. This prevents data from being posted twice if a
-        # user hits the Back button.
-#    return HttpResponseRedirect(reverse('slhpa:detail', args=(photo.resource_name,)))
-    return HttpResponseRedirect('/slhpa/detail/' + photorecord_resource_name + '/')
+    #    return HttpResponseRedirect(reverse('slhpa:detail', args=(photo.resource_name,)))
+        return HttpResponseRedirect('/slhpa/detail/' + id + '/')
+    else:
+        form = EditPhotoMetadataForm(instance=photo)
+        return render_to_response('slhpa/edit.html',
+                {'form': form, 'photorecord': photo})
 
 
 class DetailView(generic.DetailView):
