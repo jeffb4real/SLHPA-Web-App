@@ -72,7 +72,6 @@ def loaddb(request, import_filename):
         return ''
 
     """
-    csv file must be at root, e.g., <repo>/mysite/<file>, not in specific app directory.
     Example message seen in browser:
     Added 2526 records from C:\\Users\\chris\\Documents\\Github\\SLHPA-Web-App\\mysite/transformed.csv, exceptions: 0, no_resource: 4, no_key: 0, rows_in_table: 2526, seconds: 1
     TODO: Why doesn't it complain when record is added twice?
