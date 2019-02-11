@@ -45,7 +45,6 @@ def bound_form(request, id):
     if request.method == 'POST':
         form = EditPhotoMetadataForm(request.POST)
         if form.is_valid():
-                # process the data in form.cleaned_data as required (here we just write it to the model due_back field)
                 photo.title = form.cleaned_data['title']
                 photo.description = form.cleaned_data['description']
                 photo.save()
