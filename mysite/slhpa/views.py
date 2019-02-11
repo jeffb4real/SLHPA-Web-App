@@ -74,8 +74,8 @@ def loaddb(request, import_filename):
     """
     Example message seen in browser:
     Added 2526 records from C:\\Users\\chris\\Documents\\Github\\SLHPA-Web-App\\mysite/transformed.csv, exceptions: 0, no_resource: 4, no_key: 0, rows_in_table: 2526, seconds: 1
-    TODO: Why doesn't it complain when record is added twice?
-    TODO: Add null=True to all appropriate fields?
+    TODO: Add null=True to all appropriate fields (for when new records are added).
+    TODO: Why doesn't it complain when record is added twice with same key?
     """
     start = time.time()
     path_to_db = settings.BASE_DIR + '/../data/' + import_filename

@@ -1,20 +1,18 @@
 <head>
-        <style>
-            <a>
-                #main_img {
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                    z-index: 1;
-                }
-                #overlay_img {
-                    position: relative;
-                    top: -2px;
-                    left: -23px;
-                    z-index: 0;
-                }
-            </a>
-        </style>
+    <style>
+        img.main_img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+        img.overlay_img {
+            position: relative;
+            top: -2px;
+            left: -23px;
+            z-index: 0;
+        }
+    </style>
 </head>
     
 <table border="1">
@@ -47,8 +45,8 @@
             {% static "/slhpa/images/photos" as baseUrl %}
             <a href="{{ photorecord.url_for_file }}">
                 <div>
-                    <img id="main_img" src="{{ baseUrl }}/{{ photorecord.resource_name }}.jpg" height="20%" border="2">
-                    <img id="overlay_img" src="{{ baseUrl }}/finger.png" height="8%">
+                    <img class="main_img" src="{{ baseUrl }}/{{ photorecord.resource_name }}.jpg" height="20%" border="2">
+                    <img class="overlay_img" src="{{ baseUrl }}/finger.png" height="8%">
                 </div>
             </a>
         </td>
