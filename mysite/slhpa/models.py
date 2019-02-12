@@ -14,19 +14,19 @@ from django.db import models
 # Volume
 
 class PhotoRecord(models.Model):
-    address = models.CharField(max_length=100)
-    contributor = models.CharField(max_length=1000)
+    address = models.CharField(max_length=100, null=True)
+    contributor = models.CharField(max_length=1000, null=True)
     description = models.CharField(max_length=2000)
-    geo_coord_original = models.CharField(max_length=100)
-    geo_coord_UTM = models.CharField(max_length=100)
-    period_date = models.CharField(max_length=100)
+    geo_coord_original = models.CharField(max_length=100, null=True)
+    geo_coord_UTM = models.CharField(max_length=100, null=True)
+    period_date = models.CharField(max_length=100, null=True)
 
     # Keep as CharField instead of IntegerField to handle keys such as '000001a'
     resource_name = models.CharField(max_length=100, primary_key=True)
-    subject = models.CharField(max_length=1000)
+    subject = models.CharField(max_length=1000, null=True)
     title = models.CharField(max_length=200)
     url_for_file = models.CharField(max_length=500)
-    verified_gps_coords = models.CharField(max_length=100)
+    verified_gps_coords = models.CharField(max_length=100, null=True)
     year = models.IntegerField(null=True)
 
     # This should show enough information in the debugger.
