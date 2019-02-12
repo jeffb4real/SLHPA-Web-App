@@ -48,12 +48,10 @@ def bound_form(request, id):
                 photo.title = form.cleaned_data['title']
                 photo.description = form.cleaned_data['description']
                 photo.save()
-
-    #    return HttpResponseRedirect(reverse('slhpa:detail', args=(photo.resource_name,)))
         return HttpResponseRedirect('/slhpa/detail/' + id + '/')
     else:
         form = EditPhotoMetadataForm(instance=photo)
-        return render_to_response('slhpa/edit.html',
+        return render(request, 'slhpa/edit.html',
                 {'form': form, 'photorecord': photo})
 
 
