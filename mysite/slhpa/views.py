@@ -47,6 +47,12 @@ def bound_form(request, id):
         if form.is_valid():
                 photo.title = form.cleaned_data['title']
                 photo.description = form.cleaned_data['description']
+                photo.year = form.cleaned_data['year']
+                photo.verified_gps_coords = form.cleaned_data['verified_gps_coords']
+                photo.address = form.cleaned_data['address']
+                photo.contributor = form.cleaned_data['contributor']
+                photo.period_date = form.cleaned_data['period_date']
+                photo.subject = form.cleaned_data['subject']
                 photo.save()
         return HttpResponseRedirect('/slhpa/detail/' + id + '/')
     else:
