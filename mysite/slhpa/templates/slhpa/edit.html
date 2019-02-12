@@ -1,55 +1,38 @@
-{% extends "slhpa/base_generic.html" %}
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <style>
-            <a>
-                #main_img {
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                    z-index: 1;
-                }
-                #overlay_img {
-                    position: relative;
-                    top: -2px;
-                    left: -23px;
-                    z-index: 0;
-                }
-            </a>
-    </style>
+  {% block title %}<title>SLHPA</title>{% endblock %}
+  <style>
+        <a>
+            #main_img {
+                position: absolute;
+                top: 0;
+                left: 0;
+                z-index: 1;
+            }
+            #overlay_img {
+                position: relative;
+                top: -2px;
+                left: -40px;
+                z-index: 0;
+            }
+        </a>
+</style>
 </head>
+<body>
     
-{% block content %}   
-    <table border="1">
-        <col width="120">
-        <col width="480">
-        <tr>
-            <th style="text-align:left;padding:10px">Field Name</th>
-            <th style="text-align:left;padding:10px">Field Value</th>
-        </tr>
-        <tr>
-            <td style="text-align:left;padding:10px">Photo Identifier</td>
-            <td style="text-align:left;padding:10px">{{ photorecord.resource_name }}</td>
-        </tr>
-<!-- won't work until/if we figure out sizing bug
-        <tr>
-            <td style="text-align:left;padding:10px">Picture</td>
-            <td style="text-align:left;padding:10px">
-                {% load static %}
-                {% static "/slhpa/images/photos" as baseUrl %}
-                <a href="{{ photorecord.url_for_file }}">
-                    <div>
-                        <img id="main_img" src="{{ baseUrl }}/{{ photorecord.resource_name }}.jpg" height="20%" border="2">
-                        <img id="overlay_img" src="{{ baseUrl }}/finger.png" height="8%">
-                    </div>
-                </a>
-            </td>
-        </tr>
--->
-        <tr>
-            <td style="text-align:left;padding:10px">Old-style map grid reference</td>
-            <td style="text-align:left;padding:10px">{{ photorecord.geo_coord_original }}</td>
-        </tr>
-    </table>
+{% block content %}
+    {% load static %}
+    {% static "/slhpa/images/photos" as baseUrl %}
+    <a href="{{ photorecord.url_for_file }}">
+        <span>
+            <img id="main_img"
+                src="{{ baseUrl }}/{{ photorecord.resource_name }}.jpg" 
+                height="160px" border="2">
+            <img id="overlay_img" src="{{ baseUrl }}/finger.png" height="40px">
+        </span>
+    </a>
+    <p><b>Photo Identifier: </b>{{ photorecord.resource_name }}</p>
         
     <form action="" method="post">
         {% csrf_token %}
@@ -60,3 +43,5 @@
         <a href="../../../slhpa/detail/{{ photorecord.resource_name }}/">Cancel</a>
     </form>
 {% endblock %}
+</body>
+</html>
