@@ -92,7 +92,7 @@ def comb_addresses(scraped_fieldnames: list, scraped_records: dict):
     Search for potential addresses within various fields and modify record if one is found.
 
     This function uses a regex list of street name types that is ordered from longest to
-    shortest, so preference is given to non-abbreviations.
+    shortest, so preference is given to non-abbreviations. 
     """
     scraped_fieldnames.append('address')
     addresses_found = {}
