@@ -18,11 +18,13 @@
 </head>
 
 <h2>Prototype SLHPA Photo List (...a work in progress...)</h2>
-<p>List is (currently) sorted by year, oldest first.</p>
-<p>Total images: {{stats.total}}</p>
-<p>Filtered images: {{stats.filtered}}</p>
-<p>Displayed images: {{stats.displayed}}</p>
-<p>Search query: {{stats.query}}</p>
+<p><i></i>List is sorted by year, oldest first.</i></p>
+<ul>
+    <li><i>Total images:</i> {{stats.total}}</li>
+    <li><i>Filtered images:</i> {{stats.filtered}}</li>
+    <li><i>Displayed images:</i> {{stats.displayed}}</li>
+</ul>
+<p><i>Search query:</i> {{stats.query}}</p>
 
 <form id="searchform" action="{% url 'index' %}" method="get" accept-charset="utf-8">
     <input class="searchfield" id="searchbox" name="q" type="text" placeholder="Search">

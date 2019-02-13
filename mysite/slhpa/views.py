@@ -47,13 +47,17 @@ def bound_form(request, id):
         if form.is_valid():
                 photo.title = form.cleaned_data['title']
                 photo.description = form.cleaned_data['description']
+                photo.year = form.cleaned_data['year']
+                photo.verified_gps_coords = form.cleaned_data['verified_gps_coords']
+                photo.address = form.cleaned_data['address']
+                photo.contributor = form.cleaned_data['contributor']
+                photo.period_date = form.cleaned_data['period_date']
+                photo.subject = form.cleaned_data['subject']
                 photo.save()
-
-    #    return HttpResponseRedirect(reverse('slhpa:detail', args=(photo.resource_name,)))
         return HttpResponseRedirect('/slhpa/detail/' + id + '/')
     else:
         form = EditPhotoMetadataForm(instance=photo)
-        return render_to_response('slhpa/edit.html',
+        return render(request, 'slhpa/edit.html',
                 {'form': form, 'photorecord': photo})
 
 
@@ -77,7 +81,7 @@ def loaddb(request, import_filename):
     TODO: Why doesn't it complain when record is added twice with same key?
     """
     start = time.time()
-    path_to_db = settings.BASE_DIR + '/../data/' + import_filename
+    path_to_db = settings.BASE_DIR + '/../data/' + import_filename + '.csv'
 
     # https://stackoverflow.com/questions/39962977/how-to-import-csv-file-to-django-models
     with open(path_to_db) as csvfile:

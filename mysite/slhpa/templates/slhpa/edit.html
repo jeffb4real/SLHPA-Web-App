@@ -1,7 +1,39 @@
-
-{% extends "slhpa/base_generic.html" %}
-
-{% block content %}    
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% block title %}<title>SLHPA</title>{% endblock %}
+  <style>
+        <a>
+            #main_img {
+                position: absolute;
+                top: 0;
+                left: 0;
+                z-index: 1;
+            }
+            #overlay_img {
+                position: relative;
+                top: -2px;
+                left: -40px;
+                z-index: 0;
+            }
+        </a>
+</style>
+</head>
+<body>
+    
+{% block content %}
+    {% load static %}
+    {% static "/slhpa/images/photos" as baseUrl %}
+    <a href="{{ photorecord.url_for_file }}">
+        <span>
+            <img id="main_img"
+                src="{{ baseUrl }}/{{ photorecord.resource_name }}.jpg" 
+                height="160px" border="2">
+            <img id="overlay_img" src="{{ baseUrl }}/finger.png" height="40px">
+        </span>
+    </a>
+    <p><b>Photo Identifier: </b>{{ photorecord.resource_name }}</p>
+        
     <form action="" method="post">
         {% csrf_token %}
         <table>
@@ -11,3 +43,5 @@
         <a href="../../../slhpa/detail/{{ photorecord.resource_name }}/">Cancel</a>
     </form>
 {% endblock %}
+</body>
+</html>

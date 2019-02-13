@@ -18,9 +18,9 @@ def map_value(value, from_start, from_end, to_start, to_end):
 
 # Gotten from manually observing existing data
 top_coord = 18
-bottom_coord = 35
+bottom_coord = 25 # 00000233.pdf : Masonic Building : 37.724455 == 25
 top_gps = 37.73595
-bottom_gps = 37.71413
+bottom_gps = 37.724455
 left_coord = 'B7'
 right_coord = 'E9'
 left_gps = -122.18977
