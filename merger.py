@@ -6,14 +6,7 @@ import pprint
 import random
 
 
-"""
-This script supercedes and replaces comber.py
-
-1. Merge historical photo metadata from multiple source csv files:
-       read -> merge -> comb -> filter -> write
-2. Create histogram data (csv file) of number of photos per year
-"""
-
+# This script supercedes and replaces comber.py
 
 def log(message):
     """ Log messages to terminal in a standard format. """
@@ -95,11 +88,17 @@ def write_year_counts(scraped_records: dict):
 
 
 def comb_addresses(scraped_fieldnames: list, scraped_records: dict):
-    """ Search for potential addresses within various fields and modify record if one is found. """
+    """
+    Search for potential addresses within various fields and modify record if one is found.
+
+    This function uses a regex list of street name types that is ordered from longest to
+    shortest, so preference is given to non-abbreviations.
+    """
     scraped_fieldnames.append('address')
     addresses_found = {}
+
     pattern = re.compile(
-        r'\d+\s\w+\s(Ave|St|Boulevard|Blvd|Dr|Lane|Ln|Court|Ct|Road|Rd|Way|Pl|Highway|Hwy|Terrace|Alley|Circle|Cir|Park|Commons|Cmns)')
+        r'\d+\s\w+\s(Boulevard|Commons|Highway|Terrace|Circle|Court|Alley|Lane|Blvd|Cmns|Park|Road|Ave|Cir|Hwy|Way|Ct|Dr|Ln|Pl|Rd|St)')
     for value in scraped_records.values():
         for field in 'title', 'subject', 'description', 'description2':
             if value.get(field):
@@ -177,6 +176,14 @@ def merge_one_file(scraped_fieldnames: list, scraped_records: dict, source_filen
 
 
 def main():
+    """
+    1. Merge historical photo metadata from multiple source csv files:
+        read -> merge -> comb -> filter -> write
+    2. Create histogram data (csv file) of number of photos per year
+
+    Note: Database fields (column headings in csv file) must match the names here:
+    https://github.com/jeffb4real/SLHPA-Web-App/blob/master/mysite/slhpa/models.py
+    """
     scraped_fieldnames, scraped_records = read_from_stream_into_dict(
         'data/scraped.csv', str, 'resource_name')
     scraped_fieldnames.append('geo_coord_UTM')
