@@ -45,10 +45,13 @@
         <td style="text-align:left;padding:10px">
             {% load static %}
             {% static "/slhpa/images/photos" as baseUrl %}
-            <a href="{{ photorecord.url_for_file }}">
+            <a href="{{ photorecord.url_for_file }}" target="_blank">
                 <div>
-                    <img id="main_img" src="{{ baseUrl }}/{{ photorecord.resource_name }}.jpg" height="20%" border="2">
-                    <img id="overlay_img" src="{{ baseUrl }}/finger.png" height="8%">
+                    <img id="main_img"
+                        src="{{ baseUrl }}/{{ photorecord.resource_name }}.jpg"
+                        width="40%"
+                        border="2">
+                    <img id="overlay_img" src="{{ baseUrl }}/finger.png" width="8%">
                 </div>
             </a>
         </td>
