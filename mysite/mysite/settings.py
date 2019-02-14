@@ -35,13 +35,15 @@ ALLOWED_HOSTS = []
 # Then:
 # $ python manage.py makemigrations polls
 #
-# By running makemigrations, you’re telling Django that you’ve made 
-# some changes to your models (in this case, you’ve made new ones) 
+# By running makemigrations, you’re telling Django that you’ve made
+# some changes to your models (in this case, you’ve made new ones)
 # and that you’d like the changes to be stored as a migration.
 #
 # By convention DjangoTemplates looks for a “templates” subdirectory
 # in each of the INSTALLED_APPS.
 INSTALLED_APPS = [
+    'tutorial',
+    'django_tables2',
     'polls.apps.PollsConfig',
     'slhpa.apps.SlhpaConfig',
     'django.contrib.admin',

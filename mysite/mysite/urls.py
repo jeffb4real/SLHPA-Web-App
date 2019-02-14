@@ -21,23 +21,29 @@ Including another URLconf
 # ]
 
 
-# The Django tutorial is a little unclear that 
+# The Django tutorial is a little unclear that
 # it's THIS urls.py (mysite-project/mysite/urls.py)
 #
 # https://docs.djangoproject.com/en/2.1/intro/tutorial01/
 from django.contrib import admin
 from django.urls import include, path
 
-# The path() function is passed four arguments, 
+# From django-tables2 tutorial
+# https://django-tables2.readthedocs.io/en/latest/pages/tutorial.html
+from django.conf.urls import url
+from tutorial.views import people
+
+# The path() function is passed four arguments,
 # two required: route and view, and two optional: kwargs, and name.
 #
 # When somebody requests a page from your website – say, “/polls/34/”,
 # Django will load the mysite/urls.py Python module because it’s pointed to
 # by the ROOT_URLCONF setting.
-# It finds the variable named urlpatterns and traverses the patterns in order. 
+# It finds the variable named urlpatterns and traverses the patterns in order.
 #
 urlpatterns = [
     path('polls/', include('polls.urls')),
     path('slhpa/', include('slhpa.urls')),
+    url(r'^people/', people),
     path('admin/', admin.site.urls),
 ]
