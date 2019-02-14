@@ -9,8 +9,8 @@
             }
             #overlay_img {
                 position: relative;
-                top: -1px;
-                left: -27px;
+                top: -30px;
+                left: 68px;
                 z-index: 0;
             }
         </a>
@@ -36,6 +36,7 @@
     <col width="320">
     <col width="480">
     <col width="40">
+    <col width="170">
     <tr>
         <th style="text-align:left;padding:10px">Picture Identifier</th>
         <th style="text-align:left;padding:10px">Title</th>
@@ -59,13 +60,13 @@
         <td style="text-align:left;padding:10px">
             {{ photo.year }}
         </td>
-        <td style="text-align:left;padding:10px">
+        <td style="text-align:center;padding:10px">
             {% load static %}
             {% static "/slhpa/images/photos" as baseUrl %}
             <a href="{{ photo.url_for_file }}">
                 <div>
-                    <img id="main_img" src="{{ baseUrl }}/{{ photo.resource_name }}.jpg" width="30%" border="2">
-                    <img id="overlay_img" src="{{ baseUrl }}/finger.png" width="6%">
+                    <img id="main_img" src="{{ baseUrl }}/{{ photo.resource_name }}.jpg" width="100%" border="2">
+                    <img id="overlay_img" src="{{ baseUrl }}/finger.png" width="20%">
                 </div>
             </a>
         </td>
