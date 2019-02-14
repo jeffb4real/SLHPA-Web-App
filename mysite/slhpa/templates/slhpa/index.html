@@ -63,7 +63,7 @@
         <td style="text-align:center;padding:10px">
             {% load static %}
             {% static "/slhpa/images/photos" as baseUrl %}
-            <a href="{{ photo.url_for_file }}">
+            <a href="{{ photo.url_for_file }}" target="_blank">
                 <div>
                     <img id="main_img" src="{{ baseUrl }}/{{ photo.resource_name }}.jpg" width="100%" border="2">
                     <img id="overlay_img" src="{{ baseUrl }}/finger.png" width="20%">
