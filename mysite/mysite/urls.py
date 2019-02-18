@@ -32,7 +32,7 @@ from django.urls import include, path
 # https://django-tables2.readthedocs.io/en/latest/pages/tutorial.html
 from django.conf.urls import url
 # this allows a '.../people' URL to point to the view in tutorial app
-from tutorial.views import people
+#from tutorial.views import people
 
 # The path() function is passed four arguments,
 # two required: route and view, and two optional: kwargs, and name.
@@ -45,6 +45,6 @@ from tutorial.views import people
 urlpatterns = [
     path('polls/', include('polls.urls')),
     path('slhpa/', include('slhpa.urls')),
-    url(r'^people/', people),
+    #url(r'^people/', people),
     path('admin/', admin.site.urls),
 ]

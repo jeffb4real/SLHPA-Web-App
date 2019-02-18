@@ -13,6 +13,26 @@ from django.urls import reverse
 from .models import PhotoRecord
 from .forms import EditPhotoMetadataForm
 
+# For new 'list_view' view
+from django_tables2 import RequestConfig
+# from .models import Person    # replaced by 'from .models import PhotoRecord'
+from .tables import PhotoTable
+
+
+def list_view(request):
+    """
+    You will then need to instantiate and configure the table in the view, before adding it to the context.
+    """
+    # table = PersonTable(Person.objects.all())
+    # table = PhotoRecord.objects.order_by(F('year').asc(nulls_last=True))
+    table = PhotoTable(PhotoRecord.objects.all())
+
+    # Using RequestConfig automatically pulls values from request.GET and updates the table accordingly. This enables data ordering and pagination.
+    RequestConfig(request).configure(table)
+
+    # Rather than passing a QuerySet to {% render_table %}, instead pass the table instance:
+    return render(request, 'slhpa/list.html', {'table': table})
+
 
 def index(request):
 
