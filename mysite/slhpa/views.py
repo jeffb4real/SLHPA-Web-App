@@ -45,20 +45,20 @@ def bound_form(request, id):
     if request.method == 'POST':
         form = EditPhotoMetadataForm(request.POST)
         if form.is_valid():
-                photo.title = form.cleaned_data['title']
-                photo.description = form.cleaned_data['description']
-                photo.year = form.cleaned_data['year']
-                photo.verified_gps_coords = form.cleaned_data['verified_gps_coords']
-                photo.address = form.cleaned_data['address']
-                photo.contributor = form.cleaned_data['contributor']
-                photo.period_date = form.cleaned_data['period_date']
-                photo.subject = form.cleaned_data['subject']
-                photo.save()
+            photo.title = form.cleaned_data['title']
+            photo.description = form.cleaned_data['description']
+            photo.year = form.cleaned_data['year']
+            photo.verified_gps_coords = form.cleaned_data['verified_gps_coords']
+            photo.address = form.cleaned_data['address']
+            photo.contributor = form.cleaned_data['contributor']
+            photo.period_date = form.cleaned_data['period_date']
+            photo.subject = form.cleaned_data['subject']
+            photo.save()
         return HttpResponseRedirect('/slhpa/detail/' + id + '/')
     else:
         form = EditPhotoMetadataForm(instance=photo)
         return render(request, 'slhpa/edit.html',
-                {'form': form, 'photorecord': photo})
+                      {'form': form, 'photorecord': photo})
 
 
 class DetailView(generic.DetailView):
@@ -131,6 +131,7 @@ def loaddb(request, import_filename):
                         ', rows_in_table: ' + str(rows_in_table) +
                         ', seconds: ' + str(int(end - start)))
 
+
 def export(request, export_filename):
 
     def to_dict(photo_record):
@@ -151,10 +152,10 @@ def export(request, export_filename):
 
     start = time.time()
     path_to_file = settings.BASE_DIR + '/../data/' + export_filename + '.csv'
-    fieldnames = [ 'resource_name', 'title', 'subject', 'description', 
-            'contributor',
-            'period_date', 'url_for_file', 'geo_coord_UTM', 'verified_gps_coords',
-            'year', 'geo_coord_original', 'address' ]
+    fieldnames = ['resource_name', 'title', 'subject', 'description',
+                  'contributor',
+                  'period_date', 'url_for_file', 'geo_coord_UTM', 'verified_gps_coords',
+                  'year', 'geo_coord_original', 'address']
     with open(path_to_file, 'w', newline='') as outfile:
         writer = csv.DictWriter(outfile, fieldnames, delimiter=',', quotechar='"',
                                 quoting=csv.QUOTE_MINIMAL)
