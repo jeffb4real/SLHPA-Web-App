@@ -1,6 +1,8 @@
 # SLHPA-Web-App
 San Leandro Historical Photo Archive Web Application
 
+![San Leandro](https://images-na.ssl-images-amazon.com/images/I/51A-MaecjhL.jpg)
+
 # Contents
 1. [Overview](#overview)
 2. [Python_Dependencies](#Python_Dependencies)
