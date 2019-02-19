@@ -1,6 +1,8 @@
 # SLHPA-Web-App
 San Leandro Historical Photo Archive Web Application
 
+![San Leandro](https://images-na.ssl-images-amazon.com/images/I/51A-MaecjhL.jpg)
+
 # Contents
 1. [Overview](#overview)
 2. [Python_Dependencies](#Python_Dependencies)
@@ -23,7 +25,7 @@ This project was created with Python 3.7.x, with the addition of these modules:
 
 * selenium - used by `scraper.py` to scrape photo data
 * lxml - used by `mapper.py` to write KML data
-* django-tables2 - used by "mysite/tutorial" app (https://django-tables2.readthedocs.io/en/latest/pages/tutorial.html)
+* [django-tables2](https://django-tables2.readthedocs.io/en/latest/pages/tutorial.html) - used by slhpa web app
 
 These modules were installed with pip, e.g.:
 
