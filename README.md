@@ -25,7 +25,7 @@ This project was created with Python 3.7.x, with the addition of these modules:
 
 * selenium - used by `scraper.py` to scrape photo data
 * lxml - used by `mapper.py` to write KML data
-* django_tables2 - used by "mysite/tutorial" app (https://django-tables2.readthedocs.io/en/latest/pages/tutorial.html)
+* django-tables2 - used by "mysite/tutorial" app (https://django-tables2.readthedocs.io/en/latest/pages/tutorial.html)
 
 These modules were installed with pip, e.g.:
 
