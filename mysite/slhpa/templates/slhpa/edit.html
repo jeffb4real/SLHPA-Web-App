@@ -20,7 +20,7 @@
 </style>
 </head>
 <body>
-    
+
 {% block content %}
     {% load static %}
     {% static "/slhpa/images/photos" as baseUrl %}
@@ -43,5 +43,8 @@
         <a href="../../../slhpa/detail/{{ photorecord.resource_name }}/">Cancel</a>
     </form>
 {% endblock %}
+<br>
+<p><small>Courtesy of the San Leandro Public Library and
+San Leandro History Museum.</small></p>   
 </body>
 </html>
