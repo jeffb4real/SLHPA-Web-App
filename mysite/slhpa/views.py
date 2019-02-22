@@ -12,11 +12,8 @@ from django.shortcuts import render_to_response
 from django.urls import reverse
 from .models import PhotoRecord
 from .forms import EditPhotoMetadataForm
-
-# For new 'list_view' view
-from django_tables2 import RequestConfig
-# from .models import Person    # replaced by 'from .models import PhotoRecord'
 from .tables import PhotoTable
+from django_tables2 import RequestConfig
 
 
 def list_view(request):
@@ -57,6 +54,7 @@ def index(request):
         'photo_list': photo_list,
         'stats': stats,
     }
+    # This will use index.html
     return HttpResponse(template.render(context, request))
 
 
