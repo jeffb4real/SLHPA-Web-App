@@ -119,10 +119,11 @@ def accumulate_error(record):
     vert_error = abs(verified_gps_coords[1] - record['geo_coord_UTM'][1]) / abs(top_gps - bottom_gps)
     vert_errors.append(vert_error)
 
+data_dir = 'mysite/slhpa/static/slhpa/data/'
 def transform(infile, out_file_name):
     random.seed(0)
     reader = csv.DictReader(infile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-    outfile = open('data/' + out_file_name + '.csv', 'w', newline='')
+    outfile = open(data_dir + out_file_name + '.csv', 'w', newline='')
     writer = csv.DictWriter(outfile, reader.fieldnames, delimiter=',', quotechar='"',
                             quoting=csv.QUOTE_MINIMAL)
     writer.writeheader()
@@ -146,9 +147,9 @@ def transform(infile, out_file_name):
     # print_details()
 
 def main():
-    with open('data/merged.csv', 'r', newline='') as infile:
+    with open(data_dir + 'merged.csv', 'r', newline='') as infile:
         transform(infile, 'transformed')
-    with open('data/merged.csv', 'r', newline='') as infile:
+    with open(data_dir + 'merged.csv', 'r', newline='') as infile:
         transform(infile, 'transformed_no_rand')
 
 

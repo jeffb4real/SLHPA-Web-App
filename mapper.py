@@ -118,8 +118,9 @@ class Mapper:
         coords_element.text = coords[0].strip() + ',' + coords[1].strip() + ',0'
         return 1
 
+    data_dir = 'mysite/slhpa/static/slhpa/data/'
     def write_kml_file(self, added_records, root, kml_file_index, filename_prefix):
-        fn = 'data/' + filename_prefix + '_SLHPA_' + str(kml_file_index) + '.kml'
+        fn = self.data_dir + filename_prefix + '_SLHPA_' + str(kml_file_index) + '.kml'
         with open(fn, 'w+') as kml_file:
             kml_file.writelines('<?xml version="1.0" encoding="UTF-8"?>\n')
             bytes = etree.tostring(root, pretty_print=True)
@@ -161,13 +162,13 @@ class Mapper:
         return total_records_processed
 
     def main(self):
-        self.transform_to_kml('data/transformed_no_rand.csv', 'calced_no_rand', self.calced_coords_column_name)
-        self.transform_to_kml('data/transformed.csv', 'calced_ref', self.calced_coords_column_name)
-        self.transform_to_kml('data/transformed.csv', 'manual', self.manual_coords_column_name)
+        self.transform_to_kml(self.data_dir + 'transformed_no_rand.csv', 'calced_no_rand', self.calced_coords_column_name)
+        self.transform_to_kml(self.data_dir + 'transformed.csv', 'calced_ref', self.calced_coords_column_name)
+        self.transform_to_kml(self.data_dir + 'transformed.csv', 'manual', self.manual_coords_column_name)
 
         self.max_name_length = 0
         self.max_desc_length = 0
-        total_records_processed = self.transform_to_kml('data/transformed.csv', 'calced', self.master_coords_column_name)
+        total_records_processed = self.transform_to_kml(self.data_dir + 'transformed.csv', 'calced', self.master_coords_column_name)
         log("{: >4d}".format(total_records_processed) + ' input records processed')
         log("{: >4d}".format(self.max_name_length) + ' max_name_length' + ' in ' + self.max_name_record)
         log("{: >4d}".format(self.max_desc_length) + ' max_desc_length' + ' in ' + self.max_desc_record)

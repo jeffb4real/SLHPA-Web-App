@@ -46,9 +46,10 @@ def read_from_stream_into_dict(file_name: str, key_function_name: callable, key_
     return fieldnames, dict
 
 
+data_dir = 'mysite/slhpa/static/slhpa/data/'
 def write(records: dict, fieldnames: list):
     """ Write a csv file of records with fieldnames fields. """
-    filename = 'data/merged.csv'
+    filename = data_dir + 'merged.csv'
     outfile = open(filename, 'w', newline='')
     writer = csv.DictWriter(outfile, fieldnames, delimiter=',', quotechar='"',
                             quoting=csv.QUOTE_MINIMAL)
@@ -77,7 +78,7 @@ def write_year_counts(scraped_records: dict):
             adjusted_year_counts[adjusted_year] += 1
 
     total_count = 0
-    fn = 'data/year_counts.tsv'
+    fn = data_dir + 'year_counts.tsv'
     with open(fn, 'w', newline='') as out_file:
         # 1839, the invention of photography, and 1980, approx. culmination of the photo archive
         for y in range(1839, 1981):
@@ -185,14 +186,14 @@ def main():
     https://github.com/jeffb4real/SLHPA-Web-App/blob/master/mysite/slhpa/models.py
     """
     scraped_fieldnames, scraped_records = read_from_stream_into_dict(
-        'data/scraped.csv', str, 'resource_name')
+        data_dir + 'scraped.csv', str, 'resource_name')
     scraped_fieldnames.append('geo_coord_UTM')
     merge_one_file(scraped_fieldnames, scraped_records,
-                   'data/manually_verified.csv', str, 'resource_name')
+                   data_dir + 'manually_verified.csv', str, 'resource_name')
     merge_one_file(scraped_fieldnames, scraped_records,
-                   'data/transcribed.csv', number_to_pdf, 'resource_number')
+                   data_dir + 'transcribed.csv', number_to_pdf, 'resource_number')
     dvd_records = merge_one_file(scraped_fieldnames, scraped_records,
-                                 'data/V01-V64 Index.csv', prepend_zeros, 'Index Number')
+                                 data_dir + 'V01-V64 Index.csv', prepend_zeros, 'Index Number')
     comb_years(scraped_fieldnames, scraped_records, dvd_records)
     comb_addresses(scraped_fieldnames, scraped_records)
     write(scraped_records, scraped_fieldnames)
