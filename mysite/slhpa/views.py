@@ -99,7 +99,7 @@ def loaddb(request, import_filename):
     TODO: Why doesn't it complain when record is added twice with same key?
     """
     start = time.time()
-    path_to_db = settings.BASE_DIR + '/../data/' + import_filename + '.csv'
+    path_to_db = settings.BASE_DIR + '/slhpa/static/slhpa/data/' + import_filename + '.csv'
 
     # https://stackoverflow.com/questions/39962977/how-to-import-csv-file-to-django-models
     with open(path_to_db) as csvfile:
@@ -169,7 +169,7 @@ def export(request, export_filename):
         return dict
 
     start = time.time()
-    path_to_file = settings.BASE_DIR + '/../data/' + export_filename + '.csv'
+    path_to_file = settings.BASE_DIR + '/slhpa/static/slhpa/data/' + export_filename + '.csv'
     fieldnames = ['resource_name', 'title', 'subject', 'description',
                   'contributor',
                   'period_date', 'url_for_file', 'geo_coord_UTM', 'verified_gps_coords',
