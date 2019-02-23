@@ -183,3 +183,14 @@ def export(request, export_filename):
             writer.writerow(to_dict(photo))
     end = time.time()
     return HttpResponse('Wrote: ' + path_to_file + ', seconds: ' + str(int(end - start)))
+
+def datafile(request, filename):
+    """
+    Put data file into minimal html and return it.
+    """
+    path_to_file = settings.BASE_DIR + '/slhpa/static/slhpa/data/' + filename
+    data = ''
+    with open(path_to_file) as f:
+        for line in f:
+            data = data + line + '<br>'
+    return HttpResponse(data)
