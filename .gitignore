@@ -117,3 +117,6 @@ venv.bak/
 *.csv
 *.tsv
 *.jpg
+
+# Google Cloud Platform static
+mysite/static/
