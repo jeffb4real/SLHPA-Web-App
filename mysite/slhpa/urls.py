@@ -5,6 +5,7 @@ from . import views
 urlpatterns = [
     path('', views.index, name='index'),
     path('list', views.list_view, name='list'),
+    path('photos/<photo_filename>', views.photos, name='photos'),
     path('detail/<str:pk>/', views.DetailView.as_view(), name='detail'),
     path('edit/<str:id>/', views.bound_form, name='edit'),
 
