@@ -158,3 +158,8 @@ Assuming this project has already been cloned:
       $ cd mysite
       $ python manage.py migrate
       $ python manage.py runserver
+      
+In a browser:      
+     
+      http://127.0.0.1:8000/slhpa/import/transformed
+      http://127.0.0.1:8000/slhpa
