@@ -155,12 +155,6 @@ Assuming this project has already been cloned:
 
 (... documentation in process)
 
-* Bootstrap
-* Some map host:
-   [The Top 10 Mapping & Maps APIs (for Developers in 2018)](https://blog.rapidapi.com/top-map-apis/)
-  1. Mapbox
-  2. Google maps
-  3. [folium](https://pypi.org/project/folium/): "Make beautiful, interactive maps with Python and Leaflet.js"
-  4. [Leaflet API](https://leafletjs.com/)
-  5. [Open Street Map](https://switch2osm.org/)
-  6. [Mapfit](https://www.mapfit.com/developers)
+      $ cd mysite
+      $ python manage.py migrate
+      $ python manage.py runserver
