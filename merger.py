@@ -49,6 +49,7 @@ def read_from_stream_into_dict(file_name: str, key_function_name: callable, key_
 data_dir = 'mysite/slhpa/static/slhpa/data/'
 def write(records: dict, fieldnames: list):
     """ Write a csv file of records with fieldnames fields. """
+    non_numeric_keys = ''
     filename = data_dir + 'merged.csv'
     outfile = open(filename, 'w', newline='')
     writer = csv.DictWriter(outfile, fieldnames, delimiter=',', quotechar='"',
@@ -56,8 +57,11 @@ def write(records: dict, fieldnames: list):
     writer.writeheader()
     for _, value in sorted(records.items()):
         writer.writerow(value)
+        if len(_) > 12:
+            non_numeric_keys = non_numeric_keys + ' ' + _
     log(str("{: >4d}".format(len(records))) +
         ' records written to ' + filename)
+    log('non_numeric_keys: ' + non_numeric_keys)
 
 
 def write_year_counts(scraped_records: dict):
