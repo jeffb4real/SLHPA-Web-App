@@ -24,10 +24,11 @@
 {% block content %}
     {% load static %}
     {% static "/slhpa/images/photos" as baseUrl %}
-    <a href="{{ photorecord.url_for_file }}">
+    {% load photodir %}
+    <a href="{{ baseUrl }}/{{ photorecord.resource_name|getdir }}/{{ photorecord.resource_name }}.jpg">
         <span>
             <img id="main_img"
-                src="{{ baseUrl }}/{{ photorecord.resource_name }}.jpg" 
+                src="{{ baseUrl }}/{{ photorecord.resource_name|getdir }}/{{ photorecord.resource_name }}.jpg" 
                 height="160px" border="2">
             <img id="overlay_img" src="{{ baseUrl }}/finger.png" height="40px">
         </span>
