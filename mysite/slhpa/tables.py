@@ -1,6 +1,7 @@
 import django_tables2 as tables
 from django.utils.html import format_html
 from .models import PhotoRecord
+from .templatetags.photodir import getdir
 
 
 class PhotoTable(tables.Table):
@@ -20,10 +21,15 @@ class PhotoTable(tables.Table):
 
     # https://django-tables2.readthedocs.io/en/latest/pages/custom-data.html?highlight=ImageColumn
     def render_url_for_file(self, record):
-        url = record.url_for_file
         photo_filename = record.resource_name
-
-        return format_html('<img src="/static/slhpa/images/photos/' + photo_filename + '.jpg" width="100%" border="2" >')
+        dir = getdir(record.resource_name) + '/'
+        return format_html('<a href="/static/slhpa/images/photos/' + dir + photo_filename + '.jpg" target="_blank">' +
+                           '    <div>' +
+                           '        <img id="main_img" src="/static/slhpa/images/photos/' + dir + photo_filename + '.jpg" width="100%" border="10">' +
+                           '        <img id="overlay_img" src="/static/slhpa/images/photos/finger.png" width="20%">' +
+                           '    </div>' +
+                           '</a>'
+                           )
 
     class Meta:
         # https://django-tables2.readthedocs.io/en/latest/pages/table-data.html?highlight=exclude

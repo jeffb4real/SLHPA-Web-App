@@ -5,10 +5,28 @@
 <head>
   <title>List of persons</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+
+  <style>
+    <a>#main_img {
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      z-index: 1;
+    }
+
+    #overlay_img {
+      position: relative;
+      top: -28px;
+      left: 83%;
+      z-index: 0;
+    }
+
+    </a>
+  </style>
 </head>
 
 <body>
-  <div>
+  <div class="container">
     <!-- table is a table instance (not a QuerySet), defined in views.py -->
     {% render_table table %}
   </div>

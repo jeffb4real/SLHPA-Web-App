@@ -31,10 +31,6 @@ def list_view(request):
     return render(request, 'slhpa/list.html', {'table': table})
 
 
-def photos(request, photo_filename):
-    return HttpResponse('<img src="' + settings.BASE_DIR + 'slhpa/static/slhpa/images/photos/' + photo_filename + '.jpg" width="10%" border="2">')
-
-
 def index(request):
 
     photo_list = PhotoRecord.objects.order_by(F('year').asc(nulls_last=True))
