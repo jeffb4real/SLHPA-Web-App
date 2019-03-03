@@ -20,8 +20,8 @@ cd mysite                                               ; if [ $? -ne 0 ] ; then
 python manage.py migrate                                ; if [ $? -ne 0 ] ; then exit -6 ; fi
 python manage.py runserver                              ; if [ $? -ne 0 ] ; then exit -6 ; fi
 
-# copy image files, e.g.:
-# cp ~/Downloads/'San Leandro Historical Photo Archive - 311MB/photos - 640x only'/* slhpa/static/slhpa/images/photos/
+# Copy image files. They must be correctly distributed into numbered subdirectories.
+# cp -r ~/Downloads/'San Leandro Historical Photo Archive - 311MB/photos - 640x only'/* slhpa/static/slhpa/images/photos/
 
 # Use browser to import csv into sqlite:
 # http://127.0.0.1:8000/slhpa/import/transformed
