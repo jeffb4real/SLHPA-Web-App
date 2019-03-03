@@ -19,6 +19,8 @@ The San Leandro Public Library is home to an archive of about 2500 photographic 
 
 This SLHPA-Web-App project is an attempt to make the historical photo archive more easily browsable, by creating a historical photo website that uses dynamic elements such as user-customizable filter settings, photo carousel, or maps/markers.
 
+See https://github.com/jeffb4real/SLHPA-Web-App/blob/master/utilities/bootstrap.sh for a shell script to do most of the bootstrapping.
+
 ## Python_Dependencies
 
 This project was created with Python 3.7.x, with the addition of these modules:
