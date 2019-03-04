@@ -2,9 +2,19 @@
 
 set -x
 
-cd ~/Documents/Github/SLHPA-Web-App                     ; if [ $? -ne 0 ] ; then exit -6 ; fi
-virtualenv venv                                         ; if [ $? -ne 0 ] ; then exit -6 ; fi
-venv/Scripts/activate                                   ; if [ $? -ne 0 ] ; then exit -6 ; fi
+curdir=`pwd`
+base=`basename $curdir`
+if [ ! "$base" = "SLHPA-Web-App" ] ; then
+    echo "Must run from within SLHPA-Web-App directory."
+    exit -1
+fi
+python -m venv venv                                     ; if [ $? -ne 0 ] ; then exit -6 ; fi
+
+if [ "$WINDIR" = "" ] ; then
+    venv/bin/activate                                   ; if [ $? -ne 0 ] ; then exit -6 ; fi
+else
+    venv/Scripts/activate                               ; if [ $? -ne 0 ] ; then exit -6 ; fi
+fi
 
 python -m pip install selenium                          ; if [ $? -ne 0 ] ; then exit -6 ; fi
 python -m pip install lxml                              ; if [ $? -ne 0 ] ; then exit -6 ; fi
