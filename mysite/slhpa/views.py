@@ -25,7 +25,7 @@ def list_view(request):
     table = PhotoTable(PhotoRecord.objects.all())
 
     # Using RequestConfig automatically pulls values from request.GET and updates the table accordingly. This enables data ordering and pagination.
-    RequestConfig(request).configure(table)
+    RequestConfig(request, paginate={"per_page": 10}).configure(table)
 
     # Rather than passing a QuerySet to {% render_table %}, instead pass the table instance:
     return render(request, 'slhpa/list.html', {'table': table})

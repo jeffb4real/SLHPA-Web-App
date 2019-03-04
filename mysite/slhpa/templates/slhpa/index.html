@@ -1,25 +1,26 @@
 <head>
     <style>
-        <a>
-            #main_img {
-                position: absolute;
-                top: 0;
-                left: 0;
-                z-index: 1;
-            }
-            #overlay_img {
-                position: relative;
-                top: -30px;
-                left: 68px;
-                z-index: 0;
-            }
+        <a>#main_img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+
+        #overlay_img {
+            position: relative;
+            top: -30px;
+            left: 68px;
+            z-index: 0;
+        }
+
         </a>
     </style>
 </head>
 
 <h2>Prototype SLHPA Photo List (...a work in progress...)</h2>
 <p><small>Courtesy of the San Leandro Public Library and
-San Leandro History Museum.</small></p>
+        San Leandro History Museum.</small></p>
 <p><i>List is sorted by year, oldest first.</i></p>
 <ul>
     <li><i>Total images:</i> {{stats.total}}</li>
@@ -67,8 +68,10 @@ San Leandro History Museum.</small></p>
             {% static "/slhpa/images/photos" as baseUrl %}
             {% load photodir %}
             <a href="{{ baseUrl }}/{{ photo.resource_name|getdir }}/{{ photo.resource_name }}.jpg" target="_blank">
-                <div>
-                    <img id="main_img" src="{{ baseUrl }}/{{ photo.resource_name|getdir }}/{{ photo.resource_name }}.jpg" width="100%" border="2">
+                <div class="container">
+                    <img id="main_img"
+                        src="{{ baseUrl }}/{{ photo.resource_name|getdir }}/{{ photo.resource_name }}.jpg" width="100%"
+                        border="2">
                     <img id="overlay_img" src="{{ baseUrl }}/finger.png" width="20%">
                 </div>
             </a>
