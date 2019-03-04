@@ -1,4 +1,6 @@
 # One-time script to handle changing key column to AutoField() in PhotoRecord table.
+# Currently not needed, so disabled.
+exit 0
 
 set -x 
 
