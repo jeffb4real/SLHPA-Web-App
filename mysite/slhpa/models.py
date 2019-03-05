@@ -33,3 +33,9 @@ class PhotoRecord(models.Model):
     def __str__(self):
         return self.resource_name + " : " + self.title
 
+class KeyValueRecord(models.Model):
+    key = models.CharField(max_length=50, primary_key=True)
+    value = models.CharField(max_length=500)
+
+    def __str__(self):
+        return self.key + "=" + self.value
