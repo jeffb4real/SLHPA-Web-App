@@ -29,7 +29,7 @@ This project was created with Python 3.7.x, with the addition of these modules:
 
 * selenium - used by `scraper.py` to scrape photo data
 * lxml - used by `mapper.py` to write KML data
-* django - used by slhpa web app
+* [Django](https://pypi.org/project/Django/) - used by slhpa web app
 * [django-tables2](https://django-tables2.readthedocs.io/en/latest/pages/tutorial.html) - used by slhpa web app
 * [django-filter](https://pypi.org/project/django-filter/) - used by slhpa web app
 
