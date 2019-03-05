@@ -5,7 +5,7 @@ San Leandro Historical Photo Archive Web Application
 
 # Contents
 1. [Overview](#overview)
-2. [Python_Dependencies](#Python_Dependencies)
+2. [Setup](#Setup)
 3. [scraper](#scraper)
 4. [merger](#merger)
 5. [transformer](#transformer)
@@ -19,9 +19,11 @@ The San Leandro Public Library is home to an archive of about 2500 photographic 
 
 This SLHPA-Web-App project is an attempt to make the historical photo archive more easily browsable, by creating a historical photo website that uses dynamic elements such as user-customizable filter settings, photo carousel, or maps/markers.
 
+## Setup
+
 See https://github.com/jeffb4real/SLHPA-Web-App/blob/master/utilities/bootstrap.sh for a shell script to do most of the bootstrapping.
 
-## Python_Dependencies
+### Python_Dependencies
 
 This project was created with Python 3.7.x, with the addition of these modules:
 
@@ -29,10 +31,11 @@ This project was created with Python 3.7.x, with the addition of these modules:
 * lxml - used by `mapper.py` to write KML data
 * django - used by slhpa web app
 * [django-tables2](https://django-tables2.readthedocs.io/en/latest/pages/tutorial.html) - used by slhpa web app
+* [django-filter](https://pypi.org/project/django-filter/) - used by slhpa web app
 
-These modules were installed with pip, e.g.:
+These modules can be installed all at once either by using `bootstrap.sh` (mentioned above) or by `pip` installing the included requirements.txt, e.g.:
 
-      $ python -m pip install selenium
+      ~/SLHPA-Web-App $ pip install -r requirements.txt
 
 ## scraper
 
