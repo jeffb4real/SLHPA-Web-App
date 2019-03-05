@@ -50,6 +50,7 @@ data_dir = 'mysite/slhpa/static/slhpa/data/'
 def write(records: dict, fieldnames: list):
     """ Write a csv file of records with fieldnames fields. """
     non_numeric_keys = ''
+    current_resource_number = 0
     filename = data_dir + 'merged.csv'
     outfile = open(filename, 'w', newline='')
     writer = csv.DictWriter(outfile, fieldnames, delimiter=',', quotechar='"',
@@ -59,9 +60,13 @@ def write(records: dict, fieldnames: list):
         writer.writerow(value)
         if len(_) > 12:
             non_numeric_keys = non_numeric_keys + ' ' + _
+        num = int(_[0:8])
+        if num > current_resource_number:
+            current_resource_number = num
     log(str("{: >4d}".format(len(records))) +
         ' records written to ' + filename)
     log('non_numeric_keys: ' + non_numeric_keys)
+    log('next_resource_number: ' + str(current_resource_number + 1))
 
 
 def write_year_counts(scraped_records: dict):
