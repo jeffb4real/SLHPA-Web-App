@@ -7,6 +7,7 @@ urlpatterns = [
     path('list', views.list_view, name='list'),
     path('detail/<str:pk>/', views.DetailView.as_view(), name='detail'),
     path('edit/<str:id>/', views.bound_form, name='edit'),
+    path('add/', views.add, name='add'),
 
     # 'import' is a reserved word, can't do views.import .
     path('import/<import_filename>', views.loaddb, name='loaddb'),

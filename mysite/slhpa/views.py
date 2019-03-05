@@ -10,8 +10,8 @@ from django.shortcuts import get_object_or_404
 from django.shortcuts import render
 from django.shortcuts import render_to_response
 from django.urls import reverse
-from .models import PhotoRecord
-from .forms import EditPhotoMetadataForm
+from .models import PhotoRecord, KeyValueRecord
+from .forms import EditPhotoMetadataForm, AddPhotoMetadataForm
 from .tables import PhotoTable
 from django_tables2 import RequestConfig
 
@@ -58,25 +58,55 @@ def index(request):
     return HttpResponse(template.render(context, request))
 
 
+def load_photo_record(photo, form):
+    photo.title = form.cleaned_data['title']
+    photo.description = form.cleaned_data['description']
+    photo.year = form.cleaned_data['year']
+    photo.verified_gps_coords = form.cleaned_data['verified_gps_coords']
+    photo.address = form.cleaned_data['address']
+    photo.contributor = form.cleaned_data['contributor']
+    photo.period_date = form.cleaned_data['period_date']
+    photo.subject = form.cleaned_data['subject']
+
+
 def bound_form(request, id):
     photo = get_object_or_404(PhotoRecord, resource_name=id)
     if request.method == 'POST':
         form = EditPhotoMetadataForm(request.POST)
         if form.is_valid():
-            photo.title = form.cleaned_data['title']
-            photo.description = form.cleaned_data['description']
-            photo.year = form.cleaned_data['year']
-            photo.verified_gps_coords = form.cleaned_data['verified_gps_coords']
-            photo.address = form.cleaned_data['address']
-            photo.contributor = form.cleaned_data['contributor']
-            photo.period_date = form.cleaned_data['period_date']
-            photo.subject = form.cleaned_data['subject']
+            load_photo_record(photo, form)
             photo.save()
         return HttpResponseRedirect('/slhpa/detail/' + id + '/')
     else:
         form = EditPhotoMetadataForm(instance=photo)
         return render(request, 'slhpa/edit.html',
                       {'form': form, 'photorecord': photo})
+
+
+def add(request):
+    def get_next_resource_name():
+        kv = KeyValueRecord.objects.filter(key='next-resource-number')
+        if kv:
+            record = kv[0]
+        else:
+            # Yes, it's hardcoded. The old photo database will, however, never change.
+            record = KeyValueRecord('next-resource-number', '00002557')
+        next_name = int(record.value)
+        record.value = str("{:0>8d}".format(next_name + 1))
+        record.save()
+        return record.value + '.pdf'
+
+    if request.method == 'POST':
+        form = AddPhotoMetadataForm(request.POST)
+        if form.is_valid():
+            photo = PhotoRecord()
+            photo.resource_name = get_next_resource_name()
+            load_photo_record(photo, form)
+            photo.save()
+        return HttpResponseRedirect('/slhpa/detail/' + photo.resource_name[0:8] + '/')
+    else:
+        form = AddPhotoMetadataForm()
+        return render(request, 'slhpa/add.html', {'form': form})
 
 
 class DetailView(generic.DetailView):
