@@ -94,7 +94,7 @@ def add(request):
         next_name = int(record.value)
         record.value = str("{:0>8d}".format(next_name + 1))
         record.save()
-        return record.value + '.pdf'
+        return record.value
 
     if request.method == 'POST':
         form = AddPhotoMetadataForm(request.POST)
@@ -103,7 +103,7 @@ def add(request):
             photo.resource_name = get_next_resource_name()
             load_photo_record(photo, form)
             photo.save()
-        return HttpResponseRedirect('/slhpa/detail/' + photo.resource_name[0:8] + '/')
+        return HttpResponseRedirect('/slhpa/detail/' + photo.resource_name + '/')
     else:
         form = AddPhotoMetadataForm()
         return render(request, 'slhpa/add.html', {'form': form})
