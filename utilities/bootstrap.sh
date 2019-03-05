@@ -11,21 +11,18 @@ fi
 python -m venv venv                                     ; if [ $? -ne 0 ] ; then exit -6 ; fi
 
 if [ "$WINDIR" = "" ] ; then
-    venv/bin/activate                                   ; if [ $? -ne 0 ] ; then exit -6 ; fi
+    source venv/bin/activate                            ; if [ $? -ne 0 ] ; then exit -6 ; fi
 else
     venv/Scripts/activate                               ; if [ $? -ne 0 ] ; then exit -6 ; fi
 fi
 
-python -m pip install selenium                          ; if [ $? -ne 0 ] ; then exit -6 ; fi
-python -m pip install lxml                              ; if [ $? -ne 0 ] ; then exit -6 ; fi
+pip install -r requirements.txt                         ; if [ $? -ne 0 ] ; then exit -6 ; fi
 
 echo "To verify that web scraping works, run:"
 echo "python scraper.py"
 
 ./run-pipeline.sh                                       ; if [ $? -ne 0 ] ; then exit -6 ; fi
 
-python -m pip install django                            ; if [ $? -ne 0 ] ; then exit -6 ; fi
-python -m pip install django-tables2                    ; if [ $? -ne 0 ] ; then exit -6 ; fi
 cd mysite                                               ; if [ $? -ne 0 ] ; then exit -6 ; fi
 python manage.py migrate                                ; if [ $? -ne 0 ] ; then exit -6 ; fi
 
