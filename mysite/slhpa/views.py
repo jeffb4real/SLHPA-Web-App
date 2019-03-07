@@ -85,16 +85,17 @@ def bound_form(request, id):
 
 def add(request):
     def get_next_resource_name():
-        kv = KeyValueRecord.objects.filter(key='next-resource-number')
+        kv = KeyValueRecord.objects.filter(key='next-resource-name')
         if kv:
             record = kv[0]
         else:
             # Yes, it's hardcoded. The old photo database will, however, never change.
-            record = KeyValueRecord('next-resource-number', '00002557')
+            record = KeyValueRecord('next-resource-name', '00002557')
+        current_name = record.value
         next_name = int(record.value)
         record.value = str("{:0>8d}".format(next_name + 1))
         record.save()
-        return record.value
+        return current_name
 
     if request.method == 'POST':
         form = AddPhotoMetadataForm(request.POST)
