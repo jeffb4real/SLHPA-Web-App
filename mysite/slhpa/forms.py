@@ -38,7 +38,7 @@ class AddPhotoMetadataForm(forms.ModelForm):
             widget=forms.Textarea(attrs={'rows': 1, 'cols': 60}))
     subject = forms.CharField(required=False, 
             widget=forms.Textarea(attrs={'rows': 1, 'cols': 60}))
-    document = forms.FileField(required=False)
+    document = forms.FileField(required=False, label='Photo (*must* be jpg)')
 
     class Meta:
         model = PhotoRecord
