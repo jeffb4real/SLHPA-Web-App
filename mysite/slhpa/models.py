@@ -17,6 +17,10 @@ class PhotoRecord(models.Model):
     address = models.CharField(max_length=100, null=True)
     contributor = models.CharField(max_length=1000, null=True)
     description = models.CharField(max_length=2000)
+
+    # This is only used to make the form provide an upload button.
+    document = models.FileField(null=True)
+
     geo_coord_original = models.CharField(max_length=100, null=True)
     geo_coord_UTM = models.CharField(max_length=100, null=True)
     period_date = models.CharField(max_length=100, null=True)
@@ -29,7 +33,7 @@ class PhotoRecord(models.Model):
     verified_gps_coords = models.CharField(max_length=100, null=True)
     year = models.IntegerField(null=True)
 
-    # This should show enough information in the debugger.
+    # This should show enough information in the debugger, admin console, etc.
     def __str__(self):
         return self.resource_name + " : " + self.title
 
