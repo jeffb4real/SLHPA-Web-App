@@ -58,12 +58,12 @@
         </td>
     </tr>
     <tr>
-        <td style="text-align:left;padding:10px">GPS Coordinates</td>
-        {% if photorecord.verified_gps_coords %}
-            <td style="text-align:left;padding:10px">{{ photorecord.verified_gps_coords }}</td>
-        {% else %}
-            <td style="text-align:left;padding:10px">{{ photorecord.geo_coord_UTM }}</td>
-        {% endif %}
+        <td style="text-align:left;padding:10px">GPS Latitude</td>
+        <td style="text-align:left;padding:10px">{{ photorecord.gps_latitude }}</td>
+    </tr>
+    <tr>
+        <td style="text-align:left;padding:10px">GPS Longitude</td>
+        <td style="text-align:left;padding:10px">{{ photorecord.gps_longitude }}</td>
     </tr>
     <tr>
         <td style="text-align:left;padding:10px">Address</td>

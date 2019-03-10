@@ -63,7 +63,8 @@ def load_photo_record(photo, form):
     photo.title = form.cleaned_data['title']
     photo.description = form.cleaned_data['description']
     photo.year = form.cleaned_data['year']
-    photo.verified_gps_coords = form.cleaned_data['verified_gps_coords']
+    photo.gps_latitude = form.cleaned_data['gps_latitude']
+    photo.gps_longitude = form.cleaned_data['gps_longitude']
     photo.address = form.cleaned_data['address']
     photo.contributor = form.cleaned_data['contributor']
     photo.period_date = form.cleaned_data['period_date']
@@ -113,7 +114,10 @@ def add(request):
             photo.resource_name = get_next_resource_name()
             load_photo_record(photo, form)
             photo.save()
-            handle_uploaded_file(photo.resource_name, request.FILES['document'])
+            file = None
+            if request.FILES.get('document'):
+                file = request.FILES['document']
+            handle_uploaded_file(photo.resource_name, file)
             return HttpResponseRedirect('/slhpa/detail/' + photo.resource_name + '/')
     else:
         form = AddPhotoMetadataForm()

@@ -7,7 +7,9 @@ class EditPhotoMetadataForm(forms.ModelForm):
     title = forms.CharField(widget=forms.Textarea(attrs={'rows': 2, 'cols': 60}))
     description = forms.CharField(widget=forms.Textarea(attrs={'rows': 5, 'cols': 60}))
     year = forms.IntegerField(required=False)
-    verified_gps_coords = forms.CharField(required=False, 
+    gps_latitude = forms.FloatField(required=False, 
+            widget=forms.Textarea(attrs={'rows': 1, 'cols': 60}))
+    gps_longitude = forms.FloatField(required=False, 
             widget=forms.Textarea(attrs={'rows': 1, 'cols': 60}))
     address = forms.CharField(required=False, 
             widget=forms.Textarea(attrs={'rows': 1, 'cols': 60}))
@@ -20,7 +22,7 @@ class EditPhotoMetadataForm(forms.ModelForm):
 
     class Meta:
         model = PhotoRecord
-        fields = ('title', 'description', 'year', 'verified_gps_coords',
+        fields = ('title', 'description', 'year', 'gps_latitude', 'gps_longitude',
                     'address', 'contributor', 'period_date', 'subject')
 
 class AddPhotoMetadataForm(forms.ModelForm):
@@ -28,7 +30,9 @@ class AddPhotoMetadataForm(forms.ModelForm):
     title = forms.CharField(widget=forms.Textarea(attrs={'rows': 2, 'cols': 60}))
     description = forms.CharField(widget=forms.Textarea(attrs={'rows': 5, 'cols': 60}))
     year = forms.IntegerField(required=False)
-    verified_gps_coords = forms.CharField(required=False, 
+    gps_latitude = forms.FloatField(required=False, 
+            widget=forms.Textarea(attrs={'rows': 1, 'cols': 60}))
+    gps_longitude = forms.FloatField(required=False, 
             widget=forms.Textarea(attrs={'rows': 1, 'cols': 60}))
     address = forms.CharField(required=False, 
             widget=forms.Textarea(attrs={'rows': 1, 'cols': 60}))
@@ -42,5 +46,5 @@ class AddPhotoMetadataForm(forms.ModelForm):
 
     class Meta:
         model = PhotoRecord
-        fields = ('title', 'description', 'year', 'verified_gps_coords',
+        fields = ('title', 'description', 'year', 'gps_latitude', 'gps_longitude',
                     'address', 'contributor', 'period_date', 'subject', 'document')
