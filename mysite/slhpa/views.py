@@ -126,19 +126,43 @@ class DetailView(generic.DetailView):
 
 
 @transaction.atomic
-def loaddb(request, import_filename):
+def do_loaddb(request, import_filename):
 
     def getField(row, fieldName):
         if row.get(fieldName):
             return row[fieldName]
         return ''
 
-    """
-    Example message seen in browser:
-    Added 2526 records from C:\\Users\\chris\\Documents\\Github\\SLHPA-Web-App\\mysite/transformed.csv, exceptions: 0, no_resource: 4, no_key: 0, rows_in_table: 2526, seconds: 1
-    TODO: Add null=True to all appropriate fields (for when new records are added).
-    TODO: Why doesn't it complain when record is added twice with same key?
-    """
+    def load_record(row, key):
+        pr = PhotoRecord()
+        pr.address = getField(row, 'address')
+        pr.contributor = getField(row, 'contributor')
+        pr.description = getField(row, 'description')
+        pr.geo_coord_original = getField(row, 'geo_coord_original')
+        pr.geo_coord_UTM = getField(row, 'geo_coord_UTM')
+
+        latitude = None
+        longitude = None
+        if row.get('verified_gps_coords'):
+            s = getField(row, 'verified_gps_coords')
+            vals = s.split(',')
+            latitude = float(vals[1].replace(']', ''))
+            longitude = float(vals[0].replace('[', ''))
+        pr.gps_latitute = latitude
+        pr.gps_longitude = longitude
+
+        pr.period_date = getField(row, 'period_date')
+        pr.resource_name = key
+        pr.subject = getField(row, 'subject')
+        pr.title = getField(row, 'title')
+        pr.url_for_file = getField(row, 'url_for_file')
+        pr.verified_gps_coords = getField(row, 'verified_gps_coords')
+        year = None
+        if row.get('year'):
+            year = int(getField(row, 'year'))
+        pr.year = year
+        return pr
+
     start = time.time()
     path_to_db = settings.BASE_DIR + \
         '/slhpa/static/slhpa/data/' + import_filename + '.csv'
@@ -159,37 +183,31 @@ def loaddb(request, import_filename):
                     if not key:
                         no_key = no_key + 1
                     else:
-                        year = None
-                        if row.get('year'):
-                            year = int(getField(row, 'year'))
-                        pr = PhotoRecord(getField(row, 'address'),
-                                         getField(row, 'contributor'),
-                                         getField(row, 'description'),
-                                         getField(row, 'geo_coord_original'),
-                                         getField(row, 'geo_coord_UTM'),
-                                         getField(row, 'period_date'),
-                                         key,
-                                         getField(row, 'subject'),
-                                         getField(row, 'title'),
-                                         getField(row, 'url_for_file'),
-                                         getField(row, 'verified_gps_coords'),
-                                         year,
-                                         )
+                        pr = load_record(row, key)
                         pr.save()
                         added = added + 1
             except Exception as e2:
                 print(str(e2))
                 exceptions = exceptions + 1
-        rows_in_table = PhotoRecord.objects.all().count()
 
     end = time.time()
-    return HttpResponse('Added ' + str(added) +
-                        ' records from ' + path_to_db +
-                        ', exceptions: ' + str(exceptions) +
-                        ', no_resource: ' + str(no_resource) +
-                        ', no_key: ' + str(no_key) +
-                        ', rows_in_table: ' + str(rows_in_table) +
-                        ', seconds: ' + str(int(end - start)))
+    return 'Added ' + str(added) + \
+                        ' records from ' + path_to_db + \
+                        ', exceptions: ' + str(exceptions) + \
+                        ', no_resource: ' + str(no_resource) + \
+                        ', no_key: ' + str(no_key) + \
+                        ', seconds: ' + str(int(end - start))
+
+
+def loaddb(request, import_filename):
+    """
+    Example message seen in browser:
+    Added 2526 records from C:\\Users\\chris\\Documents\\Github\\SLHPA-Web-App\\mysite/transformed.csv, exceptions: 0, no_resource: 4, no_key: 0, rows_in_table: 2526, seconds: 1
+    """
+    message = do_loaddb(request, import_filename)
+    rows_in_table = PhotoRecord.objects.all().count()
+    message = message + ', rows_in_table: ' + str(rows_in_table)
+    return HttpResponse(message)
 
 
 def export(request, export_filename):

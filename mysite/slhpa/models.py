@@ -23,6 +23,8 @@ class PhotoRecord(models.Model):
 
     geo_coord_original = models.CharField(max_length=100, null=True)
     geo_coord_UTM = models.CharField(max_length=100, null=True)
+    gps_latitude = models.FloatField(null=True)
+    gps_longitude = models.FloatField(null=True)
     period_date = models.CharField(max_length=100, null=True)
 
     # Keep as CharField instead of IntegerField to handle keys such as '000001a'
@@ -30,6 +32,8 @@ class PhotoRecord(models.Model):
     subject = models.CharField(max_length=1000, null=True)
     title = models.CharField(max_length=200)
     url_for_file = models.CharField(max_length=500)
+
+    # TODO : Remove and use only the gps_* fields.
     verified_gps_coords = models.CharField(max_length=100, null=True)
     year = models.IntegerField(null=True)
 
