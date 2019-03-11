@@ -91,7 +91,11 @@ def bound_form(request, id):
             # TODO : Make backup copy of old photo file?
             if request.FILES.get('document'):
                 handle_uploaded_file(photo.resource_name, request.FILES['document'])
-        return HttpResponseRedirect('/slhpa/detail/' + id + '/')
+            return HttpResponseRedirect('/slhpa/detail/' + id + '/')
+        else:
+            form = EditPhotoMetadataForm(instance=photo)
+            return render(request, 'slhpa/edit.html',
+                        {'form': form, 'photorecord': photo})
     else:
         form = EditPhotoMetadataForm(instance=photo)
         return render(request, 'slhpa/edit.html',
@@ -122,6 +126,9 @@ def add(request):
             if request.FILES.get('document'):
                 handle_uploaded_file(photo.resource_name, request.FILES['document'])
             return HttpResponseRedirect('/slhpa/detail/' + photo.resource_name + '/')
+        else:
+            form = AddPhotoMetadataForm()
+            return render(request, 'slhpa/add.html', {'form': form})
     else:
         form = AddPhotoMetadataForm()
         return render(request, 'slhpa/add.html', {'form': form})

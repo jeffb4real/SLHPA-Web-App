@@ -15,7 +15,7 @@ class EditPhotoMetadataForm(forms.ModelForm):
     year = forms.IntegerField(required=False)
     gps_latitude = forms.FloatField(required=False,
             validators=[MinValueValidator(min_latitude), MaxValueValidator(max_latitude)],
-            label = 'Latitude (' + str(min_latitude) + ' to ' + str(max_latitude) + ')')
+            label = 'Latitude (' + str(max_latitude) + ' to ' + str(min_latitude) + ')')
     gps_longitude = forms.FloatField(required=False,
             validators=[MinValueValidator(min_longitude), MaxValueValidator(max_longitude)],
             label = 'Longitude (' + str(min_longitude) + ' to ' + str(max_longitude) + ')')
@@ -41,7 +41,7 @@ class AddPhotoMetadataForm(forms.ModelForm):
     year = forms.IntegerField(required=False)
     gps_latitude = forms.FloatField(required=False,
             validators=[MinValueValidator(min_latitude), MaxValueValidator(max_latitude)],
-            label = 'Latitude (' + str(min_latitude) + ' to ' + str(max_latitude) + ')')
+            label = 'Latitude (' + str(max_latitude) + ' to ' + str(min_latitude) + ')')
     gps_longitude = forms.FloatField(required=False,
             validators=[MinValueValidator(min_longitude), MaxValueValidator(max_longitude)],
             label = 'Longitude (' + str(min_longitude) + ' to ' + str(max_longitude) + ')')
