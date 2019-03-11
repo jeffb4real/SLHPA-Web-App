@@ -46,5 +46,5 @@ class PhotoTable(tables.Table):
                     'description', 'year', 'url_for_file', '...')
         exclude = ('address', 'contributor', 'geo_coord_original',
                    'geo_coord_UTM', 'period_date', 'subject', 'verified_gps_coords',
-                   'gps_latitude', 'gps_longitude')
+                   'gps_latitude', 'gps_longitude', 'document')
         template_name = 'django_tables2/bootstrap.html'
