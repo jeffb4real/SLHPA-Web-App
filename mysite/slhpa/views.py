@@ -29,8 +29,12 @@ def list_view(request):
     # Using RequestConfig automatically pulls values from request.GET and updates the table accordingly. This enables data ordering and pagination.
     RequestConfig(request, paginate={"per_page": 10}).configure(table)
 
+    stats = {}
+    stats['total'] = len(table.data)
+
     # Rather than passing a QuerySet to {% render_table %}, instead pass the table instance:
-    return render(request, 'slhpa/list.html', {'table': table})
+    return render(request, 'slhpa/list.html', {'table': table,
+                                                'stats': stats,})
 
 
 def index(request):

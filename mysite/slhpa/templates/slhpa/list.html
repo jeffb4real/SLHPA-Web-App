@@ -29,10 +29,11 @@
   <div class="container">
     <!-- table is a table instance (not a QuerySet), defined in views.py -->
     {% render_table table %}
-  </div>
-  <br>
-  <p><small>Courtesy of the San Leandro Public Library and
+    <i>Total photo records:</i> {{stats.total}}
+    <br>
+    <p><small>Courtesy of the San Leandro Public Library and
       San Leandro History Museum.</small></p>
+  </div>
 </body>
 
 </html>
