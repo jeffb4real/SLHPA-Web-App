@@ -138,6 +138,11 @@ def do_loaddb(request, import_filename):
             return row[fieldName]
         return ''
 
+    def load_gps(pr, source_string):
+        vals = source_string.split(',')
+        pr.gps_latitude = float(vals[1].replace(']', ''))
+        pr.gps_longitude = float(vals[0].replace('[', ''))
+
     def load_record(row, key):
         pr = PhotoRecord()
         pr.address = getField(row, 'address')
@@ -146,15 +151,11 @@ def do_loaddb(request, import_filename):
         pr.geo_coord_original = getField(row, 'geo_coord_original')
         pr.geo_coord_UTM = getField(row, 'geo_coord_UTM')
 
-        latitude = None
-        longitude = None
         if row.get('verified_gps_coords'):
-            s = getField(row, 'verified_gps_coords')
-            vals = s.split(',')
-            latitude = float(vals[1].replace(']', ''))
-            longitude = float(vals[0].replace('[', ''))
-        pr.gps_latitute = latitude
-        pr.gps_longitude = longitude
+            load_gps(pr, getField(row, 'verified_gps_coords'))
+        else:
+            if row.get('geo_coord_UTM'):
+                load_gps(pr, getField(row, 'geo_coord_UTM'))
 
         pr.period_date = getField(row, 'period_date')
         pr.resource_name = key
@@ -205,10 +206,6 @@ def do_loaddb(request, import_filename):
 
 
 def loaddb(request, import_filename):
-    """
-    Example message seen in browser:
-    Added 2526 records from C:\\Users\\chris\\Documents\\Github\\SLHPA-Web-App\\mysite/transformed.csv, exceptions: 0, no_resource: 4, no_key: 0, rows_in_table: 2526, seconds: 1
-    """
     message = do_loaddb(request, import_filename)
     rows_in_table = PhotoRecord.objects.all().count()
     message = message + ', rows_in_table: ' + str(rows_in_table)
