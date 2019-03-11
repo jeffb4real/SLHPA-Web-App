@@ -7,10 +7,8 @@ class EditPhotoMetadataForm(forms.ModelForm):
     title = forms.CharField(widget=forms.Textarea(attrs={'rows': 2, 'cols': 60}))
     description = forms.CharField(widget=forms.Textarea(attrs={'rows': 5, 'cols': 60}))
     year = forms.IntegerField(required=False)
-    gps_latitude = forms.FloatField(required=False, 
-            widget=forms.Textarea(attrs={'rows': 1, 'cols': 60}))
-    gps_longitude = forms.FloatField(required=False, 
-            widget=forms.Textarea(attrs={'rows': 1, 'cols': 60}))
+    gps_latitude = forms.FloatField(required=False)
+    gps_longitude = forms.FloatField(required=False)
     address = forms.CharField(required=False, 
             widget=forms.Textarea(attrs={'rows': 1, 'cols': 60}))
     contributor = forms.CharField(required=False, 
@@ -30,10 +28,8 @@ class AddPhotoMetadataForm(forms.ModelForm):
     title = forms.CharField(widget=forms.Textarea(attrs={'rows': 2, 'cols': 60}))
     description = forms.CharField(widget=forms.Textarea(attrs={'rows': 5, 'cols': 60}))
     year = forms.IntegerField(required=False)
-    gps_latitude = forms.FloatField(required=False, 
-            widget=forms.Textarea(attrs={'rows': 1, 'cols': 60}))
-    gps_longitude = forms.FloatField(required=False, 
-            widget=forms.Textarea(attrs={'rows': 1, 'cols': 60}))
+    gps_latitude = forms.FloatField(required=False)
+    gps_longitude = forms.FloatField(required=False)
     address = forms.CharField(required=False, 
             widget=forms.Textarea(attrs={'rows': 1, 'cols': 60}))
     contributor = forms.CharField(required=False, 
