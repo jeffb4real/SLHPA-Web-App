@@ -69,6 +69,11 @@ class Mapper:
     max_desc_length = 0
     max_name_record = 'unknown'
     max_desc_record = 'unknown'
+    min_latitude = 1000.0
+    max_latitude = -1000.0
+    min_longitude = 1000.0
+    max_longitude = -1000.0
+
     field_indices = {}
 
     def has_year(self, record):
@@ -116,6 +121,17 @@ class Mapper:
         point_element = etree.SubElement(placemark, 'Point')
         coords_element = etree.SubElement(point_element, 'coordinates')
         coords_element.text = coords[0].strip() + ',' + coords[1].strip() + ',0'
+
+        lat = float(coords[0])
+        if lat > self.max_latitude:
+            self.max_latitude = lat
+        if lat < self.min_latitude:
+            self.min_latitude = lat
+        lon = float(coords[1])
+        if lon > self.max_longitude:
+            self.max_longitude = lon
+        if lon < self.min_longitude:
+            self.min_longitude = lon
         return 1
 
     data_dir = 'mysite/slhpa/static/slhpa/data/'
@@ -172,6 +188,8 @@ class Mapper:
         log("{: >4d}".format(total_records_processed) + ' input records processed')
         log("{: >4d}".format(self.max_name_length) + ' max_name_length' + ' in ' + self.max_name_record)
         log("{: >4d}".format(self.max_desc_length) + ' max_desc_length' + ' in ' + self.max_desc_record)
+        log("min_latitude: " + str(self.min_latitude) + ", max_latitude: " + str(self.max_latitude) + ", min_longitude: " + 
+                str(self.min_longitude) + ", max_longitude: " + str(self.max_longitude))
 
 if '__main__' == __name__:
     Mapper().main()
