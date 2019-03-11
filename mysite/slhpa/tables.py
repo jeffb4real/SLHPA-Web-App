@@ -35,6 +35,12 @@ class PhotoTable(tables.Table):
                            '</a>'
                            )
 
+    def render_resource_name(self, record):
+        return format_html('<a href="/slhpa/detail/' + record.resource_name + '" target="_blank">' +
+                            record.resource_name +
+                           '</a>'
+                           )
+
     class Meta:
         # https://django-tables2.readthedocs.io/en/latest/pages/table-data.html?highlight=exclude
         # customize what fields to show or hide:
