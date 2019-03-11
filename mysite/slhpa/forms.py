@@ -17,11 +17,12 @@ class EditPhotoMetadataForm(forms.ModelForm):
             widget=forms.Textarea(attrs={'rows': 1, 'cols': 60}))
     subject = forms.CharField(required=False, 
             widget=forms.Textarea(attrs={'rows': 1, 'cols': 60}))
+    document = forms.FileField(required=False, label='Photo (*must* be jpg)')
 
     class Meta:
         model = PhotoRecord
         fields = ('title', 'description', 'year', 'gps_latitude', 'gps_longitude',
-                    'address', 'contributor', 'period_date', 'subject')
+                    'address', 'contributor', 'period_date', 'subject', 'document')
 
 class AddPhotoMetadataForm(forms.ModelForm):
 

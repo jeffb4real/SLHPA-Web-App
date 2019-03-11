@@ -71,6 +71,14 @@ def load_photo_record(photo, form):
     photo.subject = form.cleaned_data['subject']
 
 
+def handle_uploaded_file(resource_name, f):
+    # TODO : create directory if necessary.
+    dir = getdir(resource_name) + '/'
+    path_to_file = settings.BASE_DIR + '/slhpa/static/slhpa/images/photos/' + dir + resource_name + '.jpg'
+    with open(path_to_file, 'wb+') as destination:
+        for chunk in f.chunks():
+            destination.write(chunk)
+
 def bound_form(request, id):
     photo = get_object_or_404(PhotoRecord, resource_name=id)
     if request.method == 'POST':
@@ -78,6 +86,9 @@ def bound_form(request, id):
         if form.is_valid():
             load_photo_record(photo, form)
             photo.save()
+            # TODO : Make backup copy of old photo file?
+            if request.FILES.get('document'):
+                handle_uploaded_file(photo.resource_name, request.FILES['document'])
         return HttpResponseRedirect('/slhpa/detail/' + id + '/')
     else:
         form = EditPhotoMetadataForm(instance=photo)
@@ -98,14 +109,6 @@ def add(request):
         record.value = str("{:0>8d}".format(next_name + 1))
         record.save()
         return current_name
-
-    def handle_uploaded_file(resource_name, f):
-        # TODO : create directory if necessary.
-        dir = getdir(resource_name) + '/'
-        path_to_file = settings.BASE_DIR + '/slhpa/static/slhpa/images/photos/' + dir + resource_name + '.jpg'
-        with open(path_to_file, 'wb+') as destination:
-            for chunk in f.chunks():
-                destination.write(chunk)
 
     if request.method == 'POST':
         form = AddPhotoMetadataForm(request.POST, request.FILES)
