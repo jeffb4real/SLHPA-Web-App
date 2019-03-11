@@ -100,12 +100,12 @@ def add(request):
         return current_name
 
     def handle_uploaded_file(resource_name, f):
-        if f:
-            dir = getdir(resource_name) + '/'
-            path_to_file = settings.BASE_DIR + '/slhpa/static/slhpa/images/photos/' + dir + resource_name + '.jpg'
-            with open(path_to_file, 'wb+') as destination:
-                for chunk in f.chunks():
-                    destination.write(chunk)
+        # TODO : create directory if necessary.
+        dir = getdir(resource_name) + '/'
+        path_to_file = settings.BASE_DIR + '/slhpa/static/slhpa/images/photos/' + dir + resource_name + '.jpg'
+        with open(path_to_file, 'wb+') as destination:
+            for chunk in f.chunks():
+                destination.write(chunk)
 
     if request.method == 'POST':
         form = AddPhotoMetadataForm(request.POST, request.FILES)
@@ -114,10 +114,8 @@ def add(request):
             photo.resource_name = get_next_resource_name()
             load_photo_record(photo, form)
             photo.save()
-            file = None
             if request.FILES.get('document'):
-                file = request.FILES['document']
-            handle_uploaded_file(photo.resource_name, file)
+                handle_uploaded_file(photo.resource_name, request.FILES['document'])
             return HttpResponseRedirect('/slhpa/detail/' + photo.resource_name + '/')
     else:
         form = AddPhotoMetadataForm()
