@@ -32,6 +32,7 @@ This project was created with Python 3.7.x, with the addition of these modules:
 * [Django](https://docs.djangoproject.com/en/2.1/) - used by slhpa web app
 * [django-tables2](https://django-tables2.readthedocs.io/en/latest/pages/tutorial.html) - used by slhpa web app
 * [django-filter](https://django-filter.readthedocs.io/en/master/) - used by slhpa web app
+* [django-bootstrap3](https://django-bootstrap3.readthedocs.io/en/latest/) - used by slhpa web app
 
 These modules can be installed all at once either by using `bootstrap.sh` (mentioned above) or by `pip` installing the included requirements.txt, e.g.:
 
