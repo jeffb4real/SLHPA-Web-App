@@ -1,5 +1,6 @@
 import csv
 import time
+import os
 from django.http import HttpResponse, HttpResponseRedirect
 from django.conf import settings
 from django.db import transaction
@@ -72,10 +73,11 @@ def load_photo_record(photo, form):
 
 
 def handle_uploaded_file(resource_name, f):
-    # TODO : create directory if necessary.
     dir = getdir(resource_name) + '/'
-    path_to_file = settings.BASE_DIR + '/slhpa/static/slhpa/images/photos/' + dir + resource_name + '.jpg'
-    with open(path_to_file, 'wb+') as destination:
+    path = settings.BASE_DIR + '/slhpa/static/slhpa/images/photos/' + dir 
+    if not os.path.exists(path):
+        os.mkdir(path)
+    with open(path + resource_name + '.jpg', 'wb+') as destination:
         for chunk in f.chunks():
             destination.write(chunk)
 
