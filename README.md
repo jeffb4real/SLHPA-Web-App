@@ -11,7 +11,7 @@ San Leandro Historical Photo Archive Web Application
 5. [transformer](#transformer)
 6. [mapper](#mapper)
 7. [run-pipeline](#run-pipeline)
-8. [Web_Application](#Web_Application)
+8. [Web Application](#Web%20Application)
 
 ## Overview
 
@@ -158,7 +158,7 @@ Assuming this project has already been cloned:
 
       $ ./run-pipeline.sh
 
-## Web_Application
+## Web%20Application
 
 (... documentation in process)
 
