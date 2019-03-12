@@ -45,6 +45,8 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'tutorial',
     'django_tables2',
+    'django_filters',
+    'bootstrap3',
     'polls.apps.PollsConfig',
     'slhpa.apps.SlhpaConfig',
     'django.contrib.admin',

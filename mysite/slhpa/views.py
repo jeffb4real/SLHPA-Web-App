@@ -1,29 +1,45 @@
 import csv
-import time
 import os
-from django.http import HttpResponse, HttpResponseRedirect
+import time
 from django.conf import settings
 from django.db import transaction
-from django.template import loader
-from django.views import generic
 from django.db.models import F
-from django.shortcuts import get_object_or_404
-from django.shortcuts import render
-from django.shortcuts import render_to_response
+from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import render, render_to_response, get_object_or_404
+from django.template import loader
 from django.urls import reverse
-from .models import PhotoRecord, KeyValueRecord
+from django.views import generic
+from django_filters.views import FilterView
+from django_tables2 import SingleTableMixin, RequestConfig
+from .filters import PhotoFilter
 from .forms import EditPhotoMetadataForm, AddPhotoMetadataForm
+from .models import PhotoRecord, KeyValueRecord
 from .tables import PhotoTable
 from .templatetags.photodir import getdir
-from django_tables2 import RequestConfig
+
+
+class List2(SingleTableMixin, FilterView):
+    #table_class = PhotoTable
+    table = PhotoTable(PhotoRecord.objects.all())
+    
+    model = PhotoRecord
+    
+    template_name = "slhpa/bootstrap_template.html"
+
+    filterset_class = PhotoFilter
+
+    def get_queryset(self):
+        return super(List2, self).get_queryset()
+        #return super(List2, self).get_queryset().select_related("title")
+
+    def get_table_kwargs(self):
+        return {"template_name": "django_tables2/bootstrap.html"}
 
 
 def list_view(request):
     """
     You will then need to instantiate and configure the table in the view, before adding it to the context.
     """
-    # table = PersonTable(Person.objects.all())
-    # table = PhotoRecord.objects.order_by(F('year').asc(nulls_last=True))
     table = PhotoTable(PhotoRecord.objects.all())
 
     # Using RequestConfig automatically pulls values from request.GET and updates the table accordingly. This enables data ordering and pagination.
