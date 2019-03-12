@@ -5,7 +5,7 @@
 <html>
 
 <head>
-    <title>django_tables2 with bootstrap 3 template example</title>
+    <title>SLHPA</title>
     {% bootstrap_css %}
 
     <link href="{% static 'django_tables2/bootstrap.css' %}" rel="stylesheet" />
@@ -15,11 +15,7 @@
     <div class="container">
         {% block body %}
 
-        <a href="https://getbootstrap.com/docs/3.3/css/#tables">Bootstrap 3 - table docs</a> |
-        <a href="https://getbootstrap.com/docs/3.3/components/#pagination">Bootstrap 3 - pagination docs</a> <br />
-
-        <h3>{% block title %}django_tables2 with <a href="https://getbootstrap.com/docs/3.3">Bootstrap 3</a> template
-            example{% endblock %}</h3>
+        <h3>{% block title %}Prototype SLHPA Photo List (...a work in progress...){% endblock %}</h3>
 
         <div class="row">
             {% if filter %}
@@ -37,5 +33,12 @@
         {% endblock %}
     </div>
 </body>
+
+<footer>
+    <div class="container">
+        <small>Courtesy of the San Leandro Public Library and San Leandro History Museum.</small>
+    </div>
+
+</footer>
 
 </html>

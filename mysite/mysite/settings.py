@@ -16,7 +16,6 @@ import os
 # This is a path to parent directory of this script.
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
@@ -28,18 +27,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
-# Application definition
-# JB: added first line to tell Django to include the polls app.
-# https://docs.djangoproject.com/en/2.1/intro/tutorial02/
-#
-# Then:
-# $ python manage.py makemigrations polls
-#
-# By running makemigrations, you’re telling Django that you’ve made
-# some changes to your models (in this case, you’ve made new ones)
-# and that you’d like the changes to be stored as a migration.
-#
 # By convention DjangoTemplates looks for a “templates” subdirectory
 # in each of the INSTALLED_APPS.
 INSTALLED_APPS = [
@@ -133,7 +120,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-# JB:
+
 # Must set TIME_ZONE correctly
 # https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 TIME_ZONE = 'UTC'    # original

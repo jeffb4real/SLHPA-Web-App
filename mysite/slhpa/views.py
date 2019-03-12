@@ -19,16 +19,13 @@ from .templatetags.photodir import getdir
 
 
 class List2(SingleTableMixin, FilterView):
-    #table_class = PhotoTable
-    table = PhotoTable(PhotoRecord.objects.all())
-    
+    table_class = PhotoTable
     model = PhotoRecord
-    
     template_name = "slhpa/bootstrap_template.html"
-
     filterset_class = PhotoFilter
-
+    
     def get_queryset(self):
+        #RequestConfig(request, paginate={"per_page": 10}).configure(table)
         return super(List2, self).get_queryset()
         #return super(List2, self).get_queryset().select_related("title")
 
@@ -50,7 +47,7 @@ def list_view(request):
 
     # Rather than passing a QuerySet to {% render_table %}, instead pass the table instance:
     return render(request, 'slhpa/list.html', {'table': table,
-                                                'stats': stats,})
+                                               'stats': stats,})
 
 
 def index(request):
