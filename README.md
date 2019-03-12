@@ -6,7 +6,7 @@ San Leandro Historical Photo Archive Web Application
 # Contents
 1. [Overview](#overview)
 2. [Setup](#Setup)
-3. Data gathering tools(#data-gathering-tools)
+3. [Data Gathering Tools](#data-gathering-tools)
       1. [scraper](#scraper)
       2. [merger](#merger)
       3. [transformer](#transformer)
