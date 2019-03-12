@@ -158,7 +158,7 @@ Assuming this project has already been cloned:
 
       $ ./run-pipeline.sh
 
-## Web Application
+## Web%20Application
 
 (... documentation in process)
 
