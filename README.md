@@ -10,8 +10,8 @@ San Leandro Historical Photo Archive Web Application
 4. [merger](#merger)
 5. [transformer](#transformer)
 6. [mapper](#mapper)
-7. [run-pipeline](#run-pipeline)
-8. [Web Application](#Web%20Application)
+7. [Run pipeline](#run-pipeline)
+8. [Web Application](#web-application)
 
 ## Overview
 
@@ -142,7 +142,7 @@ Assuming this project has already been cloned:
 
       $ python mapper.py
 
-## run-pipeline
+## Run pipeline
 
 This is a simple BASH script that serially runs all of the above tools, except scraper.py.
 
