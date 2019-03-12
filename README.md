@@ -6,6 +6,7 @@ San Leandro Historical Photo Archive Web Application
 # Contents
 1. [Overview](#overview)
 2. [Setup](#Setup)
+      1. [Python Dependencies](#python-dependencies)
 3. [Data Gathering Tools](#data-gathering-tools)
       1. [scraper](#scraper)
       2. [merger](#merger)
@@ -24,7 +25,7 @@ This SLHPA-Web-App project is an attempt to make the historical photo archive mo
 
 See https://github.com/jeffb4real/SLHPA-Web-App/blob/master/utilities/bootstrap.sh for a shell script to do most of the bootstrapping.
 
-### Python_Dependencies
+### Python Dependencies
 
 This project was created with Python 3.7.x, with the addition of these modules:
 
