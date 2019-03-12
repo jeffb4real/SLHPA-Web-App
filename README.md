@@ -37,9 +37,11 @@ This project was created with Python 3.7.x, with the addition of these modules:
 
 These modules can be installed all at once either by using `bootstrap.sh` (mentioned above) or by `pip` installing the included requirements.txt, e.g.:
 
-      ~/SLHPA-Web-App $ pip install -r requirements.txt
+            ~/SLHPA-Web-App $ pip install -r requirements.txt
 
 ## Data Gathering Tools
+
+_Note: In all examples, `python` refers to `python3`._
 
 ### scraper
 
@@ -57,7 +59,7 @@ This Python script uses Selenium (https://www.seleniumhq.org/) to "scrape" metad
 
    To install the required module:
    
-          $ pip install selenium
+      $ pip install selenium
     
    This Python script was run using `selenium 3.14.1`.
    
@@ -71,15 +73,15 @@ This Python script uses Selenium (https://www.seleniumhq.org/) to "scrape" metad
 
 7. Clone this project:
 
-          `$ git clone https://github.com/jeffb4real/SLHPA-Web-App.git
+      $ git clone https://github.com/jeffb4real/SLHPA-Web-App.git
     
 8. Navigate to the repository directory:
 
-    `$ cd SLHPA-Web-App`
+      $ cd SLHPA-Web-App
 
 9. Run the script:
 
-    `$ python scraper.py`
+      $ python scraper.py
 
 ### Merger
 
@@ -103,11 +105,11 @@ Assuming this project has already been cloned:
 
 1. Navigate to the repository directory:
 
-      `$ cd SLHPA-Web-App`
+      $ cd SLHPA-Web-App
 
 2. Run the script:
 
-      `$ python merger.py`
+      $ python merger.py
 
 ### transformer
 
@@ -121,11 +123,11 @@ Assuming this project has already been cloned:
 
 1. Navigate to the repository directory:
 
-      `$ cd SLHPA-Web-App`
+      $ cd SLHPA-Web-App
 
 2. Run the script:
 
-      `$ python transformer.py`
+      $ python transformer.py
 
 ### mapper
 
@@ -139,15 +141,15 @@ Assuming this project has already been cloned:
 
 1. Navigate to the repository directory:
 
-      `$ cd SLHPA-Web-App`
+      $ cd SLHPA-Web-App
 
 2. Run the script:
 
-      `$ python mapper.py`
+      $ python mapper.py
 
 ### Run pipeline
 
-This is a simple BASH script that serially runs all of the above tools, except scraper.py.
+This is a BASH script that serially runs all of the above tools, except scraper.py.
 
 #### How to run `run-pipeline.sh`
 
@@ -155,11 +157,11 @@ Assuming this project has already been cloned:
 
 1. Navigate to the repository directory:
 
-      `$ cd SLHPA-Web-App`
+      $ cd SLHPA-Web-App
 
 2. Run the script:
 
-      `$ ./run-pipeline.sh`
+      $ ./run-pipeline.sh
 
 ## Web Application
 
