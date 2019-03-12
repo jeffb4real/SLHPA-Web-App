@@ -6,12 +6,13 @@ San Leandro Historical Photo Archive Web Application
 # Contents
 1. [Overview](#overview)
 2. [Setup](#Setup)
-3. [scraper](#scraper)
-4. [merger](#merger)
-5. [transformer](#transformer)
-6. [mapper](#mapper)
-7. [Run pipeline](#run-pipeline)
-8. [Web Application](#web-application)
+3. Data gathering tools(#data-gathering-tools)
+      1. [scraper](#scraper)
+      2. [merger](#merger)
+      3. [transformer](#transformer)
+      4. [mapper](#mapper)
+      5. [Run pipeline](#run-pipeline)
+4. [Web Application](#web-application)
 
 ## Overview
 
@@ -38,7 +39,9 @@ These modules can be installed all at once either by using `bootstrap.sh` (menti
 
       ~/SLHPA-Web-App $ pip install -r requirements.txt
 
-## scraper
+## Data Gathering Tools
+
+### scraper
 
 This Python script uses Selenium (https://www.seleniumhq.org/) to "scrape" metadata from the online photo archive. This script technically needs to work correctly just once, as the photo archive is a dead database and will never be updated.
 
@@ -46,7 +49,7 @@ This Python script uses Selenium (https://www.seleniumhq.org/) to "scrape" metad
 
 `scraper.py` then stores all the collected information in a database of records (.csv file, for now), which ultimately will be used by the SLHPA web application.
 
-### How To Run `scraper.py`
+#### How To Run `scraper.py`
 
 1. Install Python (3.7.0 or later).
 
@@ -54,7 +57,7 @@ This Python script uses Selenium (https://www.seleniumhq.org/) to "scrape" metad
 
    To install the required module:
    
-    $ pip install selenium
+    `$ pip install selenium
     
    This Python script was run using `selenium 3.14.1`.
    
@@ -64,21 +67,21 @@ This Python script uses Selenium (https://www.seleniumhq.org/) to "scrape" metad
 
 5. Open `cmd.exe` (Windows) or Terminal (MacOS).
 
-6. 'cd' into the diretory where you keep your Github repository directories.
+6. `cd` into the diretory where you keep your Github repository directories.
 
 7. Clone this project:
 
-    $ git clone https://github.com/jeffb4real/SLHPA-Web-App.git
+    `$ git clone https://github.com/jeffb4real/SLHPA-Web-App.git
     
 8. Navigate to the repository directory:
 
-    $ cd SLHPA-Web-App
+    `$ cd SLHPA-Web-App
 
 9. Run the script:
 
-    $ python scraper.py
+    `$ python scraper.py
 
-## Merger
+### Merger
 
 This Python script performs data cleaning/augmentation on the scraped data. Input to this script is the .csv file produced by running `scraper.py`. Output from this script is a .csv file containing a version of the data modified in the following ways:
 
@@ -94,69 +97,69 @@ This Python script performs data cleaning/augmentation on the scraped data. Inpu
 
 * Merge description information contained in a .xls file on a DVD version of the photo archive, produced around 2003. A new field, `description_from_DVD`, is inserted next to the existing `description` field, and is populated only when the description field from the DVD adds new information.
 
-### How to run `merger.py`
+#### How to run `merger.py`
 
 Assuming this project has already been cloned:
 
 1. Navigate to the repository directory:
 
-      $ cd SLHPA-Web-App
+      `$ cd SLHPA-Web-App
 
 2. Run the script:
 
-      $ python merger.py
+      `$ python merger.py
 
-## transformer
+### transformer
 
 Python script to convert legacy photo location coordinates into coordinates compatible with modern online map hosts.
 
 Input is a .csv file. Output is a .csv file.
 
-### How to run `transformer.py`
+#### How to run `transformer.py`
 
 Assuming this project has already been cloned:
 
 1. Navigate to the repository directory:
 
-      $ cd SLHPA-Web-App
+      `$ cd SLHPA-Web-App
 
 2. Run the script:
 
-      $ python transformer.py
+      `$ python transformer.py
 
-## mapper
+### mapper
 
 Python script to convert photo location coordinates into [KML](#https://en.wikipedia.org/wiki/Keyhole_Markup_Language) that can be imported into map host.
 
 Input is a .csv file. Output is a .kml file (additional .kml output files for debug purposes only).
 
-### How to run `mapper.py`
+#### How to run `mapper.py`
 
 Assuming this project has already been cloned:
 
 1. Navigate to the repository directory:
 
-      $ cd SLHPA-Web-App
+      `$ cd SLHPA-Web-App
 
 2. Run the script:
 
-      $ python mapper.py
+      `$ python mapper.py
 
-## Run pipeline
+### Run pipeline
 
 This is a simple BASH script that serially runs all of the above tools, except scraper.py.
 
-### How to run `run-pipeline.sh`
+#### How to run `run-pipeline.sh`
 
 Assuming this project has already been cloned:
 
 1. Navigate to the repository directory:
 
-      $ cd SLHPA-Web-App
+      `$ cd SLHPA-Web-App
 
 2. Run the script:
 
-      $ ./run-pipeline.sh
+      `$ ./run-pipeline.sh
 
 ## Web Application
 
