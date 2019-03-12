@@ -59,7 +59,7 @@ This Python script uses Selenium (https://www.seleniumhq.org/) to "scrape" metad
 
    To install the required module:
    
-      $ pip install selenium
+            $ pip install selenium
     
    This Python script was run using `selenium 3.14.1`.
    
@@ -73,15 +73,15 @@ This Python script uses Selenium (https://www.seleniumhq.org/) to "scrape" metad
 
 7. Clone this project:
 
-      $ git clone https://github.com/jeffb4real/SLHPA-Web-App.git
+            $ git clone https://github.com/jeffb4real/SLHPA-Web-App.git
     
 8. Navigate to the repository directory:
 
-      $ cd SLHPA-Web-App
+            $ cd SLHPA-Web-App
 
 9. Run the script:
 
-      $ python scraper.py
+            $ python scraper.py
 
 ### Merger
 
@@ -93,9 +93,9 @@ This Python script performs data cleaning/augmentation on the scraped data. Inpu
 
    A valid year is one between 1839 (the invention of photography) and 1980 (approximate culmination of the photo archive). When multiple years are found, the highest year will be used. For example, for this description:
 
-      St. Leander's Rectory, 1899-1949, razed in 1954 photo taken around 1914.
+            St. Leander's Rectory, 1899-1949, razed in 1954 photo taken around 1914.
    
-   `merger.py` will find a list of years, [1899, 1949, 1954, 1914], and return 1954. This is a good example of why the `date` field will need to be manually verified in the output .csv file.
+`merger.py` will find a list of years, [1899, 1949, 1954, 1914], and return 1954. This is a good example of why the `date` field will need to be manually verified in the output .csv file.
 
 * Merge description information contained in a .xls file on a DVD version of the photo archive, produced around 2003. A new field, `description_from_DVD`, is inserted next to the existing `description` field, and is populated only when the description field from the DVD adds new information.
 
@@ -105,11 +105,11 @@ Assuming this project has already been cloned:
 
 1. Navigate to the repository directory:
 
-      $ cd SLHPA-Web-App
+            $ cd SLHPA-Web-App
 
 2. Run the script:
 
-      $ python merger.py
+            $ python merger.py
 
 ### transformer
 
@@ -123,11 +123,11 @@ Assuming this project has already been cloned:
 
 1. Navigate to the repository directory:
 
-      $ cd SLHPA-Web-App
+            $ cd SLHPA-Web-App
 
 2. Run the script:
 
-      $ python transformer.py
+            $ python transformer.py
 
 ### mapper
 
@@ -141,11 +141,11 @@ Assuming this project has already been cloned:
 
 1. Navigate to the repository directory:
 
-      $ cd SLHPA-Web-App
+            $ cd SLHPA-Web-App
 
 2. Run the script:
 
-      $ python mapper.py
+            $ python mapper.py
 
 ### Run pipeline
 
@@ -157,11 +157,11 @@ Assuming this project has already been cloned:
 
 1. Navigate to the repository directory:
 
-      $ cd SLHPA-Web-App
+            $ cd SLHPA-Web-App
 
 2. Run the script:
 
-      $ ./run-pipeline.sh
+            $ ./run-pipeline.sh
 
 ## Web Application
 
