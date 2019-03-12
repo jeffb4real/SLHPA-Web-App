@@ -11,7 +11,7 @@ San Leandro Historical Photo Archive Web Application
 5. [transformer](#transformer)
 6. [mapper](#mapper)
 7. [run-pipeline](#run-pipeline)
-8. [Web Application](#Web20Application)
+8. [Web Application](#Web%20Application)
 
 ## Overview
 
