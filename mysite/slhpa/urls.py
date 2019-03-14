@@ -9,6 +9,7 @@ urlpatterns = [
     path('detail/<str:pk>/', views.DetailView.as_view(), name='detail'),
     path('edit/<str:id>/', views.bound_form, name='edit'),
     path('add/', views.add, name='add'),
+    path('compare/<str:resource_name>/', views.photo_compare, name='compare'),
 
     # 'import' is a reserved word, can't do views.import .
     path('import/<import_filename>', views.loaddb, name='loaddb'),

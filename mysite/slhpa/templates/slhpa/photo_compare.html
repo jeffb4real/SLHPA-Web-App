@@ -1,0 +1,87 @@
+<head>
+    <style>
+        <a>#main_img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+
+        #overlay_img {
+            position: relative;
+            top: -30px;
+            left: 68px;
+            z-index: 0;
+        }
+
+        </a>
+    </style>
+</head>
+
+<h2>Compare same photo at different resolution</h2>
+<p><small>Courtesy of the San Leandro Public Library and
+        San Leandro History Museum.</small></p>
+<table border="1">
+    <col width="80">
+    <col width="200">
+    <col width="200">
+    <col width="200">
+    <col width="200">
+    <tr>
+        <th style="text-align:left;padding:10px">Picture Identifier</th>
+        <th style="text-align:left;padding:10px">High Res</th>
+        <th style="text-align:left;padding:10px">Medium Res</th>
+        <th style="text-align:left;padding:10px">Low Res</th>
+        <th style="text-align:left;padding:10px">640 horizontally</th>
+    </tr>
+    <tr>
+        <td style="text-align:left;padding:10px">
+            <a href="/slhpa/detail/{{ resource_name }}/">
+                {{ resource_name }}
+            </a>
+        </td>
+        {% load static %}
+        {% static "/slhpa/images/photos" as baseUrl %}
+        {% load photodir %}
+        <td style="text-align:center;padding:10px">
+            <a href="{{ baseUrl }}/{{ resource_name|getdir }}/{{ resource_name }}.jpg" target="_blank">
+                <div class="container">
+                    <img id="main_img"
+                        src="{{ baseUrl }}/{{ resource_name|getdir }}/{{ resource_name }}.jpg" width="100%"
+                        border="2">
+                    <img id="overlay_img" src="{{ baseUrl }}/finger.png" width="20%">
+                </div>
+            </a>
+        </td>
+        <td style="text-align:center;padding:10px">
+            <a href="{{ baseUrl }}/{{ resource_name|getdir }}/{{ resource_name }}.jpg" target="_blank">
+                <div class="container">
+                    <img id="main_img"
+                        src="{{ baseUrl }}/{{ resource_name|getdir }}/{{ resource_name }}.jpg" width="100%"
+                        border="2">
+                    <img id="overlay_img" src="{{ baseUrl }}/finger.png" width="20%">
+                </div>
+            </a>
+        </td>
+        <td style="text-align:center;padding:10px">
+            <a href="{{ baseUrl }}/{{ resource_name|getdir }}/{{ resource_name }}.jpg" target="_blank">
+                <div class="container">
+                    <img id="main_img"
+                        src="{{ baseUrl }}/{{ resource_name|getdir }}/{{ resource_name }}.jpg" width="100%"
+                        border="2">
+                    <img id="overlay_img" src="{{ baseUrl }}/finger.png" width="20%">
+                </div>
+            </a>
+        </td>
+        <td style="text-align:center;padding:10px">
+            <a href="{{ baseUrl }}/{{ resource_name|getdir }}/{{ resource_name }}.jpg" target="_blank">
+                <div class="container">
+                    <img id="main_img"
+                        src="{{ baseUrl }}/{{ resource_name|getdir }}/{{ resource_name }}.jpg" width="100%"
+                        border="2">
+                    <img id="overlay_img" src="{{ baseUrl }}/finger.png" width="20%">
+                </div>
+            </a>
+        </td>
+    </tr>
+</table>

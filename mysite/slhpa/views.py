@@ -284,3 +284,10 @@ def datafile(request, filename):
         for line in f:
             data = data + line + '<br>'
     return HttpResponse(data)
+
+
+def photo_compare(request, resource_name):
+    """
+    Show same photo at different resolutions.
+    """
+    return render(request, 'slhpa/photo_compare.html', {'resource_name': resource_name,})
