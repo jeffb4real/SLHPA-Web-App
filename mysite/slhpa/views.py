@@ -23,11 +23,11 @@ class List2(SingleTableMixin, FilterView):
     model = PhotoRecord
     template_name = "slhpa/bootstrap_template.html"
     filterset_class = PhotoFilter
-    
+    table_pagination = {"per_page": 10}
+
     def get_queryset(self):
-        #RequestConfig(request, paginate={"per_page": 10}).configure(table)
         return super(List2, self).get_queryset()
-        #return super(List2, self).get_queryset().select_related("title")
+        # return super(List2, self).get_queryset().select_related("subject_group")
 
     def get_table_kwargs(self):
         return {"template_name": "django_tables2/bootstrap.html"}
@@ -98,6 +98,7 @@ def handle_uploaded_file(resource_name, f):
         for chunk in f.chunks():
             destination.write(chunk)
 
+
 def bound_form(request, id):
     photo = get_object_or_404(PhotoRecord, resource_name=id)
     if request.method == 'POST':
@@ -107,7 +108,8 @@ def bound_form(request, id):
             photo.save()
             # TODO : Make backup copy of old photo file?
             if request.FILES.get('document'):
-                handle_uploaded_file(photo.resource_name, request.FILES['document'])
+                handle_uploaded_file(photo.resource_name,
+                                     request.FILES['document'])
             return HttpResponseRedirect('/slhpa/detail/' + id + '/')
         else:
             form = EditPhotoMetadataForm(instance=photo)
@@ -141,7 +143,8 @@ def add(request):
             load_photo_record(photo, form)
             photo.save()
             if request.FILES.get('document'):
-                handle_uploaded_file(photo.resource_name, request.FILES['document'])
+                handle_uploaded_file(photo.resource_name,
+                                     request.FILES['document'])
             return HttpResponseRedirect('/slhpa/detail/' + photo.resource_name + '/')
         else:
             form = AddPhotoMetadataForm()

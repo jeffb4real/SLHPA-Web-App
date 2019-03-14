@@ -6,8 +6,8 @@ from .models import PhotoRecord
 class PhotoFilter(FilterSet):
     class Meta:
         model = PhotoRecord
-        # fields = {"title": ["exact", "contains"],
-        #           "description": ["exact", "contains"],
-        #           "year": ["exact"],
-        #           }
-        fields = {"title": ["contains"]}
+
+        fields = {"title": ["contains"],
+                  "description": ["contains"],
+                  "year": ["exact"],
+                  }
