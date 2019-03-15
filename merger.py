@@ -203,7 +203,7 @@ def main():
                    data_dir + 'transcribed.csv', number_to_pdf, 'resource_number')
     dvd_records = merge_one_file(scraped_fieldnames, scraped_records,
                                  data_dir + 'V01-V64 Index.csv', prepend_zeros, 'Index Number')
-    scraped_records['00000152.pdf']['description'] = 'Early farmers in San Seandro take produce to market, 1890.'
+    scraped_records['00000152.pdf']['description'] = 'Early farmers in San Leandro take produce to market, 1890.'
     comb_years(scraped_fieldnames, scraped_records, dvd_records)
     comb_addresses(scraped_fieldnames, scraped_records)
     write(scraped_records, scraped_fieldnames)
