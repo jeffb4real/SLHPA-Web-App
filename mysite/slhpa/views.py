@@ -26,7 +26,8 @@ class List(SingleTableMixin, FilterView):
     model = PhotoRecord
     template_name = "slhpa/bootstrap_template.html"
     filterset_class = PhotoFilter
-    table_pagination = {"per_page": 10}
+    page_length = 10
+    table_pagination = {"per_page": page_length}
 
     def get_queryset(self):
         return super(List, self).get_queryset()
@@ -39,6 +40,8 @@ class List(SingleTableMixin, FilterView):
         context = super().get_context_data(**kwargs)                     
         stats = {}
         stats['total'] = PhotoRecord.objects.all().count()
+        stats['filtered'] = len(context['photorecord_list'])
+        stats['displayed'] = self.page_length
         context["stats"] = stats
         return context
 

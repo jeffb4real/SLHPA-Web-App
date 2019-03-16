@@ -50,7 +50,9 @@
 
         <h3>{% block title %}Prototype SLHPA Photo List (...a work in progress...){% endblock %}</h3>
         <br>
-        <small>Total photo records: {{ stats.total }}</small>
+        <small>Total photo records: {{ stats.total }}<br>
+            Filtered photo records: {{ stats.filtered }}<br>
+            Displayed photo records: {{ stats.displayed }}</small>
         <br><br>
         <div class="row">
             {% if filter %}
