@@ -46,11 +46,11 @@
         {% static "/slhpa/images/photos" as baseUrl %}
         {% load photodir %}
         <td style="text-align:center;padding:10px">
-            <a href="{{ baseUrl }}/hr/{{ photo.resource_name|getdir }}/{{ photo.resource_name }}.jpg" target="_blank">
+            <a href="{{ baseUrl }}/hr/{{ photo.resource_name|getdir }}/{{ photo.resource_name }}.tif" target="_blank">
                 <div class="container">
                     <img id="main_img"
-                        src="{{ baseUrl }}/hr/{{ photo.resource_name|getdir }}/{{ photo.resource_name }}.jpg" width="100%"
-                        border="2">
+                        src="{{ baseUrl }}/hr/{{ photo.resource_name|getdir }}/{{ photo.resource_name }}.tif"
+                        width="100%" border="2">
                     <img id="overlay_img" src="{{ baseUrl }}/finger.png" width="20%">
                 </div>
             </a>
@@ -59,8 +59,8 @@
             <a href="{{ baseUrl }}/mr/{{ photo.resource_name|getdir }}/{{ photo.resource_name }}.jpg" target="_blank">
                 <div class="container">
                     <img id="main_img"
-                        src="{{ baseUrl }}/mr/{{ photo.resource_name|getdir }}/{{ photo.resource_name }}.jpg" width="100%"
-                        border="2">
+                        src="{{ baseUrl }}/mr/{{ photo.resource_name|getdir }}/{{ photo.resource_name }}.jpg"
+                        width="100%" border="2">
                     <img id="overlay_img" src="{{ baseUrl }}/finger.png" width="20%">
                 </div>
             </a>
@@ -69,8 +69,8 @@
             <a href="{{ baseUrl }}/lr/{{ photo.resource_name|getdir }}/{{ photo.resource_name }}.jpg" target="_blank">
                 <div class="container">
                     <img id="main_img"
-                        src="{{ baseUrl }}/lr/{{ photo.resource_name|getdir }}/{{ photo.resource_name }}.jpg" width="100%"
-                        border="2">
+                        src="{{ baseUrl }}/lr/{{ photo.resource_name|getdir }}/{{ photo.resource_name }}.jpg"
+                        width="100%" border="2">
                     <img id="overlay_img" src="{{ baseUrl }}/finger.png" width="20%">
                 </div>
             </a>
