@@ -18,7 +18,10 @@ from .tables import PhotoTable
 from .templatetags.photodir import getdir
 
 
-class List2(SingleTableMixin, FilterView):
+class List(SingleTableMixin, FilterView):
+    """
+    This view is a class-based, filtered view, based on class-based-filtered in django-tables2 example app.
+    """
     table_class = PhotoTable
     model = PhotoRecord
     template_name = "slhpa/bootstrap_template.html"
@@ -26,8 +29,8 @@ class List2(SingleTableMixin, FilterView):
     table_pagination = {"per_page": 10}
 
     def get_queryset(self):
-        return super(List2, self).get_queryset()
-        # return super(List2, self).get_queryset().select_related("subject_group")
+        return super(List, self).get_queryset()
+        # return super(List, self).get_queryset().select_related("subject_group")
 
     def get_table_kwargs(self):
         return {"template_name": "django_tables2/bootstrap.html"}
@@ -41,7 +44,6 @@ class List2(SingleTableMixin, FilterView):
 
 
 def index(request):
-
     photo_list = PhotoRecord.objects.order_by(F('year').asc(nulls_last=True))
 
     stats = {}
