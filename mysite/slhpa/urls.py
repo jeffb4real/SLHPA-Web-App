@@ -3,9 +3,8 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('', views.index, name='index'),
-    path('list', views.list_view, name='list'),
-    path('list2', views.List2.as_view(), name="filtertableview"),
+    path('', views.List2.as_view(), name="index"),
+    path('list_old', views.index, name='index_old'),
     path('detail/<str:pk>/', views.DetailView.as_view(), name='detail'),
     path('edit/<str:id>/', views.bound_form, name='edit'),
     path('add/', views.add, name='add'),

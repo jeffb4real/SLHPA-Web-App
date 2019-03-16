@@ -32,22 +32,12 @@ class List2(SingleTableMixin, FilterView):
     def get_table_kwargs(self):
         return {"template_name": "django_tables2/bootstrap.html"}
 
-
-def list_view(request):
-    """
-    You will then need to instantiate and configure the table in the view, before adding it to the context.
-    """
-    table = PhotoTable(PhotoRecord.objects.all())
-
-    # Using RequestConfig automatically pulls values from request.GET and updates the table accordingly. This enables data ordering and pagination.
-    RequestConfig(request, paginate={"per_page": 10}).configure(table)
-
-    stats = {}
-    stats['total'] = len(table.data)
-
-    # Rather than passing a QuerySet to {% render_table %}, instead pass the table instance:
-    return render(request, 'slhpa/list.html', {'table': table,
-                                               'stats': stats,})
+    def get_context_data(self, **kwargs):          
+        context = super().get_context_data(**kwargs)                     
+        stats = {}
+        stats['total'] = PhotoRecord.objects.all().count()
+        context["stats"] = stats
+        return context
 
 
 def index(request):
