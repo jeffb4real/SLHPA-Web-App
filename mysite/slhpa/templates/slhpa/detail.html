@@ -1,19 +1,23 @@
+{% load static %}
+<link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}" />
+
 <head>
     <style>
-            <a>
-                #main_img {
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                    z-index: 1;
-                }
-                #overlay_img {
-                    position: relative;
-                    top: -2px;
-                    left: -40px;
-                    z-index: 0;
-                }
-            </a>
+        <a>#main_img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+
+        #overlay_img {
+            position: relative;
+            top: -2px;
+            left: -40px;
+            z-index: 0;
+        }
+
+        </a>
     </style>
 </head>
 
@@ -46,12 +50,12 @@
             {% load static %}
             {% static "/slhpa/images/photos" as baseUrl %}
             {% load photodir %}
-            <a href="{{ baseUrl }}/{{ photorecord.resource_name|getdir }}/{{ photorecord.resource_name }}.jpg" target="_blank">
+            <a href="{{ baseUrl }}/{{ photorecord.resource_name|getdir }}/{{ photorecord.resource_name }}.jpg"
+                target="_blank">
                 <div>
                     <img id="main_img"
                         src="{{ baseUrl }}/{{ photorecord.resource_name|getdir }}/{{ photorecord.resource_name }}.jpg"
-                        width="20%"
-                        border="2">
+                        width="20%" border="2">
                     <img id="overlay_img" src="{{ baseUrl }}/finger.png" width="8%">
                 </div>
             </a>
@@ -91,4 +95,4 @@
 <a href="/slhpa/compare/{{ photorecord.resource_name }}">Compare resolutions</a>
 <br>
 <p><small>Courtesy of the San Leandro Public Library and
-San Leandro History Museum.</small></p>   
+        San Leandro History Museum.</small></p>

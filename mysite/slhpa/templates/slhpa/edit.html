@@ -1,40 +1,46 @@
 <!DOCTYPE html>
+{% load static %}
+<link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}" />
+
 <html lang="en">
+
 <head>
-  {% block title %}<title>SLHPA</title>{% endblock %}
-  <style>
-        <a>
-            #main_img {
-                position: absolute;
-                top: 0;
-                left: 0;
-                z-index: 1;
-            }
-            #overlay_img {
-                position: relative;
-                top: -2px;
-                left: -40px;
-                z-index: 0;
-            }
+    {% block title %}<title>SLHPA</title>{% endblock %}
+    <style>
+        <a>#main_img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+
+        #overlay_img {
+            position: relative;
+            top: -2px;
+            left: -40px;
+            z-index: 0;
+        }
+
         </a>
-</style>
+    </style>
 </head>
+
 <body>
 
-{% block content %}
+    {% block content %}
     {% load static %}
     {% static "/slhpa/images/photos" as baseUrl %}
     {% load photodir %}
     <a href="{{ baseUrl }}/{{ photorecord.resource_name|getdir }}/{{ photorecord.resource_name }}.jpg">
         <span>
             <img id="main_img"
-                src="{{ baseUrl }}/{{ photorecord.resource_name|getdir }}/{{ photorecord.resource_name }}.jpg" 
+                src="{{ baseUrl }}/{{ photorecord.resource_name|getdir }}/{{ photorecord.resource_name }}.jpg"
                 height="160px" border="2">
             <img id="overlay_img" src="{{ baseUrl }}/finger.png" height="40px">
         </span>
     </a>
     <p><b>Photo Identifier: </b>{{ photorecord.resource_name }}</p>
-        
+
     <form action="" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         <table>
@@ -43,9 +49,10 @@
         <input type="submit" value="Save">
         <a href="../../../slhpa/detail/{{ photorecord.resource_name }}/">Cancel</a>
     </form>
-{% endblock %}
-<br>
-<p><small>Courtesy of the San Leandro Public Library and
-San Leandro History Museum.</small></p>   
+    {% endblock %}
+    <br>
+    <p><small>Courtesy of the San Leandro Public Library and
+            San Leandro History Museum.</small></p>
 </body>
+
 </html>
