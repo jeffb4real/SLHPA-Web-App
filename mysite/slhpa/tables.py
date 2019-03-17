@@ -25,11 +25,11 @@ class PhotoTable(tables.Table):
     #
     # https://django-tables2.readthedocs.io/en/latest/pages/custom-data.html?highlight=ImageColumn
     def render_url_for_file(self, record):
-        photo_filename = record.resource_name
-        dir = getdir(record.resource_name) + '/'
-        return format_html('<a href="/static/slhpa/images/photos/' + dir + photo_filename + '.jpg" target="_blank">' +
+        subdir = getdir(record.resource_name)
+        photo_filename = subdir + '/' + record.resource_name
+        return format_html('<a href="/static/slhpa/images/photos/' + photo_filename + '.jpg" target="_blank">' +
                            '    <div>' +
-                           '        <img id="main_img" src="/static/slhpa/images/photos/' + dir + photo_filename + '.jpg" width="100%" border="2">' +
+                           '        <img id="main_img" src="/static/slhpa/images/photos/' + photo_filename + '.jpg" width="100%" border="2">' +
                            '        <img id="overlay_img" src="/static/slhpa/images/photos/finger.png" width="20%">' +
                            '    </div>' +
                            '</a>'
@@ -37,7 +37,7 @@ class PhotoTable(tables.Table):
 
     def render_resource_name(self, record):
         return format_html('<a href="/slhpa/detail/' + record.resource_name + '" target="_blank">' +
-                            record.resource_name +
+                           record.resource_name +
                            '</a>'
                            )
 
@@ -54,3 +54,4 @@ class PhotoTable(tables.Table):
                    'geo_coord_UTM', 'period_date', 'subject', 'verified_gps_coords',
                    'gps_latitude', 'gps_longitude', 'document')
         template_name = 'django_tables2/bootstrap.html'
+        attrs = {"class": "table table-striped"}
