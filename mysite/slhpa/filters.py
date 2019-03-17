@@ -9,5 +9,6 @@ class PhotoFilter(FilterSet):
 
         fields = {"title": ["contains"],
                   "description": ["contains"],
+                  "subject": ["contains"],
                   "year": ["exact"],
                   }
