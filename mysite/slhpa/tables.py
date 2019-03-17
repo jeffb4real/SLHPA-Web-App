@@ -29,7 +29,7 @@ class PhotoTable(tables.Table):
         photo_filename = subdir + '/' + record.resource_name
         return format_html('<a href="/static/slhpa/images/photos/' + photo_filename + '.jpg" target="_blank">' +
                            '    <div>' +
-                           '        <img id="main_img" src="/static/slhpa/images/photos/' + photo_filename + '.jpg" width="100%" border="2">' +
+                           '        <img id="main_img" src="/static/slhpa/images/photos/' + photo_filename + '.jpg" style="max-width:200px">' +
                            '        <img id="overlay_img" src="/static/slhpa/images/photos/finger.png" width="20%">' +
                            '    </div>' +
                            '</a>'
