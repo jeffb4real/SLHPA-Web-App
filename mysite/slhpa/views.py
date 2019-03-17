@@ -26,8 +26,11 @@ class List(SingleTableMixin, FilterView):
     model = PhotoRecord
     template_name = "slhpa/bootstrap_template.html"
     filterset_class = PhotoFilter
-    page_length = 10
-    table_pagination = {"per_page": page_length}
+
+    # TODO: allow user control of records_per_page
+    records_per_page = 2526 # All
+    records_per_page = 10
+    table_pagination = {"per_page": records_per_page}
 
     def get_queryset(self):
         return super(List, self).get_queryset()
@@ -41,7 +44,10 @@ class List(SingleTableMixin, FilterView):
         stats = {}
         stats['total'] = PhotoRecord.objects.all().count()
         stats['filtered'] = len(context['photorecord_list'])
-        stats['displayed'] = self.page_length
+        stats['records_per_page'] = self.records_per_page
+        # Photo archive original size is 2526 records.
+        if (stats['records_per_page'] > 2525):
+            stats['records_per_page'] = 'All'
         context["stats"] = stats
         return context
 

@@ -38,6 +38,7 @@
             position: relative;
             width: 20px;
             top: -23px;
+            /* 100px-width: 80px >=200px-width: 180px */
             left: 180px;
             z-index: 0;
         }
@@ -50,11 +51,12 @@
     <div class="container">
         {% block body %}
 
-        <h3>{% block title %}Prototype SLHPA Photo List (...a work in progress...){% endblock %}</h3>
+        <h3>{% block title %}San Leandro Historical Photo Archive [preliminary]{% endblock %}</h3>
         <br>
-        <small>Total photo records: {{ stats.total }}<br>
-            Filtered photo records: {{ stats.filtered }}<br>
-            Displayed photo records: {{ stats.displayed }}</small>
+        <small>
+            Total photo records: {{ stats.total }}<br>
+            Photo records per page: {{ stats.records_per_page }}<br>
+        </small>
         <br><br>
         <div class="row">
             {% if filter %}
@@ -63,6 +65,9 @@
                     {% bootstrap_form filter.form layout='inline' %}
                     {% bootstrap_button 'Search' %}
                     <a class="btn btn-default" href="http://127.0.0.1:8000/slhpa/?page=1">Reset</a>
+                    <small>
+                        <br>Search matches: {{ stats.filtered }}
+                    </small>
                 </form>
                 <br>
             </div>
