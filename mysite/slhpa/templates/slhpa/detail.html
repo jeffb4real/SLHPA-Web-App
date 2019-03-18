@@ -28,79 +28,82 @@
 </head>
 
 <body>
-    <table border="1">
-        <col width="120">
-        <col width="480">
-        <tr>
-            <th style="text-align:left;padding:10px">Field Name</th>
-            <th style="text-align:left;padding:10px">Field Value</th>
-        </tr>
-        <tr>
-            <td style="text-align:left;padding:10px">Photo Identifier</td>
-            <td style="text-align:left;padding:10px">{{ photorecord.resource_name }}</td>
-        </tr>
-        <tr>
-            <td style="text-align:left;padding:10px">Title</td>
-            <td style="text-align:left;padding:10px">{{ photorecord.title }}</td>
-        </tr>
-        <tr>
-            <td style="text-align:left;padding:10px">Description</td>
-            <td style="text-align:left;padding:10px">{{ photorecord.description }}</td>
-        </tr>
-        <tr>
-            <td style="text-align:left;padding:10px">Year</td>
-            <td style="text-align:left;padding:10px">{{ photorecord.year }}</td>
-        </tr>
-        <tr>
-            <td style="text-align:left;padding:10px">Picture</td>
-            <td style="text-align:left;padding:10px">
-                {% load static %}
-                {% static "/slhpa/images/photos" as baseUrl %}
-                {% load photodir %}
-                <a href="{{ baseUrl }}/{{ photorecord.resource_name|getdir }}/{{ photorecord.resource_name }}.jpg"
-                    target="_blank">
-                    <div>
-                        <img id="main_img"
-                            src="{{ baseUrl }}/{{ photorecord.resource_name|getdir }}/{{ photorecord.resource_name }}.jpg"
-                            width="20%" border="2">
-                        <img id="overlay_img" src="{{ baseUrl }}/finger.png" width="8%">
-                    </div>
-                </a>
-            </td>
-        </tr>
-        <tr>
-            <td style="text-align:left;padding:10px">GPS Latitude</td>
-            <td style="text-align:left;padding:10px">{{ photorecord.gps_latitude }}</td>
-        </tr>
-        <tr>
-            <td style="text-align:left;padding:10px">GPS Longitude</td>
-            <td style="text-align:left;padding:10px">{{ photorecord.gps_longitude }}</td>
-        </tr>
-        <tr>
-            <td style="text-align:left;padding:10px">Address</td>
-            <td style="text-align:left;padding:10px">{{ photorecord.address }}</td>
-        </tr>
-        <tr>
-            <td style="text-align:left;padding:10px">Contributor</td>
-            <td style="text-align:left;padding:10px">{{ photorecord.contributor }}</td>
-        </tr>
-        <tr>
-            <td style="text-align:left;padding:10px">Old-style map grid reference</td>
-            <td style="text-align:left;padding:10px">{{ photorecord.geo_coord_original }}</td>
-        </tr>
-        <tr>
-            <td style="text-align:left;padding:10px">Period date</td>
-            <td style="text-align:left;padding:10px">{{ photorecord.period_date }}</td>
-        </tr>
-        <tr>
-            <td style="text-align:left;padding:10px">Subject</td>
-            <td style="text-align:left;padding:10px">{{ photorecord.subject }}</td>
-        </tr>
-    </table>
-    <br>
-    <a class="btn btn-default" href="/slhpa/edit/{{ photorecord.resource_name }}">Edit</a>
-    <a class="btn btn-default" href="/slhpa/compare/{{ photorecord.resource_name }}">Compare Resolutions</a>
-    <br>
+    <div class="container">
+        <br>
+        <table border="1">
+            <col width="120">
+            <col width="480">
+            <tr>
+                <th style="text-align:left;padding:10px">Field Name</th>
+                <th style="text-align:left;padding:10px">Field Value</th>
+            </tr>
+            <tr>
+                <td style="text-align:left;padding:10px">Photo Identifier</td>
+                <td style="text-align:left;padding:10px">{{ photorecord.resource_name }}</td>
+            </tr>
+            <tr>
+                <td style="text-align:left;padding:10px">Title</td>
+                <td style="text-align:left;padding:10px">{{ photorecord.title }}</td>
+            </tr>
+            <tr>
+                <td style="text-align:left;padding:10px">Description</td>
+                <td style="text-align:left;padding:10px">{{ photorecord.description }}</td>
+            </tr>
+            <tr>
+                <td style="text-align:left;padding:10px">Year</td>
+                <td style="text-align:left;padding:10px">{{ photorecord.year }}</td>
+            </tr>
+            <tr>
+                <td style="text-align:left;padding:10px">Picture</td>
+                <td style="text-align:left;padding:10px">
+                    {% load static %}
+                    {% static "/slhpa/images/photos" as baseUrl %}
+                    {% load photodir %}
+                    <a href="{{ baseUrl }}/{{ photorecord.resource_name|getdir }}/{{ photorecord.resource_name }}.jpg"
+                        target="_blank">
+                        <div>
+                            <img id="main_img"
+                                src="{{ baseUrl }}/{{ photorecord.resource_name|getdir }}/{{ photorecord.resource_name }}.jpg"
+                                width="20%" border="2">
+                            <img id="overlay_img" src="{{ baseUrl }}/finger.png" width="8%">
+                        </div>
+                    </a>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align:left;padding:10px">GPS Latitude</td>
+                <td style="text-align:left;padding:10px">{{ photorecord.gps_latitude }}</td>
+            </tr>
+            <tr>
+                <td style="text-align:left;padding:10px">GPS Longitude</td>
+                <td style="text-align:left;padding:10px">{{ photorecord.gps_longitude }}</td>
+            </tr>
+            <tr>
+                <td style="text-align:left;padding:10px">Address</td>
+                <td style="text-align:left;padding:10px">{{ photorecord.address }}</td>
+            </tr>
+            <tr>
+                <td style="text-align:left;padding:10px">Contributor</td>
+                <td style="text-align:left;padding:10px">{{ photorecord.contributor }}</td>
+            </tr>
+            <tr>
+                <td style="text-align:left;padding:10px">Old-style map grid reference</td>
+                <td style="text-align:left;padding:10px">{{ photorecord.geo_coord_original }}</td>
+            </tr>
+            <tr>
+                <td style="text-align:left;padding:10px">Period date</td>
+                <td style="text-align:left;padding:10px">{{ photorecord.period_date }}</td>
+            </tr>
+            <tr>
+                <td style="text-align:left;padding:10px">Subject</td>
+                <td style="text-align:left;padding:10px">{{ photorecord.subject }}</td>
+            </tr>
+        </table>
+        <br>
+        <a class="btn btn-default" href="/slhpa/edit/{{ photorecord.resource_name }}">Edit</a>
+        <a class="btn btn-default" href="/slhpa/compare/{{ photorecord.resource_name }}">Compare Resolutions</a>
+        <br>
+    </div>
 </body>
 
 <footer>

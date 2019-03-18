@@ -32,29 +32,30 @@
     {% load static %}
     {% static "/slhpa/images/photos" as baseUrl %}
     {% load photodir %}
-    <a href="{{ baseUrl }}/{{ photorecord.resource_name|getdir }}/{{ photorecord.resource_name }}.jpg" target="_blank">
-        <span>
-            <img id="main_img"
-                src="{{ baseUrl }}/{{ photorecord.resource_name|getdir }}/{{ photorecord.resource_name }}.jpg"
-                height="160px" border="2">
-            <img id="overlay_img" src="{{ baseUrl }}/finger.png" height="40px">
-        </span>
-    </a>
-    <p><b>Photo Identifier: </b>{{ photorecord.resource_name }}</p>
-
-    <form action="" method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        <table>
-            {{ form.as_table }}
-        </table>
+    <div class="container">
         <br>
-        <input class="btn btn-default" type="submit" value="Save">
-        <a class="btn btn-default" href="../../../slhpa/detail/{{ photorecord.resource_name }}/">Cancel</a>
-    </form>
-    {% endblock %}
-    <br>
-    <p><small>Courtesy of the San Leandro Public Library and
-            San Leandro History Museum.</small></p>
+        <a href="{{ baseUrl }}/{{ photorecord.resource_name|getdir }}/{{ photorecord.resource_name }}.jpg"
+            target="_blank">
+            <span>
+                <img id="main_img"
+                    src="{{ baseUrl }}/{{ photorecord.resource_name|getdir }}/{{ photorecord.resource_name }}.jpg"
+                    height="160px" border="2">
+                <img id="overlay_img" src="{{ baseUrl }}/finger.png" height="40px">
+            </span>
+        </a>
+        <p><b>Photo Identifier: </b>{{ photorecord.resource_name }}</p>
+
+        <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <table>
+                {{ form.as_table }}
+            </table>
+            <br>
+            <input class="btn btn-default" type="submit" value="Save">
+            <a class="btn btn-default" href="../../../slhpa/detail/{{ photorecord.resource_name }}/">Cancel</a>
+        </form>
+        {% endblock %}
+    </div>
 </body>
 
 <footer>
