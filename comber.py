@@ -9,9 +9,6 @@ def log(message):
     script_name = sys.argv[0]
     print(str(datetime.datetime.now()) + '\t'+ script_name + ': ' + message)
 
-log('comber.py functionality now merged into merger.py')
-exit(0)
-
 # All fields for a single record
 resource_name = 0
 asset_name = 1
@@ -20,15 +17,14 @@ title = 3
 subject = 4
 description = 5
 contributor = 6
-digital_format = 7
-url_for_file = 8
+date = 7
+digital_format = 8
+url_for_file = 9
 date = 9
-subject_group = 10
-geo_coord_original = 11
-geo_coord_UTM = 12
 
+data_path = 'mysite/slhpa/static/slhpa/data'
 # First, create an array of Title field records, from document on photo archive DVD
-csv_input_file = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'data', 'V01-V64 Index.csv')
+csv_input_file = os.path.join(os.path.dirname(os.path.realpath(__file__)), data_path, 'V01-V64 Index.csv')
 title_fields = []
 with open(csv_input_file, 'r', newline='') as infile:
     reader = csv.reader(infile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
@@ -37,7 +33,7 @@ with open(csv_input_file, 'r', newline='') as infile:
         title_fields.append(record[2])
 
 # Derive an output .csv file from our existing .csv file
-csv_input_file = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'data', 'SLHPA-records-phase01.csv')
+csv_input_file = os.path.join(os.path.dirname(os.path.realpath(__file__)), data_path, 'scraped.csv')
 csv_output_file = csv_input_file.replace('.csv', '_' + time.strftime("%Y%m%d-%H%M%S") + '.csv')
 with open(csv_output_file, 'w', newline='') as outfile, open(csv_input_file, 'r', newline='') as infile:
     writer = csv.writer(outfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
@@ -111,9 +107,6 @@ with open(csv_output_file, 'w', newline='') as outfile, open(csv_input_file, 'r'
             record[digital_format],
             record[url_for_file],
             date,
-            record[subject_group],
-            record[geo_coord_original],
-            record[geo_coord_UTM],
         ])
 
         desc_index+=1
