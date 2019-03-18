@@ -28,7 +28,7 @@ class PhotoTable(tables.Table):
         subdir = getdir(record.resource_name)
         photo_filename = subdir + '/' + record.resource_name
         return format_html('<a href="/static/slhpa/images/photos/' + photo_filename + '.jpg" target="_blank">' +
-                           '    <div>' +
+                           '    <div style="text-align:right">' +
                            '        <img id="main_img" src="/static/slhpa/images/photos/' + photo_filename + '.jpg" style="max-width:200px">' +
                            '        <img id="overlay_img" src="/static/slhpa/images/photos/finger.png" width="20%">' +
                            '    </div>' +
