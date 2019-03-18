@@ -1,14 +1,14 @@
 {% load static %}
-{% load render_table from django_tables2 %}
 {% load bootstrap3 %}
-<!doctype html>
-<html>
+{% load render_table from django_tables2 %}
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
-    <title>SLHPA</title>
     <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}" />
     {% bootstrap_css %}
     <link href="{% static 'django_tables2/bootstrap.css' %}" rel="stylesheet" />
+    <title>SLHPA - List View</title>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
     <script type="text/javascript">
@@ -86,7 +86,6 @@
         <small>Courtesy of the San Leandro Public Library and San Leandro History Museum.</small>
         <br><br>
     </div>
-
 </footer>
 
 </html>

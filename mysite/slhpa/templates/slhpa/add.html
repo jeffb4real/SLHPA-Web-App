@@ -1,8 +1,14 @@
 {% load static %}
-<link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}" />
-
+{% load bootstrap3 %}
 <!DOCTYPE html>
 <html lang="en">
+
+<head>
+    <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}" />
+    {% bootstrap_css %}
+    <link href="{% static 'django_tables2/bootstrap.css' %}" rel="stylesheet" />
+    {% block title %}<title>SLHPA - Add Record</title>{% endblock %}
+</head>
 
 <body>
     {% block content %}
@@ -11,10 +17,19 @@
         <table>
             {{ form.as_table }}
         </table>
-        <input type="submit" value="Save">
-        <a href="../../../slhpa/list">Cancel</a>
+        <br>
+        <input class="btn btn-default" type="submit" value="Save">
+        <a class="btn btn-default" href="../../../slhpa/">Cancel</a>
     </form>
     {% endblock %}
 </body>
+
+<footer>
+    <div class="container">
+        <br>
+        <small>Courtesy of the San Leandro Public Library and San Leandro History Museum.</small>
+        <br><br>
+    </div>
+</footer>
 
 </html>

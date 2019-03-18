@@ -1,11 +1,13 @@
-<!DOCTYPE html>
 {% load static %}
-<link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}" />
-
+{% load bootstrap3 %}
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-    {% block title %}<title>SLHPA</title>{% endblock %}
+    <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}" />
+    {% bootstrap_css %}
+    <link href="{% static 'django_tables2/bootstrap.css' %}" rel="stylesheet" />
+    {% block title %}<title>SLHPA - Edit Record</title>{% endblock %}
     <style>
         <a>#main_img {
             position: absolute;
@@ -26,12 +28,11 @@
 </head>
 
 <body>
-
     {% block content %}
     {% load static %}
     {% static "/slhpa/images/photos" as baseUrl %}
     {% load photodir %}
-    <a href="{{ baseUrl }}/{{ photorecord.resource_name|getdir }}/{{ photorecord.resource_name }}.jpg">
+    <a href="{{ baseUrl }}/{{ photorecord.resource_name|getdir }}/{{ photorecord.resource_name }}.jpg" target="_blank">
         <span>
             <img id="main_img"
                 src="{{ baseUrl }}/{{ photorecord.resource_name|getdir }}/{{ photorecord.resource_name }}.jpg"
@@ -46,13 +47,22 @@
         <table>
             {{ form.as_table }}
         </table>
-        <input type="submit" value="Save">
-        <a href="../../../slhpa/detail/{{ photorecord.resource_name }}/">Cancel</a>
+        <br>
+        <input class="btn btn-default" type="submit" value="Save">
+        <a class="btn btn-default" href="../../../slhpa/detail/{{ photorecord.resource_name }}/">Cancel</a>
     </form>
     {% endblock %}
     <br>
     <p><small>Courtesy of the San Leandro Public Library and
             San Leandro History Museum.</small></p>
 </body>
+
+<footer>
+    <div class="container">
+        <br>
+        <small>Courtesy of the San Leandro Public Library and San Leandro History Museum.</small>
+        <br><br>
+    </div>
+</footer>
 
 </html>

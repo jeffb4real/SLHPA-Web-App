@@ -1,7 +1,13 @@
 {% load static %}
-<link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}" />
+{% load bootstrap3 %}
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
+    <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}" />
+    {% bootstrap_css %}
+    <link href="{% static 'django_tables2/bootstrap.css' %}" rel="stylesheet" />
+    {% block title %}<title>SLHPA - Compare Resolutions</title>{% endblock %}
     <style>
         <a>#main_img {
             position: absolute;
@@ -21,75 +27,92 @@
     </style>
 </head>
 
-<h2>Compare same photo at different resolution</h2>
-<p><small>Courtesy of the San Leandro Public Library and
-        San Leandro History Museum.</small></p>
-<table border="1">
-    <col width="80">
-    <col width="200">
-    <col width="200">
-    <col width="200">
-    <col width="200">
-    <col width="80">
-    <tr>
-        <th style="text-align:left;padding:10px">Picture Identifier</th>
-        <th style="text-align:left;padding:10px">High Res</th>
-        <th style="text-align:left;padding:10px">Medium Res</th>
-        <th style="text-align:left;padding:10px">Low Res</th>
-        <th style="text-align:left;padding:10px">640 horizontally</th>
-        <th style="text-align:left;padding:10px">Sirsi</th>
-    </tr>
-    <tr>
-        <td style="text-align:left;padding:10px">
-            <a href="/slhpa/detail/{{ photo.resource_name }}/">
-                {{ photo.resource_name }}
-            </a>
-        </td>
-        {% load static %}
-        {% static "/slhpa/images/photos" as baseUrl %}
-        {% load photodir %}
-        <td style="text-align:center;padding:10px">
-            <a href="{{ baseUrl }}/hr/{{ photo.resource_name|getdir }}/{{ photo.resource_name }}.tif" target="_blank">
-                <div class="container">
-                    <img id="main_img"
-                        src="{{ baseUrl }}/hr/{{ photo.resource_name|getdir }}/{{ photo.resource_name }}.tif"
-                        width="100%" border="2">
-                    <img id="overlay_img" src="{{ baseUrl }}/finger.png" width="20%">
-                </div>
-            </a>
-        </td>
-        <td style="text-align:center;padding:10px">
-            <a href="{{ baseUrl }}/mr/{{ photo.resource_name|getdir }}/{{ photo.resource_name }}.jpg" target="_blank">
-                <div class="container">
-                    <img id="main_img"
-                        src="{{ baseUrl }}/mr/{{ photo.resource_name|getdir }}/{{ photo.resource_name }}.jpg"
-                        width="100%" border="2">
-                    <img id="overlay_img" src="{{ baseUrl }}/finger.png" width="20%">
-                </div>
-            </a>
-        </td>
-        <td style="text-align:center;padding:10px">
-            <a href="{{ baseUrl }}/lr/{{ photo.resource_name|getdir }}/{{ photo.resource_name }}.jpg" target="_blank">
-                <div class="container">
-                    <img id="main_img"
-                        src="{{ baseUrl }}/lr/{{ photo.resource_name|getdir }}/{{ photo.resource_name }}.jpg"
-                        width="100%" border="2">
-                    <img id="overlay_img" src="{{ baseUrl }}/finger.png" width="20%">
-                </div>
-            </a>
-        </td>
-        <td style="text-align:center;padding:10px">
-            <a href="{{ baseUrl }}/{{ photo.resource_name|getdir }}/{{ photo.resource_name }}.jpg" target="_blank">
-                <div class="container">
-                    <img id="main_img"
-                        src="{{ baseUrl }}/{{ photo.resource_name|getdir }}/{{ photo.resource_name }}.jpg" width="100%"
-                        border="2">
-                    <img id="overlay_img" src="{{ baseUrl }}/finger.png" width="20%">
-                </div>
-            </a>
-        </td>
-        <td style="text-align:left;padding:10px">
-            <a href="{{ photo.url_for_file }}/">{{ photo.resource_name }}</a>
-        </td>
-    </tr>
-</table>
+<body>
+    {% static "/slhpa/images/photos" as baseUrl %}
+    {% load photodir %}
+
+    <h2>Compare same photo at different resolution</h2>
+    <p><small>Courtesy of the San Leandro Public Library and
+            San Leandro History Museum.</small></p>
+    <table border="1">
+        <col width="80">
+        <col width="200">
+        <col width="200">
+        <col width="200">
+        <col width="200">
+        <col width="80">
+        <tr>
+            <th style="text-align:left;padding:10px">Picture Identifier</th>
+            <th style="text-align:left;padding:10px">High Res</th>
+            <th style="text-align:left;padding:10px">Medium Res</th>
+            <th style="text-align:left;padding:10px">Low Res</th>
+            <th style="text-align:left;padding:10px">640 horizontally</th>
+            <th style="text-align:left;padding:10px">Sirsi</th>
+        </tr>
+        <tr>
+            <td style="text-align:left;padding:10px">
+                <a href="/slhpa/detail/{{ photo.resource_name }}/">
+                    {{ photo.resource_name }}
+                </a>
+            </td>
+            <td style="text-align:center;padding:10px">
+                <a href="{{ baseUrl }}/hr/{{ photo.resource_name|getdir }}/{{ photo.resource_name }}.tif"
+                    target="_blank">
+                    <div class="container">
+                        <img id="main_img"
+                            src="{{ baseUrl }}/hr/{{ photo.resource_name|getdir }}/{{ photo.resource_name }}.tif"
+                            max-width="200px" border="2">
+                        <img id="overlay_img" src="{{ baseUrl }}/finger.png" width="20%">
+                    </div>
+                </a>
+            </td>
+            <td style="text-align:center;padding:10px">
+                <a href="{{ baseUrl }}/mr/{{ photo.resource_name|getdir }}/{{ photo.resource_name }}.jpg"
+                    target="_blank">
+                    <div class="container">
+                        <img id="main_img"
+                            src="{{ baseUrl }}/mr/{{ photo.resource_name|getdir }}/{{ photo.resource_name }}.jpg"
+                            width="100%" border="2">
+                        <img id="overlay_img" src="{{ baseUrl }}/finger.png" width="20%">
+                    </div>
+                </a>
+            </td>
+            <td style="text-align:center;padding:10px">
+                <a href="{{ baseUrl }}/lr/{{ photo.resource_name|getdir }}/{{ photo.resource_name }}.jpg"
+                    target="_blank">
+                    <div class="container">
+                        <img id="main_img"
+                            src="{{ baseUrl }}/lr/{{ photo.resource_name|getdir }}/{{ photo.resource_name }}.jpg"
+                            width="100%" border="2">
+                        <img id="overlay_img" src="{{ baseUrl }}/finger.png" width="20%">
+                    </div>
+                </a>
+            </td>
+            <td style="text-align:center;padding:10px">
+                <a href="{{ baseUrl }}/{{ photo.resource_name|getdir }}/{{ photo.resource_name }}.jpg" target="_blank">
+                    <div class="container">
+                        <img id="main_img"
+                            src="{{ baseUrl }}/{{ photo.resource_name|getdir }}/{{ photo.resource_name }}.jpg"
+                            width="100%" border="2">
+                        <img id="overlay_img" src="{{ baseUrl }}/finger.png" width="20%">
+                    </div>
+                </a>
+            </td>
+            <td style="text-align:left;padding:10px">
+                <a href="{{ photo.url_for_file }}/">{{ photo.resource_name }}</a>
+            </td>
+        </tr>
+    </table>
+    <br>
+    <a class="btn btn-default" href="/slhpa/detail/{{ photo.resource_name }}/">Cancel</a>
+</body>
+
+<footer>
+    <div class="container">
+        <br>
+        <small>Courtesy of the San Leandro Public Library and San Leandro History Museum.</small>
+        <br><br>
+    </div>
+</footer>
+
+</html>
