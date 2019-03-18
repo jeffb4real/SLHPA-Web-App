@@ -55,6 +55,7 @@
                     </a>
                 </td>
                 <td style="text-align:center;padding:10px">
+                    /* High resolution tif image from DVD */
                     <a href="{{ baseUrl }}/hr/{{ photo.resource_name|getdir }}/{{ photo.resource_name }}.tif"
                         target="_blank">
                         <div class="container">
@@ -66,6 +67,7 @@
                     </a>
                 </td>
                 <td style="text-align:center;padding:10px">
+                    /* Medium resolution, 300 dpi image from DVD */
                     <a href="{{ baseUrl }}/mr/{{ photo.resource_name|getdir }}/{{ photo.resource_name }}.jpg"
                         target="_blank">
                         <div class="container">
@@ -77,6 +79,7 @@
                     </a>
                 </td>
                 <td style="text-align:center;padding:10px">
+                    /* Low resolution, 96 dpi image from DVD */
                     <a href="{{ baseUrl }}/lr/{{ photo.resource_name|getdir }}/{{ photo.resource_name }}.jpg"
                         target="_blank">
                         <div class="container">
@@ -88,6 +91,7 @@
                     </a>
                 </td>
                 <td style="text-align:center;padding:10px">
+                    /* 640px-width photo document, resized from tif on DVD */
                     <a href="{{ baseUrl }}/{{ photo.resource_name|getdir }}/{{ photo.resource_name }}.jpg"
                         target="_blank">
                         <div class="container">
@@ -99,7 +103,8 @@
                     </a>
                 </td>
                 <td style="text-align:left;padding:10px">
-                    <a href="{{ photo.url_for_file }}/">{{ photo.resource_name }}</a>
+                    /* Sirsi.net photo documetn - in pdf format */
+                    <a href="{{ photo.url_for_file }}/" target="_blank">{{ photo.resource_name }}</a>
                 </td>
             </tr>
         </table>

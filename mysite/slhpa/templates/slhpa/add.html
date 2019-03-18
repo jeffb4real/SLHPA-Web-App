@@ -12,16 +12,19 @@
 
 <body>
     {% block content %}
-    <form action="" method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        <table>
-            {{ form.as_table }}
-        </table>
+    <div class="container">
         <br>
-        <input class="btn btn-default" type="submit" value="Save">
-        <a class="btn btn-default" href="../../../slhpa/">Cancel</a>
-    </form>
-    {% endblock %}
+        <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <table>
+                {{ form.as_table }}
+            </table>
+            <br>
+            <input class="btn btn-default" type="submit" value="Save">
+            <a class="btn btn-default" href="../../../slhpa/">Cancel</a>
+        </form>
+        {% endblock %}
+    </div>
 </body>
 
 <footer>
