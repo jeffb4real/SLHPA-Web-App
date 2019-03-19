@@ -180,3 +180,5 @@ In a browser:
 Then:
 
       http://127.0.0.1:8000/slhpa
+
+Note that you will not see images in the browser until you put image files into the appropriate directories.
