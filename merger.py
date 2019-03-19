@@ -121,6 +121,46 @@ def comb_addresses(scraped_fieldnames: list, scraped_records: dict):
     # pprint.pprint(addresses_found) # for diagnosing / detailed reporting
 
 
+def comb_years(scraped_fieldnames: list, scraped_records: dict, from_dvd: dict):
+    """
+    Search title, subject, and description fields for years between 1839 (the
+    invention of photography) and 1980 (approx. culmination of the photo archive).
+    When multiple valid years are found, use the highest one in the date field.
+    """
+    scraped_fieldnames.append('description2')
+    num_years_found = 0
+    num_descs_found = 0
+    for key, value in scraped_records.items():
+        record_from_dvd = from_dvd.get(key)
+        if record_from_dvd is not None:
+            if value.get('year') is None or len(value['year']) == 0:
+                # Match year(s). Notice this will match ca.1872 but won't match ca1872
+                # Also, will return 1944 if given 1944-45
+                list_of_years = []
+                pattern = r'\b(\d\d\d\d)\b'
+                list_of_years.extend(re.findall(pattern, value['title']))
+                list_of_years.extend(re.findall(pattern, value['subject']))
+                list_of_years.extend(re.findall(pattern, value['description']))
+                if (list_of_years):
+                    filtered_list_of_years = []
+                    for year in list_of_years:
+                        if (int(year) > 1838 and int(year) < 1981):
+                            filtered_list_of_years.append(year)
+                    if (filtered_list_of_years):
+                        value['year'] = str(max(filtered_list_of_years))
+                        num_years_found += 1
+
+            # Compare description fields; add description from DVD if they don't match
+            title_from_dvd = record_from_dvd['Title']
+            if ((title_from_dvd not in value['description']) and
+                (title_from_dvd not in value['title']) and
+                    (title_from_dvd != 'NR')):
+                value['description2'] = title_from_dvd
+                num_descs_found += 1
+    log("{: >4d}".format(num_years_found) + ' years added.')
+    log("{: >4d}".format(num_descs_found) + ' descriptions added.')
+
+
 def merge_one_file(scraped_fieldnames: list, scraped_records: dict, source_filename: str, key_function: callable, key_column_name: list) -> dict:
     """
     Merge any new columns or rows from source_filename into scraped_fieldnames and scraped_records.
@@ -161,9 +201,10 @@ def main():
                    data_dir + 'manually_verified.csv', str, 'resource_name')
     merge_one_file(scraped_fieldnames, scraped_records,
                    data_dir + 'transcribed.csv', number_to_pdf, 'resource_number')
-    merge_one_file(scraped_fieldnames, scraped_records,
-                                 data_dir + 'V01-V64 Index.csv', prepend_zeros, 'Index Number')
+    dvd_records = merge_one_file(scraped_fieldnames, scraped_records,
+                                  data_dir + 'V01-V64 Index.csv', prepend_zeros, 'Index Number')
     scraped_records['00000152.pdf']['description'] = 'Early farmers in San Leandro take produce to market, 1890.'
+    comb_years(scraped_fieldnames, scraped_records, dvd_records)
     comb_addresses(scraped_fieldnames, scraped_records)
     write(scraped_records, scraped_fieldnames)
     write_year_counts(scraped_records)
