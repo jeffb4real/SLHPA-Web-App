@@ -42,11 +42,11 @@
             <col width="80">
             <tr>
                 <th style="text-align:left;padding:10px">Picture Identifier</th>
-                <th style="text-align:left;padding:10px">High Res</th>
-                <th style="text-align:left;padding:10px">Medium Res</th>
-                <th style="text-align:left;padding:10px">Low Res</th>
-                <th style="text-align:left;padding:10px">640 horizontally</th>
-                <th style="text-align:left;padding:10px">Sirsi</th>
+                <th style="text-align:left;padding:10px">High resolution tif from DVD</th>
+                <th style="text-align:left;padding:10px">Medium resolution 300 dpi from DVD</th>
+                <th style="text-align:left;padding:10px">Low resolution 96 dpi from DVD</th>
+                <th style="text-align:left;padding:10px">640px-width, resized from tif on DVD</th>
+                <th style="text-align:left;padding:10px">Sirsi photo document in pdf format</th>
             </tr>
             <tr>
                 <td style="text-align:left;padding:10px">
@@ -55,7 +55,7 @@
                     </a>
                 </td>
                 <td style="text-align:center;padding:10px">
-                    /* High resolution tif image from DVD */
+                    <!-- High resolution tif image from DVD -->
                     <a href="{{ baseUrl }}/hr/{{ photo.resource_name|getdir }}/{{ photo.resource_name }}.tif"
                         target="_blank">
                         <div class="container">
@@ -67,7 +67,7 @@
                     </a>
                 </td>
                 <td style="text-align:center;padding:10px">
-                    /* Medium resolution, 300 dpi image from DVD */
+                    <!-- Medium resolution, 300 dpi image from DVD -->
                     <a href="{{ baseUrl }}/mr/{{ photo.resource_name|getdir }}/{{ photo.resource_name }}.jpg"
                         target="_blank">
                         <div class="container">
@@ -79,7 +79,7 @@
                     </a>
                 </td>
                 <td style="text-align:center;padding:10px">
-                    /* Low resolution, 96 dpi image from DVD */
+                    <!-- Low resolution, 96 dpi image from DVD -->
                     <a href="{{ baseUrl }}/lr/{{ photo.resource_name|getdir }}/{{ photo.resource_name }}.jpg"
                         target="_blank">
                         <div class="container">
@@ -91,7 +91,7 @@
                     </a>
                 </td>
                 <td style="text-align:center;padding:10px">
-                    /* 640px-width photo document, resized from tif on DVD */
+                    <!-- 640px-width photo document, resized from tif on DVD -->
                     <a href="{{ baseUrl }}/{{ photo.resource_name|getdir }}/{{ photo.resource_name }}.jpg"
                         target="_blank">
                         <div class="container">
@@ -103,7 +103,7 @@
                     </a>
                 </td>
                 <td style="text-align:left;padding:10px">
-                    /* Sirsi.net photo documetn - in pdf format */
+                    <!-- Sirsi.net photo document in pdf format -->
                     <a href="{{ photo.url_for_file }}/" target="_blank">{{ photo.resource_name }}</a>
                 </td>
             </tr>
