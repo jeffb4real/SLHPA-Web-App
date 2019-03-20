@@ -5,34 +5,24 @@ import re
 import time
 import datetime
 
+
 def log(message):
     script_name = sys.argv[0]
     print(str(datetime.datetime.now()) + '\t'+ script_name + ': ' + message)
 
-# All fields for a single record
-resource_name = 0
-asset_name = 1
-file_size = 2
-title = 3
-subject = 4
-description = 5
-contributor = 6
-period_date = 7
-digital_format = 8
-url_for_file = 9
-date = 10
-desc2 = 11
 
-data_path = 'mysite/slhpa/static/slhpa/data'
+data_path = 'mysite/slhpa/static/slhpa/data/'
 
-# Match year(s). Notice this will match ca.1872 but won't match ca1872.
-# Also, will return 1944 if given 1944-45.
-pattern = r'\b(\d\d\d\d)\b'
 
-# Search title, subject, and description fields for years between 1839 (the
-# invention of photography) and 1980 (approx. culmination of the photo archive).
-# When multiple valid years are found, use the highest one in the date field.
 def add_year(field_text):
+    '''
+    Search title, subject, and description fields for years between 1839 (the
+    invention of photography) and 1980 (approx. culmination of the photo archive).
+    '''
+    # Match year(s). Notice this will match ca.1872 but won't match ca1872.
+    # Also, will return 1944 if given 1944-45.
+    pattern = r'\b(\d\d\d\d)\b'
+
     list_of_years = re.findall(pattern, field_text)
     if (list_of_years):
         filtered_list_of_years = []
@@ -43,84 +33,104 @@ def add_year(field_text):
             return str(max(filtered_list_of_years))
     return None
 
-# Create an array of Title field records, from document on photo archive DVD
-csv_input_file = os.path.join(os.path.dirname(os.path.realpath(__file__)), data_path, 'V01-V64 Index.csv')
-title_fields = []
-with open(csv_input_file, 'r', newline='') as infile:
-    reader = csv.reader(infile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-    for record in reader:
-        # 2nd array element is the Title field; this is the only useful descriptive field in this document
-        title_fields.append(record[2])
 
-# Derive an output .csv file from our existing .csv file
-csv_input_file = os.path.join(os.path.dirname(os.path.realpath(__file__)), data_path, 'scraped.csv')
-csv_output_file = csv_input_file.replace('scraped.csv', 'combed.csv')
-with open(csv_output_file, 'w', newline='') as outfile, open(csv_input_file, 'r', newline='') as infile:
-    writer = csv.writer(outfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-    reader = csv.reader(infile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+def read_from_stream_into_dict(file_name: str, key_function_name: callable, key_column_name: str) -> [list, dict]:
+    """
+    Read records from file_name into memory. Return a list of column names and a dictionary of records,
+    with key ID as hash key.
+    """
+    the_dict = {}
+    count = 0
+    fieldnames = None
+    with open(data_path + file_name, 'r', newline='') as infile:
+        reader = csv.DictReader(infile, delimiter=',',
+                                quotechar='"', quoting=csv.QUOTE_MINIMAL)
+        fieldnames = reader.fieldnames
+        for record in reader:
+            count += 1
+            if len(record[key_column_name]) > 0:
+                the_dict[key_function_name(record[key_column_name])] = record
+    log(str("{: >4d}".format(count)) + ' total records read from ' + file_name)
+    log(str("{: >4d}".format(len(the_dict))) +
+        ' unique records read from ' + file_name)
+    return fieldnames, the_dict
 
+
+def comb(scraped_fieldnames, scraped_records, dvd_fieldnames, dvd_records):
+    '''
+    Extract year and description if possible.
+    '''
     num_years_found = 0
     num_descs_found = 0
-    num_records = 0
     num_removed_descs = 0
-    first_record = True
-    desc_index = 0
-    for record in reader:
-        record.extend([''])
-        record.extend([''])
+    for key, scraped_record in scraped_records.items():
+        dvd_record = dvd_records.get(key)
+        dvd_title = dvd_record['Title']
+        scraped_record['description2'] = dvd_title
+
         # Compare description fields; add description2 if they don't match
-        record[desc2] = ''
-        if ((title_fields[desc_index] not in record[description]) and
-            (title_fields[desc_index] not in record[title]) and
-            (title_fields[desc_index] != 'NR') ):
-            record[desc2] = title_fields[desc_index]
-            num_descs_found+=1
+        if ((dvd_title not in scraped_record['description']) and
+            (dvd_title not in scraped_record['title']) and
+            (dvd_title != 'NR') ):
+            scraped_record['description'] = dvd_title
+            num_descs_found += 1
 
         # Don't keep unuseful descriptions
-        if (re.match(r'Vol\.\s+\d+$', record[description])):
-            record[description] = ''
-            num_removed_descs+=1
-        if (re.match(r'Vol\.\s+\d+$', record[desc2])):
-            record[desc2] = ''
-            num_removed_descs+=1
+        if (re.match(r'Vol\.\s+\d+$', scraped_record['description'])):
+            scraped_record['description'] = ''
+            num_removed_descs += 1
+        if (re.match(r'Vol\.\s+\d+$', scraped_record['description2'])):
+            scraped_record['description2'] = ''
+            num_removed_descs += 1
 
-        # TODO : look at period_date first, may have to expand pattern to match MM/DD/YYYY?
-        date = add_year(record[title])
+        date = add_year(scraped_record['title'])
+        scraped_record['title_source'] = 'title'
         if not date:
-            date = add_year(record[description])
+            date = add_year(scraped_record['description'])
+            scraped_record['title_source'] = 'description'
         if not date:
-            date = add_year(record[desc2])
+            date = add_year(scraped_record['description2'])
+            scraped_record['title_source'] = 'description2'
         if not date:
-            date = add_year(record[subject])
+            date = add_year(scraped_record['subject'])
+            scraped_record['title_source'] = 'subject'
         if date:
             num_years_found += 1
+        else:
+            scraped_record['title_source'] = '-----'
 
-        # Write entire record to output .csv file, populating date field (if a date was found)
-        # Special exception for the first record (the header)
-        if (first_record):
-            date = 'date'
-            record[description] = 'description'
-            record[desc2] = 'description_from_DVD'
-            first_record = False
-        writer.writerow([
-            record[resource_name],
-            record[asset_name],
-            record[file_size],
-            record[title],
-            record[subject],
-            record[description],
-            record[desc2],
-            record[contributor],
-            record[digital_format],
-            record[url_for_file],
-            date,
-        ])
+    log("Found and added %d years to new .csv file" % num_years_found)
+    log("Added %d descriptions to new .csv file" % num_descs_found)
+    log("Removed %d unuseful descriptions" % num_removed_descs)
 
-        desc_index+=1
-        num_records+=1
 
-log("Found %d title fields" % len(title_fields))
-log("Processed %d records" % num_records)
-log("Found and added %d years to new .csv file" % num_years_found)
-log("Added %d descriptions to new .csv file" % num_descs_found)
-log("Removed %d unuseful descriptions" % num_removed_descs)
+def prepend_zeros(n):
+    """ Reformat the primary key column data in the 'from_dvd' file. """
+    return "000" + n + '.pdf'
+
+
+def write(records: dict, fieldnames: list, filename: str):
+    filename = data_path + filename
+    outfile = open(filename, 'w', newline='')
+    writer = csv.DictWriter(outfile, fieldnames, delimiter=',', quotechar='"',
+                            quoting=csv.QUOTE_MINIMAL)
+    writer.writeheader()
+    for _, value in sorted(records.items()):
+        writer.writerow(value)
+    log(str("{: >4d}".format(len(records))) + ' records written to ' + filename)
+
+
+def main():
+    scraped_fieldnames, scraped_records = read_from_stream_into_dict(
+        'scraped.csv', str, 'resource_name')
+    dvd_fieldnames, dvd_records = read_from_stream_into_dict(
+        'V01-V64 Index.csv', prepend_zeros, 'Index Number')
+    comb(scraped_fieldnames, scraped_records, dvd_fieldnames, dvd_records)
+    write(scraped_records, ['resource_name', 'title', 'description', 
+            'description2', 'subject', 'title_source', 'year',
+            'file_size', 'contributor', 'url_for_file', 'asset_name',
+            'period_date', 'digital_format'],'combed.csv')
+
+
+if '__main__' == __name__:
+    main()
