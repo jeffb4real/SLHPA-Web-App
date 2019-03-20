@@ -31,6 +31,15 @@ def add_year(field_text):
     return None
 
 
+def add_year_if_possible(scraped_record, field_name):
+    date = add_year(scraped_record[field_name])
+    if date:
+        scraped_record['year'] = date
+        scraped_record['year_source'] = field_name
+        return True
+    return False
+
+
 def comb(scraped_fieldnames, scraped_records, dvd_fieldnames, dvd_records):
     '''
     Extract year and description if possible.
@@ -40,39 +49,30 @@ def comb(scraped_fieldnames, scraped_records, dvd_fieldnames, dvd_records):
     num_removed_descs = 0
     for key, scraped_record in scraped_records.items():
         dvd_record = dvd_records.get(key)
-        dvd_title = dvd_record['Title']
-        scraped_record['description2'] = dvd_title
+        scraped_record['dvd_title'] = dvd_record['Title']
 
-        # Compare description fields; add description2 if they don't match
-        if ((dvd_title not in scraped_record['description']) and
-            (dvd_title not in scraped_record['title']) and
-            (dvd_title != 'NR') ):
-            scraped_record['description'] = dvd_title
+        # Compare description fields; change description if they don't match
+        if ((scraped_record['dvd_title'] not in scraped_record['description']) and
+            (scraped_record['dvd_title'] not in scraped_record['title']) and
+            (scraped_record['dvd_title'] != 'NR') ):
+            scraped_record['description'] = scraped_record['dvd_title']
             num_descs_found += 1
 
         # Don't keep unuseful descriptions
         if (re.match(r'Vol\.\s+\d+$', scraped_record['description'])):
             scraped_record['description'] = ''
             num_removed_descs += 1
-        if (re.match(r'Vol\.\s+\d+$', scraped_record['description2'])):
-            scraped_record['description2'] = ''
+        if (re.match(r'Vol\.\s+\d+$', scraped_record['dvd_title'])):
+            scraped_record['dvd_title'] = ''
             num_removed_descs += 1
 
-        date = add_year(scraped_record['title'])
-        scraped_record['title_source'] = 'title'
-        if not date:
-            date = add_year(scraped_record['description'])
-            scraped_record['title_source'] = 'description'
-        if not date:
-            date = add_year(scraped_record['description2'])
-            scraped_record['title_source'] = 'description2'
-        if not date:
-            date = add_year(scraped_record['subject'])
-            scraped_record['title_source'] = 'subject'
-        if date:
+        if not add_year_if_possible(scraped_record, 'title'):
+            if not add_year_if_possible(scraped_record, 'description'):
+                if not add_year_if_possible(scraped_record, 'dvd_title'):
+                    if not add_year_if_possible(scraped_record, 'subject'):
+                        scraped_record['year_source'] = '-----'
+        if scraped_record['year_source'] != '-----':
             num_years_found += 1
-        else:
-            scraped_record['title_source'] = '-----'
 
     log("Found and added %d years to new .csv file" % num_years_found)
     log("Added %d descriptions to new .csv file" % num_descs_found)
@@ -135,8 +135,10 @@ def main():
         'V01-V64 Index.csv', prepend_zeros, 'Index Number')
     comb(scraped_fieldnames, scraped_records, dvd_fieldnames, dvd_records)
     remove_fields(scraped_records)
-    write(scraped_records, ['resource_name', 'title', 'description', 
-            'description2', 'subject', 'title_source', 'year'],'combed.csv')
+    write(scraped_records,
+          ['resource_name', 'year_source', 'year',
+           'title', 'description', 'dvd_title', 'subject'],
+          'combed.csv')
 
 
 if '__main__' == __name__:
