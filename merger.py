@@ -29,7 +29,7 @@ def read_from_stream_into_dict(file_name: str, key_function_name: callable, key_
     Read records from file_name into memory. Return a list of column names and a dictionary of records,
     with key ID as hash key.
     """
-    dict = {}
+    the_dict = {}
     count = 0
     fieldnames = None
     with open(file_name, 'r', newline='') as infile:
@@ -39,11 +39,11 @@ def read_from_stream_into_dict(file_name: str, key_function_name: callable, key_
         for record in reader:
             count += 1
             if len(record[key_column_name]) > 0:
-                dict[key_function_name(record[key_column_name])] = record
+                the_dict[key_function_name(record[key_column_name])] = record
     log(str("{: >4d}".format(count)) + ' total records read from ' + file_name)
-    log(str("{: >4d}".format(len(dict))) +
+    log(str("{: >4d}".format(len(the_dict))) +
         ' unique records read from ' + file_name)
-    return fieldnames, dict
+    return fieldnames, the_dict
 
 
 data_dir = 'mysite/slhpa/static/slhpa/data/'
