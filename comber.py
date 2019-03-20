@@ -11,9 +11,6 @@ def log(message):
     print(str(datetime.datetime.now()) + '\t'+ script_name + ': ' + message)
 
 
-data_path = 'mysite/slhpa/static/slhpa/data/'
-
-
 def add_year(field_text):
     '''
     Search title, subject, and description fields for years between 1839 (the
@@ -32,28 +29,6 @@ def add_year(field_text):
         if (filtered_list_of_years):
             return str(max(filtered_list_of_years))
     return None
-
-
-def read_from_stream_into_dict(file_name: str, key_function_name: callable, key_column_name: str) -> [list, dict]:
-    """
-    Read records from file_name into memory. Return a list of column names and a dictionary of records,
-    with key ID as hash key.
-    """
-    the_dict = {}
-    count = 0
-    fieldnames = None
-    with open(data_path + file_name, 'r', newline='') as infile:
-        reader = csv.DictReader(infile, delimiter=',',
-                                quotechar='"', quoting=csv.QUOTE_MINIMAL)
-        fieldnames = reader.fieldnames
-        for record in reader:
-            count += 1
-            if len(record[key_column_name]) > 0:
-                the_dict[key_function_name(record[key_column_name])] = record
-    log(str("{: >4d}".format(count)) + ' total records read from ' + file_name)
-    log(str("{: >4d}".format(len(the_dict))) +
-        ' unique records read from ' + file_name)
-    return fieldnames, the_dict
 
 
 def comb(scraped_fieldnames, scraped_records, dvd_fieldnames, dvd_records):
@@ -107,6 +82,32 @@ def comb(scraped_fieldnames, scraped_records, dvd_fieldnames, dvd_records):
 def prepend_zeros(n):
     """ Reformat the primary key column data in the 'from_dvd' file. """
     return "000" + n + '.pdf'
+
+
+data_path = 'mysite/slhpa/static/slhpa/data/'
+
+
+def read_from_stream_into_dict(file_name: str, key_function_name: callable,
+                                key_column_name: str) -> [list, dict]:
+    """
+    Read records from file_name into memory.
+    Return a list of column names and a dictionary of records,
+    with key ID as hash key.
+    """
+    the_dict = {}
+    count = 0
+    fieldnames = None
+    with open(data_path + file_name, 'r', newline='') as infile:
+        reader = csv.DictReader(infile, delimiter=',',
+                                quotechar='"', quoting=csv.QUOTE_MINIMAL)
+        fieldnames = reader.fieldnames
+        for record in reader:
+            count += 1
+            if len(record[key_column_name]) > 0:
+                the_dict[key_function_name(record[key_column_name])] = record
+    log(str("{: >4d}".format(count)) + ' total records read from ' + file_name)
+    log(str("{: >4d}".format(len(the_dict))) + ' unique records read from ' + file_name)
+    return fieldnames, the_dict
 
 
 def write(records: dict, fieldnames: list, filename: str):
