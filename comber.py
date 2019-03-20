@@ -35,7 +35,6 @@ def add_year_if_possible(scraped_record, field_name):
     date = add_year(scraped_record[field_name])
     if date:
         scraped_record['year'] = date
-        scraped_record['year_source'] = field_name
         return True
     return False
 
@@ -44,9 +43,14 @@ def comb(scraped_fieldnames, scraped_records, dvd_fieldnames, dvd_records):
     '''
     Extract year and description if possible.
     '''
-    num_years_found = 0
     num_descs_found = 0
     num_removed_descs = 0
+
+    years_from_title = 0
+    years_from_dvd_title = 0
+    years_from_description = 0
+    years_from_subject = 0
+
     for key, scraped_record in scraped_records.items():
         dvd_record = dvd_records.get(key)
         scraped_record['dvd_title'] = dvd_record['Title']
@@ -66,17 +70,27 @@ def comb(scraped_fieldnames, scraped_records, dvd_fieldnames, dvd_records):
             scraped_record['dvd_title'] = ''
             num_removed_descs += 1
 
-        if not add_year_if_possible(scraped_record, 'title'):
-            if not add_year_if_possible(scraped_record, 'description'):
-                if not add_year_if_possible(scraped_record, 'dvd_title'):
-                    if not add_year_if_possible(scraped_record, 'subject'):
-                        scraped_record['year_source'] = '-----'
-        if scraped_record['year_source'] != '-----':
-            num_years_found += 1
+        if add_year_if_possible(scraped_record, 'title'):
+            years_from_title += 1
+        else:
+            if add_year_if_possible(scraped_record, 'dvd_title'):
+                years_from_dvd_title += 1
+            else:
+                if add_year_if_possible(scraped_record, 'description'):
+                    years_from_description += 1
+                else:
+                    if add_year_if_possible(scraped_record, 'subject'):
+                         years_from_subject += 1   
 
-    log("Found and added %d years to new .csv file" % num_years_found)
-    log("Added %d descriptions to new .csv file" % num_descs_found)
-    log("Removed %d unuseful descriptions" % num_removed_descs)
+    log(str("{: >4d}".format(years_from_title)) + ' years_from_title')
+    log(str("{: >4d}".format(years_from_dvd_title)) + ' years_from_dvd_title')
+    log(str("{: >4d}".format(years_from_description)) + ' years_from_description')
+    log(str("{: >4d}".format(years_from_subject)) + ' years_from_subject')
+
+    num_years_found = years_from_title + years_from_dvd_title + years_from_description + years_from_subject
+    log(str("{: >4d}".format(num_years_found)) + ' num_years_found')
+    log(str("{: >4d}".format(num_descs_found)) + ' num_descs_found')
+    log(str("{: >4d}".format(num_removed_descs)) + ' num_removed_descs')
 
 
 def prepend_zeros(n):
@@ -121,23 +135,16 @@ def write(records: dict, fieldnames: list, filename: str):
     log(str("{: >4d}".format(len(records))) + ' records written to ' + filename)
 
 
-def remove_fields(scraped_records):
-    for _, scraped_record in scraped_records.items():
-        for s in ['file_size', 'contributor', 'url_for_file', 'asset_name',
-                  'period_date', 'digital_format']:
-            del scraped_record[s]
-
-
 def main():
     scraped_fieldnames, scraped_records = read_from_stream_into_dict(
         'scraped.csv', str, 'resource_name')
     dvd_fieldnames, dvd_records = read_from_stream_into_dict(
         'V01-V64 Index.csv', prepend_zeros, 'Index Number')
     comb(scraped_fieldnames, scraped_records, dvd_fieldnames, dvd_records)
-    remove_fields(scraped_records)
     write(scraped_records,
-          ['resource_name', 'year_source', 'year',
-           'title', 'description', 'dvd_title', 'subject'],
+          ['resource_name', 'year', 'title', 'description', 'dvd_title', 'subject',
+           'contributor', 'url_for_file', 'asset_name', 'period_date', 'file_size',
+           'digital_format'],
           'combed.csv')
 
 
