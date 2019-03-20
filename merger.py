@@ -90,11 +90,11 @@ def write_year_counts(scraped_records: dict):
     fn = data_dir + 'year_counts.tsv'
     with open(fn, 'w', newline='') as out_file:
         # 1839, the invention of photography, and 1980, approx. culmination of the photo archive
-        for y in range(1839, 1981):
+        for y in range(1839, 2019):
             out_file.write(
                 str(y) + '\t' + str(year_counts[y]) + '\t' + str(adjusted_year_counts[y]) + '\n')
             total_count += year_counts[y]
-    log(str("{: >4d}".format(total_count)) + ' year counts written to ' + fn)
+    log(str("{: >4d}".format(total_count)) + ' total years count written to ' + fn)
 
 
 def comb_addresses(scraped_fieldnames: list, scraped_records: dict):
