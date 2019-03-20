@@ -121,16 +121,22 @@ def write(records: dict, fieldnames: list, filename: str):
     log(str("{: >4d}".format(len(records))) + ' records written to ' + filename)
 
 
+def remove_fields(scraped_records):
+    for _, scraped_record in scraped_records.items():
+        for s in ['file_size', 'contributor', 'url_for_file', 'asset_name',
+                  'period_date', 'digital_format']:
+            del scraped_record[s]
+
+
 def main():
     scraped_fieldnames, scraped_records = read_from_stream_into_dict(
         'scraped.csv', str, 'resource_name')
     dvd_fieldnames, dvd_records = read_from_stream_into_dict(
         'V01-V64 Index.csv', prepend_zeros, 'Index Number')
     comb(scraped_fieldnames, scraped_records, dvd_fieldnames, dvd_records)
+    remove_fields(scraped_records)
     write(scraped_records, ['resource_name', 'title', 'description', 
-            'description2', 'subject', 'title_source', 'year',
-            'file_size', 'contributor', 'url_for_file', 'asset_name',
-            'period_date', 'digital_format'],'combed.csv')
+            'description2', 'subject', 'title_source', 'year'],'combed.csv')
 
 
 if '__main__' == __name__:
