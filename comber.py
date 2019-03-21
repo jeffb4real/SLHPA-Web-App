@@ -56,13 +56,6 @@ def comb(scraped_fieldnames, scraped_records, dvd_fieldnames, dvd_records):
         dvd_record = dvd_records.get(key)
         scraped_record['dvd_title'] = dvd_record['Title']
 
-        # Compare description fields; change description if they don't match
-        if ((scraped_record['dvd_title'] not in scraped_record['description']) and
-            (scraped_record['dvd_title'] not in scraped_record['title']) and
-            (scraped_record['dvd_title'] != 'NR') ):
-            scraped_record['description'] = scraped_record['dvd_title']
-            num_descs_found += 1
-
         # Don't keep unuseful descriptions
         if (re.match(r'Vol\.\s+\d+$', scraped_record['description'])):
             scraped_record['description'] = ''
