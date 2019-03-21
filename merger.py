@@ -121,44 +121,80 @@ def comb_addresses(scraped_fieldnames: list, scraped_records: dict):
     # pprint.pprint(addresses_found) # for diagnosing / detailed reporting
 
 
-def comb_years(scraped_fieldnames: list, scraped_records: dict, from_dvd: dict):
-    """
+def add_year(field_text):
+    '''
     Search title, subject, and description fields for years between 1839 (the
     invention of photography) and 1980 (approx. culmination of the photo archive).
-    When multiple valid years are found, use the highest one in the date field.
-    """
-    scraped_fieldnames.append('description2')
-    num_years_found = 0
-    num_descs_found = 0
-    for key, value in scraped_records.items():
-        record_from_dvd = from_dvd.get(key)
-        if record_from_dvd is not None:
-            if value.get('year') is None or len(value['year']) == 0:
-                # Match year(s). Notice this will match ca.1872 but won't match ca1872
-                # Also, will return 1944 if given 1944-45
-                list_of_years = []
-                pattern = r'\b(\d\d\d\d)\b'
-                list_of_years.extend(re.findall(pattern, value['title']))
-                list_of_years.extend(re.findall(pattern, value['subject']))
-                list_of_years.extend(re.findall(pattern, value['description']))
-                if (list_of_years):
-                    filtered_list_of_years = []
-                    for year in list_of_years:
-                        if (int(year) > 1838 and int(year) < 1981):
-                            filtered_list_of_years.append(year)
-                    if (filtered_list_of_years):
-                        value['year'] = str(max(filtered_list_of_years))
-                        num_years_found += 1
+    '''
+    # Match year(s). Notice this will match ca.1872 but won't match ca1872.
+    # Also, will return 1944 if given 1944-45.
+    pattern = r'\b(\d\d\d\d)\b'
+    pattern2 = r'ca(\d\d\d\d)\b'
 
-            # Compare description fields; add description from DVD if they don't match
-            title_from_dvd = record_from_dvd['Title']
-            if ((title_from_dvd not in value['description']) and
-                (title_from_dvd not in value['title']) and
-                    (title_from_dvd != 'NR')):
-                value['description2'] = title_from_dvd
-                num_descs_found += 1
-    log("{: >4d}".format(num_years_found) + ' years added.')
-    log("{: >4d}".format(num_descs_found) + ' descriptions added.')
+    list_of_years = re.findall(pattern, field_text)
+    if (list_of_years):
+        filtered_list_of_years = []
+        for year in list_of_years:
+            if (int(year) > 1838 and int(year) < 2019):
+                filtered_list_of_years.append(year)
+        if (filtered_list_of_years):
+            return str(max(filtered_list_of_years))
+    return None
+
+
+def add_year_if_possible(scraped_record, field_name):
+    date = add_year(scraped_record[field_name])
+    if date:
+        scraped_record['year'] = date
+        return True
+    return False
+
+
+def comb(scraped_fieldnames, scraped_records, dvd_fieldnames, dvd_records):
+    '''
+    Extract year and description if possible.
+    '''
+    num_descs_found = 0
+    num_removed_descs = 0
+
+    years_from_title = 0
+    years_from_dvd_title = 0
+    years_from_description = 0
+    years_from_period_date = 0
+
+    for key, scraped_record in scraped_records.items():
+        dvd_record = dvd_records.get(key)
+        scraped_record['dvd_title'] = dvd_record['Title']
+
+        # Don't keep unuseful descriptions
+        if (re.match(r'Vol\.\s+\d+$', scraped_record['description'])):
+            scraped_record['description'] = ''
+            num_removed_descs += 1
+        if (re.match(r'Vol\.\s+\d+$', scraped_record['dvd_title'])):
+            scraped_record['dvd_title'] = ''
+            num_removed_descs += 1
+
+        if add_year_if_possible(scraped_record, 'period_date'):
+            years_from_period_date += 1
+        else:
+            if add_year_if_possible(scraped_record, 'title'):
+                years_from_title += 1
+            else:
+                if add_year_if_possible(scraped_record, 'dvd_title'):
+                    years_from_dvd_title += 1
+                else:
+                    if add_year_if_possible(scraped_record, 'description'):
+                        years_from_description += 1
+
+    log(str("{: >4d}".format(years_from_period_date)) + ' years_from_period_date')
+    log(str("{: >4d}".format(years_from_title)) + ' years_from_title')
+    log(str("{: >4d}".format(years_from_dvd_title)) + ' years_from_dvd_title')
+    log(str("{: >4d}".format(years_from_description)) + ' years_from_description')
+
+    num_years_found = years_from_title + years_from_dvd_title + years_from_description
+    log(str("{: >4d}".format(num_years_found)) + ' num_years_found')
+    log(str("{: >4d}".format(num_descs_found)) + ' num_descs_found')
+    log(str("{: >4d}".format(num_removed_descs)) + ' num_removed_descs')
 
 
 def merge_one_file(scraped_fieldnames: list, scraped_records: dict, source_filename: str, key_function: callable, key_column_name: list) -> dict:
@@ -197,14 +233,15 @@ def main():
     scraped_fieldnames, scraped_records = read_from_stream_into_dict(
         data_dir + 'scraped.csv', str, 'resource_name')
     scraped_fieldnames.append('geo_coord_UTM')
+    dvd_fieldnames, dvd_records = read_from_stream_into_dict(
+                    data_dir + 'V01-V64 Index.csv', prepend_zeros, 'Index Number')
+    comb(scraped_fieldnames, scraped_records, dvd_fieldnames, dvd_records)
+    scraped_fieldnames.append('dvd_title')
     merge_one_file(scraped_fieldnames, scraped_records,
                    data_dir + 'manually_verified.csv', str, 'resource_name')
     merge_one_file(scraped_fieldnames, scraped_records,
                    data_dir + 'transcribed.csv', number_to_pdf, 'resource_number')
-    dvd_records = merge_one_file(scraped_fieldnames, scraped_records,
-                                  data_dir + 'V01-V64 Index.csv', prepend_zeros, 'Index Number')
     scraped_records['00000152.pdf']['description'] = 'Early farmers in San Leandro take produce to market, 1890.'
-    comb_years(scraped_fieldnames, scraped_records, dvd_records)
     comb_addresses(scraped_fieldnames, scraped_records)
     write(scraped_records, scraped_fieldnames)
     write_year_counts(scraped_records)
