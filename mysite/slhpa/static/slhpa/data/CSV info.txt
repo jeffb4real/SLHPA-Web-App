@@ -16,10 +16,10 @@ combed.csv:
 resource_name   year    title   description dvd_title   subject contributor url_for_file    asset_name  period_date file_size   digital_format
 
 merged.csv:
-resource_name	asset_name	file_size	title	subject	description	contributor	period_date	digital_format	url_for_file	geo_coord_UTM	verified_gps_coords	resource_number	year	geo_coord_original	paper_page_number	source_index	Index Number	Volume	Title	Notes	description2	address
+resource_name	asset_name	file_size	title	subject	description	contributor	period_date	digital_format	url_for_file	geo_coord_UTM	verified_gps_coords	resource_number	year	geo_coord_original	paper_page_number	source_index	address
 
 transformed.csv:
-resource_name	asset_name	file_size	title	subject	description	contributor	period_date	digital_format	url_for_file	geo_coord_UTM	verified_gps_coords	resource_number	year	geo_coord_original	paper_page_number	source_index	Index Number	Volume	Title	Notes	description2	address
+resource_name	asset_name	file_size	title	subject	description	contributor	period_date	digital_format	url_for_file	geo_coord_UTM	verified_gps_coords	resource_number	year	geo_coord_original	paper_page_number	source_index	address
 
 ----
 transcribed.csv:
