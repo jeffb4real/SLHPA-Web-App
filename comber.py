@@ -19,6 +19,7 @@ def add_year(field_text):
     # Match year(s). Notice this will match ca.1872 but won't match ca1872.
     # Also, will return 1944 if given 1944-45.
     pattern = r'\b(\d\d\d\d)\b'
+    pattern2 = r'ca(\d\d\d\d)\b'
 
     list_of_years = re.findall(pattern, field_text)
     if (list_of_years):
@@ -49,7 +50,7 @@ def comb(scraped_fieldnames, scraped_records, dvd_fieldnames, dvd_records):
     years_from_title = 0
     years_from_dvd_title = 0
     years_from_description = 0
-    years_from_subject = 0
+    years_from_period_date = 0
 
     for key, scraped_record in scraped_records.items():
         dvd_record = dvd_records.get(key)
@@ -70,24 +71,24 @@ def comb(scraped_fieldnames, scraped_records, dvd_fieldnames, dvd_records):
             scraped_record['dvd_title'] = ''
             num_removed_descs += 1
 
-        if add_year_if_possible(scraped_record, 'title'):
-            years_from_title += 1
+        if add_year_if_possible(scraped_record, 'period_date'):
+            years_from_period_date += 1
         else:
-            if add_year_if_possible(scraped_record, 'dvd_title'):
-                years_from_dvd_title += 1
+            if add_year_if_possible(scraped_record, 'title'):
+                years_from_title += 1
             else:
-                if add_year_if_possible(scraped_record, 'description'):
-                    years_from_description += 1
+                if add_year_if_possible(scraped_record, 'dvd_title'):
+                    years_from_dvd_title += 1
                 else:
-                    if add_year_if_possible(scraped_record, 'subject'):
-                         years_from_subject += 1   
+                    if add_year_if_possible(scraped_record, 'description'):
+                        years_from_description += 1
 
+    log(str("{: >4d}".format(years_from_period_date)) + ' years_from_period_date')
     log(str("{: >4d}".format(years_from_title)) + ' years_from_title')
     log(str("{: >4d}".format(years_from_dvd_title)) + ' years_from_dvd_title')
     log(str("{: >4d}".format(years_from_description)) + ' years_from_description')
-    log(str("{: >4d}".format(years_from_subject)) + ' years_from_subject')
 
-    num_years_found = years_from_title + years_from_dvd_title + years_from_description + years_from_subject
+    num_years_found = years_from_title + years_from_dvd_title + years_from_description
     log(str("{: >4d}".format(num_years_found)) + ' num_years_found')
     log(str("{: >4d}".format(num_descs_found)) + ' num_descs_found')
     log(str("{: >4d}".format(num_removed_descs)) + ' num_removed_descs')
