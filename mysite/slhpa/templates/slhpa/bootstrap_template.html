@@ -52,27 +52,31 @@
         {% block body %}
 
         <h3>{% block title %}San Leandro Historical Photo Archive [preliminary]{% endblock %}</h3>
-        <br>
-        <small>
-            Total photo records: {{ stats.total }}<br>
-            Photo records per page: {{ stats.records_per_page }}<br>
-        </small>
         <br><br>
-        <div class="row">
+        <div class="row" style="text-align:right">
             {% if filter %}
-            <div class="col-sm-10">
+            <div class="col-sm-10 table-bordered">
                 <form action="" method="get" class="form form-inline">
                     {% bootstrap_form filter.form layout='inline' %}
                     {% bootstrap_button 'Search' %}
                     <a class="btn btn-default" href="/slhpa/?page=1">Reset</a>
-                    <small>
-                        <br>Search matches: {{ stats.filtered }}
-                    </small>
+                    <small><br>Search matches: {{ stats.filtered }} / {{ stats.total }} records</small>
+                </form>
+                <form action="" method="get" class="form form-inline">
+                    <div style="text-align:right">
+                        <select>
+                            <option value="10">10 Records per page</option>
+                            <option value="25">25 Records per page</option>
+                            <option value="50">50 Records per page</option>
+                            <option value="100">100 Records per page</option>
+                            <option value="{{ stats.total }}">{{ stats.total }} Records per page</option>
+                        </select>
+                    </div>
                 </form>
                 <br>
             </div>
             {% endif %}
-            <div class="col-sm-10 table-bordered">
+            <div class="col-sm-10 table-bordered" style="text-align:left">
                 {% render_table table %}
             </div>
         </div>
