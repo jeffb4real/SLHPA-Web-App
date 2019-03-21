@@ -191,7 +191,7 @@ def comb(scraped_fieldnames, scraped_records, dvd_fieldnames, dvd_records):
     log(str("{: >4d}".format(years_from_dvd_title)) + ' years_from_dvd_title')
     log(str("{: >4d}".format(years_from_description)) + ' years_from_description')
 
-    num_years_found = years_from_title + years_from_dvd_title + years_from_description
+    num_years_found = years_from_period_date + years_from_title + years_from_dvd_title + years_from_description
     log(str("{: >4d}".format(num_years_found)) + ' num_years_found')
     log(str("{: >4d}".format(num_descs_found)) + ' num_descs_found')
     log(str("{: >4d}".format(num_removed_descs)) + ' num_removed_descs')
