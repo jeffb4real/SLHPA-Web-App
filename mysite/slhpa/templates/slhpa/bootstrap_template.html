@@ -63,7 +63,11 @@
                     {% bootstrap_form filter.form layout='inline' %}
                     {% bootstrap_button 'Search' %}
                     <a class="btn btn-default" href="/slhpa/?page=1">Reset</a>
-                    <small><br>Search matches: {{ stats.filtered }} / {{ stats.total }} records</small>
+                    <br>
+                    <small>
+                        <span style="color:#ff0000">Search matches: {{ stats.filtered }} / {{ stats.total }}
+                            records</span>
+                    </small>
                 </form>
                 <br>
                 <form action="" method="get" class="form form-inline">
