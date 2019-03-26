@@ -52,7 +52,7 @@ class List(SingleTableMixin, FilterView):
         return context
 
 
-def index(request):
+def list_all(request):
     photo_list = PhotoRecord.objects.order_by(F('year').asc(nulls_last=True))
 
     stats = {}
@@ -100,7 +100,7 @@ def handle_uploaded_file(resource_name, f):
             destination.write(chunk)
 
 
-def bound_form(request, id):
+def edit(request, id):
     photo = get_object_or_404(PhotoRecord, resource_name=id)
     if request.method == 'POST':
         form = EditPhotoMetadataForm(request.POST)
