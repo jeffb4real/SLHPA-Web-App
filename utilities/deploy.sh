@@ -23,9 +23,14 @@ done
 
 rm -rf static/                                                              ; if [ $? -ne 0 ] ; then exit -6 ; fi
 python manage.py collectstatic                                              ; if [ $? -ne 0 ] ; then exit -6 ; fi
-echo "Now run the following command in a CMD shell:"
-echo "gcloud app deploy"
-read -p "Press any key to continue after deploy finishes... " -n1 -s
+if [ "$WINDIR" = "" ] ; then
+    gcloud app deploy                                                       ; if [ $? -ne 0 ] ; then exit -6 ; fi
+else
+    echo "Now run the following command in a CMD shell:"
+    echo "cd Documents\Github\SLHPA-Web-App\\"
+    echo "gcloud app deploy"
+    read -p "Press any key to continue after deploy finishes... " -n1 -s
+fi
 
 # TODO : how to run 'python manage.py migrate' on GCP server?
 
