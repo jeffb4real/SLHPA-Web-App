@@ -14,7 +14,7 @@ sed -i'.bak' 's/ALLOW_EDIT = True/ALLOW_EDIT = False/' mysite/settings.py   ; if
 # TODO : ...and run Django with insecure flag
 
 for t in hr lr mr ; do
-    mv slhpa/static/slhpa/images/photos/${t}/ $TMP/                         ; if [ $? -ne 0 ] ; then exit -6 ; fi
+    mv slhpa/static/slhpa/images/photos/${t}/ $TMP/                         # ignore failures
 done
 
 python manage.py collectstatic                                              ; if [ $? -ne 0 ] ; then exit -6 ; fi
@@ -26,7 +26,7 @@ read -p "Press any key to continue after deploy finishes... " -n1 -s
 
 # Now restore repository state
 for t in hr lr mr; do
-    mv $TMP/${t} slhpa/static/slhpa/images/photos/                          ; if [ $? -ne 0 ] ; then exit -6 ; fi
+    mv $TMP/${t} slhpa/static/slhpa/images/photos/                          # ignore failures
 done
 sed -i'.bak' 's/DEBUG = False/DEBUG = True/' mysite/settings.py             ; if [ $? -ne 0 ] ; then exit -6 ; fi
 sed -i'.bak' 's/ALLOW_EDIT = False/ALLOW_EDIT = True/' mysite/settings.py   ; if [ $? -ne 0 ] ; then exit -6 ; fi
