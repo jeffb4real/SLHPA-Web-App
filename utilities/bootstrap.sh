@@ -13,7 +13,8 @@ python -m venv venv                                     ; if [ $? -ne 0 ] ; then
 if [ "$WINDIR" = "" ] ; then
     source venv/bin/activate                            ; if [ $? -ne 0 ] ; then exit -6 ; fi
 else
-    venv/Scripts/activate                               ; if [ $? -ne 0 ] ; then exit -6 ; fi
+    echo "Still issues to be worked out in git bash on windows."
+    # venv/Scripts/activate                               ; if [ $? -ne 0 ] ; then exit -6 ; fi
 fi
 
 pip install -r requirements.txt                         ; if [ $? -ne 0 ] ; then exit -6 ; fi
