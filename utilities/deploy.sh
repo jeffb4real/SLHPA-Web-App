@@ -22,6 +22,8 @@ echo "Now run the following command in a CMD shell:"
 echo "gcloud app deploy"
 read -p "Press any key to continue after deploy finishes... " -n1 -s
 
+# TODO : how to run 'python manage.py migrate' on GCP server?
+
 # Now restore repository state
 for t in hr lr mr; do
     mv $TMP/${t} slhpa/static/slhpa/images/photos/                          ; if [ $? -ne 0 ] ; then exit -6 ; fi
