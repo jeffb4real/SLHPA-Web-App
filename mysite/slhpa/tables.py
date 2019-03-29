@@ -11,7 +11,7 @@ class PhotoTable(tables.Table):
 
     # Customize column names
     url_for_file = tables.Column(verbose_name="Photo")
-    resource_name = tables.Column(verbose_name="Picture Identifier")
+    resource_name = tables.Column(verbose_name="Photo Identifier")
 
     # https://django-tables2.readthedocs.io/en/latest/pages/custom-data.html?highlight=bound_column
     # # Table.render_foo methods
