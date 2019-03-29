@@ -27,7 +27,7 @@ if [ "$WINDIR" = "" ] ; then
     gcloud app deploy                                                       ; if [ $? -ne 0 ] ; then exit -6 ; fi
 else
     echo "Now run the following command in a CMD shell:"
-    echo "cd Documents\Github\SLHPA-Web-App\\"
+    echo "cd Documents\Github\SLHPA-Web-App\mysite\"
     echo "gcloud app deploy"
     read -p "Press any key to continue after deploy finishes... " -n1 -s
 fi
