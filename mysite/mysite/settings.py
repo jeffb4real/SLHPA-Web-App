@@ -25,7 +25,7 @@ SECRET_KEY = 'o5hqyh3p^oeh1*!e8kvz97(0cc!d!-pc!w*$6e1*h5s1nmz9zt'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['slhpa-01.appspot.com']
 
 # By convention DjangoTemplates looks for a “templates” subdirectory
 # in each of the INSTALLED_APPS.
