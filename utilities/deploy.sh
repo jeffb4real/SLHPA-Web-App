@@ -1,4 +1,4 @@
-# Deploy to Google Cloud Platform.
+# Deploy to Google Cloud Platform. Needs more work.
 set -x 
 
 if [ "$TMP" = "" ] ; then
@@ -23,6 +23,14 @@ sed -i 's/ALLOW_EDIT = True/ALLOW_EDIT = False/' mysite/settings.py         ; if
 
 rm -rf static/                                                              ; if [ $? -ne 0 ] ; then exit -6 ; fi
 python manage.py collectstatic                                              ; if [ $? -ne 0 ] ; then exit -6 ; fi
+
+# When running locally, the photos need to be in SLHPA-Web-App/mysite/slhpa/static/slhpa/images/photos/1..3.
+# However, in GCP they need to be in SLHPA-Web-App/mysite/static/slhpa/static/slhpa/images//photos/1..3.
+# Unclear why this is. To avoid uploading two copies of each photo,
+# must temporarily (manually for now) move SLHPA-Web-App/mysite/slhpa/static/slhpa/images/photos/ into a temp location,
+# and then back after deployment.
+
+Temporarily move the photos/ directory out of the repository directory.
 if [ "$WINDIR" = "" ] ; then
     gcloud app deploy                                                       ; if [ $? -ne 0 ] ; then exit -6 ; fi
 else
