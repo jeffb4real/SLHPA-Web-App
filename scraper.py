@@ -234,8 +234,13 @@ def scan(more_pages):
     next_pages = []
     skipped_records = []
 
-    # Open Chrome
-    driver = webdriver.Chrome()
+    # Open browser
+    driver = None
+    try:
+        driver = webdriver.Chrome()
+    except:
+        driver = webdriver.Firefox()
+
     # Implicit wait - tells web driver to poll the DOM for specified time;
     # wait is set for duration of web driver object.
     driver.implicitly_wait(2)
