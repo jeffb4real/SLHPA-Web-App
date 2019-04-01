@@ -25,7 +25,7 @@ SECRET_KEY = 'o5hqyh3p^oeh1*!e8kvz97(0cc!d!-pc!w*$6e1*h5s1nmz9zt'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['slhpa-01.appspot.com', '127.0.0.1']
+ALLOWED_HOSTS = ['slhpa-03.appspot.com', '127.0.0.1']
 
 # By convention DjangoTemplates looks for a “templates” subdirectory
 # in each of the INSTALLED_APPS.
@@ -139,4 +139,4 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = 'static'
 # ??? STATIC_ROOT = 'mysite/slhpa/static'
-ALLOW_EDIT = True
+ALLOW_EDIT = False
