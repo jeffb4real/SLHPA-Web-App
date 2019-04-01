@@ -138,5 +138,4 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = 'static'
-# ??? STATIC_ROOT = 'mysite/slhpa/static'
-ALLOW_EDIT = False
+ALLOW_EDIT = True
