@@ -1,19 +1,21 @@
 import csv
 import os
 import time
+
 from django.conf import settings
 from django.db import transaction
 from django.db.models import F
-from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render, render_to_response, get_object_or_404
+from django.http import HttpResponse, HttpResponseRedirect, HttpResponseNotFound
+from django.shortcuts import get_object_or_404, render, render_to_response
 from django.template import loader
 from django.urls import reverse
 from django.views import generic
 from django_filters.views import FilterView
-from django_tables2 import SingleTableMixin, RequestConfig
+from django_tables2 import RequestConfig, SingleTableMixin
+
 from .filters import PhotoFilter
-from .forms import EditPhotoMetadataForm, AddPhotoMetadataForm
-from .models import PhotoRecord, KeyValueRecord
+from .forms import AddPhotoMetadataForm, EditPhotoMetadataForm
+from .models import KeyValueRecord, PhotoRecord
 from .tables import PhotoTable
 from .templatetags.photodir import getdir
 
@@ -100,7 +102,13 @@ def handle_uploaded_file(resource_name, f):
             destination.write(chunk)
 
 
+def can_edit(request):
+    return settings.ALLOW_EDIT or request.user.is_authenticated
+
+
 def edit(request, id):
+    if not can_edit(request):
+        return HttpResponseNotFound("Unavailable")
     photo = get_object_or_404(PhotoRecord, resource_name=id)
     if request.method == 'POST':
         form = EditPhotoMetadataForm(request.POST)
@@ -136,6 +144,9 @@ def add(request):
         record.save()
         return current_name
 
+    if not can_edit(request):
+        return HttpResponseNotFound("Unavailable")
+
     if request.method == 'POST':
         form = AddPhotoMetadataForm(request.POST, request.FILES)
         if form.is_valid():
@@ -161,7 +172,7 @@ class DetailView(generic.DetailView):
 
     def get_context_data(self, **kwargs):          
         context = super().get_context_data(**kwargs)                     
-        context["allow_edit"] = settings.ALLOW_EDIT
+        context["allow_edit"] = can_edit(self.request)
         return context
 
 
@@ -241,6 +252,8 @@ def do_loaddb(request, import_filename):
 
 
 def loaddb(request, import_filename):
+    if not can_edit(request):
+        return HttpResponseNotFound("Unavailable")
     message = do_loaddb(request, import_filename)
     rows_in_table = PhotoRecord.objects.all().count()
     message = message + ', rows_in_table: ' + str(rows_in_table)
@@ -265,6 +278,9 @@ def export(request, export_filename):
         dict['year'] = photo_record.year
         return dict
 
+    if not can_edit(request):
+        return HttpResponseNotFound("Unavailable")
+
     start = time.time()
     path_to_file = settings.BASE_DIR + \
         '/slhpa/static/slhpa/data/' + export_filename + '.csv'
@@ -287,6 +303,9 @@ def datafile(request, filename):
     """
     Put data file into minimal html and return it.
     """
+    if not can_edit(request):
+        return HttpResponseNotFound("Unavailable")
+
     path_to_file = settings.BASE_DIR + '/slhpa/static/slhpa/data/' + filename
     data = ''
     with open(path_to_file) as f:

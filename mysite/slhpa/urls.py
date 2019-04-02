@@ -9,14 +9,13 @@ urlpatterns = [
     path('detail/<str:pk>/', views.DetailView.as_view(), name='detail'),
     path('data/<str:filename>', views.datafile, name='data_file'),
     path('hello', views.hello, name='hello'),
-]
-
-if settings.ALLOW_EDIT:
-    urlpatterns.append(path('compare/<str:resource_name>/', views.photo_compare, name='compare'))
-    urlpatterns.append(path('edit/<str:id>/', views.edit, name='edit'))
-    urlpatterns.append(path('add/', views.add, name='add'))
+    path('edit/<str:id>/', views.edit, name='edit'),
+    path('add/', views.add, name='add'),
 
     # 'import' is a reserved word, can't do views.import .
-    urlpatterns.append(path('import/<str:import_filename>', views.loaddb, name='loaddb'))
-    urlpatterns.append(path('export/<str:export_filename>', views.export, name='export'))
+    path('import/<str:import_filename>', views.loaddb, name='loaddb'),
+    path('export/<str:export_filename>', views.export, name='export'),
+    path('compare/<str:resource_name>/', views.photo_compare, name='compare'),
+]
+
 
