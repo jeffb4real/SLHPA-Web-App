@@ -16,7 +16,7 @@ fi
 
 python -m venv venv                                     ; if [ $? -ne 0 ] ; then exit -6 ; fi
 source venv/bin/activate                                ; if [ $? -ne 0 ] ; then exit -6 ; fi
-pip install -r requirements.txt                         ; if [ $? -ne 0 ] ; then exit -6 ; fi
+pip install -r mysite/requirements.txt                  ; if [ $? -ne 0 ] ; then exit -6 ; fi
 
 ./run-pipeline.sh                                       ; if [ $? -ne 0 ] ; then exit -6 ; fi
 cd mysite                                               ; if [ $? -ne 0 ] ; then exit -6 ; fi
