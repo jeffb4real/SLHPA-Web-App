@@ -43,8 +43,6 @@ from django.urls import include, path
 # It finds the variable named urlpatterns and traverses the patterns in order.
 #
 urlpatterns = [
-    path('polls/', include('polls.urls')),
     path('slhpa/', include('slhpa.urls')),
-    #url(r'^people/', people),
     path('admin/', admin.site.urls),
 ]

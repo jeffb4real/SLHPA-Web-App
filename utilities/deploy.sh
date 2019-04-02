@@ -30,7 +30,6 @@ python manage.py collectstatic                                              ; if
 # must temporarily (manually for now) move SLHPA-Web-App/mysite/slhpa/static/slhpa/images/photos/ into a temp location,
 # and then back after deployment.
 
-Temporarily move the photos/ directory out of the repository directory.
 if [ "$WINDIR" = "" ] ; then
     gcloud app deploy                                                       ; if [ $? -ne 0 ] ; then exit -6 ; fi
 else
