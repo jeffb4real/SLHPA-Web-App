@@ -29,10 +29,8 @@ class List(SingleTableMixin, FilterView):
     template_name = "slhpa/bootstrap_template.html"
     filterset_class = PhotoFilter
 
-    # TODO: allow user control of records_per_page
-    records_per_page = 2526 # All
+    # Custom vars (not part of django or django_tables2)
     records_per_page = 10
-    table_pagination = {"per_page": records_per_page}
 
     def get_queryset(self):
         return super(List, self).get_queryset()
@@ -52,6 +50,10 @@ class List(SingleTableMixin, FilterView):
             stats['records_per_page'] = 'All'
         context["stats"] = stats
         return context
+
+    # See: django_tables2/views.py -> class (SingleTableMixin)
+    def get_table_pagination(self, table):
+        return {"per_page": self.records_per_page}
 
 
 def list_all(request):
