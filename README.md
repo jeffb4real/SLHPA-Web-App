@@ -38,7 +38,7 @@ This project was created with Python 3.7.x, with the addition of these modules:
 
 These modules can be installed all at once either by using `bootstrap.sh` (mentioned above) or by `pip` installing the included requirements.txt, e.g.:
 
-            ~/SLHPA-Web-App $ pip install -r requirements.txt
+            ~/SLHPA-Web-App $ pip install -r mysite/requirements.txt
 
 ## Data Gathering Tools
 
