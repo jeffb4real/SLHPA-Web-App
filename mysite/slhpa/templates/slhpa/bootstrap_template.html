@@ -20,7 +20,7 @@
     </script>
 
     <style>
-        <a>#main_img {
+        a#main_img {
             width: 200px;
             margin: 20px;
             cursor: default;
@@ -42,8 +42,6 @@
             left: 0px;
             z-index: 0;
         }
-
-        </a>
     </style>
     <div class="container">
         <h3>
@@ -59,24 +57,19 @@
         <div class="row" style="text-align:right">
             {% if filter %}
             <div class="col-sm-10 table-bordered">
-                <form action="" method="get" class="form form-inline">
+                <form action="" method="GET" class="form form-inline">
                     {% bootstrap_form filter.form layout='inline' %}
                     {% bootstrap_button 'Search' %}
                     <a class="btn btn-default" href="/slhpa/?page=1">Reset</a>
                     <br>
-                    <small>
-                        <span style="color:#ff0000">Search matches: {{ stats.filtered }} / {{ stats.total }}
-                            records</span>
-                    </small>
+                    <span style="color:#ff0000">Search matches: {{ stats.filtered }} / {{ stats.total }}
+                        records</span>
                 </form>
                 <br>
-                <form action="" method="get" enctype="multipart/form-data">
+                <form action="" method="GET" enctype="multipart/form-data">
                     {% csrf_token %}
-                    <table>
-                        {{ form.as_table }}
-                    </table>
+                    {{ form }}
                     <br>
-                    <input class="btn btn-default" type="submit" value="Select">
                 </form>
                 <br>
             </div>

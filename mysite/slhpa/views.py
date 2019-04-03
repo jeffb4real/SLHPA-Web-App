@@ -45,9 +45,6 @@ class List(SingleTableMixin, FilterView):
         stats['total'] = PhotoRecord.objects.all().count()
         stats['filtered'] = len(context['photorecord_list'])
         stats['records_per_page'] = self.records_per_page
-        # Photo archive original size is 2526 records.
-        if (stats['records_per_page'] > 2525):
-            stats['records_per_page'] = 'All'
         context["stats"] = stats
         context["form"] = RecordsPerPageForm(initial={'records_per_page': str(self.records_per_page)})
         return context

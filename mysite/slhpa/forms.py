@@ -18,7 +18,11 @@ class RecordsPerPageForm(forms.Form):
         ('100', '100'),
         (str(PhotoRecord.objects.all().count()), 'All'),
     )
-    records_per_page = forms.ChoiceField(choices=per_page_choices)
+    # How to submit form upon change:
+    # https://stackoverflow.com/questions/7231157/how-to-submit-form-on-change-of-dropdown-list
+    # https://stackoverflow.com/questions/23943671/django-submit-form-on-change
+    records_per_page = forms.ChoiceField(choices=per_page_choices,
+                                         widget=forms.Select(attrs={'onchange': 'this.form.submit()'}))
 
 
 class EditPhotoMetadataForm(forms.ModelForm):
