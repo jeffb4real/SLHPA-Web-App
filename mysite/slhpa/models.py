@@ -38,6 +38,7 @@ class PhotoRecord(models.Model):
     verified_gps_coords = models.CharField(max_length=100, null=True)
     year = models.IntegerField(null=True)
 
+    # For a given record, enable return to the site's detail view from admin page.
     def get_absolute_url(self):
         return "/slhpa/detail/" + self.resource_name
 
