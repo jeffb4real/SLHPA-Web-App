@@ -12,13 +12,13 @@ max_longitude = 38.0
 class RecordsPerPageForm(forms.Form):
     # https://stackoverflow.com/questions/8859504/django-form-dropdown-list-of-numbers
     per_page_choices = (
-        ('10', '10'),
-        ('25', '25'),
-        ('50', '50'),
-        ('100', '100'),
-        ('All', '2526'),
+        ('10', 10),
+        ('25', 25),
+        ('50', 50),
+        ('100', 100),
+        ('All', 2526),
     )
-    forms.ChoiceField(choices=per_page_choices)
+    records_per_page = forms.ChoiceField(choices=per_page_choices)
 
 
 class EditPhotoMetadataForm(forms.ModelForm):

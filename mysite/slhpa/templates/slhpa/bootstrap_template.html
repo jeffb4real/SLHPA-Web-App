@@ -70,16 +70,13 @@
                     </small>
                 </form>
                 <br>
-                <form action="" method="get" class="form form-inline">
-                    <div style="text-align:right">
-                        <select>
-                            <option value="10">10 Records per page</option>
-                            <option value="25">25 Records per page</option>
-                            <option value="50">50 Records per page</option>
-                            <option value="100">100 Records per page</option>
-                            <option value="{{ stats.total }}">{{ stats.total }} Records per page</option>
-                        </select>
-                    </div>
+                <form action="" method="get" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <table>
+                        {{ form.as_table }}
+                    </table>
+                    <br>
+                    <input class="btn btn-default" type="submit" value="Select">
                 </form>
                 <br>
             </div>

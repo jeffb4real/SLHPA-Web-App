@@ -16,4 +16,5 @@ class PhotoFilter(filters.FilterSet):
             "description": ["contains"],
             "subject": ["contains"],
             "year": ["exact"],
+            # "year": ["exact", "range"],
         }

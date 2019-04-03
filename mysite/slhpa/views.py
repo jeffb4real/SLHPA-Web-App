@@ -14,7 +14,7 @@ from django_filters.views import FilterView
 from django_tables2 import RequestConfig, SingleTableMixin
 
 from .filters import PhotoFilter
-from .forms import AddPhotoMetadataForm, EditPhotoMetadataForm
+from .forms import AddPhotoMetadataForm, EditPhotoMetadataForm, RecordsPerPageForm
 from .models import KeyValueRecord, PhotoRecord
 from .tables import PhotoTable
 from .templatetags.photodir import getdir
@@ -49,10 +49,13 @@ class List(SingleTableMixin, FilterView):
         if (stats['records_per_page'] > 2525):
             stats['records_per_page'] = 'All'
         context["stats"] = stats
+        context["form"] = RecordsPerPageForm()
         return context
 
     # See: django_tables2/views.py -> class (SingleTableMixin)
     def get_table_pagination(self, table):
+        if self.request.GET.get('records_per_page'):
+            self.records_per_page = int(self.request.GET['records_per_page'])
         return {"per_page": self.records_per_page}
 
 
