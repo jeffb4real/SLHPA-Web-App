@@ -39,8 +39,8 @@ class List(SingleTableMixin, FilterView):
     def get_table_kwargs(self):
         return {"template_name": "django_tables2/bootstrap.html"}
 
-    def get_context_data(self, **kwargs):          
-        context = super().get_context_data(**kwargs)                     
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
         stats = {}
         stats['total'] = PhotoRecord.objects.all().count()
         stats['filtered'] = len(context['photorecord_list'])
@@ -49,7 +49,7 @@ class List(SingleTableMixin, FilterView):
         if (stats['records_per_page'] > 2525):
             stats['records_per_page'] = 'All'
         context["stats"] = stats
-        context["form"] = RecordsPerPageForm()
+        context["form"] = RecordsPerPageForm(initial={'records_per_page': str(self.records_per_page)})
         return context
 
     # See: django_tables2/views.py -> class (SingleTableMixin)
@@ -99,7 +99,7 @@ def load_photo_record(photo, form):
 
 def handle_uploaded_file(resource_name, f):
     dir = getdir(resource_name) + '/'
-    path = settings.BASE_DIR + '/slhpa/static/slhpa/images/photos/' + dir 
+    path = settings.BASE_DIR + '/slhpa/static/slhpa/images/photos/' + dir
     if not os.path.exists(path):
         os.mkdir(path)
     with open(path + resource_name + '.jpg', 'wb+') as destination:
@@ -175,8 +175,8 @@ class DetailView(generic.DetailView):
     model = PhotoRecord
     template_name = 'slhpa/detail.html'
 
-    def get_context_data(self, **kwargs):          
-        context = super().get_context_data(**kwargs)                     
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
         context["allow_edit"] = can_edit(self.request)
         return context
 
@@ -324,7 +324,7 @@ def photo_compare(request, resource_name):
     Show same photo at different resolutions.
     """
     photo = get_object_or_404(PhotoRecord, resource_name=resource_name)
-    return render(request, 'slhpa/photo_compare.html', {'photo': photo,})
+    return render(request, 'slhpa/photo_compare.html', {'photo': photo, })
 
 def hello(request):
     return HttpResponse("Hullo Wurld.")
