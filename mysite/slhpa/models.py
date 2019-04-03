@@ -13,6 +13,7 @@ from django.db import models
 # Title
 # Volume
 
+
 class PhotoRecord(models.Model):
     address = models.CharField(max_length=100, null=True)
     contributor = models.CharField(max_length=1000, null=True)
@@ -37,9 +38,13 @@ class PhotoRecord(models.Model):
     verified_gps_coords = models.CharField(max_length=100, null=True)
     year = models.IntegerField(null=True)
 
+    def get_absolute_url(self):
+        return "/slhpa/detail/" + self.resource_name
+
     # This should show enough information in the debugger, admin console, etc.
     def __str__(self):
         return self.resource_name + " : " + self.title
+
 
 class KeyValueRecord(models.Model):
     key = models.CharField(max_length=50, primary_key=True)
