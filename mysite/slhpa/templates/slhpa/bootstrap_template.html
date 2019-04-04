@@ -64,10 +64,7 @@
                     <br>
                     <span style="color:#ff0000">Search matches: {{ stats.filtered }} / {{ stats.total }}
                         records</span>
-                </form>
-                <br>
-                <form action="" method="GET" enctype="multipart/form-data">
-                    {% csrf_token %}
+                    <br>
                     {{ form }}
                 </form>
             </div>
