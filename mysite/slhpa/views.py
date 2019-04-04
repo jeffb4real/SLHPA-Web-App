@@ -56,32 +56,6 @@ class List(SingleTableMixin, FilterView):
         return {"per_page": self.records_per_page}
 
 
-def list_all(request):
-    photo_list = PhotoRecord.objects.order_by(F('year').asc(nulls_last=True))
-
-    stats = {}
-    stats['total'] = len(photo_list)
-
-    query = request.GET.get('q')
-    stats['query'] = query
-    if query:
-        reduced_list = []
-        for photo in photo_list:
-            if query in photo.title or query in photo.description:
-                reduced_list.append(photo)
-        photo_list = reduced_list
-
-    stats['filtered'] = len(photo_list)
-    stats['displayed'] = len(photo_list)
-    template = loader.get_template('slhpa/index.html')
-    context = {
-        'photo_list': photo_list,
-        'stats': stats,
-    }
-    # This will use index.html
-    return HttpResponse(template.render(context, request))
-
-
 def load_photo_record(photo, form):
     photo.title = form.cleaned_data['title']
     photo.description = form.cleaned_data['description']
