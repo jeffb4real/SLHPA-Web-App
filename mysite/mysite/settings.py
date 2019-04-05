@@ -30,7 +30,6 @@ ALLOWED_HOSTS = ['slhpa-03.appspot.com', '127.0.0.1']
 # By convention DjangoTemplates looks for a “templates” subdirectory
 # in each of the INSTALLED_APPS.
 INSTALLED_APPS = [
-    'tutorial',
     'django_tables2',
     'django_filters',
     'bootstrap3',
