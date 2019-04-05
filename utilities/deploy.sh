@@ -1,4 +1,7 @@
-# Deploy to Google Cloud Platform. Needs more work.
+# Deploy to Google Cloud Platform
+echo "Needs more work."
+exit 0
+
 set -x 
 
 if [ "$TMP" = "" ] ; then
