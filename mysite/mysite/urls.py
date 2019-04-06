@@ -1,3 +1,5 @@
+from . import settings
+
 """mysite URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -44,5 +46,7 @@ from django.urls import include, path
 #
 urlpatterns = [
     path('slhpa/', include('slhpa.urls')),
-    path('admin/', admin.site.urls),
 ]
+
+if settings.ALLOW_EDIT:
+    urlpatterns += [ path('admin/', admin.site.urls), ]
