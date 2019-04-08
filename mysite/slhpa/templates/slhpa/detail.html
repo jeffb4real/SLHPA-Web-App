@@ -9,7 +9,7 @@
     <link href="{% static 'django_tables2/bootstrap.css' %}" rel="stylesheet" />
     {% block title %}<title>SLHPA - Record Detail</title>{% endblock %}
     <style>
-        <a>#main_img {
+        a#main_img {
             position: absolute;
             top: 0;
             left: 0;
@@ -22,8 +22,6 @@
             left: -40px;
             z-index: 0;
         }
-
-        </a>
     </style>
 </head>
 
@@ -100,10 +98,10 @@
             </tr>
         </table>
         <br>
-{% if allow_edit %}
+        {% if allow_edit %}
         <a class="btn btn-default" href="/slhpa/edit/{{ photorecord.resource_name }}">Edit</a>
         <a class="btn btn-default" href="/slhpa/compare/{{ photorecord.resource_name }}">Compare Resolutions</a>
-{% endif %}
+        {% endif %}
         <a class="btn btn-default" href="javascript:window.open('','_self').close();">Close</a>
         <br>
     </div>
