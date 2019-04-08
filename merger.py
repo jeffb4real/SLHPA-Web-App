@@ -47,6 +47,8 @@ def read_from_stream_into_dict(file_name: str, key_function_name: callable, key_
 
 
 data_dir = 'mysite/slhpa/static/slhpa/data/'
+
+
 def write(records: dict, fieldnames: list):
     """ Write a csv file of records with fieldnames fields. """
     non_numeric_keys = ''
@@ -94,7 +96,8 @@ def write_year_counts(scraped_records: dict):
             out_file.write(
                 str(y) + '\t' + str(year_counts[y]) + '\t' + str(adjusted_year_counts[y]) + '\n')
             total_count += year_counts[y]
-    log(str("{: >4d}".format(total_count)) + ' total years count written to ' + fn)
+    log(str("{: >4d}".format(total_count)) +
+        ' total years count written to ' + fn)
 
 
 def comb_addresses(scraped_fieldnames: list, scraped_records: dict):
@@ -154,8 +157,8 @@ def comb(scraped_fieldnames, scraped_records, dvd_fieldnames, dvd_records):
     '''
     Extract year and description if possible.
     '''
-    num_descs_found = 0
     num_removed_descs = 0
+    num_removed_titles = 0
 
     years_from_title = 0
     years_from_dvd_title = 0
@@ -167,12 +170,16 @@ def comb(scraped_fieldnames, scraped_records, dvd_fieldnames, dvd_records):
         scraped_record['dvd_title'] = dvd_record['Title']
 
         # Don't keep unuseful descriptions
-        if (re.match(r'Vol\.\s+\d+$', scraped_record['description'])):
+        if (re.match(r'Vol\.\s+\d+\.$', scraped_record['description'])):
             scraped_record['description'] = ''
             num_removed_descs += 1
-        if (re.match(r'Vol\.\s+\d+$', scraped_record['dvd_title'])):
+        if (re.match(r'Vol\.\s+\d+\.$', scraped_record['dvd_title'])):
             scraped_record['dvd_title'] = ''
-            num_removed_descs += 1
+
+        # Don't keep unuseful titles
+        if (re.match(r'NR$', scraped_record['title'])):
+            scraped_record['title'] = ''
+            num_removed_titles += 1
 
         if add_year_if_possible(scraped_record, 'period_date'):
             years_from_period_date += 1
@@ -186,15 +193,18 @@ def comb(scraped_fieldnames, scraped_records, dvd_fieldnames, dvd_records):
                     if add_year_if_possible(scraped_record, 'description'):
                         years_from_description += 1
 
-    log(str("{: >4d}".format(years_from_period_date)) + ' years_from_period_date')
+    log(str("{: >4d}".format(years_from_period_date)) +
+        ' years_from_period_date')
     log(str("{: >4d}".format(years_from_title)) + ' years_from_title')
     log(str("{: >4d}".format(years_from_dvd_title)) + ' years_from_dvd_title')
-    log(str("{: >4d}".format(years_from_description)) + ' years_from_description')
+    log(str("{: >4d}".format(years_from_description)) +
+        ' years_from_description')
 
-    num_years_found = years_from_period_date + years_from_title + years_from_dvd_title + years_from_description
+    num_years_found = years_from_period_date + years_from_title + \
+        years_from_dvd_title + years_from_description
     log(str("{: >4d}".format(num_years_found)) + ' num_years_found')
-    log(str("{: >4d}".format(num_descs_found)) + ' num_descs_found')
     log(str("{: >4d}".format(num_removed_descs)) + ' num_removed_descs')
+    log(str("{: >4d}".format(num_removed_titles)) + ' num_removed_titles')
 
 
 def merge_one_file(scraped_fieldnames: list, scraped_records: dict, source_filename: str, key_function: callable, key_column_name: list) -> dict:
@@ -234,7 +244,7 @@ def main():
         data_dir + 'scraped.csv', str, 'resource_name')
     scraped_fieldnames.append('geo_coord_UTM')
     dvd_fieldnames, dvd_records = read_from_stream_into_dict(
-                    data_dir + 'V01-V64 Index.csv', prepend_zeros, 'Index Number')
+        data_dir + 'V01-V64 Index.csv', prepend_zeros, 'Index Number')
     comb(scraped_fieldnames, scraped_records, dvd_fieldnames, dvd_records)
     scraped_fieldnames.append('dvd_title')
     merge_one_file(scraped_fieldnames, scraped_records,

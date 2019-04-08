@@ -2649,7 +2649,7 @@
     </Placemark>
     <Placemark>
       <name>Chris Christenson &amp; Son Stanley, 1914 [https://sanle.ent.sirsi.net/client/en_US/search/asset/5703/0]</name>
-      <description>[00000569] Vol. 15. [D922]</description>
+      <description>[00000569]  [D922]</description>
       <Point>
         <coordinates>-122.15637465087464,37.728773456644525,0</coordinates>
       </Point>
@@ -3146,7 +3146,7 @@
     </Placemark>
     <Placemark>
       <name>Cigar Store, Callan Ave. &amp; East 14th St. Gerald Baradas, Circa 1919 [https://sanle.ent.sirsi.net/client/en_US/search/asset/5892/0]</name>
-      <description>[00000758] Vol. 19. [D923]</description>
+      <description>[00000758]  [D923]</description>
       <Point>
         <coordinates>-122.15634087687691,37.727453217731274,0</coordinates>
       </Point>
@@ -4119,7 +4119,7 @@
     </Placemark>
     <Placemark>
       <name>Bill Estate, Estudillo &amp; Huff Ave., 1931 [https://sanle.ent.sirsi.net/client/en_US/search/asset/5885/0]</name>
-      <description>[00000751] Vol. 19. [E124]</description>
+      <description>[00000751]  [E124]</description>
       <Point>
         <coordinates>-122.15288365287483,37.72594198407714,0</coordinates>
       </Point>
@@ -4882,7 +4882,7 @@
     </Placemark>
     <Placemark>
       <name>E. 14th St. &amp; Chumalia, ca 1965 [https://sanle.ent.sirsi.net/client/en_US/search/asset/5349/0]</name>
-      <description>[00000213] Vol. 6. [D723]</description>
+      <description>[00000213]  [D723]</description>
       <Point>
         <coordinates>-122.15923237826087,37.72830381976325,0</coordinates>
       </Point>
@@ -4931,7 +4931,7 @@
     </Placemark>
     <Placemark>
       <name>Best Building, Estudillo &amp; East 14th. St., 1965 [https://sanle.ent.sirsi.net/client/en_US/search/asset/5888/0]</name>
-      <description>[00000754] Vol. 19. [D825]</description>
+      <description>[00000754]  [D825]</description>
       <Point>
         <coordinates>-122.15786711737957,37.72487708242414,0</coordinates>
       </Point>
@@ -5008,7 +5008,7 @@
     </Placemark>
     <Placemark>
       <name>Aerial View, Washington &amp; Estudillo, 1966 [https://sanle.ent.sirsi.net/client/en_US/search/asset/5880/0]</name>
-      <description>[00000746] Vol. 19. [D824]</description>
+      <description>[00000746]  [D824]</description>
       <Point>
         <coordinates>-122.15791268360282,37.72660283802767,0</coordinates>
       </Point>
@@ -5021,8 +5021,8 @@
       </Point>
     </Placemark>
     <Placemark>
-      <name>NR, 1967 [https://sanle.ent.sirsi.net/client/en_US/search/asset/5393/0]</name>
-      <description>[00000259] Vol. 7. [D928]</description>
+      <name>, 1967 [https://sanle.ent.sirsi.net/client/en_US/search/asset/5393/0]</name>
+      <description>[00000259]  [D928]</description>
       <Point>
         <coordinates>-122.15599690251493,37.720339094628535,0</coordinates>
       </Point>
