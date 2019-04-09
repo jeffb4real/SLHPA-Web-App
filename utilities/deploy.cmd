@@ -13,6 +13,7 @@ move slhpa\static\slhpa\images\photos\lr\ %TMP%\
 
 cmd /c "python manage.py collectstatic"
                                                         IF %ERRORLEVEL% NEQ 0 goto :eof
+rmdir /S /Q %TMP%\photos
 move slhpa\static\slhpa\images\photos %TMP%
                                                         IF %ERRORLEVEL% NEQ 0 goto :eof
 cmd /c "gcloud app deploy"
