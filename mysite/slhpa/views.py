@@ -66,6 +66,9 @@ def load_photo_record(photo, form):
     photo.contributor = form.cleaned_data['contributor']
     photo.period_date = form.cleaned_data['period_date']
     photo.subject = form.cleaned_data['subject']
+    # A kludge to get newly uploaded photos visible in the list view.
+    # There will be no Sirsi URL, but having a non-null value makes the photo visible.
+    photo.url_for_file = photo.resource_name
 
 
 def handle_uploaded_file(resource_name, f):
