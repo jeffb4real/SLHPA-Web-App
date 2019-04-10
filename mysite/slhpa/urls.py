@@ -9,6 +9,7 @@ urlpatterns = [
     path('data/<str:filename>', views.datafile, name='data_file'),
     path('hello', views.hello, name='hello'),
     path('edit/<str:id>/', views.edit, name='edit'),
+    path('delete/<str:id>/', views.delete, name='delete'),
     path('add/', views.add, name='add'),
 
     # 'import' is a reserved word, can't do views.import .

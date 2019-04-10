@@ -145,6 +145,16 @@ def add(request):
         return render(request, 'slhpa/add.html', {'form': form})
 
 
+def delete(request, id):
+    if not can_edit(request):
+        return HttpResponseNotFound("Unavailable")
+    photo = get_object_or_404(PhotoRecord, resource_name=id)
+    if not 'test' in photo.description:
+        return HttpResponseNotFound("Cannot delete non-test record: " + id)
+    photo.delete()
+    return HttpResponseNotFound("Deleted: " + id)
+    
+
 class DetailView(generic.DetailView):
     model = PhotoRecord
     template_name = 'slhpa/detail.html'
