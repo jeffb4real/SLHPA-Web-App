@@ -53,19 +53,24 @@ def write(records: dict, fieldnames: list):
     """ Write a csv file of records with fieldnames fields. """
     non_numeric_keys = ''
     current_resource_number = 0
+    record_count = 0
     filename = data_dir + 'merged.csv'
     outfile = open(filename, 'w', newline='')
     writer = csv.DictWriter(outfile, fieldnames, delimiter=',', quotechar='"',
                             quoting=csv.QUOTE_MINIMAL)
     writer.writeheader()
     for _, value in sorted(records.items()):
-        writer.writerow(value)
-        if len(_) > 12:
-            non_numeric_keys = non_numeric_keys + ' ' + _
-        num = int(_[0:8])
-        if num > current_resource_number:
-            current_resource_number = num
-    log(str("{: >4d}".format(len(records))) +
+        if value.get("resource_name"):
+            writer.writerow(value)
+            record_count += 1
+            if len(_) > 12:
+                non_numeric_keys = non_numeric_keys + ' ' + _
+            num = int(_[0:8])
+            if num > current_resource_number:
+                current_resource_number = num
+        else:
+            print("No resource_name for: " + _ + ' : ' + str(value))
+    log(str("{: >4d}".format(record_count)) +
         ' records written to ' + filename)
     log('non_numeric_keys: ' + non_numeric_keys)
     log('next_resource_number: ' + str(current_resource_number + 1))
