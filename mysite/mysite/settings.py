@@ -33,7 +33,6 @@ INSTALLED_APPS = [
     'django_tables2',
     'django_filters',
     'bootstrap3',
-    'polls.apps.PollsConfig',
     'slhpa.apps.SlhpaConfig',
     'django.contrib.admin',
     'django.contrib.auth',
