@@ -277,6 +277,7 @@ def export(request, export_filename):
                   'contributor',
                   'period_date', 'url_for_file', 'geo_coord_UTM', 'verified_gps_coords',
                   'year', 'geo_coord_original', 'address']
+    records_written = 0
     with open(path_to_file, 'w', newline='') as outfile:
         writer = csv.DictWriter(outfile, fieldnames, delimiter=',', quotechar='"',
                                 quoting=csv.QUOTE_MINIMAL)
@@ -284,8 +285,9 @@ def export(request, export_filename):
         photo_list = PhotoRecord.objects.order_by(F('resource_name'))
         for photo in photo_list:
             writer.writerow(to_dict(photo))
+            records_written += 1
     end = time.time()
-    return HttpResponse('Wrote: ' + path_to_file + ', seconds: ' + str(int(end - start)))
+    return HttpResponse('Wrote: ' + str(records_written) + ' records to: ' + path_to_file + ', seconds: ' + str(int(end - start)))
 
 
 def datafile(request, filename):
