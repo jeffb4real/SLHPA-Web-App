@@ -8,21 +8,6 @@
     {% bootstrap_css %}
     <link href="{% static 'django_tables2/bootstrap.css' %}" rel="stylesheet" />
     {% block title %}<title>SLHPA - Compare Resolutions</title>{% endblock %}
-    <style>
-        a#main_img {
-            position: absolute;
-            top: 0;
-            left: 0;
-            z-index: 1;
-        }
-
-        #overlay_img {
-            position: relative;
-            top: -30px;
-            left: 68px;
-            z-index: 0;
-        }
-    </style>
 </head>
 
 <body>
@@ -30,82 +15,44 @@
     {% load photodir %}
     <div class="container">
         <br>
-        <h3>Compare same photo at different resolution</h3>
-        <table border="1">
-            <col width="80">
-            <col width="200">
-            <col width="200">
-            <col width="200">
-            <col width="200">
-            <col width="80">
-            <tr>
-                <th style="text-align:left;padding:10px">Picture Identifier</th>
-                <th style="text-align:left;padding:10px">High resolution tif from DVD</th>
-                <th style="text-align:left;padding:10px">Medium resolution 300 dpi from DVD</th>
-                <th style="text-align:left;padding:10px">Low resolution 96 dpi from DVD</th>
-                <th style="text-align:left;padding:10px">640px-width, resized from tif on DVD</th>
-                <th style="text-align:left;padding:10px">Sirsi photo document in pdf format</th>
-            </tr>
-            <tr>
-                <td style="text-align:left;padding:10px">
-                    <a href="/slhpa/detail/{{ photo.resource_name }}/">
-                        {{ photo.resource_name }}
-                    </a>
-                </td>
-                <td style="text-align:center;padding:10px">
-                    <!-- High resolution tif image from DVD -->
-                    <a href="{{ baseUrl }}/hr/{{ photo.resource_name|getdir }}/{{ photo.resource_name }}.tif"
-                        target="_blank">
-                        <div class="container">
-                            <img id="main_img"
-                                src="{{ baseUrl }}/hr/{{ photo.resource_name|getdir }}/{{ photo.resource_name }}.tif"
-                                max-width="200px" border="2">
-                            <img id="overlay_img" src="{{ baseUrl }}/finger.png" width="20%">
-                        </div>
-                    </a>
-                </td>
-                <td style="text-align:center;padding:10px">
-                    <!-- Medium resolution, 300 dpi image from DVD -->
-                    <a href="{{ baseUrl }}/mr/{{ photo.resource_name|getdir }}/{{ photo.resource_name }}.jpg"
-                        target="_blank">
-                        <div class="container">
-                            <img id="main_img"
-                                src="{{ baseUrl }}/mr/{{ photo.resource_name|getdir }}/{{ photo.resource_name }}.jpg"
-                                width="100%" border="2">
-                            <img id="overlay_img" src="{{ baseUrl }}/finger.png" width="20%">
-                        </div>
-                    </a>
-                </td>
-                <td style="text-align:center;padding:10px">
-                    <!-- Low resolution, 96 dpi image from DVD -->
-                    <a href="{{ baseUrl }}/lr/{{ photo.resource_name|getdir }}/{{ photo.resource_name }}.jpg"
-                        target="_blank">
-                        <div class="container">
-                            <img id="main_img"
-                                src="{{ baseUrl }}/lr/{{ photo.resource_name|getdir }}/{{ photo.resource_name }}.jpg"
-                                width="100%" border="2">
-                            <img id="overlay_img" src="{{ baseUrl }}/finger.png" width="20%">
-                        </div>
-                    </a>
-                </td>
-                <td style="text-align:center;padding:10px">
-                    <!-- 640px-width photo document, resized from tif on DVD -->
-                    <a href="{{ baseUrl }}/{{ photo.resource_name|getdir }}/{{ photo.resource_name }}.jpg"
-                        target="_blank">
-                        <div class="container">
-                            <img id="main_img"
-                                src="{{ baseUrl }}/{{ photo.resource_name|getdir }}/{{ photo.resource_name }}.jpg"
-                                width="100%" border="2">
-                            <img id="overlay_img" src="{{ baseUrl }}/finger.png" width="20%">
-                        </div>
-                    </a>
-                </td>
-                <td style="text-align:left;padding:10px">
-                    <!-- Sirsi.net photo document in pdf format -->
-                    <a href="{{ photo.url_for_file }}/" target="_blank">{{ photo.resource_name }}</a>
-                </td>
-            </tr>
-        </table>
+        <h3>Print same photo at different resolutions</h3>
+        Click on the appropriate link to bring up the specific photo,
+        then Ctrl-P (Windows) or Cmd-P (Mac) to print.<br><br>
+        <a href="/slhpa/detail/{{ photo.resource_name }}/">
+            {{ photo.resource_name }}
+        </a>
+        <ul>
+            <li>
+                <a href="{{ baseUrl }}/hr/{{ photo.resource_name|getdir }}/{{ photo.resource_name }}.jpg"
+                target="_blank">
+                    High resolution image
+                </a>
+            </li>
+            <li>
+                <a href="{{ baseUrl }}/mr/{{ photo.resource_name|getdir }}/{{ photo.resource_name }}.jpg"
+                target="_blank">
+                Medium resolution, 300 dpi image from DVD
+                </a>
+            </li>
+            <li>
+                <a href="{{ baseUrl }}/lr/{{ photo.resource_name|getdir }}/{{ photo.resource_name }}.jpg"
+                target="_blank">
+                Low resolution, 96 dpi image from DVD
+                </a>
+            </li>
+            <li>
+                <a href="{{ baseUrl }}/{{ photo.resource_name|getdir }}/{{ photo.resource_name }}.jpg"
+                target="_blank">
+                640px-width photo document, resized from tif on DVD
+                </a>
+            </li>
+            <li>
+                <a href="{{ photo.url_for_file }}/"
+                target="_blank">
+                Sirsi.net photo document in pdf format
+                </a>
+            </li>
+        </ul>
         <br>
         <a class="btn btn-default" href="javascript:window.open('','_self').close();">Close</a>
 </body>
