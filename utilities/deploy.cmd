@@ -1,6 +1,7 @@
 rem : CMD script because the gcloud command line utility (sometimes) doesn't echo in git bash.
 rem : python and gloud commands require user input, so this script cannot be run unattended. 
 rem : Takes a few minutes.
+rem : It's recommended to first do "gcloud components update". This also takes some minutes.
 
 pause "Set ALLOW_EDIT = False in mysite/mysite/settings.py."
 
