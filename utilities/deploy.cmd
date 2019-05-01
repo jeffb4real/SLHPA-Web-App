@@ -15,7 +15,7 @@ rmdir /S /Q %TMP%\photos
 move slhpa\static\slhpa\images\photos %TMP%
                                                         IF %ERRORLEVEL% NEQ 0 goto :eof
 cmd /c "gcloud app deploy"
-                                                        IF %ERRORLEVEL% NEQ 0 goto :eof
+rem : don't exit on failure, continue on to clean up
 move %TMP%\photos slhpa\static\slhpa\images
 
 pause "Set back ALLOW_EDIT = True."
