@@ -15,7 +15,7 @@
     {% load photodir %}
     <div class="container">
         <br>
-        <h3>Print same photo at different resolutions</h3>
+        <h3>To print same photo at different resolutions</h3>
         Right-click on the appropriate link to download the photo file,
         then print that downloaded file.<br><br>
         <a href="/slhpa/detail/{{ photo.resource_name }}/">
@@ -23,33 +23,27 @@
         </a>
         <ul>
             <li>
-                <a href="{{ baseUrl }}/hr/{{ photo.resource_name|getdir }}/{{ photo.resource_name }}.jpg"
+                <a href="{{ baseUrl }}/hr/{{ photo.resource_name|getdir }}/{{ photo.resource_name }}.tif"
                 target="_blank">
-                    High resolution image, converted from tif on DVD
-                </a>
-            </li>
-            <li>
-                <a href="{{ baseUrl }}/mr/{{ photo.resource_name|getdir }}/{{ photo.resource_name }}.jpg"
-                target="_blank">
-                Medium resolution, 300 dpi image from DVD
+                    High resolution tif image
                 </a>
             </li>
             <li>
                 <a href="{{ baseUrl }}/lr/{{ photo.resource_name|getdir }}/{{ photo.resource_name }}.jpg"
                 target="_blank">
-                Low resolution, 96 dpi image from DVD
+                    Low resolution, 96 dpi image from DVD
                 </a>
             </li>
             <li>
                 <a href="{{ baseUrl }}/{{ photo.resource_name|getdir }}/{{ photo.resource_name }}.jpg"
                 target="_blank">
-                640px-width photo document, resized from tif on DVD
+                    640px-width photo document, resized from tif on DVD
                 </a>
             </li>
             <li>
                 <a href="{{ photo.url_for_file }}/"
                 target="_blank">
-                Sirsi.net photo document in pdf format
+                    Sirsi.net photo document in pdf format
                 </a>
             </li>
         </ul>
