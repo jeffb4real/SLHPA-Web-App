@@ -11,9 +11,7 @@ time < ..\utilities\ret.txt
                                                         IF %ERRORLEVEL% NEQ 0 goto :restore
 cmd /c "python manage.py collectstatic"
                                                         IF %ERRORLEVEL% NEQ 0 goto :restore
-rmdir /S /Q %TMP%\photos
-                                                        rem : don't exit on failure, continue to deploy
-move slhpa\static\slhpa\images\photos %TMP%
+move /Y slhpa\static\slhpa\images\photos %TMP%
                                                         IF %ERRORLEVEL% NEQ 0 goto :restore
 cmd /c "gcloud app deploy"
                                                         rem : don't exit on failure, continue on to clean up
