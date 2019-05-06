@@ -20,6 +20,10 @@ from .tables import PhotoTable
 from .templatetags.photodir import getdir
 
 
+def can_edit(request):
+    return settings.ALLOW_EDIT or request.user.is_authenticated
+
+
 class List(SingleTableMixin, FilterView):
     """
     This view is a class-based, filtered view, based on class-based-filtered in django-tables2 example app.
@@ -47,6 +51,7 @@ class List(SingleTableMixin, FilterView):
         stats['records_per_page'] = self.records_per_page
         context["stats"] = stats
         context["form"] = RecordsPerPageForm(initial={'records_per_page': str(self.records_per_page)})
+        context["allow_edit"] = can_edit(self.request)
         return context
 
     # See: django_tables2/views.py -> class (SingleTableMixin)
@@ -79,10 +84,6 @@ def handle_uploaded_file(resource_name, f):
     with open(path + resource_name + '.jpg', 'wb+') as destination:
         for chunk in f.chunks():
             destination.write(chunk)
-
-
-def can_edit(request):
-    return settings.ALLOW_EDIT or request.user.is_authenticated
 
 
 def edit(request, id):
