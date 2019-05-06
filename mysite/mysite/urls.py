@@ -32,10 +32,6 @@ from django.urls import include, path
 
 # From django-tables2 tutorial:
 # https://django-tables2.readthedocs.io/en/latest/pages/tutorial.html
-#from django.conf.urls import url
-# this allows a '.../people' URL to point to the view in tutorial app
-#from tutorial.views import people
-
 # The path() function is passed four arguments,
 # two required: route and view, and two optional: kwargs, and name
 #
@@ -46,7 +42,5 @@ from django.urls import include, path
 #
 urlpatterns = [
     path('slhpa/', include('slhpa.urls')),
+#    path('admin/', admin.site.urls),
 ]
-
-if settings.ALLOW_EDIT:
-    urlpatterns += [ path('admin/', admin.site.urls), ]
