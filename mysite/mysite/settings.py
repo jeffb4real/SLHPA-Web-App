@@ -136,4 +136,10 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = 'static'
+
+# Local
 ALLOW_EDIT = True
+
+# GCP
+# ALLOW_EDIT = False
+# DEBUG = False
