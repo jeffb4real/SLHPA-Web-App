@@ -41,6 +41,8 @@ from django.urls import include, path
 # It finds the variable named urlpatterns and traverses the patterns in order.
 #
 urlpatterns = [
-    path('slhpa/', include('slhpa.urls')),
-#    path('admin/', admin.site.urls),
+    path('slhpa/', include('slhpa.urls')),  
 ]
+
+if settings.ALLOW_ADMIN:
+    urlpatterns += [ path('admin/', admin.site.urls), ]

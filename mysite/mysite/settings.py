@@ -139,7 +139,9 @@ STATIC_ROOT = 'static'
 
 # Local
 ALLOW_EDIT = True
+ALLOW_ADMIN = True
 
 # GCP
 # ALLOW_EDIT = False
+# ALLOW_ADMIN = False
 # DEBUG = False
