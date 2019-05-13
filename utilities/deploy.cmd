@@ -6,21 +6,27 @@ rem : It's recommended to first do "gcloud components update". This may take som
 pause "Set ALLOW_EDIT = False in mysite/mysite/settings.py."
 
 pushd %HOMEDRIVE%%HOMEPATH%\Documents\Github\SLHPA-Web-App\mysite\
-                                                        IF %ERRORLEVEL% NEQ 0 goto :theend
+                                                        IF %ERRORLEVEL% NEQ 0 goto :finish
 time < ..\utilities\ret.txt
-                                                        IF %ERRORLEVEL% NEQ 0 goto :restore
+                                                        IF %ERRORLEVEL% NEQ 0 goto :finish
 cmd /c "python manage.py collectstatic"
-                                                        IF %ERRORLEVEL% NEQ 0 goto :restore
+                                                        IF %ERRORLEVEL% NEQ 0 goto :finish
 move /Y slhpa\static\slhpa\images\photos %TMP%
+                                                        IF %ERRORLEVEL% NEQ 0 goto :finish
+mkdir slhpa\static\slhpa\images\photos\1
+                                                        IF %ERRORLEVEL% NEQ 0 goto :restore
+mkdir slhpa\static\slhpa\images\photos\2
+                                                        IF %ERRORLEVEL% NEQ 0 goto :restore
+mkdir slhpa\static\slhpa\images\photos\3
                                                         IF %ERRORLEVEL% NEQ 0 goto :restore
 cmd /c "gcloud app deploy"
                                                         rem : don't exit on failure, continue on to clean up
-move %TMP%\photos slhpa\static\slhpa\images
-
 :restore
+
+move /Y %TMP%\photos slhpa\static\slhpa\images
+
+:finish
 
 time < ..\utilities\ret.txt
 pause "Set back ALLOW_EDIT = True."
 popd
-
-:theend
