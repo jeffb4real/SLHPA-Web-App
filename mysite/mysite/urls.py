@@ -40,8 +40,12 @@ from django.urls import include, path
 # by the ROOT_URLCONF setting.
 # It finds the variable named urlpatterns and traverses the patterns in order.
 #
+import slhpa
+from slhpa import views
+
 urlpatterns = [
     path('slhpa/', include('slhpa.urls')),  
+    path('', views.List.as_view(), name="index"),  
 ]
 
 if settings.ALLOW_ADMIN:
