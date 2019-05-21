@@ -114,13 +114,6 @@
       </Point>
     </Placemark>
     <Placemark>
-      <name>Alameda County Map from Atlas by Thompson and West, 1848 [https://sanle.ent.sirsi.net/client/en_US/search/asset/6183/0]</name>
-      <description>[00001050] Oakland Township, Brooklyn Township, Eden Township, Washington Township, Murphy Township. [D520]</description>
-      <Point>
-        <coordinates>-122.162348125,37.732665714285716,0</coordinates>
-      </Point>
-    </Placemark>
-    <Placemark>
       <name>Home of Socrates Huff, located at what is now the northeast corner of Huff and Estudillo Ave., 1878 [https://sanle.ent.sirsi.net/client/en_US/search/asset/6190/0]</name>
       <description>[00001057] The house was probably built in 1859 when Mr. Huff moved to San Leandro. The creek was at the back of the property, but is not indicated in the picture. Mr. Huff was Alameda County Treasurer for five terms, served six terms as San Leandro Board of Trustee member, and helped draw up the act of incorporation for San Leandro in 1872. He founded several banks, was a successful farmer, and took part in the founding of the San Leandro Plow Co. For additional information see "San Leandro Recollections", March 1971. [E123]</description>
       <Point>
@@ -5060,13 +5053,6 @@
       <description>[00000610] Railroad Crossing at Davis Street, taken in 1969. [C229]</description>
       <Point>
         <coordinates>-122.1821528125,37.717886428571425,0</coordinates>
-      </Point>
-    </Placemark>
-    <Placemark>
-      <name>Historic Landmark Monument, May, 1970 [https://sanle.ent.sirsi.net/client/en_US/search/asset/5604/0]</name>
-      <description>[00000470] Rancho San Antonio Landmark, Poot Park, San Leandro. [D723]</description>
-      <Point>
-        <coordinates>-122.15930125,37.727739285714286,0</coordinates>
       </Point>
     </Placemark>
     <Placemark>
