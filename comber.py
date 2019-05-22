@@ -143,4 +143,5 @@ def main():
 
 
 if '__main__' == __name__:
-    main()
+    log('Functionality now included in other python scripts.')
+    # main()
