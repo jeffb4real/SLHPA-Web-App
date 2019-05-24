@@ -849,13 +849,6 @@
       </Point>
     </Placemark>
     <Placemark>
-      <name>Grape Vine at the Estudillo House, 1898 [https://sanle.ent.sirsi.net/client/en_US/search/asset/7068/0]</name>
-      <description>[00001955] Grape Vine at the Estudillo House, 1898. [D824]</description>
-      <Point>
-        <coordinates>-122.1577778125,37.72609714285714,0</coordinates>
-      </Point>
-    </Placemark>
-    <Placemark>
       <name>Residence of Benjamin Hawes, 1898 [https://sanle.ent.sirsi.net/client/en_US/search/asset/7080/0]</name>
       <description>[00001967] Residence of Benjamin Hawes, 1898. [D925]</description>
       <Point>
@@ -1486,27 +1479,6 @@
       </Point>
     </Placemark>
     <Placemark>
-      <name>C. L. Best's early tracklayer '75' internal combustion engine listed at 75 horsepower, complete with power steering, 1904 [https://sanle.ent.sirsi.net/client/en_US/search/asset/6658/0]</name>
-      <description>[00001530] C. L. Best's early tracklayer '75' internal combustion engine listed at 75 horsepower, complete with power steering. [D425]</description>
-      <Point>
-        <coordinates>-122.16387156249999,37.724455,0</coordinates>
-      </Point>
-    </Placemark>
-    <Placemark>
-      <name>Best Sixty Tractor Pulling Wagons, Max Penker and Sons, Cincinnati, Ohio, 1904 [https://sanle.ent.sirsi.net/client/en_US/search/asset/6659/0]</name>
-      <description>[00001531] Best Sixty Tractor Pulling Wagons, Max Penker and Sons, Cincinnati, Ohio. [D425]</description>
-      <Point>
-        <coordinates>-122.16387156249999,37.724455,0</coordinates>
-      </Point>
-    </Placemark>
-    <Placemark>
-      <name>Best Tractor Pulling Wagons, 1904 [https://sanle.ent.sirsi.net/client/en_US/search/asset/6660/0]</name>
-      <description>[00001532] Best Tractor Pulling Wagons, 1904. [D425]</description>
-      <Point>
-        <coordinates>-122.16387156249999,37.724455,0</coordinates>
-      </Point>
-    </Placemark>
-    <Placemark>
       <name>Best Tractor Company, 1904 [https://sanle.ent.sirsi.net/client/en_US/search/asset/6661/0]</name>
       <description>[00001533] Best Tractor Company, 1904. [D326]</description>
       <Point>
@@ -1523,20 +1495,6 @@
     <Placemark>
       <name>Interior of Best Manufacturing Company, 1904 [https://sanle.ent.sirsi.net/client/en_US/search/asset/6663/0]</name>
       <description>[00001535] Interior of Best Manufacturing Company, 1904. [D326]</description>
-      <Point>
-        <coordinates>-122.16539499999999,37.722812857142856,0</coordinates>
-      </Point>
-    </Placemark>
-    <Placemark>
-      <name>Best Tractors on Flat Bed, Best Manufacturing Company, 1904 [https://sanle.ent.sirsi.net/client/en_US/search/asset/6664/0]</name>
-      <description>[00001536] Best Tractors on Flat Bed, Best Manufacturing Company, 1904. [D326]</description>
-      <Point>
-        <coordinates>-122.16539499999999,37.722812857142856,0</coordinates>
-      </Point>
-    </Placemark>
-    <Placemark>
-      <name>Best Tractors at Work, 1904 [https://sanle.ent.sirsi.net/client/en_US/search/asset/6665/0]</name>
-      <description>[00001537] Best Tractors at Work, 1904. [D326]</description>
       <Point>
         <coordinates>-122.16539499999999,37.722812857142856,0</coordinates>
       </Point>
@@ -1805,13 +1763,6 @@
       <description>[00000537] Clarke St. between Davis and Ward. Paul Leal, John Miller. [D624]</description>
       <Point>
         <coordinates>-122.1608246875,37.72609714285714,0</coordinates>
-      </Point>
-    </Placemark>
-    <Placemark>
-      <name>The Royal Carriage, 1909 [https://sanle.ent.sirsi.net/client/en_US/search/asset/5741/0]</name>
-      <description>[00000607] L-R: Driver, unidentified (bending over), Cherry Court Chamberlain W.J. Locke (?), Queen Bessie Best, and Ladie-in-waiting Miss Mabel Furtado and Miss Alice Locke. [D625]</description>
-      <Point>
-        <coordinates>-122.1608246875,37.724455,0</coordinates>
       </Point>
     </Placemark>
     <Placemark>
@@ -2099,13 +2050,6 @@
       <description>[00001699] Henry Jones, Wilhelm Schmidt, Jessie Ginn, Harrison Bidell, Roy Buck, Clarence Buck, Jessie Jones, Abbie Jones, Mrs. Jones. [D621]</description>
       <Point>
         <coordinates>-122.1608246875,37.73102357142857,0</coordinates>
-      </Point>
-    </Placemark>
-    <Placemark>
-      <name>Schmidt Feed and Fuel, ca 1910 [https://sanle.ent.sirsi.net/client/en_US/search/asset/6818/0]</name>
-      <description>[00001702] Schmidt Feed and Fuel, ca 1910. [D925]</description>
-      <Point>
-        <coordinates>-122.156254375,37.724455,0</coordinates>
       </Point>
     </Placemark>
     <Placemark>
@@ -2445,13 +2389,6 @@
       </Point>
     </Placemark>
     <Placemark>
-      <name>San Leandro Steam and French Laundry, Laundry Equipment, 1911 [https://sanle.ent.sirsi.net/client/en_US/search/asset/6632/0]</name>
-      <description>[00001504] San Leandro Steam and French Laundry, Laundry Equipment. [D721]</description>
-      <Point>
-        <coordinates>-122.15930125,37.73102357142857,0</coordinates>
-      </Point>
-    </Placemark>
-    <Placemark>
       <name>Salina Peralta on the grounds of Casa Peralta, 1911 [https://sanle.ent.sirsi.net/client/en_US/search/asset/6634/0]</name>
       <description>[00001506] Salina Peralta on the grounds of Casa Peralta, 1911. [D726]</description>
       <Point>
@@ -2512,13 +2449,6 @@
       <description>[00002113] Gladys McKamey. [E232]</description>
       <Point>
         <coordinates>-122.1516840625,37.712959999999995,0</coordinates>
-      </Point>
-    </Placemark>
-    <Placemark>
-      <name>Cherry Festival Parade, 1912 [https://sanle.ent.sirsi.net/client/en_US/search/asset/5505/0]</name>
-      <description>[00000371] E. 14th and Estudillo, Bank of San Leandro, San Leandro Hotel, Wells Fargo Office. This was the fourth festival on June 6 to 8, 1912; Blanche Deutsch was the Queen. She is riding in the carriage that is turning up Estudillo from E. 14th. [D824]</description>
-      <Point>
-        <coordinates>-122.1577778125,37.72609714285714,0</coordinates>
       </Point>
     </Placemark>
     <Placemark>
@@ -3663,13 +3593,6 @@
       </Point>
     </Placemark>
     <Placemark>
-      <name>Best Bank Building, ca 1924 [https://sanle.ent.sirsi.net/client/en_US/search/asset/6704/0]</name>
-      <description>[00001577] Best Bank Building, ca 1924. [D825]</description>
-      <Point>
-        <coordinates>-122.1577778125,37.724455,0</coordinates>
-      </Point>
-    </Placemark>
-    <Placemark>
       <name>Inside the State Bank of California, San Leandro Branch, 1924 [https://sanle.ent.sirsi.net/client/en_US/search/asset/6744/0]</name>
       <description>[00001617] In the Best Building 1924, later Bank of America. [D925]</description>
       <Point>
@@ -3873,13 +3796,6 @@
       </Point>
     </Placemark>
     <Placemark>
-      <name>Sam's Sweet Shop, ca 1929 [https://sanle.ent.sirsi.net/client/en_US/search/asset/5188/0]</name>
-      <description>[00000051] Also called Eagle Candy Kitchen. Andy Galvan, seates; Mary and Sam Vlahos (owner), standing in front of candy counter. Miss Kidd (3) or (5). [D824]</description>
-      <Point>
-        <coordinates>-122.1577778125,37.72609714285714,0</coordinates>
-      </Point>
-    </Placemark>
-    <Placemark>
       <name>Eagle Candy Kitchen, Vlahos, 1929 [https://sanle.ent.sirsi.net/client/en_US/search/asset/5190/0]</name>
       <description>[00000053] Located on N.E. corner of Davis and E. 14th St. Sam Vlahos, owner. [D824]</description>
       <Point>
@@ -4027,22 +3943,8 @@
       </Point>
     </Placemark>
     <Placemark>
-      <name>Godchaux store building, 1930's. [https://sanle.ent.sirsi.net/client/en_US/search/asset/6130/0]</name>
-      <description>[00000996] E.W. Woolworth Co 5 10 and 15 cent store, Economy Cut Rate Drugs, Safeway stores. [D825]</description>
-      <Point>
-        <coordinates>-122.1577778125,37.724455,0</coordinates>
-      </Point>
-    </Placemark>
-    <Placemark>
       <name>U. P. E. C. Building on E. 14th Street, 1930 [https://sanle.ent.sirsi.net/client/en_US/search/asset/6134/0]</name>
       <description>[00001000] U. P. E. C. Building on E. 14th Street. [D723]</description>
-      <Point>
-        <coordinates>-122.15930125,37.727739285714286,0</coordinates>
-      </Point>
-    </Placemark>
-    <Placemark>
-      <name>San Leandro Plaza, 1930s, 1930 [https://sanle.ent.sirsi.net/client/en_US/search/asset/6138/0]</name>
-      <description>[00001004] Taken in the 1930's, before the palm trees were removed from the Plaza. Shown are Hotel Elmer (Callan and E. 14th), Rolling Pin Donuts, Florence Italian Dinners, Seafood Grill, Eastern Chop Suey Cafe, San Leandro Market, Gibson's Drugs, Western Auto Supply. [D723]</description>
       <Point>
         <coordinates>-122.15930125,37.727739285714286,0</coordinates>
       </Point>
