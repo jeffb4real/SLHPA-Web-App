@@ -8,6 +8,9 @@ import random
 
 # This script supercedes and replaces comber.py
 
+# To see various statistics, set to True.
+show_stats = False
+
 def log(message):
     """ Log messages to terminal in a standard format. """
     script_name = sys.argv[0]
@@ -40,9 +43,8 @@ def read_from_stream_into_dict(file_name: str, key_function_name: callable, key_
             count += 1
             if len(record[key_column_name]) > 0:
                 the_dict[key_function_name(record[key_column_name])] = record
-    log(str("{: >4d}".format(count)) + ' total records read from ' + file_name)
     log(str("{: >4d}".format(len(the_dict))) +
-        ' unique records read from ' + file_name)
+        ' unique records read from ' + file_name + ' (total: ' + str(count) + ')')
     return fieldnames, the_dict
 
 
@@ -69,11 +71,12 @@ def write(records: dict, fieldnames: list):
             if num > current_resource_number:
                 current_resource_number = num
         else:
-            print("No resource_name for: " + _ + ' : ' + str(value))
+            log("No resource_name for: " + _ + ' : ' + str(value))
     log(str("{: >4d}".format(record_count)) +
         ' records written to ' + filename)
     log('non_numeric_keys: ' + non_numeric_keys)
-    log('next_resource_number: ' + str(current_resource_number + 1))
+    if show_stats:
+        log('next_resource_number: ' + str(current_resource_number + 1))
 
 
 def write_year_counts(scraped_records: dict):
@@ -101,8 +104,9 @@ def write_year_counts(scraped_records: dict):
             out_file.write(
                 str(y) + '\t' + str(year_counts[y]) + '\t' + str(adjusted_year_counts[y]) + '\n')
             total_count += year_counts[y]
-    log(str("{: >4d}".format(total_count)) +
-        ' total years count written to ' + fn)
+    if show_stats:
+        log(str("{: >4d}".format(total_count)) +
+            ' total years count written to ' + fn)
 
 
 def comb_addresses(scraped_fieldnames: list, scraped_records: dict):
@@ -125,8 +129,9 @@ def comb_addresses(scraped_fieldnames: list, scraped_records: dict):
                     value['address'] = matches.group(0)
                     addresses_found[value['resource_name']] = value['address']
                     break
-    log("{: >4d}".format(len(addresses_found)) + ' addresses_found.')
-    # pprint.pprint(addresses_found) # for diagnosing / detailed reporting
+    if show_stats:
+        log("{: >4d}".format(len(addresses_found)) + ' addresses_found.')
+        pprint.pprint(addresses_found) # for diagnosing / detailed reporting
 
 
 def add_year(field_text):
@@ -198,18 +203,19 @@ def comb(scraped_fieldnames, scraped_records, dvd_fieldnames, dvd_records):
                     if add_year_if_possible(scraped_record, 'description'):
                         years_from_description += 1
 
-    log(str("{: >4d}".format(years_from_period_date)) +
-        ' years_from_period_date')
-    log(str("{: >4d}".format(years_from_title)) + ' years_from_title')
-    log(str("{: >4d}".format(years_from_dvd_title)) + ' years_from_dvd_title')
-    log(str("{: >4d}".format(years_from_description)) +
-        ' years_from_description')
+    if show_stats:
+        log(str("{: >4d}".format(years_from_period_date)) +
+            ' years_from_period_date')
+        log(str("{: >4d}".format(years_from_title)) + ' years_from_title')
+        log(str("{: >4d}".format(years_from_dvd_title)) + ' years_from_dvd_title')
+        log(str("{: >4d}".format(years_from_description)) +
+            ' years_from_description')
 
-    num_years_found = years_from_period_date + years_from_title + \
-        years_from_dvd_title + years_from_description
-    log(str("{: >4d}".format(num_years_found)) + ' num_years_found')
-    log(str("{: >4d}".format(num_removed_descs)) + ' num_removed_descs')
-    log(str("{: >4d}".format(num_removed_titles)) + ' num_removed_titles')
+        num_years_found = years_from_period_date + years_from_title + \
+            years_from_dvd_title + years_from_description
+        log(str("{: >4d}".format(num_years_found)) + ' num_years_found')
+        log(str("{: >4d}".format(num_removed_descs)) + ' num_removed_descs')
+        log(str("{: >4d}".format(num_removed_titles)) + ' num_removed_titles')
 
 
 def merge_one_file(scraped_fieldnames: list, scraped_records: dict, source_filename: str, key_function: callable, key_column_name: list) -> dict:

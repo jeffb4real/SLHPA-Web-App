@@ -5,6 +5,8 @@ import datetime
 import pprint
 import random
 
+show_stats = False
+
 def log(message):
     script_name = sys.argv[0]
     print(str(datetime.datetime.now()) + '\t'+ script_name + ': ' + message)
@@ -138,13 +140,15 @@ def transform(infile, out_file_name):
             transformed_records += 1
             accumulate_error(record)
         writer.writerow(record)
-    average_horiz_error = sum(horiz_errors) / len(horiz_errors)
-    log(("%.2f" % average_horiz_error) + ' average_horiz_error')
-    average_vert_error = sum(vert_errors) / len(vert_errors)
-    log(("%.2f" % average_vert_error) + ' average_vert_error')
-    log("{: >4d}".format(total_records) + ' records processed, ' + str("{: >4d}".format(transformed_records)) + ' transformed in ' + out_file_name)
-    # Uncomment if you want to see more details.
-    # print_details()
+    if show_stats:
+        average_horiz_error = sum(horiz_errors) / len(horiz_errors)
+        log(("%.2f" % average_horiz_error) + ' average_horiz_error')
+        average_vert_error = sum(vert_errors) / len(vert_errors)
+        log(("%.2f" % average_vert_error) + ' average_vert_error')
+        # Uncomment if you want to see more details.
+        # print_details()
+    if out_file_name == 'transformed':
+        log("{: >4d}".format(total_records) + ' records processed, ' + str("{: >4d}".format(transformed_records)) + ' transformed in ' + out_file_name)
 
 def main():
     with open(data_dir + 'merged.csv', 'r', newline='') as infile:

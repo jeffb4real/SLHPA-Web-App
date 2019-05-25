@@ -9,6 +9,8 @@ import re
 # pip install lxml
 from lxml import etree
 
+show_stats = False
+
 def log(message):
     script_name = sys.argv[0]
     print(str(datetime.datetime.now()) + '\t'+ script_name + ': ' + message)
@@ -186,10 +188,11 @@ class Mapper:
         self.max_desc_length = 0
         total_records_processed = self.transform_to_kml(self.data_dir + 'transformed.csv', 'calced', self.master_coords_column_name)
         log("{: >4d}".format(total_records_processed) + ' input records processed')
-        log("{: >4d}".format(self.max_name_length) + ' max_name_length' + ' in ' + self.max_name_record)
-        log("{: >4d}".format(self.max_desc_length) + ' max_desc_length' + ' in ' + self.max_desc_record)
-        log("min_latitude: " + str(self.min_latitude) + ", max_latitude: " + str(self.max_latitude) + ", min_longitude: " + 
-                str(self.min_longitude) + ", max_longitude: " + str(self.max_longitude))
+        if show_stats:
+            log("{: >4d}".format(self.max_name_length) + ' max_name_length' + ' in ' + self.max_name_record)
+            log("{: >4d}".format(self.max_desc_length) + ' max_desc_length' + ' in ' + self.max_desc_record)
+            log("min_latitude: " + str(self.min_latitude) + ", max_latitude: " + str(self.max_latitude) + ", min_longitude: " + 
+                    str(self.min_longitude) + ", max_longitude: " + str(self.max_longitude))
 
 if '__main__' == __name__:
     Mapper().main()
