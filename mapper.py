@@ -19,7 +19,7 @@ class Sorter:
     field_indices = {}
     field_names_dict = {}
 
-    def read_from_stream_into_dict(self, file_name):
+    def read_from_stream_into_dict(self, file_name, output_file):
         dict = {}
         fieldnames = None
         with open(file_name, 'r', newline='') as infile:
@@ -34,7 +34,8 @@ class Sorter:
                 if (len(key) < 4):
                     continue
                 dict[record['resource_name']] = record
-        log(str("{: >4d}".format(len(dict))) + ' records read from ' + file_name)
+        if output_file == 'calced':
+            log(str("{: >4d}".format(len(dict))) + ' records read from ' + file_name)
         return fieldnames, dict 
 
     def get_record_key(self, array_record):
@@ -54,8 +55,8 @@ class Sorter:
             i += 1
         return dict_record
 
-    def do_sort(self, file_name):
-        fieldnames, dict_records = self.read_from_stream_into_dict(file_name)
+    def do_sort(self, file_name, output_file):
+        fieldnames, dict_records = self.read_from_stream_into_dict(file_name, output_file)
         i = 0
         for f in fieldnames:
             self.field_indices[f] = i
@@ -143,7 +144,8 @@ class Mapper:
             kml_file.writelines('<?xml version="1.0" encoding="UTF-8"?>\n')
             bytes = etree.tostring(root, pretty_print=True)
             kml_file.write(bytes.decode("utf-8"))
-        log("{: >4d}".format(added_records) + ' records written to ' + fn)
+        if filename_prefix == 'calced':
+            log("{: >4d}".format(added_records) + ' records written to ' + fn)
 
     def master_coords_column_name(self, record):
         if record[self.field_indices['verified_gps_coords']]:
@@ -157,7 +159,7 @@ class Mapper:
         return 'verified_gps_coords'
 
     def transform_to_kml(self, input_file_name, filename_prefix, column_name_func):
-        self.field_indices, sorted_records = Sorter().do_sort(input_file_name)
+        self.field_indices, sorted_records = Sorter().do_sort(input_file_name, filename_prefix)
         MAX_RECORDS_PER_KML = 2000
         kml_file_index = 0
         total_records_processed = 0
@@ -177,7 +179,6 @@ class Mapper:
                 root = etree.Element("kml")
         if added_records > 0:
             self.write_kml_file(added_records, root, kml_file_index, filename_prefix)
-        return total_records_processed
 
     def main(self):
         self.transform_to_kml(self.data_dir + 'transformed_no_rand.csv', 'calced_no_rand', self.calced_coords_column_name)
@@ -186,8 +187,7 @@ class Mapper:
 
         self.max_name_length = 0
         self.max_desc_length = 0
-        total_records_processed = self.transform_to_kml(self.data_dir + 'transformed.csv', 'calced', self.master_coords_column_name)
-        log("{: >4d}".format(total_records_processed) + ' input records processed')
+        self.transform_to_kml(self.data_dir + 'transformed.csv', 'calced', self.master_coords_column_name)
         if show_stats:
             log("{: >4d}".format(self.max_name_length) + ' max_name_length' + ' in ' + self.max_name_record)
             log("{: >4d}".format(self.max_desc_length) + ' max_desc_length' + ' in ' + self.max_desc_record)
