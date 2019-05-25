@@ -2,6 +2,20 @@
 <kml xmlns="http://www.opengis.net/kml/2.2">
   <Document>
     <Placemark>
+      <name>Oyster Beds, Mulford's Landing? [https://sanle.ent.sirsi.net/client/en_US/search/asset/5383/0]</name>
+      <description>[00000249] Oyster Beds, Mulford's Landing? [46]</description>
+      <Point>
+        <coordinates>-122.18977,37.70097,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Freeman Home [https://sanle.ent.sirsi.net/client/en_US/search/asset/6036/0]</name>
+      <description>[00000902] 34 Oakes Blvd., San Leandro. [D621]</description>
+      <Point>
+        <coordinates>-122.159193,37.730716,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
       <name>Eber Home, 1880 [https://sanle.ent.sirsi.net/client/en_US/search/asset/5563/0]</name>
       <description>[00000429] 63 Callan Ave. Henry F. Eber; Winnie, his daughter; Laura, his wife. Budd Eber was born in this house in 1881. [D724]</description>
       <Point>
@@ -45,7 +59,7 @@
     </Placemark>
     <Placemark>
       <name>Roosevelt School, ca 1930 [https://sanle.ent.sirsi.net/client/en_US/search/asset/6167/0]</name>
-      <description>[00001034] Roosevelt School, ca 1930. [E317]</description>
+      <description>[00001034] Roosevelt School, ca 1930. [17]</description>
       <Point>
         <coordinates>-122.1469,37.73595,0</coordinates>
       </Point>

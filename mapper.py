@@ -90,9 +90,6 @@ class Mapper:
                 record[self.field_indices['title']] += ', ' + year
 
     def handle_record(self, document_el, record, column_name):
-        year = record[self.field_indices['year']]
-        if not year or len(year) == 0:
-            return 0
         geo_coords = record[self.field_indices[column_name]]
         if not geo_coords or len(geo_coords) == 0:
             return 0
@@ -156,7 +153,6 @@ class Mapper:
         self.field_indices, sorted_records = Sorter().do_sort(input_file_name, filename_prefix)
         MAX_RECORDS_PER_KML = 2000
         kml_file_index = 0
-        total_records_processed = 0
         added_records = 0
         root = etree.Element('kml')
         root.set('xmlns', 'http://www.opengis.net/kml/2.2')
@@ -165,7 +161,6 @@ class Mapper:
             # For the calculated reference GPS coordinate layer, only add GPS coords if there are verified geographic coords.
             if 'calced_ref' != filename_prefix or record[self.field_indices['verified_gps_coords']]:
                 added_records += self.handle_record(document, record, column_name_func(record))
-            total_records_processed += 1
             if added_records == MAX_RECORDS_PER_KML:
                 self.write_kml_file(added_records, root, kml_file_index, filename_prefix)
                 kml_file_index += 1
