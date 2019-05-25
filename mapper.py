@@ -26,14 +26,8 @@ class Sorter:
             reader = csv.DictReader(infile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
             fieldnames = reader.fieldnames
             for record in reader:
-                if not record.get('year'):
-                    continue
-                if not record.get('geo_coord_original'):
-                    continue
-                key = record['geo_coord_original']
-                if (len(key) < 4):
-                    continue
-                dict[record['resource_name']] = record
+                if record.get('geo_coord_UTM'):
+                    dict[record['resource_name']] = record
         if output_file == 'calced':
             log(str("{: >4d}".format(len(dict))) + ' records read from ' + file_name)
         return fieldnames, dict 

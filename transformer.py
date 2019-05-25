@@ -148,7 +148,8 @@ def transform(infile, out_file_name):
         # Uncomment if you want to see more details.
         # print_details()
     if out_file_name == 'transformed':
-        log("{: >4d}".format(total_records) + ' records processed, ' + str("{: >4d}".format(transformed_records)) + ' transformed in ' + out_file_name)
+        log("{: >4d}".format(total_records) + ' records written to '
+            + out_file_name + '.csv, ' + str("{: >4d}".format(transformed_records)) + ' transformed')
 
 def main():
     with open(data_dir + 'merged.csv', 'r', newline='') as infile:
