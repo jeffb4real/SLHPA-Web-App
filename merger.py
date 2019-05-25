@@ -56,6 +56,7 @@ def write(records: dict, fieldnames: list):
     non_numeric_keys = ''
     current_resource_number = 0
     record_count = 0
+    missing_resource_names = ''
     filename = data_dir + 'merged.csv'
     outfile = open(filename, 'w', newline='')
     writer = csv.DictWriter(outfile, fieldnames, delimiter=',', quotechar='"',
@@ -71,9 +72,10 @@ def write(records: dict, fieldnames: list):
             if num > current_resource_number:
                 current_resource_number = num
         else:
-            log("No resource_name for: " + _ + ' : ' + str(value))
+            missing_resource_names += ' ' + _
     log(str("{: >4d}".format(record_count)) +
         ' records written to ' + filename)
+    log('missing resource names for: ' + missing_resource_names)
     log('non_numeric_keys: ' + non_numeric_keys)
     if show_stats:
         log('next_resource_number: ' + str(current_resource_number + 1))
@@ -99,7 +101,7 @@ def write_year_counts(scraped_records: dict):
     total_count = 0
     fn = data_dir + 'year_counts.tsv'
     with open(fn, 'w', newline='') as out_file:
-        # 1839, the invention of photography, and 1980, approx. culmination of the photo archive
+        # 1839, the invention of photography, and 'now'
         for y in range(1839, 2019):
             out_file.write(
                 str(y) + '\t' + str(year_counts[y]) + '\t' + str(adjusted_year_counts[y]) + '\n')
