@@ -98,17 +98,22 @@ def write_year_counts(scraped_records: dict):
                 adjusted_year = adjusted_year - 5 + round(10 * random.random())
             adjusted_year_counts[adjusted_year] += 1
 
+    min_year = 0
+    for y in range(0, 2019):
+        if year_counts[y] > 0:
+            min_year = y
+            break
     total_count = 0
     fn = data_dir + 'year_counts.tsv'
     with open(fn, 'w', newline='') as out_file:
-        # 1839, the invention of photography, and 'now'
-        for y in range(1839, 2019):
+        for y in range(min_year, 2020):
             out_file.write(
                 str(y) + '\t' + str(year_counts[y]) + '\t' + str(adjusted_year_counts[y]) + '\n')
             total_count += year_counts[y]
     if show_stats:
+        log(str(min_year) + ' min_year')
         log(str("{: >4d}".format(total_count)) +
-            ' total years count written to ' + fn)
+            ' counts of photos with year data written to ' + fn)
 
 
 def comb_addresses(scraped_fieldnames: list, scraped_records: dict):
@@ -144,7 +149,6 @@ def add_year(field_text):
     # Match year(s). Notice this will match ca.1872 but won't match ca1872.
     # Also, will return 1944 if given 1944-45.
     pattern = r'\b(\d\d\d\d)\b'
-    pattern2 = r'ca(\d\d\d\d)\b'
 
     list_of_years = re.findall(pattern, field_text)
     if (list_of_years):
