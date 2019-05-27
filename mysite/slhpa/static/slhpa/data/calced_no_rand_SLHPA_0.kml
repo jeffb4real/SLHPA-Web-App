@@ -23,10 +23,24 @@
       </Point>
     </Placemark>
     <Placemark>
+      <name>San Leandro Marina Irrigation Ditch [https://sanle.ent.sirsi.net/client/en_US/search/asset/5147/0]</name>
+      <description>[00000010] Men and teams of horses and donkeys in the irrigation channel draining Mulford Flats into the Bay. (Left to right): John Fosha, Arthur Mendonca, Manual Serpa and Antone Souza. Last two men on far right are unknown. 8x10 bw print; 4x5 copy neg. [42]</description>
+      <Point>
+        <coordinates>-122.1851996875,37.69653857142856,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
       <name>Old St. Leander's Catholic Church [https://sanle.ent.sirsi.net/client/en_US/search/asset/5152/0]</name>
       <description>[00000015] A dedication or celebration outside Old St. Leander's Catholic Church. A crowd of people outside old St. Leander's. There is a tower of scaffolding with vases of flowers at its base. [26]</description>
       <Point>
         <coordinates>-122.1608246875,37.722812857142856,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Henry F. Eber and George Borman shooting "craps" at Lake Chabot [https://sanle.ent.sirsi.net/client/en_US/search/asset/5154/0]</name>
+      <description>[00000017] Several men kneel or stand under a tree. Among the people: Harry F. Eber (facing camera), George Borman (looking up), Fire Chief. [20]</description>
+      <Point>
+        <coordinates>-122.14102,37.732665714285716,0</coordinates>
       </Point>
     </Placemark>
     <Placemark>
@@ -72,6 +86,13 @@
       </Point>
     </Placemark>
     <Placemark>
+      <name>1300 Block on E. 14th St. [https://sanle.ent.sirsi.net/client/en_US/search/asset/5353/0]</name>
+      <description>[00000217] Fire; San Leandro Grill, Galvan's Barber Shop, U-Save Cleaner and Tailor, Public Loans. [25]</description>
+      <Point>
+        <coordinates>-122.156254375,37.724455,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
       <name>W. Estudillo and Washington Ave. [https://sanle.ent.sirsi.net/client/en_US/search/asset/5363/0]</name>
       <description>[00000227] W. Estudillo and Washington Ave. [25]</description>
       <Point>
@@ -114,10 +135,31 @@
       </Point>
     </Placemark>
     <Placemark>
+      <name>San Leandro Plaza [https://sanle.ent.sirsi.net/client/en_US/search/asset/5413/0]</name>
+      <description>[00000279] San Leandro Plaza. [24]</description>
+      <Point>
+        <coordinates>-122.1577778125,37.72609714285714,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Marina Mudflat [https://sanle.ent.sirsi.net/client/en_US/search/asset/5418/0]</name>
+      <description>[00000284] Marina Mudflat. [42]</description>
+      <Point>
+        <coordinates>-122.1882465625,37.69653857142856,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
       <name>Lincoln School Class [https://sanle.ent.sirsi.net/client/en_US/search/asset/5423/0]</name>
       <description>[00000289] Lincoln School Class. [26]</description>
       <Point>
         <coordinates>-122.15930125,37.722812857142856,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Residence of Robert and Henrietta Farelly located at Dutton and Chetland. [https://sanle.ent.sirsi.net/client/en_US/search/asset/5428/0]</name>
+      <description>[00000294] Residence of Robert and Henrietta Farelly located at Dutton and Chetland. (Opposite Chevrolet Plant). [18]</description>
+      <Point>
+        <coordinates>-122.150160625,37.73595,0</coordinates>
       </Point>
     </Placemark>
     <Placemark>
@@ -310,6 +352,13 @@
       </Point>
     </Placemark>
     <Placemark>
+      <name>Laying Ties for Western Pacific [https://sanle.ent.sirsi.net/client/en_US/search/asset/5503/0]</name>
+      <description>[00000369] Laying Ties for Western Pacific. [26]</description>
+      <Point>
+        <coordinates>-122.16387156249999,37.722812857142856,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
       <name>St. Leander's Church [https://sanle.ent.sirsi.net/client/en_US/search/asset/5504/0]</name>
       <description>[00000370] Carpentier &amp; Ward. [26]</description>
       <Point>
@@ -331,6 +380,13 @@
       </Point>
     </Placemark>
     <Placemark>
+      <name>O. J. Lynch's Residence [https://sanle.ent.sirsi.net/client/en_US/search/asset/5573/0]</name>
+      <description>[00000439] 259 Juana. Mr. Lynch's drugstore was at 130 Juana. [25]</description>
+      <Point>
+        <coordinates>-122.1532075,37.724455,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
       <name>Western Pacific Depot [https://sanle.ent.sirsi.net/client/en_US/search/asset/5575/0]</name>
       <description>[00000441] NW of Davis St. [25]</description>
       <Point>
@@ -349,6 +405,13 @@
       <description>[00000459] Union School Class Photo. [26]</description>
       <Point>
         <coordinates>-122.15930125,37.722812857142856,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Estudillo Home [https://sanle.ent.sirsi.net/client/en_US/search/asset/5611/0]</name>
+      <description>[00000477] Estudillo Home. [25]</description>
+      <Point>
+        <coordinates>-122.1608246875,37.724455,0</coordinates>
       </Point>
     </Placemark>
     <Placemark>
@@ -381,7 +444,7 @@
     </Placemark>
     <Placemark>
       <name>Freeman Home [https://sanle.ent.sirsi.net/client/en_US/search/asset/6036/0]</name>
-      <description>[00000902] 34 Oakes Blvd., San Leandro. [D621]</description>
+      <description>[00000902] 34 Oakes Blvd., San Leandro. [21]</description>
       <Point>
         <coordinates>-122.1608246875,37.73102357142857,0</coordinates>
       </Point>
@@ -391,6 +454,13 @@
       <description>[00000907] Dutton at E. 14th St. Freeman Drug Co., B and D Sanitary Meat Market, Groceries. Dr. E.J. Lauber on second floor. [21]</description>
       <Point>
         <coordinates>-122.162348125,37.73102357142857,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>San Leandro Plaza Looking South [https://sanle.ent.sirsi.net/client/en_US/search/asset/6043/0]</name>
+      <description>[00000909] San Leandro Plaza Looking South. [24]</description>
+      <Point>
+        <coordinates>-122.1577778125,37.72609714285714,0</coordinates>
       </Point>
     </Placemark>
     <Placemark>
@@ -415,10 +485,24 @@
       </Point>
     </Placemark>
     <Placemark>
+      <name>Estudillo Home on West Estudillo [https://sanle.ent.sirsi.net/client/en_US/search/asset/6097/0]</name>
+      <description>[00000963] Estudillo Home on West Estudillo (formerly Ward Street). [26]</description>
+      <Point>
+        <coordinates>-122.1608246875,37.722812857142856,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
       <name>St. Leander's School [https://sanle.ent.sirsi.net/client/en_US/search/asset/6098/0]</name>
       <description>[00000964] St. Leander's School. [24]</description>
       <Point>
         <coordinates>-122.1608246875,37.72609714285714,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Grounds of Old Webber House [https://sanle.ent.sirsi.net/client/en_US/search/asset/6100/0]</name>
+      <description>[00000966] Grounds of Old Webber House. [26]</description>
+      <Point>
+        <coordinates>-122.1608246875,37.722812857142856,0</coordinates>
       </Point>
     </Placemark>
     <Placemark>
@@ -447,6 +531,13 @@
       <description>[00000978] Friden Calculators on Washington Avenue. [34]</description>
       <Point>
         <coordinates>-122.1486371875,37.70967571428571,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Casa Peralta: Door leading to tank house [https://sanle.ent.sirsi.net/client/en_US/search/asset/6116/0]</name>
+      <description>[00000982] Casa Peralta: Door leading to tank house. [27]</description>
+      <Point>
+        <coordinates>-122.162348125,37.72117071428571,0</coordinates>
       </Point>
     </Placemark>
     <Placemark>
@@ -492,10 +583,31 @@
       </Point>
     </Placemark>
     <Placemark>
+      <name>Fountain in the Casa Peralta [https://sanle.ent.sirsi.net/client/en_US/search/asset/6149/0]</name>
+      <description>[00001015] Fountain in the Casa Peralta (or Villa Maria Antonia) Northeast Corner of Clarke and Ward (W. Estudillo). [27]</description>
+      <Point>
+        <coordinates>-122.162348125,37.72117071428571,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
       <name>St. Leander''s Catholic School [https://sanle.ent.sirsi.net/client/en_US/search/asset/6150/0]</name>
       <description>[00001016] St. Leander''s Catholic School. [24]</description>
       <Point>
         <coordinates>-122.1608246875,37.72609714285714,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>View of Casa Peralta [https://sanle.ent.sirsi.net/client/en_US/search/asset/6160/0]</name>
+      <description>[00001026] View of Casa Peralta. [27]</description>
+      <Point>
+        <coordinates>-122.162348125,37.72117071428571,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Pelton Home and Realty, Where Pelton Center is Now [https://sanle.ent.sirsi.net/client/en_US/search/asset/6162/0]</name>
+      <description>[00001029] Pelton Home and Realty, Where Pelton Center is Now. [25]</description>
+      <Point>
+        <coordinates>-122.156254375,37.724455,0</coordinates>
       </Point>
     </Placemark>
     <Placemark>
@@ -557,6 +669,13 @@
     <Placemark>
       <name>Freeman Block, Dutton and E. 14th St. [https://sanle.ent.sirsi.net/client/en_US/search/asset/6332/0]</name>
       <description>[00001199] Drugs, Mutual. [21]</description>
+      <Point>
+        <coordinates>-122.1608246875,37.73102357142857,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Dutton Avenue and East 14th Street car tracks taken up [https://sanle.ent.sirsi.net/client/en_US/search/asset/6336/0]</name>
+      <description>[00001203] Pictured are the Del Mar Theater, Donna's Baby and Teenage shop, Wells Drug Store. [21]</description>
       <Point>
         <coordinates>-122.1608246875,37.73102357142857,0</coordinates>
       </Point>
@@ -625,10 +744,24 @@
       </Point>
     </Placemark>
     <Placemark>
+      <name>Haas Residence [https://sanle.ent.sirsi.net/client/en_US/search/asset/6460/0]</name>
+      <description>[00001329] Two women standing in front. [24]</description>
+      <Point>
+        <coordinates>-122.1577778125,37.72609714285714,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
       <name>Carnegie Public Library, San Leandro [https://sanle.ent.sirsi.net/client/en_US/search/asset/6461/0]</name>
       <description>[00001330] Carnegie Public Library, San Leandro. [24]</description>
       <Point>
         <coordinates>-122.156254375,37.72609714285714,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>San Leandro Plaza, Haywards and San Lorenza Aves, looking east [https://sanle.ent.sirsi.net/client/en_US/search/asset/6462/0]</name>
+      <description>[00001331] Also pictured is the Estudillo House. [24]</description>
+      <Point>
+        <coordinates>-122.1577778125,37.72609714285714,0</coordinates>
       </Point>
     </Placemark>
     <Placemark>
@@ -641,6 +774,13 @@
     <Placemark>
       <name>John and Mary Mathews [https://sanle.ent.sirsi.net/client/en_US/search/asset/6551/0]</name>
       <description>[00001423] Wedding Picture (?) [26]</description>
+      <Point>
+        <coordinates>-122.1608246875,37.722812857142856,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Mary E. Furtado's Home, Ward St. [https://sanle.ent.sirsi.net/client/en_US/search/asset/6552/0]</name>
+      <description>[00001424] Mary E. Furtado's Home, Ward St. [26]</description>
       <Point>
         <coordinates>-122.1608246875,37.722812857142856,0</coordinates>
       </Point>
@@ -664,6 +804,69 @@
       <description>[00001427] William and Lena Mathews, as children. [25]</description>
       <Point>
         <coordinates>-122.16387156249999,37.724455,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Balcony of Casa Peralta [https://sanle.ent.sirsi.net/client/en_US/search/asset/6603/0]</name>
+      <description>[00001475] Balcony of Casa Peralta. [26]</description>
+      <Point>
+        <coordinates>-122.15930125,37.722812857142856,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Inside Walk of Casa Peralta [https://sanle.ent.sirsi.net/client/en_US/search/asset/6604/0]</name>
+      <description>[00001476] Inside Walk of Casa Peralta. [26]</description>
+      <Point>
+        <coordinates>-122.15930125,37.722812857142856,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Casa Peralta Bell Tower [https://sanle.ent.sirsi.net/client/en_US/search/asset/6605/0]</name>
+      <description>[00001477] Casa Peralta Bell Tower. [26]</description>
+      <Point>
+        <coordinates>-122.15930125,37.722812857142856,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Tile at Casa Peralta [https://sanle.ent.sirsi.net/client/en_US/search/asset/6606/0]</name>
+      <description>[00001478] Tile at Casa Peralta. [26]</description>
+      <Point>
+        <coordinates>-122.15930125,37.722812857142856,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Wall at Casa Peralta [https://sanle.ent.sirsi.net/client/en_US/search/asset/6607/0]</name>
+      <description>[00001479] Wall at Casa Peralta. [26]</description>
+      <Point>
+        <coordinates>-122.15930125,37.722812857142856,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Courtyard at Casa Peralta [https://sanle.ent.sirsi.net/client/en_US/search/asset/6608/0]</name>
+      <description>[00001480] Courtyard at Casa Peralta. [26]</description>
+      <Point>
+        <coordinates>-122.15930125,37.722812857142856,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Front Steps of Casa Peralta [https://sanle.ent.sirsi.net/client/en_US/search/asset/6609/0]</name>
+      <description>[00001481] Front Steps of Casa Peralta. [26]</description>
+      <Point>
+        <coordinates>-122.15930125,37.722812857142856,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Casa Peralta [https://sanle.ent.sirsi.net/client/en_US/search/asset/6610/0]</name>
+      <description>[00001482] Casa Peralta. [26]</description>
+      <Point>
+        <coordinates>-122.15930125,37.722812857142856,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>San Leandro Street Scene [https://sanle.ent.sirsi.net/client/en_US/search/asset/6611/0]</name>
+      <description>[00001483] San Leandro Street Scene. [26]</description>
+      <Point>
+        <coordinates>-122.15930125,37.722812857142856,0</coordinates>
       </Point>
     </Placemark>
     <Placemark>
@@ -692,6 +895,13 @@
       <description>[00001504] San Leandro Steam and French Laundry, Laundry Equipment. [25]</description>
       <Point>
         <coordinates>-122.15930125,37.724455,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Lady on steps of 'Toler Home' [https://sanle.ent.sirsi.net/client/en_US/search/asset/6633/0]</name>
+      <description>[00001505] Lady on steps of 'Toler Home' [26]</description>
+      <Point>
+        <coordinates>-122.15930125,37.722812857142856,0</coordinates>
       </Point>
     </Placemark>
     <Placemark>
@@ -730,8 +940,15 @@
       </Point>
     </Placemark>
     <Placemark>
+      <name>Alta Mira Club, formerly Ygnacio Peralta Home, 561 Lafayette Avenue [https://sanle.ent.sirsi.net/client/en_US/search/asset/6879/0]</name>
+      <description>[00001764] Alta Mira Club, formerly Ygnacio Peralta Home, 561 Lafayette Avenue. [21]</description>
+      <Point>
+        <coordinates>-122.162348125,37.73102357142857,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
       <name>Peralta Home, 1860 [https://sanle.ent.sirsi.net/client/en_US/search/asset/5141/0]</name>
-      <description>[00000004] Peralta home with people in front and outbuildings visible in back. Home of Ygnacio Peralta, built by son-in-law William P. Toler in 1860. The man on the porch is believed to be Ygnacio Peralta, and the woman may be his wife Rafaele. The home at 561 Lafayette Street is now the Alta Mira Club House and Historical Landmark #285. 8x10 bw print; 4x5 copy neg. [D521]</description>
+      <description>[00000004] Peralta home with people in front and outbuildings visible in back. Home of Ygnacio Peralta, built by son-in-law William P. Toler in 1860. The man on the porch is believed to be Ygnacio Peralta, and the woman may be his wife Rafaele. The home at 561 Lafayette Street is now the Alta Mira Club House and Historical Landmark #285. 8x10 bw print; 4x5 copy neg. [21]</description>
       <Point>
         <coordinates>-122.162348125,37.73102357142857,0</coordinates>
       </Point>
@@ -1164,13 +1381,6 @@
       </Point>
     </Placemark>
     <Placemark>
-      <name>I.O.O.F. Building opposite city Plaza, about 1890 [https://sanle.ent.sirsi.net/client/en_US/search/asset/6329/0]</name>
-      <description>[00001196] C.H. Gray was Postmaster; girl in polka-dot dress and wide brimmed hat is same as one in "San Leandro Hotel, corner of E. 14th St and Estudillo", number 1194. Also pictured, Manhattan Food. [D824]</description>
-      <Point>
-        <coordinates>-122.1577778125,37.72609714285714,0</coordinates>
-      </Point>
-    </Placemark>
-    <Placemark>
       <name>John W. Haas's business card from the 1890's [https://sanle.ent.sirsi.net/client/en_US/search/asset/6446/0]</name>
       <description>[00001315] Haas, Harvey and company, manufacturers of and dealers in tinware, stoves, ranges and plumbing and gasfitting done with neatness and dispatch. Charges liberal and satifaction guaranteed. Watkins St. (near the bridge), San Leandro, Cal. [D625]</description>
       <Point>
@@ -1273,13 +1483,6 @@
       <description>[00001484] Company awarded gold medal for best exhibit at California State Fair, 1890. Shown in engraving is the new Best steam combined harvester, the horse drawn harvester, the 50hp. steam traction engine, and other machines being assembled. In building was a large steam engine which supplied power to entire shop; on roof the shop whistle is shown. Stacks are from blacksmith and foundry furnaces. Large building on left is the machine shop. In background on left, the city of San Leandro can be seen with the spire of St. Leander's church. [D425]</description>
       <Point>
         <coordinates>-122.16387156249999,37.724455,0</coordinates>
-      </Point>
-    </Placemark>
-    <Placemark>
-      <name>Charles H. Cushing Family, ca 1877 [https://sanle.ent.sirsi.net/client/en_US/search/asset/5244/0]</name>
-      <description>[00000107] Family group, parents seated, children standing (except one). Probably taken in photo studio. They were the first couple married in St. Leander's. Wife was Estudillo's daughter, Maria Dolores. Thomas Chshing, son, born 1870. Charles H. Cushing, father. Elise Cushing, daughter, born 1865. Agnes Cushing, daughter, born 1874. Maria Dolores (Estudillo) Cushing, mother. Charles Cushing, son, born 1866. Mr. Cushing was a bookkeeper in 1870. [D724]</description>
-      <Point>
-        <coordinates>-122.15930125,37.72609714285714,0</coordinates>
       </Point>
     </Placemark>
     <Placemark>
@@ -1388,13 +1591,6 @@
       </Point>
     </Placemark>
     <Placemark>
-      <name>Central Restaurant and Grocery, 1896 [https://sanle.ent.sirsi.net/client/en_US/search/asset/5509/0]</name>
-      <description>[00000375] Corner of E. 14th and Callan Ave. [D824]</description>
-      <Point>
-        <coordinates>-122.1577778125,37.72609714285714,0</coordinates>
-      </Point>
-    </Placemark>
-    <Placemark>
       <name>San Leandro Plaza Flagpole Dedication, March 6, 1897 [https://sanle.ent.sirsi.net/client/en_US/search/asset/5833/0]</name>
       <description>[00000699] San Leandro Plaza flagpole dedication, March 6, 1897. Looking down Haywards Road (East 14th Street). The flagpole was donated by Col. Frank S. Hasting. [D824]</description>
       <Point>
@@ -1469,13 +1665,6 @@
       <description>[00000280] Included in the picture are Andrew Nelson, Mary Murray, Maggie Gill, Peter Lawrence, Minnie Miller, Rose Miller, Mathews, Toffelmeir, Jennie Santos, Tony Costa and Comatcha. The principal was W.H. Langdon and Miss M. Gill was the teacher. [D726]</description>
       <Point>
         <coordinates>-122.15930125,37.722812857142856,0</coordinates>
-      </Point>
-    </Placemark>
-    <Placemark>
-      <name>Plaza, Washington and East 14th Street, 1897-1901 [https://sanle.ent.sirsi.net/client/en_US/search/asset/5457/0]</name>
-      <description>[00000323] The town limits in those days was the creek; the covered bridge over the creek is shown in the background. Notice the electric streetcar and the old street lamps. [D824]</description>
-      <Point>
-        <coordinates>-122.1577778125,37.72609714285714,0</coordinates>
       </Point>
     </Placemark>
     <Placemark>
@@ -1616,6 +1805,13 @@
       <description>[00000516] "Murphy's Tank House". Carl Iversen, Sr., Carl Iversen, Jr., Charlie Rowland, George Gonsalves, Frank "Smelt" Gonsalves. Carl J. Iversen's Saloon and Family Gardens was located next to the old Town Hall on Davis St. Galloway believes that the man on the far right is Frank Smelt. [D724]</description>
       <Point>
         <coordinates>-122.15930125,37.72609714285714,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>House, Corner of Davis and Dabner, 1899 [https://sanle.ent.sirsi.net/client/en_US/search/asset/5658/0]</name>
+      <description>[00000524] Mr. and Mrs. Mattos Murray, Em Murray, Granddaughter. This house is now the home of Councilman Mario Polvorosa. [27]</description>
+      <Point>
+        <coordinates>-122.1669184375,37.72117071428571,0</coordinates>
       </Point>
     </Placemark>
     <Placemark>
@@ -2060,6 +2256,13 @@
       </Point>
     </Placemark>
     <Placemark>
+      <name>Plaza, Washington and East 14th Street, 1897-1901 [https://sanle.ent.sirsi.net/client/en_US/search/asset/5457/0]</name>
+      <description>[00000323] The town limits in those days was the creek; the covered bridge over the creek is shown in the background. Notice the electric streetcar and the old street lamps. [24]</description>
+      <Point>
+        <coordinates>-122.1577778125,37.72609714285714,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
       <name>Five Ladder Fire Truck manufactured in San Leandro and sold to the City of San Francisco Fire Department, 1901 [https://sanle.ent.sirsi.net/client/en_US/search/asset/5481/0]</name>
       <description>[00000347] This view was taken at the corner of East 14th Street and Hepburn with some of the workers. 1901. [D925]</description>
       <Point>
@@ -2078,13 +2281,6 @@
       <description>[00000717] San Leandro Firefighting Equipment, 1901. [D924]</description>
       <Point>
         <coordinates>-122.156254375,37.72609714285714,0</coordinates>
-      </Point>
-    </Placemark>
-    <Placemark>
-      <name>Newspaper Clipping - John W. Haas appointed to important position, 1901 [https://sanle.ent.sirsi.net/client/en_US/search/asset/6447/0]</name>
-      <description>[00001316] John W. Haas (1862 - 1938), photo taken in 1901 or just before. [D625]</description>
-      <Point>
-        <coordinates>-122.1608246875,37.724455,0</coordinates>
       </Point>
     </Placemark>
     <Placemark>
@@ -2361,13 +2557,6 @@
       </Point>
     </Placemark>
     <Placemark>
-      <name>Estudillo Ave, Looking East, 1909 [https://sanle.ent.sirsi.net/client/en_US/search/asset/5590/0]</name>
-      <description>[00000456] Estudillo Ave, Looking East, 1909. [D824]</description>
-      <Point>
-        <coordinates>-122.1577778125,37.72609714285714,0</coordinates>
-      </Point>
-    </Placemark>
-    <Placemark>
       <name>Estudillo and East 14th Street about 1906 [https://sanle.ent.sirsi.net/client/en_US/search/asset/5599/0]</name>
       <description>[00000465] Included in the picture are the IOOF Building, a restaurant, the Christensen Hotel and Lynch's Pharmacy. Date probably between 1897 and 1902 - Brent Galloway. [D824]</description>
       <Point>
@@ -2432,7 +2621,7 @@
     </Placemark>
     <Placemark>
       <name>E. 14th and Ward Sts., 1908 [https://sanle.ent.sirsi.net/client/en_US/search/asset/5338/0]</name>
-      <description>[00000202] Plaza, I.O.O.F. Hall, San Leandro Hotel, and Bank. [D925]</description>
+      <description>[00000202] Plaza, I.O.O.F. Hall, San Leandro Hotel, and Bank. [25]</description>
       <Point>
         <coordinates>-122.156254375,37.724455,0</coordinates>
       </Point>
@@ -2540,6 +2729,13 @@
       <description>[00000409] Arch at Estudillo Ave. The first Cherry Festival was held June 4th through 5th, 1909. This picture shows the crowds that attended and was probably taken looking down Estudillo Ave. from about Harrison, toward the Plaza. [D824]</description>
       <Point>
         <coordinates>-122.1577778125,37.72609714285714,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Bessie Best and Tex Manning, 1909 [https://sanle.ent.sirsi.net/client/en_US/search/asset/5574/0]</name>
+      <description>[00000440] Bessie was first Cherry Queen; Bessie Best and Tex Charles Manning were married April 20, 1910. [25]</description>
+      <Point>
+        <coordinates>-122.1532075,37.724455,0</coordinates>
       </Point>
     </Placemark>
     <Placemark>
@@ -3005,13 +3201,6 @@
       </Point>
     </Placemark>
     <Placemark>
-      <name>Aurora Perry at the San Leandro Plaza, 1910 [https://sanle.ent.sirsi.net/client/en_US/search/asset/7054/0]</name>
-      <description>[00001941] IOOF in background. [D824]</description>
-      <Point>
-        <coordinates>-122.1577778125,37.72609714285714,0</coordinates>
-      </Point>
-    </Placemark>
-    <Placemark>
       <name>Union School, ca 1910 [https://sanle.ent.sirsi.net/client/en_US/search/asset/7094/0]</name>
       <description>[00001981] Union School, ca 1910. [D726]</description>
       <Point>
@@ -3224,13 +3413,6 @@
     <Placemark>
       <name>Lincoln School Class, 1911 [https://sanle.ent.sirsi.net/client/en_US/search/asset/7121/0]</name>
       <description>[00002009] Charlotte Lynch (Row 5, at left side). [D726]</description>
-      <Point>
-        <coordinates>-122.15930125,37.722812857142856,0</coordinates>
-      </Point>
-    </Placemark>
-    <Placemark>
-      <name>Lincoln School Class, 1911 [https://sanle.ent.sirsi.net/client/en_US/search/asset/7128/0]</name>
-      <description>[00002016] Lincoln School Class, 1911. [D726]</description>
       <Point>
         <coordinates>-122.15930125,37.722812857142856,0</coordinates>
       </Point>
@@ -3450,20 +3632,6 @@
       <description>[00001738] Buildings pictured include San Leandro Public School, (Lincoln), Best Theatre, and residence of Mrs. Henrietta Farrelly. [D825]</description>
       <Point>
         <coordinates>-122.1577778125,37.724455,0</coordinates>
-      </Point>
-    </Placemark>
-    <Placemark>
-      <name>San Leandro's Story' by Weston P. Truesdale, 1914 [https://sanle.ent.sirsi.net/client/en_US/search/asset/6854/0]</name>
-      <description>[00001739] Published in San Leandro Standard, August 13, 1914. Building is Carnegie Public Library. [D924]</description>
-      <Point>
-        <coordinates>-122.156254375,37.72609714285714,0</coordinates>
-      </Point>
-    </Placemark>
-    <Placemark>
-      <name>San Leandro's Story', bottom half of page, 1914 [https://sanle.ent.sirsi.net/client/en_US/search/asset/6855/0]</name>
-      <description>[00001740] Photos include Lake Chabot and San Leandro Plaza. [D824]</description>
-      <Point>
-        <coordinates>-122.1577778125,37.72609714285714,0</coordinates>
       </Point>
     </Placemark>
     <Placemark>
@@ -3709,13 +3877,6 @@
       <description>[00001308] Pearl Piavek (Nie Garcia). Background shows Lopez's Court. (Cecilia Court). [D823]</description>
       <Point>
         <coordinates>-122.1577778125,37.727739285714286,0</coordinates>
-      </Point>
-    </Placemark>
-    <Placemark>
-      <name>Central Agricultural Works, 1916 [https://sanle.ent.sirsi.net/client/en_US/search/asset/6533/0]</name>
-      <description>[00001405] 145 Hepburn St., Wagon and blacksmith equipment. Frank George, William Barbugger, Frank Branch, owner, Prop. [D925]</description>
-      <Point>
-        <coordinates>-122.156254375,37.724455,0</coordinates>
       </Point>
     </Placemark>
     <Placemark>
@@ -4377,13 +4538,6 @@
       </Point>
     </Placemark>
     <Placemark>
-      <name>7th Grade, Lincoln School, 1923 [https://sanle.ent.sirsi.net/client/en_US/search/asset/5678/0]</name>
-      <description>[00000544] Top row: Alfred Davena, Leroy Bowen, Louis Silva, Cecil Lincoln, Everett Brewer, Fredrick Platt, Clarence Goodeill, Lester Brown. Second row: Elmo Lytell, Freida -, Dannetta Baxley, Bruna Martinelli, Constance Gonzales, Lawrence Dangerfield, Harold Retzloff, Carlo Vecchiarelli, Lawrence Nunes. Third row: Adele Ends, Laverne Vargas, Helen Pike, Grace Johannsen, Louise Mendonca, Lois Pelton, Anita Pardini, Evelyn Dutra, Virginia Arbini. Fourth row: William Wagner, Alfred Xavier, Eugene Gomes, Remo Bartolini, Robert Leard. [D726]</description>
-      <Point>
-        <coordinates>-122.15930125,37.722812857142856,0</coordinates>
-      </Point>
-    </Placemark>
-    <Placemark>
       <name>Polvorosa Boys, 1923 [https://sanle.ent.sirsi.net/client/en_US/search/asset/5686/0]</name>
       <description>[00000552] 141 Dabner St. Frank Polvorosa, Julian Polvorosa, Sr., Tony Polvorosa. [D226]</description>
       <Point>
@@ -4414,20 +4568,6 @@
     <Placemark>
       <name>George R. Pyles' Barber Shop. Estudillo House 1229 Washington, about 1924. [https://sanle.ent.sirsi.net/client/en_US/search/asset/5431/0]</name>
       <description>[00000297] George R. Pyles' Barber Shop. Estudillo House 1229 Washington, about 1924. [D824]</description>
-      <Point>
-        <coordinates>-122.1577778125,37.72609714285714,0</coordinates>
-      </Point>
-    </Placemark>
-    <Placemark>
-      <name>16th Cherry Festival, 1926 [https://sanle.ent.sirsi.net/client/en_US/search/asset/5565/0]</name>
-      <description>[00000431] In front of Chamber of Commerce Building. Col. Armstrong (far right), Fred J. Hirschmann (second far from right). [D824]</description>
-      <Point>
-        <coordinates>-122.1577778125,37.72609714285714,0</coordinates>
-      </Point>
-    </Placemark>
-    <Placemark>
-      <name>Chamber of Commerce, 1924 [https://sanle.ent.sirsi.net/client/en_US/search/asset/5566/0]</name>
-      <description>[00000432] Col. Armstrong (far right). [D824]</description>
       <Point>
         <coordinates>-122.1577778125,37.72609714285714,0</coordinates>
       </Point>
@@ -4472,6 +4612,13 @@
       <description>[00000724] Back row: Roland Esteves, Bill Mathews, Jack Adams Wm. B. (Pete) Zambresky, local publisher, Belle Simas, Queen of Cherry Festival, Charles Souza, George Peterson, Joseph Cardoza. Front row: Jake Ury, Jack Monroe, W.Y. Armstrong. [D626]</description>
       <Point>
         <coordinates>-122.1608246875,37.722812857142856,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>San Leandro Ball Park 1925 [https://sanle.ent.sirsi.net/client/en_US/search/asset/5893/0]</name>
+      <description>[00000759] San Leandro Ball Park 1925. [27]</description>
+      <Point>
+        <coordinates>-122.1669184375,37.72117071428571,0</coordinates>
       </Point>
     </Placemark>
     <Placemark>
@@ -4783,8 +4930,22 @@
       </Point>
     </Placemark>
     <Placemark>
+      <name>View of San Leandro Plaza, taken in the 1930's [https://sanle.ent.sirsi.net/client/en_US/search/asset/6080/0]</name>
+      <description>[00000946] Shown are Oyster Loaf Cafe, Elmer Hotel, Seafood Grill, Eastern Chop Suey Cafe, San Leandro Market, Gibson's Drugs, Hemler Hardware, Western Auto Supply, PG and E, Fountain Service Soda and Lunch. [24]</description>
+      <Point>
+        <coordinates>-122.1577778125,37.72609714285714,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
       <name>East 14th Street Scene, Showing the I.O.O.F. Building and the Hemler Hardware Store, 1930 CA [https://sanle.ent.sirsi.net/client/en_US/search/asset/6088/0]</name>
       <description>[00000954] East 14th Street Scene, Showing the I.O.O.F. Building and the Hemler Hardware Store, 1930 CA. [24]</description>
+      <Point>
+        <coordinates>-122.1577778125,37.72609714285714,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>View of San Leandro Plaza, CA. 1930 [https://sanle.ent.sirsi.net/client/en_US/search/asset/6091/0]</name>
+      <description>[00000957] Shown in the picture are Gibson's Drugs, Hemler Hardware, MacMarr Stores, Western Auto Supply, and signs for Mt Eden, Alvarado, San Jose, Hayward, San Jose, Stockton, Fresno. [24]</description>
       <Point>
         <coordinates>-122.1577778125,37.72609714285714,0</coordinates>
       </Point>
@@ -5049,6 +5210,13 @@
       </Point>
     </Placemark>
     <Placemark>
+      <name>Newspaper Clipping - John W. Haas appointed to important position, 1938 [https://sanle.ent.sirsi.net/client/en_US/search/asset/6447/0]</name>
+      <description>[00001316] John W. Haas (1862 - 1938), photo taken in 1901 or just before. [25]</description>
+      <Point>
+        <coordinates>-122.1608246875,37.724455,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
       <name>Newspaper Clippings Regarding Historical Homes and Landmarks, Jan. 12, 1938 [https://sanle.ent.sirsi.net/client/en_US/search/asset/6777/0]</name>
       <description>[00001651] Newspaper Clippings Regarding Historical Homes and Landmarks, Jan. 12, 1938. [D626]</description>
       <Point>
@@ -5168,6 +5336,13 @@
       </Point>
     </Placemark>
     <Placemark>
+      <name>Street Scene taken at Bancroft and Dutton Avenues, 1940 CA [https://sanle.ent.sirsi.net/client/en_US/search/asset/6087/0]</name>
+      <description>[00000953] Included among the stores are Storm's Market and Carlson Hardware. [18]</description>
+      <Point>
+        <coordinates>-122.1532075,37.73595,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
       <name>Tennis Court on Davis Street. Estudillo Park is the Site, 1940 [https://sanle.ent.sirsi.net/client/en_US/search/asset/6131/0]</name>
       <description>[00000997] Tennis Court on Davis Street. Estudillo Park is the Site. [D525]</description>
       <Point>
@@ -5186,13 +5361,6 @@
       <description>[00001046] Bank of America (left), Carolyn's Book Store, Thomas Drugs, Paul A Pachea Co Insurance Service. [D825]</description>
       <Point>
         <coordinates>-122.1577778125,37.724455,0</coordinates>
-      </Point>
-    </Placemark>
-    <Placemark>
-      <name>Mrs. Sadie Codner, 1940 [https://sanle.ent.sirsi.net/client/en_US/search/asset/6356/0]</name>
-      <description>[00001223] The Codners owned the rest home from sometime in the 1930's until about 1957; Mrs. Codner tended the garden on the grounds and painted pictures as well. [D625]</description>
-      <Point>
-        <coordinates>-122.1608246875,37.724455,0</coordinates>
       </Point>
     </Placemark>
     <Placemark>
@@ -5228,6 +5396,13 @@
       <description>[00002099] J.B. Mirande. [D825]</description>
       <Point>
         <coordinates>-122.1577778125,37.724455,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>San Leandro Plaza Looking South from E.14th at Callan, 1941 [https://sanle.ent.sirsi.net/client/en_US/search/asset/6347/0]</name>
+      <description>[00001214] Pictured are Chop Suey, Drugs, and other stores. Sidewalk under construction. [24]</description>
+      <Point>
+        <coordinates>-122.15930125,37.72609714285714,0</coordinates>
       </Point>
     </Placemark>
     <Placemark>
@@ -5373,6 +5548,13 @@
     <Placemark>
       <name>First Masonic Temple, 1312 Clarke St., 1950 [https://sanle.ent.sirsi.net/client/en_US/search/asset/5871/0]</name>
       <description>[00000737] First Masonic Temple, 1312 Clarke St. [D826]</description>
+      <Point>
+        <coordinates>-122.1577778125,37.722812857142856,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>View of East 14th Street Showing the Benjamin Moore Paints Store, the National Dollar Store, the Guadalajara Restaurant, and the 88 Cents Store, 1950 [https://sanle.ent.sirsi.net/client/en_US/search/asset/6071/0]</name>
+      <description>[00000937] View of East 14th Street Showing the Benjamin Moore Paints Store, the National Dollar Store, the Guadalajara Restaurant, and the 88 Cents Store(1950 Ca). [26]</description>
       <Point>
         <coordinates>-122.1577778125,37.722812857142856,0</coordinates>
       </Point>
@@ -5833,6 +6015,13 @@
       </Point>
     </Placemark>
     <Placemark>
+      <name>Bill Estate, located at Huff Avenue and Estudillo, 1969 [https://sanle.ent.sirsi.net/client/en_US/search/asset/5421/0]</name>
+      <description>[00000287] Later, this was the site of San Leandro Fire Department number 1. The Socrates Huff home had been moved from the site in 1912 to make way for the new house of Douglas Ulysses Toffelmeir. Louis Bill bought the home in 1917 and remodelled it. The home, including the tennis courts in back, was torn down in 1969. [24]</description>
+      <Point>
+        <coordinates>-122.1532075,37.72609714285714,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
       <name>Railroad Crossing at Davis Street, taken in 1969 [https://sanle.ent.sirsi.net/client/en_US/search/asset/5744/0]</name>
       <description>[00000610] Railroad Crossing at Davis Street, taken in 1969. [C229]</description>
       <Point>
@@ -5910,6 +6099,13 @@
       </Point>
     </Placemark>
     <Placemark>
+      <name>Home of M. Camancho, 1971 [https://sanle.ent.sirsi.net/client/en_US/search/asset/5462/0]</name>
+      <description>[00000328] This picture was made about 1902 of the building still standing (as of 1971) on 254 Callan Ave. Additions were made to the house - a water tower and so on - in 1903, acording to Marc Branco. [24]</description>
+      <Point>
+        <coordinates>-122.15930125,37.72609714285714,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
       <name>Letter Written by George Mirande, 1971 [https://sanle.ent.sirsi.net/client/en_US/search/asset/6625/0]</name>
       <description>[00001497] I give you the authority to paint the family laundry portrait which is photoed in the San Leandro Centennial magazine. The San Leandro Library has the right to lt Lorellie Tolvtvar paint the photo. [25]</description>
       <Point>
@@ -5921,6 +6117,13 @@
       <description>[00001632] Left to right: Mrs. Arthur C. Bryant, Auditor; Mrs. V. David Park, Correspondence Secretary; Mrs. Thomas J. Rogers, Directory of Hospital; Mrs. Russel D. Smart, Secretary; Mrs. John Wells, Treasurer; Mrs. Howard McCarthy First Vice President; Mrs. Jacob Maasdaam, Installation Officer; Mrs. Frank B. Toner, President; Mrs. Roy Johnson, Second Vice President; Mrs. M.F. Kiel, Rental Chairman. [D521]</description>
       <Point>
         <coordinates>-122.162348125,37.73102357142857,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>A. B. Cary Home, Built 1889, Razed September 1971. [https://sanle.ent.sirsi.net/client/en_US/search/asset/6905/0]</name>
+      <description>[00001791] Later Jones home. Located on Estudillo Ave. [23]</description>
+      <Point>
+        <coordinates>-122.1486371875,37.727739285714286,0</coordinates>
       </Point>
     </Placemark>
     <Placemark>
