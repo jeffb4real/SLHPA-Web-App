@@ -106,9 +106,10 @@ def write_year_counts(scraped_records: dict):
     total_count = 0
     fn = data_dir + 'year_counts.tsv'
     with open(fn, 'w', newline='') as out_file:
+        out_file.write('year\tcount\n')
         for y in range(min_year, 2020):
             out_file.write(
-                str(y) + '\t' + str(year_counts[y]) + '\t' + str(adjusted_year_counts[y]) + '\n')
+                str(y) + '\t' + str(year_counts[y]) + '\n')
             total_count += year_counts[y]
     if show_stats:
         log(str(min_year) + ' min_year')
