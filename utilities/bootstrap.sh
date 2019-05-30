@@ -26,10 +26,9 @@ python manage.py createsuperuser                        ; if [ $? -ne 0 ] ; then
 echo "Example command line to copy image files. They must be correctly distributed into numbered subdirectories."
 echo "time cp -r ~/Documents/'San Leandro Historical Photo Archive - 311MB/photos - 640x only'/*  ~/Documents/Github/SLHPA-Web-App/mysite/slhpa/static/slhpa/images/photos/"
 
+echo "Run server with: python manage.py runserver"
 echo "Use browser to import csv into sqlite with this URL:"
 echo "http://127.0.0.1:8000/slhpa/import/transformed"
 
 echo "To verify that web scraping works, run:"
 echo "python scraper.py"
-
-python manage.py runserver
