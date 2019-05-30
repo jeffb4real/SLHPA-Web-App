@@ -7,13 +7,7 @@ if [ ! "$WINDIR" = "" ] ; then
     exit -1
 fi
 
-curdir=`pwd`
-base=`basename $curdir`
-if [ ! "$base" = "SLHPA-Web-App" ] ; then
-    echo "Must run from within SLHPA-Web-App directory."
-    exit -1
-fi
-
+cd ~/Documents/Github/SLHPA-Web-App                     ; if [ $? -ne 0 ] ; then exit -6 ; fi
 python -m venv venv                                     ; if [ $? -ne 0 ] ; then exit -6 ; fi
 source venv/bin/activate                                ; if [ $? -ne 0 ] ; then exit -6 ; fi
 pip install -r mysite/requirements.txt                  ; if [ $? -ne 0 ] ; then exit -6 ; fi
