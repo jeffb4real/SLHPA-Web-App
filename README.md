@@ -166,19 +166,5 @@ Assuming this project has already been cloned:
 
 ## Web Application
 
-(... documentation in process)
+See https://github.com/jeffb4real/SLHPA-Web-App/blob/master/utilities/bootstrap.sh
 
-      $ cd mysite
-      $ python manage.py migrate
-      $ python manage.py createsuperuser
-      $ python manage.py runserver
-      
-In a browser:      
-     
-      http://127.0.0.1:8000/slhpa/import/transformed
-      
-Then:
-
-      http://127.0.0.1:8000/slhpa
-
-Note that you will not see images in the browser until you put image files into the appropriate directories.
