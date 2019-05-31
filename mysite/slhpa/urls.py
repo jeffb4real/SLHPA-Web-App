@@ -20,7 +20,7 @@ try:
     ]
 except OperationalError:
     # https://stackoverflow.com/questions/34548768/django-no-such-table-exception
-    # happens when db doesn't exist yet, views.py should be importable without this side effect
+    # happens when db doesn't exist yet, dummyview.py should be importable without this side effect
     from . import dummyview
     urlpatterns = [
         path('hello', dummyview.hello, name='hello'),
