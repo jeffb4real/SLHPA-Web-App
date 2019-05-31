@@ -8,11 +8,11 @@ if [ ! "$WINDIR" = "" ] ; then
 fi
 
 cd ~/Documents/Github/SLHPA-Web-App                     ; if [ $? -ne 0 ] ; then exit -6 ; fi
-python -m venv venv                                     ; if [ $? -ne 0 ] ; then exit -6 ; fi
-source venv/bin/activate                                ; if [ $? -ne 0 ] ; then exit -6 ; fi
-pip install -r mysite/requirements.txt                  ; if [ $? -ne 0 ] ; then exit -6 ; fi
+time python -m venv venv                                ; if [ $? -ne 0 ] ; then exit -6 ; fi
+time source venv/Scripts/activate                       ; if [ $? -ne 0 ] ; then exit -6 ; fi
+time pip install -r mysite/requirements.txt             ; if [ $? -ne 0 ] ; then exit -6 ; fi
 
-./run-pipeline.sh                                       ; if [ $? -ne 0 ] ; then exit -6 ; fi
+time ./run-pipeline.sh                                  ; if [ $? -ne 0 ] ; then exit -6 ; fi
 cd mysite                                               ; if [ $? -ne 0 ] ; then exit -6 ; fi
 python manage.py migrate                                ; if [ $? -ne 0 ] ; then exit -6 ; fi
 python manage.py createsuperuser                        ; if [ $? -ne 0 ] ; then exit -6 ; fi
