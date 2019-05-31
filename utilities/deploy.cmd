@@ -9,6 +9,8 @@ pushd %HOMEDRIVE%%HOMEPATH%\Documents\Github\SLHPA-Web-App\mysite\
                                                         IF %ERRORLEVEL% NEQ 0 goto :finish
 time < ..\utilities\ret.txt
                                                         IF %ERRORLEVEL% NEQ 0 goto :finish
+cmd /c "gcloud config list"
+                                                        IF %ERRORLEVEL% NEQ 0 goto :finish
 cmd /c "python manage.py collectstatic"
                                                         IF %ERRORLEVEL% NEQ 0 goto :finish
 move /Y slhpa\static\slhpa\images\photos %TMP%
