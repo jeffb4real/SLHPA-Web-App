@@ -143,5 +143,5 @@ ALLOW_ADMIN = True
 
 # GCP
 # ALLOW_EDIT = False
-ALLOW_ADMIN = False
+# ALLOW_ADMIN = False
 # DEBUG = False
