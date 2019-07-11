@@ -17,6 +17,7 @@ try:
         path('import/<str:import_filename>', views.loaddb, name='loaddb'),
         path('export/<str:export_filename>', views.export, name='export'),
         path('compare/<str:resource_name>/', views.photo_compare, name='compare'),
+        path('help', views.help, name='help'),
     ]
 except OperationalError:
     # https://stackoverflow.com/questions/34548768/django-no-such-table-exception

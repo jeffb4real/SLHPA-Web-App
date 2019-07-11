@@ -312,3 +312,6 @@ def photo_compare(request, resource_name):
     """
     photo = get_object_or_404(PhotoRecord, resource_name=resource_name)
     return render(request, 'slhpa/photo_compare.html', {'photo': photo, })
+
+def help(request):
+    return render(request, 'slhpa/help.html')
