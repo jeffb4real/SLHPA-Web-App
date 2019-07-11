@@ -315,3 +315,6 @@ def photo_compare(request, resource_name):
 
 def help(request):
     return render(request, 'slhpa/help.html')
+
+def help2(request):
+    return render(request, 'slhpa/help2.html')
