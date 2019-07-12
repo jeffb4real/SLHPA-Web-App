@@ -24,14 +24,13 @@ def can_edit(request):
     return settings.ALLOW_EDIT or request.user.is_authenticated
 
 
-class List(SingleTableMixin, FilterView):
+class List(SingleTableMixin):
     """
     This view is a class-based, filtered view, based on class-based-filtered in django-tables2 example app.
     """
     table_class = PhotoTable
     model = PhotoRecord
     template_name = "slhpa/bootstrap_template.html"
-    filterset_class = PhotoFilter
 
     # Custom vars (not part of django or django_tables2)
     records_per_page = 10
@@ -59,6 +58,10 @@ class List(SingleTableMixin, FilterView):
         if self.request.GET.get('records_per_page'):
             self.records_per_page = int(self.request.GET['records_per_page'])
         return {"per_page": self.records_per_page}
+
+
+class FilterViewList(List, FilterView):
+    filterset_class = PhotoFilter
 
 
 def load_photo_record(photo, form):
