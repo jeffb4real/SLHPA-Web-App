@@ -7,6 +7,7 @@ try:
 
     urlpatterns = [
         path('', views.FilterViewList.as_view(), name="filterviewlist"),
+        path('list', views.SingleEditFieldList.as_view(), name="singleeditfieldlist"),
         path('detail/<str:pk>/', views.DetailView.as_view(), name='detail'),
         path('data/<str:filename>', views.datafile, name='data_file'),
         path('edit/<str:id>/', views.edit, name='edit'),

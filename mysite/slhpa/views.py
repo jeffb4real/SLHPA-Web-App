@@ -14,7 +14,7 @@ from django_filters.views import FilterView
 from django_tables2 import RequestConfig, SingleTableMixin
 
 from .filters import PhotoFilter
-from .forms import AddPhotoMetadataForm, EditPhotoMetadataForm, RecordsPerPageForm
+from .forms import AddPhotoMetadataForm, EditPhotoMetadataForm, RecordsPerPageForm, SingleEditFieldForm
 from .models import KeyValueRecord, PhotoRecord
 from .tables import PhotoTable
 from .templatetags.photodir import getdir
@@ -35,10 +35,6 @@ class List(SingleTableMixin):
     # Custom vars (not part of django or django_tables2)
     records_per_page = 10
 
-    def get_queryset(self):
-        return super(List, self).get_queryset()
-        # return super(List, self).get_queryset().select_related("subject_group")
-
     def get_table_kwargs(self):
         return {"template_name": "django_tables2/bootstrap.html"}
 
@@ -46,6 +42,8 @@ class List(SingleTableMixin):
         context = super().get_context_data(**kwargs)
         stats = {}
         stats['total'] = PhotoRecord.objects.all().count()
+        if not context.get('photorecord_list'):
+            context['photorecord_list' ] = PhotoRecord.objects.all()
         stats['filtered'] = len(context['photorecord_list'])
         stats['records_per_page'] = self.records_per_page
         context["stats"] = stats
@@ -62,6 +60,32 @@ class List(SingleTableMixin):
 
 class FilterViewList(List, FilterView):
     filterset_class = PhotoFilter
+
+
+class SingleEditFieldList(List, generic.base.TemplateView):
+    qs = PhotoRecord.objects.all()
+
+    def get_queryset(self):
+        return self.qs
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["single_edit_field_form"] = SingleEditFieldForm(initial={'choice_field': '1'})
+        return context
+
+    def post(self, request, *args, **kwargs):
+        form = SingleEditFieldForm(request.POST)
+        if form.is_valid():
+            search_term = form.cleaned_data['search_term']
+            choice = form.cleaned_data['choice_field']
+            if choice.key() == '1':
+                pass
+            else:
+                pass
+            return HttpResponseRedirect('/slhpa/list')
+        else:
+            form = SingleEditFieldForm(initial={'choice_field': '1'})
+            return render(request, 'slhpa/list')
 
 
 def load_photo_record(photo, form):

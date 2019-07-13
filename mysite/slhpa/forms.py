@@ -25,6 +25,12 @@ class RecordsPerPageForm(forms.Form):
                                          widget=forms.Select(attrs={'onchange': 'this.form.submit()'}))
 
 
+class SingleEditFieldForm(forms.Form):
+    CHOICES = [('1', 'Title, Description, Subject'), ('2', 'Photo Identifier')]
+    choice_field = forms.ChoiceField(widget=forms.RadioSelect, choices=CHOICES)
+    search_term = forms.CharField(widget=forms.Textarea(attrs={'rows': 1, 'cols': 60}))
+
+
 class EditPhotoMetadataForm(forms.ModelForm):
 
     title = forms.CharField(widget=forms.Textarea(
