@@ -2,9 +2,11 @@ import csv
 import os
 import time
 
+from enum import Enum
+
 from django.conf import settings
 from django.db import transaction
-from django.db.models import F
+from django.db.models import F, Q
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseNotFound
 from django.shortcuts import get_object_or_404, render, render_to_response
 from django.template import loader
@@ -42,9 +44,7 @@ class List(SingleTableMixin):
         context = super().get_context_data(**kwargs)
         stats = {}
         stats['total'] = PhotoRecord.objects.all().count()
-        if not context.get('photorecord_list'):
-            context['photorecord_list' ] = PhotoRecord.objects.all()
-        stats['filtered'] = len(context['photorecord_list'])
+        stats['filtered'] = self.get_filtered_count(context)
         stats['records_per_page'] = self.records_per_page
         context["stats"] = stats
         context["form"] = RecordsPerPageForm(initial={'records_per_page': str(self.records_per_page)})
@@ -57,16 +57,41 @@ class List(SingleTableMixin):
             self.records_per_page = int(self.request.GET['records_per_page'])
         return {"per_page": self.records_per_page}
 
+    def get_filtered_count(self, context):
+        return 0
 
 class FilterViewList(List, FilterView):
     filterset_class = PhotoFilter
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['photorecord_list' ] = PhotoRecord.objects.all()
+        return context
+
+    def get_filtered_count(self, context):
+        return len(context['photorecord_list'])
+
+class QueryType(Enum):
+    ALL = 1,
+    SINGLE = 2,
+    ID = 3
+
 
 class SingleEditFieldList(List, generic.base.TemplateView):
-    qs = PhotoRecord.objects.all()
+    query_type = QueryType.ALL
+    search_term = ""
 
     def get_queryset(self):
-        return self.qs
+        if self.query_type == QueryType.ALL:
+            return PhotoRecord.objects.all()
+        if self.query_type == QueryType.SINGLE:
+            return PhotoRecord.objects.filter(
+                        Q(title__icontains = self.search_term) | 
+                        Q(description__icontains = self.search_term) | 
+                        Q(subject__icontains = self.search_term))
+        if self.query_type == QueryType.ALL:
+            return PhotoRecord.objects.filter(
+                        Q(resource_name__icontains = self.search_term))
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -76,16 +101,21 @@ class SingleEditFieldList(List, generic.base.TemplateView):
     def post(self, request, *args, **kwargs):
         form = SingleEditFieldForm(request.POST)
         if form.is_valid():
-            search_term = form.cleaned_data['search_term']
             choice = form.cleaned_data['choice_field']
-            if choice.key() == '1':
-                pass
+            search_term = form.cleaned_data['search_term']
+            if choice == '1':
+                self.query_type = QueryType.SINGLE
             else:
-                pass
-            return HttpResponseRedirect('/slhpa/list')
+                self.query_type = QueryType.ID
+            return HttpResponseRedirect(
+                '/slhpa/list/?search_term=' + self.search_term + 
+                '&query_type=' + str(self.query_type))
         else:
             form = SingleEditFieldForm(initial={'choice_field': '1'})
             return render(request, 'slhpa/list')
+
+    def get_filtered_count(self, context):
+        return len(self.get_queryset())
 
 
 def load_photo_record(photo, form):
