@@ -71,48 +71,55 @@ class FilterViewList(List, FilterView):
     def get_filtered_count(self, context):
         return len(context['photorecord_list'])
 
-class QueryType(Enum):
-    ALL = 1,
-    SINGLE = 2,
-    ID = 3
-
-
 class SingleEditFieldList(List, generic.base.TemplateView):
-    query_type = QueryType.ALL
-    search_term = ""
+    query_type = '1'
+    search_term = ''
 
     def get_queryset(self):
-        if self.query_type == QueryType.ALL:
-            return PhotoRecord.objects.all()
-        if self.query_type == QueryType.SINGLE:
+        if self.query_type == '2':
             return PhotoRecord.objects.filter(
                         Q(title__icontains = self.search_term) | 
                         Q(description__icontains = self.search_term) | 
                         Q(subject__icontains = self.search_term))
-        if self.query_type == QueryType.ALL:
+        if self.query_type == '3':
             return PhotoRecord.objects.filter(
                         Q(resource_name__icontains = self.search_term))
+        return PhotoRecord.objects.all()
+
+    def get_single_field_edit_form(self):
+        choice = '1'
+        if self.query_type == '3':
+            choice = '2'
+        return SingleEditFieldForm(initial={'choice_field': choice, 'search_term' : self.search_term})
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["single_edit_field_form"] = SingleEditFieldForm(initial={'choice_field': '1'})
+        context["single_edit_field_form"] = self.get_single_field_edit_form()
         return context
+
+    def get(self, request, *args, **kwargs):
+        if request.GET.get('search_term'):
+            self.search_term = request.GET.get('search_term')
+        if request.GET.get('query_type'):
+            self.query_type = request.GET.get('query_type')
+        return render(request, self.template_name,
+                context = self.get_context_data(**kwargs))
 
     def post(self, request, *args, **kwargs):
         form = SingleEditFieldForm(request.POST)
         if form.is_valid():
             choice = form.cleaned_data['choice_field']
-            search_term = form.cleaned_data['search_term']
+            self.search_term = form.cleaned_data['search_term']
             if choice == '1':
-                self.query_type = QueryType.SINGLE
+                self.query_type = '2'
             else:
-                self.query_type = QueryType.ID
+                self.query_type = '3'
             return HttpResponseRedirect(
-                '/slhpa/list/?search_term=' + self.search_term + 
+                '/slhpa/new/?search_term=' + self.search_term + 
                 '&query_type=' + str(self.query_type))
         else:
-            form = SingleEditFieldForm(initial={'choice_field': '1'})
-            return render(request, 'slhpa/list')
+            return render(request, self.template_name,
+                context = self.get_context_data(**kwargs))
 
     def get_filtered_count(self, context):
         return len(self.get_queryset())
