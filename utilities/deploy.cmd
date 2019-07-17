@@ -32,5 +32,5 @@ move /Y %TMP%\photos slhpa\static\slhpa\images
 
 time < ..\utilities\ret.txt
 echo ".../slhpa/import/transformed if necessary."
-pause "Set back ALLOW_EDIT = True."
+pause "Set back 'GCP' variables."
 popd
