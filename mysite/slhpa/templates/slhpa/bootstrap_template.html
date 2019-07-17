@@ -71,7 +71,7 @@
                                 {{ single_edit_field_form }}
                         </table>
                         <input type="submit" value="Search">
-                    {% endif %}
+                {% endif %}
                     <a class="btn btn-default" href="/slhpa/?page=1">Reset</a>
                     <br>
                     <span style="color:#ff0000">Search matches: {{ stats.filtered }} / {{ stats.total }}
@@ -79,7 +79,11 @@
                     <br>
                     {{ form }}
                     <br>
-                    <a href="/slhpa/help">
+                    {% if filter %}
+                        <a href="/slhpa/help">
+                    {% else %}
+                        <a href="/slhpa/help2">
+                    {% endif %}
                         <img src="/static/slhpa/images/photos/help-filled.png" width="2%">
                     </a>
                 </form>
