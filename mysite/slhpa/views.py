@@ -1,6 +1,7 @@
 import csv
 import os
 import time
+import re
 
 from enum import Enum
 
@@ -74,9 +75,27 @@ class FilterViewList(List, FilterView):
 class SingleEditFieldList(List, generic.base.TemplateView):
     query_type = '1'
     search_term = ''
+    year_range = ''
+
+    def get_year_range_filter(self):
+        y1 = 0
+        y2 = 0
+        if '-' in self.year_range:
+            [ys1, ys2] = self.year_range.split('-')
+            y1 = int(ys1)
+            y2 = int(ys2)
+        else:
+            y1 = y2 = int(self.year_range)
+        return PhotoRecord.objects.filter(
+                        (Q(title__icontains = self.search_term) | 
+                        Q(description__icontains = self.search_term) | 
+                        Q(subject__icontains = self.search_term)) &
+                        Q(year__range = [y1, y2]))
 
     def get_queryset(self):
         if self.query_type == '2':
+            if (self.year_range):
+                return self.get_year_range_filter()
             return PhotoRecord.objects.filter(
                         Q(title__icontains = self.search_term) | 
                         Q(description__icontains = self.search_term) | 
@@ -90,7 +109,9 @@ class SingleEditFieldList(List, generic.base.TemplateView):
         choice = '1'
         if self.query_type == '3':
             choice = '2'
-        return SingleEditFieldForm(initial={'search_type': choice, 'search_term' : self.search_term})
+        return SingleEditFieldForm(initial={'search_type': choice, 
+                        'search_term' : self.search_term,
+                        'year_range' : self.year_range})
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -102,21 +123,39 @@ class SingleEditFieldList(List, generic.base.TemplateView):
             self.search_term = request.GET.get('search_term')
         if request.GET.get('query_type'):
             self.query_type = request.GET.get('query_type')
+        if request.GET.get('year_range'):
+            self.year_range = request.GET.get('year_range')
         return render(request, self.template_name,
                 context = self.get_context_data(**kwargs))
+
+    def validate_years(self, years):
+        if '-' in years:
+            m = re.search('[0-9]{4}-[0-9]{4}', years)
+            try:
+                self.year_range = m.group(0)
+            except:
+                pass
+        else:
+            m = re.search('[0-9]{4}', years)
+            try:
+                self.year_range = m.group(0)
+            except:
+                pass
 
     def post(self, request, *args, **kwargs):
         form = SingleEditFieldForm(request.POST)
         if form.is_valid():
             choice = form.cleaned_data['search_type']
             self.search_term = form.cleaned_data['search_term']
+            self.validate_years(form.cleaned_data['year_range'])
             if choice == '1':
                 self.query_type = '2'
             else:
                 self.query_type = '3'
             return HttpResponseRedirect(
                 '/slhpa/new/?search_term=' + self.search_term + 
-                '&query_type=' + str(self.query_type))
+                '&query_type=' + str(self.query_type) +
+                '&year_range=' + self.year_range)
         else:
             return render(request, self.template_name,
                 context = self.get_context_data(**kwargs))
