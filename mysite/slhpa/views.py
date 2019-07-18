@@ -90,7 +90,7 @@ class SingleEditFieldList(List, generic.base.TemplateView):
         choice = '1'
         if self.query_type == '3':
             choice = '2'
-        return SingleEditFieldForm(initial={'choice_field': choice, 'search_term' : self.search_term})
+        return SingleEditFieldForm(initial={'search_type': choice, 'search_term' : self.search_term})
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -108,7 +108,7 @@ class SingleEditFieldList(List, generic.base.TemplateView):
     def post(self, request, *args, **kwargs):
         form = SingleEditFieldForm(request.POST)
         if form.is_valid():
-            choice = form.cleaned_data['choice_field']
+            choice = form.cleaned_data['search_type']
             self.search_term = form.cleaned_data['search_term']
             if choice == '1':
                 self.query_type = '2'

@@ -59,33 +59,31 @@
     
         {% block body %}
         <div class="row" style="text-align:right">
-            <div class="col-sm-10 table-bordered">
-                {% if filter %}
+            {% if filter %}
+                <div class="col-sm-10 table-bordered">
                     <form action="" method="GET" class="form form-inline">
                         {% bootstrap_form filter.form layout='inline' %}
                         {% bootstrap_button 'Search' %}
-                {% else %}
+                        <a class="btn btn-default" href="/slhpa/?page=1">Reset</a>
+                        <a href="/slhpa/help">
+            {% else %}
+                <div class="col-sm-10 table-bordered" align="left">
                     <form action="" method="POST" class="form form-inline">
                         {% csrf_token %}
-                        <table border="1">
-                                {{ single_edit_field_form }}
-                        </table>
-                        <input type="submit" value="Search">
-                {% endif %}
-                    <a class="btn btn-default" href="/slhpa/?page=1">Reset</a>
+                        {{ single_edit_field_form }}
+                        <br>
+                        {% bootstrap_button 'Search' %}
+                        <a class="btn btn-default" href="/slhpa/new/?page=1">Reset</a>
+                        <a href="/slhpa/help2">
+            {% endif %}
+                        <img src="/static/slhpa/images/photos/help-filled.png" width="2%">
+                    </a>
                     <br>
                     <span style="color:#ff0000">Search matches: {{ stats.filtered }} / {{ stats.total }}
                         records</span>
                     <br>
                     {{ form }}
                     <br>
-                    {% if filter %}
-                        <a href="/slhpa/help">
-                    {% else %}
-                        <a href="/slhpa/help2">
-                    {% endif %}
-                        <img src="/static/slhpa/images/photos/help-filled.png" width="2%">
-                    </a>
                 </form>
 
             <div class="col-sm-10 table-bordered" style="text-align:left">

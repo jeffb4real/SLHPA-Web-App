@@ -27,7 +27,7 @@ class RecordsPerPageForm(forms.Form):
 
 class SingleEditFieldForm(forms.Form):
     CHOICES = [('1', 'Title, Description, Subject'), ('2', 'Photo Identifier')]
-    choice_field = forms.ChoiceField(widget=forms.RadioSelect, choices=CHOICES)
+    search_type = forms.ChoiceField(widget=forms.RadioSelect, choices=CHOICES)
     search_term = forms.CharField(widget=forms.Textarea(attrs={'rows': 1, 'cols': 60}))
 
 
