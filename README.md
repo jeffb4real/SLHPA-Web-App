@@ -168,3 +168,6 @@ Assuming this project has already been cloned:
 
 See https://github.com/jeffb4real/SLHPA-Web-App/blob/master/utilities/bootstrap.sh
 
+## Automated tests
+
+https://github.com/chrisxkeith/slhpa-web-app-test
