@@ -143,6 +143,8 @@ class SingleEditFieldList(List, generic.base.TemplateView):
                 pass
 
     def post(self, request, *args, **kwargs):
+        if request.POST.get('records_per_page'):
+            self.records_per_page = int(request.POST.get('records_per_page'))
         form = SingleEditFieldForm(request.POST)
         if form.is_valid():
             choice = form.cleaned_data['search_type']
@@ -155,7 +157,8 @@ class SingleEditFieldList(List, generic.base.TemplateView):
             return HttpResponseRedirect(
                 '/slhpa/new/?search_term=' + self.search_term + 
                 '&query_type=' + str(self.query_type) +
-                '&year_range=' + self.year_range)
+                '&year_range=' + self.year_range +
+                '&records_per_page=' + str(self.records_per_page))
         else:
             return render(request, self.template_name,
                 context = self.get_context_data(**kwargs))
