@@ -155,7 +155,7 @@ class SingleEditFieldList(List, generic.base.TemplateView):
             else:
                 self.query_type = '3'
             return HttpResponseRedirect(
-                '/slhpa/new/?search_term=' + self.search_term + 
+                '/slhpa/?search_term=' + self.search_term + 
                 '&query_type=' + str(self.query_type) +
                 '&year_range=' + self.year_range +
                 '&records_per_page=' + str(self.records_per_page))
