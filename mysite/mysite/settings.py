@@ -137,7 +137,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = 'static'
 
-# Local
+# Local (or to allow db to be loaded in cloud)
 ALLOW_EDIT = True
 ALLOW_ADMIN = True
 

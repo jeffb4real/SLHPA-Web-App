@@ -18,7 +18,7 @@ else
 fi
 
 echo "Example command line to copy image files. They must be correctly distributed into numbered subdirectories."
-echo "time cp -r ~/Documents/'San Leandro Historical Photo Archive - 311MB/photos - 640x only'/*  ~/Documents/Github/SLHPA-Web-App/mysite/slhpa/static/slhpa/images/photos/"
+echo "time cp -r ~/Documents/'San Leandro Historical Photo Archive - 311MB/__REORGANIZED_FOR_COMPARISONS'/*  ~/Documents/Github/SLHPA-Web-App/mysite/slhpa/static/slhpa/images/photos/"
 
 echo "Run server with: python manage.py runserver"
 echo "Use browser to import csv into sqlite with this URL:"
