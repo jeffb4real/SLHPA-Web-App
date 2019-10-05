@@ -9,12 +9,12 @@ pushd %HOMEDRIVE%%HOMEPATH%\Documents\Github\SLHPA-Web-App\mysite\
                                                         IF %ERRORLEVEL% NEQ 0 goto :finish
 time < ..\utilities\ret.txt
                                                         IF %ERRORLEVEL% NEQ 0 goto :finish
+cmd /c "python manage.py collectstatic"
+                                                        IF %ERRORLEVEL% NEQ 0 goto :finish
 rem : If I get a recommendation to "gcloud components update", I do it. This will take some minutes.
 cmd /c "gcloud config list"
                                                         IF %ERRORLEVEL% NEQ 0 goto :finish
 rem : If not correct project, use this to reset : cmd /c "gcloud config set project slhpa-03"
-cmd /c "python manage.py collectstatic"
-                                                        IF %ERRORLEVEL% NEQ 0 goto :finish
 cmd /c "gcloud app deploy"
                                                         rem : don't exit on failure, continue on to clean up
 :finish
