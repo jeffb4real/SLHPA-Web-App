@@ -2,16 +2,22 @@
    <body style = "margin-left: 25px; word-wrap: break-word; width: 400px;">
     <br>
     <p>
-        Enter the text you want to search for in any of the fields ("Photo Identifier contains", etc.)
+        Enter the text you want to search for in any of the fields ("Photo Identifier contains", etc.) and click the "Search" button.
     </p>
     <p>
-        If you enter text into multiple fields, you will get records that match <strong>both</strong> criteria.
+        If you enter text into multiple fields, you will only get records that match <strong>both</strong> criteria.
     </p>
     <p>
         For example, "Title contains" = "Estudillo" returns 93 records.
     </p>
     <p>
-        However, "Title contains" = "Estudillo" and "Description contains = "Estudillo" returns 63 records. This is because 30 records contain "Estudillo" in the Title field only.
+        However, "Title contains" = "Estudillo" and "Description contains" = "Estudillo" returns 63 records. 
+    </p>
+    <p>
+        This is because 30 records contain "Estudillo" only in the Title field (not in the "Description"), and thus do not match both of the search conditions.
+    </p>
+    <p>
+        To remove all search conditions, click the "Reset" button.
     </p>
    </body>
 </html> 
