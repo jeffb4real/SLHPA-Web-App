@@ -20,6 +20,7 @@ try:
         path('compare/<str:resource_name>/', views.photo_compare, name='compare'),
         path('help', views.help, name='help'),
         path('help2', views.help2, name='help2'),
+        path('about', views.about, name='about'),
     ]
 except OperationalError:
     # https://stackoverflow.com/questions/34548768/django-no-such-table-exception
