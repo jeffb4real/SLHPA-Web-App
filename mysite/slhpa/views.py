@@ -427,3 +427,6 @@ def help2(request):
 
 def about(request):
     return render(request, 'slhpa/about.html')
+
+def map(request):
+    return render(request, 'slhpa/map.html')
