@@ -105,9 +105,10 @@ class Mapper:
             self.max_name_record = record[self.field_indices['resource_name']]
 
         desc_element = etree.SubElement(placemark, 'description')
-        desc_element.text = '[' + record[self.field_indices['resource_name']].replace('.pdf', '') + '] '
+        record_id = record[self.field_indices['resource_name']].replace('.pdf', '')
+        desc_element.text = '[' + record_id + '] '
         desc_element.text += record[self.field_indices['description']]
-        desc_element.text += ' [' + record[self.field_indices['geo_coord_original']] + ']'
+        desc_element.text += ' [https://slhpa-03.appspot.com/slhpa/detail/' + record_id + '/]'
         if self.max_desc_length < len(desc_element.text):
             self.max_desc_length = len(desc_element.text)
             self.max_desc_record = record[self.field_indices['resource_name']]
