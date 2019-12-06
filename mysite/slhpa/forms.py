@@ -28,8 +28,8 @@ class RecordsPerPageForm(forms.Form):
 class SingleEditFieldForm(forms.Form):
     CHOICES = [('1', 'Title, Description, Subject'), ('2', 'Photo Identifier')]
     search_type = forms.ChoiceField(widget=forms.RadioSelect, choices=CHOICES)
-    search_term = forms.CharField(widget=forms.Textarea(attrs={'rows': 1, 'cols': 60}))
-    year_range = forms.CharField(widget=forms.Textarea(attrs={'rows': 1, 'cols': 10}), required=False)
+    search_term = forms.CharField(widget=forms.TextInput(attrs={'size': '60'}))
+    year_range = forms.CharField(widget=forms.TextInput(attrs={'size': 10}), required=False)
 
 
 class EditPhotoMetadataForm(forms.ModelForm):
