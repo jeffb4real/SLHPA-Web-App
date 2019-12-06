@@ -103,7 +103,6 @@
             </tr>
         </table>
         <br>
-        {% if allow_edit %}
             {% if photorecord.gps_latitude %}
             Location is approximate. For further explanation, see
             <a href="https://docs.google.com/presentation/d/1AzjURZo-E4pucgYxEIlsK0atsTn4ZcjLIPiXVcyPWcA/edit#slide=id.g4aa8a3a5b5_0_0" target="_blank">
@@ -122,6 +121,7 @@
                     src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap">
                 </script>
             {% endif %}
+        {% if allow_edit %}
             <a class="btn btn-default" href="/slhpa/edit/{{ photorecord.resource_name }}">Edit</a>
         {% endif %}
 <!--
