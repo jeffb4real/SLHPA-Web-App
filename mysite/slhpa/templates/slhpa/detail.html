@@ -33,7 +33,13 @@
 <body>
     <div class="container">
         <br>
-        <table border="1">
+        <table> <!-- outer -->
+            <col width="600">
+            <col width="20">
+            <col width="400">
+            <tr>
+            <td>
+        <table border="1"> <!-- inner -->
             <col width="120">
             <col width="480">
             <tr>
@@ -101,8 +107,10 @@
                 <td style="text-align:left;padding:10px">Subject</td>
                 <td style="text-align:left;padding:10px">{{ photorecord.subject }}</td>
             </tr>
-        </table>
-        <br>
+        </table> <!-- inner -->
+        </td>
+        <td></td>
+        <td valign="top">
             {% if photorecord.gps_latitude %}
             Location is approximate. For further explanation, see
             <a href="https://docs.google.com/presentation/d/1AzjURZo-E4pucgYxEIlsK0atsTn4ZcjLIPiXVcyPWcA/edit#slide=id.g4aa8a3a5b5_0_0" target="_blank">
@@ -121,6 +129,9 @@
                     src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap">
                 </script>
             {% endif %}
+        </td>
+        </tr>
+        </table> <!-- outer -->
         {% if allow_edit %}
             <a class="btn btn-default" href="/slhpa/edit/{{ photorecord.resource_name }}">Edit</a>
         {% endif %}
