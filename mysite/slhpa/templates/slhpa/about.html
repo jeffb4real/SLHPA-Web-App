@@ -1,15 +1,27 @@
 <html>
+    <style>
+        .content {
+            max-width: 250px;
+            margin: auto;
+            padding-left: 20px;
+            padding-right: 20px;
+            border: thin solid rgb(0, 0, 70);
+        }
+    </style>
+
    <body>
-    <h3>
-    Contributors    
-    </h3>
-    <p>
-        Chris Keith : chris.keith.at.gmail.com
-    <br>
-        Jeff Baker : jeffbcode.at.gmail.com
-    </p>
-    <p>
-        Django version :  {{ django_version }}
-    </p>
-   </body>
+       <div class="content">
+            <h3>
+                Contributors
+            </h3>
+            <p>
+                Chris Keith : chris.keith.at.gmail.com
+            <br>
+                Jeff Baker : jeffbcode.at.gmail.com
+            </p>
+            <p>
+                Django version :  {{ django_version }}
+            </p>
+        </div>
+    </body>
 </html> 
