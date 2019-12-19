@@ -15,6 +15,7 @@ rem : If I get a recommendation to "gcloud components update", I do it. This wil
 cmd /c "gcloud config list"
                                                         IF %ERRORLEVEL% NEQ 0 goto :finish
 rem : If not correct project, use something like this to reset : cmd /c "gcloud config set project slhpa-03"
+rem : ??? : set CLOUDSDK_PYTHON=C:\Users\chris\AppData\Local\Programs\Python\Python37\python.exe
 cmd /c "gcloud app deploy"
                                                         rem : don't exit on failure, continue on to clean up
 :finish
