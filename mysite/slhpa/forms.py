@@ -28,7 +28,7 @@ class RecordsPerPageForm(forms.Form):
 class SingleEditFieldForm(forms.Form):
     CHOICES = [('1', 'Title, Description, Subject'), ('2', 'Photo Identifier')]
     search_type = forms.ChoiceField(widget=forms.RadioSelect, choices=CHOICES)
-    search_term = forms.CharField(widget=forms.TextInput(attrs={'size': '60'}))
+    search_term = forms.CharField(widget=forms.TextInput(attrs={'size': '60'}), required=False)
     year_range = forms.CharField(widget=forms.TextInput(attrs={'size': 10}), required=False)
 
 
