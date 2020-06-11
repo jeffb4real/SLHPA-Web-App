@@ -270,6 +270,7 @@ def main():
     merge_one_file(scraped_fieldnames, scraped_records,
                    data_dir + 'transcribed.csv', number_to_pdf, 'resource_number')
     scraped_records['00000152.pdf']['description'] = 'Early farmers in San Leandro take produce to market, 1890.'
+    scraped_records['00000037.pdf']['year'] = '1962'
     comb_addresses(scraped_fieldnames, scraped_records)
     write(scraped_records, scraped_fieldnames)
     write_year_counts(scraped_records)
