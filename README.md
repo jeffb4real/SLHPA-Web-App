@@ -7,13 +7,14 @@ San Leandro Historical Photo Archive Web Application
 1. [Overview](#overview)
 2. [Setup](#Setup)
       1. [Python Dependencies](#python-dependencies)
-3. [Data Gathering Tools](#data-gathering-tools)
+3. [How to Deploy to GCP](#how-to-deploy-to-gcp)
+4. [Data Gathering Tools](#data-gathering-tools)
       1. [scraper](#scraper)
       2. [merger](#merger)
       3. [transformer](#transformer)
       4. [mapper](#mapper)
       5. [Run pipeline](#run-pipeline)
-4. [Web Application](#web-application)
+5. [Web Application](#web-application)
 
 ## Overview
 
@@ -39,6 +40,10 @@ This project was created with Python 3.7.x, with the addition of these modules:
 These modules can be installed all at once either by using `bootstrap.sh` (mentioned above) or by `pip` installing the included requirements.txt, e.g.:
 
             ~/SLHPA-Web-App $ pip install -r mysite/requirements.txt
+
+## How to deploy to GCP
+
+Google Document : https://docs.google.com/document/d/1WW6QUk7ubjsIsqsXWsqNYTzdCQECn5WDYyMCx_yHL1Q/edit
 
 ## Data Gathering Tools
 
