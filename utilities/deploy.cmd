@@ -11,7 +11,7 @@ time < ..\utilities\ret.txt
                                                         IF %ERRORLEVEL% NEQ 0 goto :finish
 cmd /c "python manage.py collectstatic"
                                                         IF %ERRORLEVEL% NEQ 0 goto :finish
-rem : If I get a recommendation to "gcloud components update", I do it. This will take some minutes.
+rem : If I get a recommendation to "gcloud components update", I do it. This will take a while.
 rem : ??? : set CLOUDSDK_PYTHON=C:\Users\chris\AppData\Local\Programs\Python\Python37\python.exe
 cmd /c "gcloud config list"
                                                         IF %ERRORLEVEL% NEQ 0 goto :finish
