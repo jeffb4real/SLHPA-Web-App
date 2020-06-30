@@ -14,10 +14,8 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
     <script type="text/javascript">
-        jQuery(function ($) {
-            $('#main_img').click(function () {
-                // alert("hi");
-            });
+        $(document).ready(function() {
+            $('[data-toggle="tooltip"]').tooltip();
         });
     </script>
 
@@ -44,6 +42,7 @@
             left: 0px;
             z-index: 0;
         }
+        
     </style>
     <div class="container">
         <h3>

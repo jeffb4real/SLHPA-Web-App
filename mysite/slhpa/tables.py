@@ -29,14 +29,18 @@ class PhotoTable(tables.Table):
         photo_filename = subdir + '/' + record.resource_name
         return format_html(f'<a href="/static/slhpa/images/photos/{photo_filename}.jpg" target="_blank">'
                            f'    <div style="text-align:right">'
-                           f'        <img id="main_img" src="/static/slhpa/images/photos/{photo_filename}.jpg" style="max-width:200px">'
+                           f'        <img id="main_img" src="/static/slhpa/images/photos/{photo_filename}.jpg" style="max-width:200px"'
+                           f'            data-toggle="tooltip" title="Click for larger image." >'
                            f'        <img id="overlay_img" src="/static/slhpa/images/photos/finger.png" width="20%">'
                            f'    </div>'
                            f'</a>'
                            )
 
     def render_resource_name(self, record):
-        return format_html(f'<a href="/slhpa/detail/{record.resource_name}" target="_blank">{record.resource_name}</a>')
+        return format_html(f'<a href="/slhpa/detail/{record.resource_name}" '
+                           f'data-toggle="tooltip" title="Click for more detail." '
+                           f'target="_blank">{record.resource_name}</a>'
+                          )
 
     class Meta:
         # https://django-tables2.readthedocs.io/en/latest/pages/table-data.html?highlight=exclude
