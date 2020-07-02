@@ -31,7 +31,8 @@ class PhotoTable(tables.Table):
                            f'    <div style="text-align:right">'
                            f'        <img id="main_img" src="/static/slhpa/images/photos/{photo_filename}.jpg" style="max-width:200px"'
                            f'            data-toggle="tooltip" title="Click for larger image." >'
-                           f'        <img id="overlay_img" src="/static/slhpa/images/photos/finger.png" width="20%">'
+                           f'        <img id="overlay_img" src="/static/slhpa/images/photos/finger.png" width="20%"'
+                           f'            data-toggle="tooltip" title="Click for larger image." >'
                            f'    </div>'
                            f'</a>'
                            )
