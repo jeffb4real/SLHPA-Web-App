@@ -22,7 +22,3 @@ echo "time cp -r ~/Documents/'San Leandro Historical Photo Archive - 311MB/__REO
 echo "Run server with: python manage.py runserver"
 echo "Use browser to import csv into sqlite with this URL:"
 echo "http://127.0.0.1:8000/slhpa/import/transformed"
-
-# Need to fix requirements.txt to get this working again.
-# echo "To verify that web scraping works, run:"
-# echo "python scraper.py"
