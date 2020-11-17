@@ -1,4 +1,4 @@
-# Do everything to set up data scraping, creating KML files and running Django.
+# Set up the development environment.
 
 set -x
 
@@ -7,7 +7,6 @@ time python -m venv venv                                ; if [ $? -ne 0 ] ; then
 time source venv/Scripts/activate                       ; if [ $? -ne 0 ] ; then exit -6 ; fi
 time pip install -r mysite/requirements.txt             ; if [ $? -ne 0 ] ; then exit -6 ; fi
 
-time ./run-pipeline.sh                                  ; if [ $? -ne 0 ] ; then exit -6 ; fi
 cd mysite                                               ; if [ $? -ne 0 ] ; then exit -6 ; fi
 time python manage.py migrate                           ; if [ $? -ne 0 ] ; then exit -6 ; fi
 if [ ! "$WINDIR" = "" ] ; then
