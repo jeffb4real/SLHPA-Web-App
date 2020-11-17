@@ -41,7 +41,7 @@ These modules can be installed all at once either by using `bootstrap.sh` (menti
 
             ~/SLHPA-Web-App $ pip install -r mysite/requirements.txt
 
-## How to deploy to GCP
+## How to setup development environment and deploy to GCP
 
 Google Document : https://docs.google.com/document/d/1WW6QUk7ubjsIsqsXWsqNYTzdCQECn5WDYyMCx_yHL1Q/edit
 
