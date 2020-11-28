@@ -7,7 +7,7 @@
     <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}" />
     {% bootstrap_css %}
     <link href="{% static 'django_tables2/bootstrap.css' %}" rel="stylesheet" />
-    {% block title %}<title>SLHPA - Record Detail</title>{% endblock %}
+    {% block title %}<title>{{ photorecord.title }}</title>{% endblock %}
     <style>
         a#main_img {
             position: absolute;
