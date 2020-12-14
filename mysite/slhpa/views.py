@@ -74,10 +74,15 @@ class FilterViewList(List, FilterView):
 
 class SingleEditFieldList(List, generic.base.TemplateView):
     query_type = '1'
+    '''
+        1 == 'complex' (e.g., .../old/),
+        2 == 'simple by title, etc.',
+        3 == 'simple by resource_name' (e.g., photo record id)
+    '''
     search_term = ''
     year_range = ''
 
-    def get_year_range_filter(self):
+    def get_year_range_query(self):
         y1 = 0
         y2 = 0
         if '-' in self.year_range:
@@ -86,11 +91,15 @@ class SingleEditFieldList(List, generic.base.TemplateView):
             y2 = int(ys2)
         else:
             y1 = y2 = int(self.year_range)
+        return Q(year__range = [y1, y2])
+
+
+    def get_year_range_filter(self):
         return PhotoRecord.objects.filter(
                         (Q(title__icontains = self.search_term) | 
                         Q(description__icontains = self.search_term) | 
                         Q(subject__icontains = self.search_term)) &
-                        Q(year__range = [y1, y2]))
+                        self.get_year_range_query())
 
     def get_queryset(self):
         if self.query_type == '2':
@@ -101,6 +110,10 @@ class SingleEditFieldList(List, generic.base.TemplateView):
                         Q(description__icontains = self.search_term) | 
                         Q(subject__icontains = self.search_term))
         if self.query_type == '3':
+            if (self.year_range):
+                return PhotoRecord.objects.filter(
+                        Q(resource_name__icontains = self.search_term) &
+                        self.get_year_range_query())
             return PhotoRecord.objects.filter(
                         Q(resource_name__icontains = self.search_term))
         return PhotoRecord.objects.all()
