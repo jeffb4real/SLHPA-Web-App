@@ -145,11 +145,10 @@ def comb_addresses(scraped_fieldnames: list, scraped_records: dict):
 def add_year(field_text):
     '''
     Search title, subject, and description fields for years between 1839 (the
-    invention of photography) and 1980 (approx. culmination of the photo archive).
+    invention of photography) and whatever is in the code below.
     '''
-    # Match year(s). Notice this will match ca.1872 but won't match ca1872.
-    # Also, will return 1944 if given 1944-45.
-    pattern = r'\b(\d\d\d\d)\b'
+    # Match year(s). Notice this will return 1944 if given 1944-45.
+    pattern = r'\D(\d\d\d\d)\D'
 
     list_of_years = re.findall(pattern, field_text)
     if (list_of_years):
