@@ -170,7 +170,7 @@ def add_year_if_possible(scraped_record, field_name):
     return False
 
 
-def comb(scraped_fieldnames, scraped_records, dvd_fieldnames, dvd_records):
+def comb(scraped_records, dvd_records):
     '''
     Extract year and description if possible.
     '''
@@ -263,7 +263,7 @@ def main():
     scraped_fieldnames.append('geo_coord_UTM')
     dvd_fieldnames, dvd_records = read_from_stream_into_dict(
         data_dir + 'V01-V64 Index.csv', prepend_zeros, 'Index Number')
-    comb(scraped_fieldnames, scraped_records, dvd_fieldnames, dvd_records)
+    comb(scraped_records, dvd_records)
     scraped_fieldnames.append('dvd_title')
     merge_one_file(scraped_fieldnames, scraped_records,
                    data_dir + 'manually_verified.csv', str, 'resource_name')
