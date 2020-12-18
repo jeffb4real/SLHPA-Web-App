@@ -27,7 +27,7 @@ def number_to_pdf(n):
     return "{:0>8d}".format(int(n)) + '.pdf'
 
 
-def read_from_stream_into_dict(file_name: str, key_function_name: callable, key_column_name: str) -> [list, dict]:
+def read_from_stream_into_dict(file_name: str, key_function_name: callable, key_column_name: str):
     """
     Read records from file_name into memory. Return a list of column names and a dictionary of records,
     with key ID as hash key.
@@ -114,7 +114,7 @@ def write_year_counts(scraped_records: dict):
     if show_stats:
         log(str(min_year) + ' min_year')
         log(str("{: >4d}".format(total_count)) +
-            ' counts of photos with year data written to ' + fn)
+            ': count of photos with year data written to ' + fn)
 
 
 def comb_addresses(scraped_fieldnames: list, scraped_records: dict):
