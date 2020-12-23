@@ -1,7 +1,7 @@
 import re
 
 patterns = [ r'\D(\d\d\d\d)\D'
-            ,r'^\D*(\d\d\d\d)*\D*$'
+            ,r'^\D*(\d\d\d\d)\D*$'
             ,r'^|\D(\d\d\d\d)\D|$'
             ,r'\D*(\d\d\d\d)\D*'    # works 2nd best for finding year(s)
             ,r'\b(\d\d\d\d)\b'      # works best for finding year(s)
