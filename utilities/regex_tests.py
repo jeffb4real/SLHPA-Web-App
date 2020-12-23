@@ -8,7 +8,7 @@ patterns = [ r'\D(\d\d\d\d)\D'
             ]
 
 test_strings = ["1872", " 1872", " 1872 ", ".1872", 
-                ".1872.", "x1872", "x1872x"]
+                ".1872.", "x1872", "x1872x", "ca1872", "ca.1872"]
 
 for pattern in patterns:
     if re.findall(pattern, "18722"):
