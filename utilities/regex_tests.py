@@ -18,10 +18,10 @@ for pattern in patterns:
         notfound = ""
         for s in test_strings:
             if (re.findall(pattern, s)):
-                c = c + 1
+                c += 1
             else:
                 notfound = notfound + " " + s
-        if (c == len(test_strings) - 1):
+        if (c == len(test_strings)):
             print(pattern + " : matched " + str(c))
         else:
-            print(pattern + " : matched " +  str(c) + ", missed" + notfound)
+            print(pattern + " : matched " +  str(c) + ", missed: '" + notfound + "'")
