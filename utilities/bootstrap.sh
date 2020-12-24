@@ -4,7 +4,8 @@ set -x
 
 cd ~/Documents/Github/SLHPA-Web-App                     ; if [ $? -ne 0 ] ; then exit -6 ; fi
 time python -m venv venv                                ; if [ $? -ne 0 ] ; then exit -6 ; fi
-time source venv/bin/activate                       ; if [ $? -ne 0 ] ; then exit -6 ; fi
+time source venv/bin/activate                           ; if [ $? -ne 0 ] ; then exit -6 ; fi
+        # On Windows: venv\Scripts\activate.bat
 time pip install -r mysite/requirements.txt             ; if [ $? -ne 0 ] ; then exit -6 ; fi
 
 cd mysite                                               ; if [ $? -ne 0 ] ; then exit -6 ; fi
