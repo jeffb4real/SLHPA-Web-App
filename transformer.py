@@ -4,6 +4,7 @@ import csv
 import datetime
 import pprint
 import random
+import math
 
 show_stats = False
 
@@ -121,6 +122,8 @@ def accumulate_error(record):
     vert_error = abs(verified_gps_coords[1] - record['geo_coord_UTM'][1]) / abs(top_gps - bottom_gps)
     vert_errors.append(vert_error)
 
+merged_records = {}
+
 data_dir = 'mysite/slhpa/static/slhpa/data/'
 def transform(infile, out_file_name):
     random.seed(0)
@@ -139,6 +142,9 @@ def transform(infile, out_file_name):
             record['geo_coord_original'] = record['geo_coord_original'][2:6]
             transformed_records += 1
             accumulate_error(record)
+            if out_file_name == 'transformed':
+                if len(record["resource_name"]) > 0:
+                    merged_records[record["resource_name"]] = record
         writer.writerow(record)
     if show_stats:
         average_horiz_error = sum(horiz_errors) / len(horiz_errors)
@@ -151,12 +157,42 @@ def transform(infile, out_file_name):
         log("{: >4d}".format(total_records) + ' records written to '
             + out_file_name + '.csv, ' + str("{: >4d}".format(transformed_records)) + ' transformed')
 
+def distance2(record):
+    pin_latitude = 37.738559
+    pin_longitude = -122.151626
+    str_coords = record["geo_coord_UTM"]
+    lat_diff = abs(pin_latitude - float(str_coords[1]))
+    lon_diff = abs(pin_longitude - float(str_coords[0]))
+    return math.sqrt(lat_diff * lat_diff + lon_diff * lon_diff)
+
+def distance(item):
+    if item[1].get("geo_coord_UTM"):
+        return distance2(item[1])
+    return sys.float_info.max
+
+
+def write_distance_sorted_records():
+    """ Write a csv file of records sorted by distance. """
+    filename = data_dir + 'distances.csv'
+    outfile = open(filename, 'w', newline='')
+    writer = csv.DictWriter(outfile, ["resource_name", "geo_coord_UTM", "distance"],
+                            delimiter=',', quotechar='"',
+                            quoting=csv.QUOTE_MINIMAL)
+    writer.writeheader()
+    for _, value in sorted(merged_records.items(), key=distance):
+        if value.get("geo_coord_UTM"):
+            v = { "resource_name" : value["resource_name"],
+                  "geo_coord_UTM" : value["geo_coord_UTM"],
+                  "distance" : distance2(value) }
+            writer.writerow(v)
+
+
 def main():
     with open(data_dir + 'merged.csv', 'r', newline='') as infile:
         transform(infile, 'transformed')
     with open(data_dir + 'merged.csv', 'r', newline='') as infile:
         transform(infile, 'transformed_no_rand')
-
+    write_distance_sorted_records()
 
 if '__main__' == __name__:
     main()
