@@ -170,9 +170,18 @@ def distance(item):
         return distance2(item[1])
     return sys.float_info.max
 
+def read_from_stream_into_dict():
+    the_dict = {}
+    with open(data_dir + "manually_verified.csv", 'r', newline='') as infile:
+        reader = csv.DictReader(infile, delimiter=',',
+                                quotechar='"', quoting=csv.QUOTE_MINIMAL)
+        for record in reader:
+            the_dict[record["resource_name"]] = record
+    return the_dict
 
 def write_distance_sorted_records():
     """ Write a csv file of records sorted by distance. """
+    verified_records = read_from_stream_into_dict()
     filename = data_dir + 'distances.csv'
     outfile = open(filename, 'w', newline='')
     writer = csv.DictWriter(outfile, ["resource_name", "geo_coord_UTM", "distance"],
@@ -180,7 +189,7 @@ def write_distance_sorted_records():
                             quoting=csv.QUOTE_MINIMAL)
     writer.writeheader()
     for _, value in sorted(merged_records.items(), key=distance):
-        if value.get("geo_coord_UTM"):
+        if value.get("geo_coord_UTM") and not verified_records.get(value.get("resource_name")):
             v = { "resource_name" : value["resource_name"],
                   "geo_coord_UTM" : value["geo_coord_UTM"],
                   "distance" : distance2(value) }
