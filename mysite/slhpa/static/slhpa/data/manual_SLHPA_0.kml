@@ -65,6 +65,13 @@
       </Point>
     </Placemark>
     <Placemark>
+      <name>Home of Socrates Huff, located at what is now the northeast corner of Huff and Estudillo Ave., 1878 [https://sanle.ent.sirsi.net/client/en_US/search/asset/6190/0]</name>
+      <description>[00001057] The house was probably built in 1859 when Mr. Huff moved to San Leandro. The creek was at the back of the property, but is not indicated in the picture. Mr. Huff was Alameda County Treasurer for five terms, served six terms as San Leandro Board of Trustee member, and helped draw up the act of incorporation for San Leandro in 1872. He founded several banks, was a successful farmer, and took part in the founding of the San Leandro Plow Co. For additional information see "San Leandro Recollections", March 1971. [https://slhpa-03.appspot.com/slhpa/detail/00001057/]</description>
+      <Point>
+        <coordinates>-122.150924,37.726377,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
       <name>Eber Home, 1880 [https://sanle.ent.sirsi.net/client/en_US/search/asset/5563/0]</name>
       <description>[00000429] 63 Callan Ave. Henry F. Eber; Winnie, his daughter; Laura, his wife. Budd Eber was born in this house in 1881. [https://slhpa-03.appspot.com/slhpa/detail/00000429/]</description>
       <Point>
@@ -83,6 +90,13 @@
       <description>[00000850] Shop owner George Saramento appears in doorway. [https://slhpa-03.appspot.com/slhpa/detail/00000850/]</description>
       <Point>
         <coordinates>-122.153942,37.719262,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Mrs. M. J., 1900 [https://sanle.ent.sirsi.net/client/en_US/search/asset/5253/0]</name>
+      <description>[00000116] Mrs. M.J. (Louise Oakes) Andrade, 1900. [https://slhpa-03.appspot.com/slhpa/detail/00000116/]</description>
+      <Point>
+        <coordinates>-122.16065745883569,37.733127529035926,0</coordinates>
       </Point>
     </Placemark>
     <Placemark>
@@ -128,10 +142,24 @@
       </Point>
     </Placemark>
     <Placemark>
+      <name>San Leandro High School, 1926 [https://sanle.ent.sirsi.net/client/en_US/search/asset/5673/0]</name>
+      <description>[00000539] Bancroft and Estudillo. This building later became Bancroft Junior High School, and was replaced by the present building in 1954. [https://slhpa-03.appspot.com/slhpa/detail/00000539/]</description>
+      <Point>
+        <coordinates>-122.148480,37.728603,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
       <name>First San Leandro High School Baseball Team, 1928 [https://sanle.ent.sirsi.net/client/en_US/search/asset/5610/0]</name>
       <description>[00000476] Front row: Dom Boschetto, John Romero, George Pyles, Art Souza, Tony Robello, Ed Gigli, Bill Lincoln; Back row: Coach Clarence Burr, Art Souza, Tony Dalcino, Van Fleet, Rufus Franks, Al Robello, John Miguel, Henry Moniz, Dave Brown, George Wilson, Manager Jim Mays. [https://slhpa-03.appspot.com/slhpa/detail/00000476/]</description>
       <Point>
         <coordinates>-122.14975519023402,37.729167507072994,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>San Leandro High School Band, directed by Mr. Charles Way. 1929 [https://sanle.ent.sirsi.net/client/en_US/search/asset/5857/0]</name>
+      <description>[00000723] San Leandro High School Band, directed by Mr. Charles Way. 1929. [https://slhpa-03.appspot.com/slhpa/detail/00000723/]</description>
+      <Point>
+        <coordinates>-122.15055901945695,37.72805408861637,0</coordinates>
       </Point>
     </Placemark>
     <Placemark>
@@ -170,6 +198,13 @@
       </Point>
     </Placemark>
     <Placemark>
+      <name>Bancroft School, grades 7 through 12 from 1927 until 1952 [https://sanle.ent.sirsi.net/client/en_US/search/asset/5425/0]</name>
+      <description>[00000291] Bancroft School, grades 7 through 12 from 1927 until 1952. [https://slhpa-03.appspot.com/slhpa/detail/00000291/]</description>
+      <Point>
+        <coordinates>-122.148480,37.728603,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
       <name>Skillen House, 1957 [https://sanle.ent.sirsi.net/client/en_US/search/asset/6432/0]</name>
       <description>[00001300] 304 Chumalia Avenue (and Jefferson). House with picket fence, backing on the creek, occupied by John Skillen and family 1883 - 1957, unoccupied for 14 years, to be torn down. Rented from Francisco Cardozo Sr. in 1883, so possibly built by him. [https://slhpa-03.appspot.com/slhpa/detail/00001300/]</description>
       <Point>
@@ -188,6 +223,27 @@
       <description>[00000233] About 1320 Clark St. near W. Estudillo. [https://slhpa-03.appspot.com/slhpa/detail/00000233/]</description>
       <Point>
         <coordinates>-122.15794,37.72351,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Bancroft Jr. High School, 1966 [https://sanle.ent.sirsi.net/client/en_US/search/asset/5409/0]</name>
+      <description>[00000275] Bancroft and Estudillo. [https://slhpa-03.appspot.com/slhpa/detail/00000275/]</description>
+      <Point>
+        <coordinates>-122.148104,37.727754,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Casa Peralta Garden Gate, 1972 [https://sanle.ent.sirsi.net/client/en_US/search/asset/6582/0]</name>
+      <description>[00001454] Casa Peralta Garden Gate, 1972. [https://slhpa-03.appspot.com/slhpa/detail/00001454/]</description>
+      <Point>
+        <coordinates>-122.1580916,37.7240742,0</coordinates>
+      </Point>
+    </Placemark>
+    <Placemark>
+      <name>Corner of Casa Peralta, 1972 [https://sanle.ent.sirsi.net/client/en_US/search/asset/6585/0]</name>
+      <description>[00001457] Corner of Casa Peralta, 1972. [https://slhpa-03.appspot.com/slhpa/detail/00001457/]</description>
+      <Point>
+        <coordinates>-122.159578,37.723476,0</coordinates>
       </Point>
     </Placemark>
   </Document>
