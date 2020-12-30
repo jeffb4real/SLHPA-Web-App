@@ -188,12 +188,15 @@ def write_distance_sorted_records():
                             delimiter=',', quotechar='"',
                             quoting=csv.QUOTE_MINIMAL)
     writer.writeheader()
+    total_records = 0
     for _, value in sorted(merged_records.items(), key=distance):
         if value.get("geo_coord_UTM") and not verified_records.get(value.get("resource_name")):
             v = { "resource_name" : value["resource_name"],
                   "geo_coord_UTM" : value["geo_coord_UTM"],
                   "distance" : distance2(value) }
             writer.writerow(v)
+            total_records += 1
+    log("{: >4d}".format(total_records) + ' records written to ' + filename)
 
 
 def main():
