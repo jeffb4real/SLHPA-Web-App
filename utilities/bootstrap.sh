@@ -17,6 +17,7 @@ else
     python manage.py createsuperuser                    ; if [ $? -ne 0 ] ; then exit -6 ; fi
 fi
 
+mkdir -p slhpa/static/slhpa/images/photos               ; if [ $? -ne 0 ] ; then exit -6 ; fi
 echo "Temporarily edit mysite/mysite/settings.py as shown in GCP comments."
 echo "Run server with: python manage.py runserver"
 echo "Use browser to import csv into sqlite with this URL:"
