@@ -146,4 +146,4 @@ ALLOW_ADMIN = True
 # GCP
 ALLOW_EDIT = False  # Comment out for .../transformed link to work.
 ALLOW_ADMIN = False
-DEBUG = False  # Comment out to make photos visible locally.
+# DEBUG = False  # Comment out to make photos visible locally.
