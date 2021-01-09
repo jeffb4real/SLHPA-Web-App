@@ -105,10 +105,11 @@ class Mapper:
             self.max_name_record = record[self.field_indices['resource_name']]
 
         desc_element = etree.SubElement(placemark, 'description')
+        desc_element.text = record[self.field_indices['description']]
         record_id = record[self.field_indices['resource_name']].replace('.pdf', '')
-        desc_element.text = '[' + record_id + '] '
-        desc_element.text += record[self.field_indices['description']]
-        desc_element.text += ' [https://slhpa-03.appspot.com/slhpa/detail/' + record_id + '/]'
+        # Would be nice to be able to put this link under some text, but GMaps doesn't seem to handle HTML inside this KML element.
+        # NOTE: If the hostname ever changes again (e.g., slhpda -> somethingElse), this will need to changed.
+        desc_element.text += ' [https://slhpda.appspot.com/slhpa/detail/' + record_id + '/]'
         if self.max_desc_length < len(desc_element.text):
             self.max_desc_length = len(desc_element.text)
             self.max_desc_record = record[self.field_indices['resource_name']]
