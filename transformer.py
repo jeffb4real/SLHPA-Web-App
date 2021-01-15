@@ -157,18 +157,8 @@ def transform(infile, out_file_name):
         log("{: >4d}".format(total_records) + ' records written to '
             + out_file_name + '.csv, ' + str("{: >4d}".format(transformed_records)) + ' transformed')
 
-def distance2(record):
-    pin_latitude = 37.738559
-    pin_longitude = -122.151626
-    str_coords = record["geo_coord_UTM"]
-    lat_diff = abs(pin_latitude - float(str_coords[1]))
-    lon_diff = abs(pin_longitude - float(str_coords[0]))
-    return math.sqrt(lat_diff * lat_diff + lon_diff * lon_diff)
-
-def distance(item):
-    if item[1].get("geo_coord_UTM"):
-        return distance2(item[1])
-    return sys.float_info.max
+def resource_name(item):
+    return item[1].get("resource_name")
 
 def read_from_stream_into_dict():
     the_dict = {}
@@ -179,21 +169,19 @@ def read_from_stream_into_dict():
             the_dict[record["resource_name"]] = record
     return the_dict
 
-def write_distance_sorted_records():
-    """ Write a csv file of records sorted by distance. """
+def write_to_be_verified_records():
     verified_records = read_from_stream_into_dict()
-    filename = data_dir + 'distances.csv'
+    filename = data_dir + 'to_be_verified.csv'
     outfile = open(filename, 'w', newline='')
-    writer = csv.DictWriter(outfile, ["resource_name", "geo_coord_UTM", "distance"],
+    writer = csv.DictWriter(outfile, ["photo_identifier", "title"],
                             delimiter=',', quotechar='"',
                             quoting=csv.QUOTE_MINIMAL)
     writer.writeheader()
     total_records = 0
-    for _, value in sorted(merged_records.items(), key=distance):
+    for _, value in sorted(merged_records.items(), key=resource_name):
         if value.get("geo_coord_UTM") and not verified_records.get(value.get("resource_name")):
-            v = { "resource_name" : value["resource_name"],
-                  "geo_coord_UTM" : value["geo_coord_UTM"],
-                  "distance" : distance2(value) }
+            v = { "photo_identifier" : value["resource_name"].replace(".pdf", ""),
+                  "title" : value["title"] }
             writer.writerow(v)
             total_records += 1
     log("{: >4d}".format(total_records) + ' records written to ' + filename)
@@ -204,7 +192,7 @@ def main():
         transform(infile, 'transformed')
     with open(data_dir + 'merged.csv', 'r', newline='') as infile:
         transform(infile, 'transformed_no_rand')
-    write_distance_sorted_records()
+    write_to_be_verified_records()
 
 if '__main__' == __name__:
     main()
