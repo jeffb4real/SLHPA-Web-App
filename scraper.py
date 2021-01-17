@@ -111,9 +111,10 @@ def scan_pages(driver, more_pages, skipped_pages):
                 record.click()
                 time.sleep(1)
 
+                common_classes = 'displayElementText text-p'
                 # Resource Name
                 resource_name = wait.until(EC.presence_of_all_elements_located((By.XPATH,
-                            "//div[@class='displayElementText text-p RESOURCE_NAME']")))
+                            "//div[@class='" + common_classes + " RESOURCE_NAME']")))
                 if (is_bad_value(resource_name, record_index)):
                     add_skipped_record(
                         record_index, page_number, absolute_record_number, skipped_pages)
@@ -126,26 +127,26 @@ def scan_pages(driver, more_pages, skipped_pages):
 
                 # Asset Name
                 asset_name = record.find_elements(By.XPATH,
-                                                  "//div[@class='displayElementText ASSET_NAME']")
+                        "//div[@class='" + common_classes + " ASSET_NAME']")
                 if (not is_bad_value(asset_name, record_index)):
                     this_record.asset_name = asset_name[record_index].text
 
                 # File Size
                 file_size = record.find_elements(By.XPATH,
-                                                 "//div[@class='properties']//div[@class='displayElementText FILE_SIZE']")
+                        "//div[@class='properties']//div[@class='" + common_classes + " FILE_SIZE']")
                 if (not is_bad_value(file_size, record_index)):
                     this_record.file_size = file_size[record_index].text
 
                 # Title
                 title = record.find_elements(By.XPATH,
-                                             "//div[@class='displayElementText TITLE']")
+                                             "//div[@class='" + common_classes + " TITLE']")
                 if (not is_bad_value(title, record_index)):
                     this_record.title = title[record_index].text
 
                 # Subject
                 # Field may or may not be defined; if defined, may contain more than 1 table data rows
                 subject = record.find_elements(By.XPATH,
-                                               "//div[@class='detail_biblio resource_margin']//table//td")
+                        "//div[@class='detail_biblio resource_margin']//table//td")
                 if (not is_bad_value(subject, subj_index)):
                     this_record.subject = '| '
                     for i in range(subj_index, len(subject), 1):
@@ -156,7 +157,7 @@ def scan_pages(driver, more_pages, skipped_pages):
                 # Description
                 # Field is always defined, but may contain more than 1 description elements
                 description = record.find_elements(By.XPATH,
-                                                   "//div[@class='displayElementText DESCRIPTION']")
+                        "//div[@class='" + common_classes + " DESCRIPTION']")
                 if (not is_bad_value(description, desc_index)):
                     for i in range(desc_index, len(description), 1):
                         # Deal with punctuation at end of string(s)
@@ -170,20 +171,20 @@ def scan_pages(driver, more_pages, skipped_pages):
                 # Contributor
                 # Field may or may not be defined; if defined, will only contain 1 contributor element
                 contributor = record.find_elements(By.XPATH,
-                                                   "//div[@class='displayElementText CONTRIBUTOR']")
+                        "//div[@class='" + common_classes + " CONTRIBUTOR']")
                 if (len(contributor)):
                     this_record.contributor = contributor[-1].text
 
                 # Period Date
                 # Field may or may not be defined; if defined, will only contain 1 period_date element
                 period_date = record.find_elements(By.XPATH,
-                                                   "//div[@class='displayElementText PERIOD_DATE']")
+                        "//div[@class='" + common_classes + " PERIOD_DATE']")
                 if (len(period_date)):
                     this_record.period_date = period_date[-1].text
 
                 # Digital Format
                 digital_format = record.find_elements(By.XPATH,
-                                                      "//div[@class='displayElementText DIGITAL_FORMAT']")
+                        "//div[@class='" + common_classes + " DIGITAL_FORMAT']")
                 if (not is_bad_value(digital_format, record_index)):
                     this_record.digital_format = digital_format[record_index].text
 
