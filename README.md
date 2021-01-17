@@ -75,7 +75,7 @@ This Python script uses Selenium (https://www.seleniumhq.org/) to "scrape" metad
 
 5. Open `cmd.exe` (Windows) or Terminal (MacOS).
 
-6. `cd` into the diretory where you keep your Github repository directories.
+6. `cd` into the directory where you keep your Github repository directories.
 
 7. Clone this project:
 
