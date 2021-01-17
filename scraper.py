@@ -112,11 +112,8 @@ def scan_pages(driver, more_pages, skipped_pages):
                 time.sleep(1)
 
                 # Resource Name
-                for i in range(0, 10):
-                    resource_name = wait.until(EC.presence_of_all_elements_located((By.XPATH,
-                                                                                    "//div[@class='displayElementText RESOURCE_NAME']")))
-                    if (resource_name):
-                        break
+                resource_name = wait.until(EC.presence_of_all_elements_located((By.XPATH,
+                            "//div[@class='displayElementText text-p RESOURCE_NAME']")))
                 if (is_bad_value(resource_name, record_index)):
                     add_skipped_record(
                         record_index, page_number, absolute_record_number, skipped_pages)
