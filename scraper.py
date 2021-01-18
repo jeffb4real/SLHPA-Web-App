@@ -287,8 +287,8 @@ try:
     while (len(more_pages) > 0):
         log("starting at page: " + str(more_pages[0]))
         more_pages = scan(more_pages)
-except:
-    log("Caught exception in 'main': " + str(sys.exc_info()[0]))
+except Exception as e:
+    log("Caught exception in 'main': " + str(e))
 
 print('')
 minutes = (datetime.datetime.now() - starttime).seconds / 60
