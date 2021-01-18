@@ -239,6 +239,9 @@ def scan(more_pages):
     except:
         driver = webdriver.Firefox()
 
+    # Edge currently requires hardcoded path:
+    # driver = webdriver.Edge(r"C:\Users\chris\Documents\Github\msedgedriver.exe")
+
     # Implicit wait - tells web driver to poll the DOM for specified time;
     # wait is set for duration of web driver object.
     driver.implicitly_wait(2)
